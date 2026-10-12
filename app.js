@@ -151,7 +151,10 @@
       state.dirty = false;
       renderReport(result);
       showSurface("report");
-      if (window.innerWidth <= 820) window.scrollTo({ top: Math.max(0, elements.report.offsetTop - 14), behavior: "smooth" });
+      if (window.innerWidth <= 820) window.scrollTo({
+        top: Math.max(0, elements.report.offsetTop - 14),
+        behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ? "auto" : "smooth",
+      });
     } catch (error) {
       if (requestId !== state.requestId || controller.signal.aborted) return;
       state.result = null;
