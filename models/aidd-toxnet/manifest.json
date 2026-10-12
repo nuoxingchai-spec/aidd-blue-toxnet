@@ -1,0 +1,252 @@
+{
+  "schema": "aidd.toxnet.artifact.v1",
+  "modelName": "蓝研 ToxNet",
+  "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "architecture": {
+    "id": "aidd.graph-transformer.v2",
+    "name": "Graph-aware molecular Transformer",
+    "hiddenSize": 192,
+    "layers": 4,
+    "heads": 6,
+    "feedForward": 768,
+    "fingerprintSize": 2048,
+    "dropout": 0.15,
+    "maxAtoms": 200,
+    "input": "RDKit atom graph + shortest-distance/bond attention bias + Morgan fingerprint",
+    "description": "从随机权重训练的分子专用 Transformer；非十亿级语言模型。"
+  },
+  "parameterCount": 2374390,
+  "endpoints": [
+    "herg",
+    "dili",
+    "ames",
+    "clintox"
+  ],
+  "datasetVersion": "aidd-toxicity-75e5f2c8766efe24",
+  "datasetProvenance": [
+    {
+      "endpoint": "herg",
+      "name": "TDC hERG",
+      "fileId": 4259588,
+      "sha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+      "documentedRows": 648,
+      "positiveClass": "hERG blocker (1); non-blocker (0)",
+      "sourcePopulation": "Literature-compiled drug molecules; assay thresholds follow the source dataset, not a new uniform threshold.",
+      "reference": "Wang, Shuangquan, et al. ADMET evaluation in drug discovery. 16. Predicting hERG blockers by combining multiple pharmacophores and machine learning approaches. Molecular Pharmaceutics 13.8 (2016): 2855-2866.",
+      "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#herg-blockers",
+      "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259588?format=original",
+      "localFile": "data\\raw\\herg.csv",
+      "verifiedSha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+      "bytes": 47590,
+      "downloadedThisRun": false,
+      "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+      "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+    },
+    {
+      "endpoint": "dili",
+      "name": "TDC DILI",
+      "fileId": 4259585,
+      "sha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09",
+      "documentedRows": 475,
+      "positiveClass": "Drug-induced liver injury positive (1); negative (0)",
+      "sourcePopulation": "Literature-compiled drugs aggregated from US FDA National Center for Toxicological Research, per TDC documentation.",
+      "reference": "Xu, Youjun, et al. Deep learning for drug-induced liver injury. Journal of Chemical Information and Modeling 55.10 (2015): 2085-2093.",
+      "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#dili-drug-induced-liver-injury",
+      "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259585?format=original",
+      "localFile": "data\\raw\\dili.csv",
+      "verifiedSha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09",
+      "bytes": 25727,
+      "downloadedThisRun": false,
+      "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+      "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+    },
+    {
+      "endpoint": "ames",
+      "name": "TDC Ames",
+      "fileId": 4259564,
+      "sha256": "a17d2d6b9aa17f1cfaa1e3e4137788b2ef2700404042e285102f18543ca954b5",
+      "documentedRows": 7255,
+      "positiveClass": "Ames mutagenic (1); non-mutagenic (0)",
+      "sourcePopulation": "Bacterial reverse mutation assay labels aggregated from four papers, per TDC documentation.",
+      "reference": "Xu, Congying, et al. In silico prediction of chemical Ames mutagenicity. Journal of Chemical Information and Modeling 52.11 (2012): 2840-2847.",
+      "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#ames-mutagenicity",
+      "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259564?format=original",
+      "localFile": "data\\raw\\ames.csv",
+      "verifiedSha256": "a17d2d6b9aa17f1cfaa1e3e4137788b2ef2700404042e285102f18543ca954b5",
+      "bytes": 315016,
+      "downloadedThisRun": false,
+      "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+      "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+    },
+    {
+      "endpoint": "clintox",
+      "name": "TDC ClinTox",
+      "fileId": 4259572,
+      "sha256": "32f8542b5ed007ca76506b7dbdaaed32c9bbe864ea1ce52d4d49f176d5c63455",
+      "documentedRows": 1484,
+      "positiveClass": "Clinical-trial failure due to toxicity / CT_TOX (1); comparator drug (0). This is not FDA_APPROVED.",
+      "sourcePopulation": "Drugs associated with clinical-trial outcomes; negative labels do not prove absence of every possible clinical toxicity.",
+      "reference": "Gayvert, Kaitlyn M., Neel S. Madhukar, and Olivier Elemento. A data-driven approach to predicting successes and failures of clinical trials. Cell Chemical Biology 23.10 (2016): 1294-1301.",
+      "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#clintox",
+      "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259572?format=original",
+      "localFile": "data\\raw\\clintox.csv",
+      "verifiedSha256": "32f8542b5ed007ca76506b7dbdaaed32c9bbe864ea1ce52d4d49f176d5c63455",
+      "bytes": 103676,
+      "downloadedThisRun": false,
+      "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+      "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+    }
+  ],
+  "training": {
+    "status": "completed",
+    "initialization": "random-from-scratch",
+    "optimizationSplit": "train",
+    "selectionSplit": "validation",
+    "testUsedForSelection": false,
+    "seed": 42,
+    "epochs": 10,
+    "bestEpoch": 3,
+    "bestValidationMacroAUROC": 0.8170508278932853,
+    "completedAt": "2026-10-11T15:04:11.985926+00:00",
+    "durationSeconds": 231.9,
+    "device": "cpu",
+    "torchVersion": "2.14.1+cpu",
+    "rdkitVersion": "2026.09.1",
+    "threads": 6,
+    "batchSize": 48,
+    "maximumEpochs": 30,
+    "patience": 7,
+    "splits": {
+      "train": 7851,
+      "validation": 982,
+      "test": 981
+    },
+    "uniqueMoleculeCounts": {
+      "train": 7535,
+      "validation": 956,
+      "test": 937
+    },
+    "classCounts": {
+      "train": {
+        "herg": {
+          "positive": 274,
+          "negative": 142
+        },
+        "dili": {
+          "positive": 149,
+          "negative": 191
+        },
+        "ames": {
+          "positive": 3358,
+          "negative": 2762
+        },
+        "clintox": {
+          "positive": 54,
+          "negative": 921
+        }
+      },
+      "validation": {
+        "herg": {
+          "positive": 92,
+          "negative": 24
+        },
+        "dili": {
+          "positive": 45,
+          "negative": 25
+        },
+        "ames": {
+          "positive": 308,
+          "negative": 261
+        },
+        "clintox": {
+          "positive": 23,
+          "negative": 204
+        }
+      },
+      "test": {
+        "herg": {
+          "positive": 78,
+          "negative": 35
+        },
+        "dili": {
+          "positive": 42,
+          "negative": 23
+        },
+        "ames": {
+          "positive": 285,
+          "negative": 281
+        },
+        "clintox": {
+          "positive": 16,
+          "negative": 221
+        }
+      }
+    },
+    "splitMethod": "Bemis-Murcko scaffold; all acyclic molecules share one group",
+    "targetFractions": {
+      "train": 0.8,
+      "validation": 0.1,
+      "test": 0.1
+    },
+    "encodingExclusions": [],
+    "optimizer": "AdamW lr3e-4 weightDecay0.01 cosine schedule; clipped gradient1; task-balanced masked BCE with sqrt class weight",
+    "sourceHashes": {
+      "modelCode": "cef3a7102c3c31dbc6baa9cfe4735d2ff73fc625837e6d2339d67848144438c3",
+      "trainingScript": "e32527be24c0785f813c8c08a88c76294c218440e054110b6fdf82e41f7115ff",
+      "labels": "75e5f2c8766efe24cf6cbca57ce1e72bc9028705303b29fff8ad6016c6b0bd6b",
+      "split": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+    }
+  },
+  "calibration": {
+    "status": "measured-not-certified",
+    "method": "validation-temperature-and-bias",
+    "fitSplit": "validation",
+    "temperatures": {
+      "herg": 1.5351986219993956,
+      "dili": 2.4629477243463174,
+      "ames": 1.9756018468257412,
+      "clintox": 1.589988241964107
+    },
+    "biases": {
+      "herg": 1.2612702222144343,
+      "dili": 0.09795753039146711,
+      "ames": -0.02996653956561954,
+      "clintox": -0.43405120577481565
+    },
+    "fitStatus": {
+      "herg": "fitted",
+      "dili": "fitted",
+      "ames": "fitted",
+      "clintox": "fitted"
+    },
+    "certified": false
+  },
+  "applicability": {
+    "threshold": 0.5,
+    "validated": false,
+    "thresholdSource": "fixed exploratory similarity cutoff; not fitted as a validated applicability domain"
+  },
+  "artifacts": {
+    "weights": {
+      "file": "weights.pt",
+      "sha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398"
+    },
+    "trainingReferences": {
+      "file": "training-references.json",
+      "sha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6"
+    },
+    "evaluation": {
+      "file": "evaluation.json",
+      "sha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+    }
+  },
+  "limitations": [
+    "Single scaffold split; internal test only, no external prospective validation",
+    "ClinTox has few positive labels; uncertain performance",
+    "Calibration fitted on validation and measured on test, not certified",
+    "Similarity is a heuristic, not validated applicability",
+    "Source licenses require original-rights review before commercial redistribution",
+    "No mechanistic model attribution is provided; rule explanations are separate",
+    "Isotope mass is encoded, but six isotope-labelled ClinTox records do not establish radiotoxicity performance; no radiation-specific endpoint"
+  ]
+}

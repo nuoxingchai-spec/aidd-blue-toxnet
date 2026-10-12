@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AIDD 蓝研：分子毒性早筛、可配置模型 API 与可追溯的结构分析。"
+    />
+    <title>AIDD 蓝研 | 分子毒性早筛工作台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="候选分子输入">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img">
+              <path d="M10 2v7.5a2 2 0 0 1-.2.9l-5.1 10.2A1 1 0 0 0 5.6 22h12.8a1 1 0 0 0 .9-1.4l-5.1-10.2a2 2 0 0 1-.2-.9V2" />
+              <path d="M8.5 2h7" />
+              <path d="M7 16h10" />
+            </svg>
+          </div>
+          <div>
+            <p class="brand-name">AIDD 蓝研</p>
+            <p class="brand-sub">AI-driven drug discovery</p>
+          </div>
+        </div>
+
+        <div class="scope-block">
+          <span class="scope-dot" aria-hidden="true"></span>
+          <div>
+            <strong>AIDD 蓝研 · 分子研究</strong>
+            <p>毒性早筛 · 模型与规则分开审计</p>
+          </div>
+        </div>
+
+        <section class="input-section" aria-labelledby="candidate-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Candidate</p>
+              <h2 id="candidate-title">候选分子</h2>
+            </div>
+            <button
+              class="icon-button"
+              id="resetButton"
+              type="button"
+              title="清空输入与报告"
+              aria-label="清空输入与报告"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+                <path d="M3 3v5h5" />
+              </svg>
+            </button>
+          </div>
+
+          <label class="field-label" for="modeSelect">分析模式</label>
+          <select id="modeSelect" aria-describedby="modeHint">
+            <option value="model" selected>真实模型</option>
+            <option value="rules">规则基线</option>
+          </select>
+          <label class="field-label" for="providerSelect">模型 / 供应商</label>
+          <div class="provider-controls">
+            <select id="providerSelect" aria-describedby="modeHint">
+              <option value="custom">配置的模型服务</option>
+            </select>
+            <button id="configApiButton" class="config-api-button" type="button" aria-haspopup="dialog" aria-controls="apiConfigDialog">配置 API</button>
+          </div>
+          <p class="field-hint" id="modeHint"></p>
+
+          <label class="field-label" for="smilesInput">SMILES</label>
+          <textarea
+            id="smilesInput"
+            rows="5"
+            spellcheck="false"
+            autocapitalize="off"
+            autocomplete="off"
+            aria-describedby="smilesHint"
+          ></textarea>
+          <p class="field-hint" id="smilesHint">由 RDKit 解析并标准化分子。Ctrl / ⌘ + Enter 开始筛选。</p>
+
+          <button class="primary-button" id="analyzeButton" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            开始毒性筛选
+          </button>
+          <p id="inputStatus" class="input-status" role="status" aria-live="polite"></p>
+
+          <div class="sample-section">
+            <div class="sample-head">
+              <span>示例库</span>
+              <span id="sampleCount"></span>
+            </div>
+            <div class="sample-list" id="sampleList" role="list"></div>
+          </div>
+        </section>
+
+        <section class="service-status" aria-label="分析服务状态">
+          <div class="service-heading">
+            <strong id="apiStatus" role="status" aria-live="polite">正在检查 API 连接…</strong>
+            <button id="healthButton" class="icon-button" type="button" aria-label="刷新 API 连接状态" title="刷新连接状态">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5" /></svg>
+            </button>
+          </div>
+          <p id="apiDetails">请先启动 API 后台，再通过 http://localhost:4173 打开工作台。</p>
+        </section>
+        <div class="sidebar-foot">
+          <div>
+            <span class="status-light" aria-hidden="true"></span>
+            <span>RDKit + ToxNet + Model API</span>
+          </div>
+          <span>v2.0</span>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Toxicity pre-screen</p>
+            <h1>分子毒性早筛工作台</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="model-chip">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              <span id="modelChip">真实模型</span>
+            </div>
+            <button class="secondary-button" id="exportButton" type="button" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <path d="m7 10 5 5 5-5" />
+                <path d="M12 15V3" />
+              </svg>
+              导出审计包
+            </button>
+          </div>
+        </header>
+
+        <div class="notice-bar" role="note">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.7 18 13.7 4a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3" />
+            <path d="M12 9v4" />
+            <path d="M12 17h.01" />
+          </svg>
+          <p>
+            <strong>筛选说明：</strong>
+            模型、规则基线和示例参考值分别展示。综合指数不是毒性发生概率；校准和适用域须独立验证，结果不替代实验或监管判断。
+          </p>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <div class="empty-visual" aria-hidden="true">
+            <svg viewBox="0 0 520 250">
+              <path class="empty-ring" d="M118 124a54 54 0 1 0 108 0 54 54 0 1 0-108 0" />
+              <path class="empty-ring" d="M286 92a42 42 0 1 0 84 0 42 42 0 1 0-84 0" />
+              <path class="empty-bond" d="M226 124 286 92" />
+              <path class="empty-bond" d="m370 92 46 72" />
+              <path class="empty-bond" d="m416 164-82 28" />
+              <path class="empty-bond" d="m334 192-108-4" />
+              <circle class="empty-node" cx="172" cy="70" r="8" />
+              <circle class="empty-node" cx="372" cy="92" r="8" />
+              <circle class="empty-node" cx="416" cy="164" r="8" />
+              <circle class="empty-node" cx="334" cy="192" r="8" />
+              <path class="empty-scan" d="M80 213h360" />
+            </svg>
+          </div>
+          <p class="eyebrow">Ready for input</p>
+          <h2>选择示例分子或粘贴 SMILES</h2>
+          <p>选择本机自训练 ToxNet，或配置外部模型 API，即可查看四个毒性端点、分子结构与可审计记录。也可主动选择规则基线。</p>
+        </div>
+
+        <div id="loadingState" class="loading-state" hidden role="status" aria-live="polite">
+          <div class="loader" aria-hidden="true"></div>
+          <p>正在解析分子并请求所选分析服务…</p>
+        </div>
+
+        <div id="errorState" class="error-state" hidden role="alert">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v5" />
+            <path d="M12 17h.01" />
+          </svg>
+          <div>
+            <strong>无法完成筛选</strong>
+            <p id="errorMessage"></p>
+          </div>
+
+        </div>
+
+        <section id="report" class="report" hidden aria-live="polite">
+          <div class="report-head">
+            <div>
+              <p class="eyebrow">Screening report</p>
+              <h2 id="reportTitle">候选分子</h2>
+              <p class="report-subtitle" id="reportSubtitle"></p>
+            </div>
+            <div class="report-meta">
+              <span id="evidenceBadge"></span>
+              <span id="timestamp"></span>
+            </div>
+          </div>
+
+          <div class="report-context">
+            <p id="scoreContext"></p>
+            <strong id="validationStatus"></strong>
+          </div>
+
+          <div class="summary-grid">
+            <article class="risk-summary" id="riskSummary">
+              <div class="risk-copy">
+                <p class="eyebrow">Aggregate screening index</p>
+                <div class="risk-number">
+                  <strong id="overallScore">0</strong>
+                  <span>/ 100</span>
+                </div>
+                <div class="risk-label">
+                  <span id="riskTier"></span>
+                  <p id="riskAction"></p>
+                </div>
+              </div>
+              <div class="gauge" id="riskGauge" aria-hidden="true">
+                <div class="gauge-inner">
+                  <span id="gaugeValue">0 / 100</span>
+                </div>
+              </div>
+              <div class="risk-foot">
+                <span>最高端点</span>
+                <strong id="highestEndpoint"></strong>
+              </div>
+            </article>
+
+            <article class="structure-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Molecular graph</p>
+                  <h3>结构视图</h3>
+                </div>
+                <span class="small-tag" id="atomCount"></span>
+              </div>
+              <div class="molecule-canvas" id="moleculeView">
+              </div>
+            </article>
+          </div>
+
+          <section class="endpoint-section" aria-labelledby="endpoint-title">
+            <div class="section-title-row">
+              <div>
+                <p class="eyebrow">Endpoint panel</p>
+                <h2 id="endpoint-title">毒性端点</h2>
+              </div>
+              <span class="section-note">TDC-compatible endpoints</span>
+            </div>
+            <div class="endpoint-grid" id="endpointGrid"></div>
+          </section>
+
+          <div class="detail-grid">
+            <section class="detail-panel alerts-panel" aria-labelledby="alerts-title">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Structural alerts</p>
+                  <h3 id="alerts-title">结构警示</h3>
+                </div>
+                <span class="small-tag" id="alertCount"></span>
+              </div>
+              <div id="alertList" class="alert-list"></div>
+            </section>
+
+            <section class="detail-panel property-panel" aria-labelledby="property-title">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Physicochemical profile</p>
+                  <h3 id="property-title">分子理化性质</h3>
+                </div>
+                <span class="small-tag">RDKit</span>
+              </div>
+              <div id="propertyGrid" class="property-grid"></div>
+            </section>
+          </div>
+
+          <section class="evidence-panel" aria-labelledby="evidence-title">
+            <div>
+              <p class="eyebrow">Audit trail</p>
+              <h2 id="evidence-title">证据链与下一步</h2>
+            </div>
+            <div class="evidence-flow" id="evidenceFlow"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="apiConfigDialog" class="api-config-dialog" aria-labelledby="apiConfigTitle" aria-describedby="apiConfigDescription">
+      <div class="config-dialog-header">
+        <div>
+          <p class="config-dialog-kicker">MODEL CONNECTION</p>
+          <h2 id="apiConfigTitle">配置 API</h2>
+        </div>
+        <button id="closeConfigButton" class="icon-button" type="button" aria-label="关闭 API 配置">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+      </div>
+      <p id="apiConfigDescription" class="config-dialog-description">连接你的模型服务。配置保存到本机后台，保存后立即生效。</p>
+      <form id="apiConfigForm" class="config-form" autocomplete="off">
+        <div class="config-field config-field-wide">
+          <label for="configApiUrl">API 接口地址</label>
+          <input id="configApiUrl" type="url" required maxlength="2048" placeholder="https://…/chat/completions" />
+          <span class="config-key-hint">填写完整的推理接口地址，供应商的默认地址已自动填入。</span>
+        </div>
+        <div class="config-field">
+          <label for="configModelName">模型名称</label>
+          <input id="configModelName" type="text" required maxlength="200" placeholder="账户可调用的模型标识" />
+        </div>
+        <div class="config-field">
+          <label for="configModelVersion">模型版本 / 修订标识</label>
+          <input id="configModelVersion" type="text" required maxlength="200" placeholder="实际快照或模型别名" />
+        </div>
+        <div class="config-field config-field-wide">
+          <label for="configApiKey">API 密钥</label>
+          <input id="configApiKey" type="password" maxlength="4096" autocomplete="new-password" spellcheck="false" placeholder="粘贴服务商提供的 API Key" />
+          <span id="configKeyHint" class="config-key-hint">仅由本机后台使用，重新打开时不会回显。</span>
+        </div>
+        <details class="config-advanced config-field-wide" id="configAdvanced">
+          <summary>高级设置</summary>
+          <div class="config-advanced-grid">
+            <div class="config-field">
+              <label for="configApiFormat">接口格式</label>
+              <select id="configApiFormat"><option value="openai">OpenAI 兼容对话</option><option value="json">专用 JSON 预测服务</option></select>
+            </div>
+            <div class="config-field">
+              <label for="configScoreKind">分数类型</label>
+              <select id="configScoreKind"><option value="uncalibrated_score">未校准分数</option><option value="probability">概率（专用服务）</option><option value="binary_label">二元标签（专用服务）</option></select>
+            </div>
+            <div class="config-field">
+              <label for="configTimeout">超时（秒）</label>
+              <input id="configTimeout" type="number" min="1" max="120" step="1" value="30" required />
+            </div>
+            <div class="config-field">
+              <label for="configTemperature">温度（可选）</label>
+              <input id="configTemperature" type="number" min="0" max="2" step="0.1" placeholder="留空使用模型默认值" />
+            </div>
+            <div class="config-inline-options config-field-wide">
+              <label><input id="configSendImage" type="checkbox" />附带分子结构图（需要视觉模型）</label>
+              <label><input id="configJsonMode" type="checkbox" checked />请求 JSON 模式（对话接口）</label>
+            </div>
+          </div>
+        </details>
+        <p id="configStatus" class="config-status config-field-wide" role="status" aria-live="polite"></p>
+        <div class="config-actions config-field-wide">
+          <button id="cancelConfigButton" class="secondary-button" type="button">取消</button>
+          <button id="saveConfigButton" class="primary-button" type="submit">保存配置</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="localModelDialog" class="api-config-dialog local-model-dialog" aria-labelledby="localModelTitle" aria-describedby="localModelDescription">
+      <div class="config-dialog-header">
+        <div>
+          <p class="config-dialog-kicker">OUR TRAINED MOLECULAR MODEL</p>
+          <h2 id="localModelTitle">蓝研 ToxNet · 自训练模型</h2>
+        </div>
+        <button id="closeLocalModelButton" class="icon-button" type="button" aria-label="关闭模型详情">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+      </div>
+      <p id="localModelDescription" class="config-dialog-description">本机模型直接读取分子结构进行预测，不需要外部 API 密钥。这里记录实际训练数据、模型规模与留出集评估。</p>
+      <p id="localModelStatus" class="config-status" role="status" aria-live="polite"></p>
+      <div id="localModelContent" class="local-model-content" hidden></div>
+      <div class="config-actions">
+        <button id="refreshLocalModelButton" class="secondary-button" type="button">刷新模型状态</button>
+        <button id="doneLocalModelButton" class="primary-button" type="button">返回筛选</button>
+      </div>
+    </dialog>
+
+    <script src="toxicity-core.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

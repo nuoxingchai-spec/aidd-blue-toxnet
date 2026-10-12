@@ -1,0 +1,6869 @@
+[
+  {
+    "smiles": "Br[C@@H]1CC[C@H](Br)[C@H](Br)CC[C@@H](Br)[C@@H](Br)CC[C@H]1Br",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.487405419239236,
+    "split": "test"
+  },
+  {
+    "smiles": "Brc1c(NC2=[NH+]CCN2)ccc2nccnc12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.04772787492654181,
+    "split": "test"
+  },
+  {
+    "smiles": "Brc1cc(Br)c(OCCOc2c(Br)cc(Br)cc2Br)c(Br)c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.36828704906077875,
+    "split": "test"
+  },
+  {
+    "smiles": "C#CCC(Cc1cnc2nc(N)nc(N)c2n1)c1ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.032920084918452844,
+    "split": "test"
+  },
+  {
+    "smiles": "C#C[C@]1(O)CC[C@H]2[C@@H]3CCC4=C/C(=N/O)CC[C@@H]4[C@H]3CC[C@@]21CC",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06764466172740642,
+    "split": "test"
+  },
+  {
+    "smiles": "C#C[C@]1(OC(C)=O)CC[C@H]2[C@@H]3CCC4=C/C(=N/O)CC[C@@H]4[C@H]3CC[C@@]21CC",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.18847379974982462,
+    "split": "test"
+  },
+  {
+    "smiles": "C#C[C@]1(OC(C)=O)CC[C@H]2[C@@H]3CCC4=C[C@@H](OC(C)=O)CC[C@@H]4[C@H]3CC[C@@]21C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.16004679823459222,
+    "split": "test"
+  },
+  {
+    "smiles": "C(=N\\NC1=NCCN1)/c1c2ccccc2c(/C=N/NC2=NCCN2)c2ccccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.3694194550586679,
+    "split": "test"
+  },
+  {
+    "smiles": "C(CCC1CO1)CC1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6233282925987129,
+    "split": "test"
+  },
+  {
+    "smiles": "C(CCOCC1CO1)COCC1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7779494355936382,
+    "split": "test"
+  },
+  {
+    "smiles": "C(CCOC[C@H]1CO1)COC[C@H]1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7051060054514888,
+    "split": "test"
+  },
+  {
+    "smiles": "C(CC[C@H]1CO1)C[C@H]1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6003883815796788,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C(=C(/OCCOc1ccc(Cl)cc1)c1ccc(Cl)cc1Cl)n1ccnc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5170179514140066,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C(=C(\\CCOC(=O)c1ccccc1)SC(=O)c1ccccc1)N(C=O)Cc1cnc(C)nc1N",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5819780865926637,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C(=C\\C(=O)OCCCCCCCCC(=O)[O-])C[C@@H]1OC[C@H](C[C@@H]2O[C@H]2[C@@H](C)[C@H](C)O)[C@@H](O)[C@H]1O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.018308606523669155,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C(=C\\c1csc(C)n1)[C@@H]1C[C@@H]2O[C@]2(C)CCC[C@H](C)[C@H](O)[C@@H](C)C(=O)C(C)(C)[C@@H](O)CC(=O)N1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.08927053679836862,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C=C(/C(=C/C)c1ccc(O)cc1)c1ccc(O)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.24582758589897652,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C=C(/C(=C/C)c1ccc(O)cc1)c1ccc(O)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05043100928073203,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C=C/C1OC(=O)C=CC1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5374616071535624,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C=C1/C[C@H](C)[C@](O)(CO)C(=O)OCC2=CC[N@@+]3([O-])CC[C@@H](OC1=O)[C@@H]23",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.41417527645647023,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C=C1\\CC(C)C(C)(O)C(=O)OCC2=CC[N+]3(C)CCC(OC1=O)C23O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.42964092818549315,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C=C1\\C[C@@H]2C=C[C@H]1C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.36033423944946075,
+    "split": "test"
+  },
+  {
+    "smiles": "C/C=C1\\N(C)[C@H](C)CC1(c1ccccc1)c1ccccc1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.5111346173881991,
+    "split": "test"
+  },
+  {
+    "smiles": "C/[NH+]=C1/CN([O-])C(c2ccccc2)=c2cc(Cl)ccc2=N1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.013005128408176268,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=C2c3ccccc3CCC2CCC1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.22186233204805364,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=CC2OC2C=C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.435212748915034,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=COc2c(c3cc4ccccc4cc3c3ccccc23)C=C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7139346921502114,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=C[C@@H]2O[C@@H]2C=C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5905566334182142,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=Cc2c(ccc3c2ccc2ccccc23)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7118263556521026,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=Cc2c(ccc3ccc4ccccc4c23)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6699407770179632,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=Cc2c3ccc4cccc5ccc(c6cccc1c26)c3c45",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7879712501203501,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=Cc2c3ccccc3cc3cc4ccccc4c1c23",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6839813635016563,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=Cc2c3ccccc3cc3cccc1c23",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7406453938345524,
+    "split": "test"
+  },
+  {
+    "smiles": "C1=c2ccccc2=C2Cc3ccccc3C3=C4OC4=C1C32",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.3426685848259101,
+    "split": "test"
+  },
+  {
+    "smiles": "C1CC2OC2C1OC1CCC2OC12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2484931187107244,
+    "split": "test"
+  },
+  {
+    "smiles": "C1CC2OC2CC1COCC1CCC2OC2C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4953258870785204,
+    "split": "test"
+  },
+  {
+    "smiles": "C1CCC2CC3(CCC2C1)CO3",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4301363602064571,
+    "split": "test"
+  },
+  {
+    "smiles": "C1CCC2OCCOCCOCCOC3CCCCC3OCCOCCOCCOC2C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.44657932963928715,
+    "split": "test"
+  },
+  {
+    "smiles": "C1CCCCCC2OC2CCCC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.46853130883572064,
+    "split": "test"
+  },
+  {
+    "smiles": "C1COCCOCCOCCO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4273465317930345,
+    "split": "test"
+  },
+  {
+    "smiles": "C1COCCOCCOCCOCCOCCOCCO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4266836020136934,
+    "split": "test"
+  },
+  {
+    "smiles": "C1CSCCO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.49868289622875256,
+    "split": "test"
+  },
+  {
+    "smiles": "C1CSCCS1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4568783610639098,
+    "split": "test"
+  },
+  {
+    "smiles": "C1C[C@H](O[C@H]2CC[C@@H]3O[C@@H]32)[C@H]2O[C@@H]12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29537099595266675,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C(C)C1CCC(=C)C2C3=C(CC(C)(O)C3=O)C(=O)C(C)=CC12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.39026071069939827,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C(C)C1CCC(=C)C2C3=C(CC(C)C3=O)C(=O)C(C)=CC12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.33675681008517355,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C(C)[C@@H]1CC[C@@]2(C1)C(C)=CCC[C@@H]2C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.029517812372914932,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C(C)c1ccc(C)c2ccc(C=O)c-2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.41709027666603954,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C(C)c1ccc(C)c2ccc(CO)c-2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.25750050910758354,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1/C(=C/C=C2\\CCCC3(C)C2CCC3C(C)/C=C/C(O)C2CC2)CC(O)CC1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.32694165740021963,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1/C(=C\\C=C2/CCC[C@]3(C)[C@@H]([C@H](C)/C=C/[C@@H](O)C4CC4)CC[C@@H]23)C[C@@H](O)C[C@@H]1O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.1897415472207227,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1C(=O)C23CCC4C(C)(C(=O)O)CCCC4(C)C2CCC1(O)C3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.11564406891490187,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1C(=O)OC2CC(C)C3C=CC(=O)C3(C)C(O)C12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5494966472179044,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1C(=O)O[C@@H]2C[C@@H](C)[C@@H]3C=CC(=O)[C@]3(C)[C@@H](O)[C@H]12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.692463905439244,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1CC23CC1(O)CCC2C12C=CC(O)C(C)(C(=O)O1)C2C3C(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.30392034752327807,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1CCC2(O)C3Cc4ccc(O)c5c4C2(CCN3CC2CC2)C1O5",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.07043266551439477,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1C[C@]23C[C@@]1(O)CC[C@@H]2[C@@]12C=C[C@H](O)[C@@](C)(C(=O)O1)[C@H]2[C@@H]3C(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.37578461274019137,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C1c2cccc([O-])c2C(=O)C2=C([O-])[C@]3(O)C(=O)C(C(N)=O)=C([O-])[C@@H]([NH+](C)C)[C@@H]3[C@@H](O)[C@H]12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.061885997864614045,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CC(=O)N(CC1CO1)CC1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7286286765381398,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CC(=O)N(C[C@H]1CO1)C[C@H]1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6778123600708649,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CC(C)(C)c1cc2cc3c(cc2oc1=O)OC(C(C)(C)O)C3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.2671296717782278,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CC(C)(C)c1cc2cc3c(cc2oc1=O)OC(C(C)(C)OC(C)=O)C3",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.39596331016600084,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CC1(C)CCC2(C)C(C1)C(=O)CC1C3(C)CCCC12OC3=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.09511343770822284,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CCC1C(=O)CC(OC(=O)C2C(C=C(C)C)C2(C)C)=C1C",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.42620318395699075,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CCN1CCC=C2c3nc(NC(C)=O)sc3CCC21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.19497986922738778,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CC[N+]1([C@H]2C[C@H]3[C@@H]4CC[C@H]5C[C@H](O)[C@@H]([NH+]6CCOCC6)C[C@]5(C)[C@H]4CC[C@]3(C)[C@H]2OC(C)=O)CCCC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.00846703210238887,
+    "split": "test"
+  },
+  {
+    "smiles": "C=CC[NH+]1CC[C@]23CCCC[C@H]2[C@H]1Cc1ccc(O)cc13",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03512927013041628,
+    "split": "test"
+  },
+  {
+    "smiles": "C=C[C@]1(C)C[C@@H](OC(=O)CSC2C[C@H]3CC[C@@H](C2)[NH+]3C)[C@]2(C)[C@H](C)CC[C@]3(CCC(=O)[C@H]32)[C@@H](C)[C@@H]1O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.00812704899673059,
+    "split": "test"
+  },
+  {
+    "smiles": "CC#CCn1c(N2CCC[C@@H]([NH3+])C2)nc2c1c(=O)n(Cc1nc(C)c3ccccc3n1)c(=O)n2C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05999791921551582,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(/C=C(/C#N)c1ccc(Br)cc1)C(c1ccccc1)C(C#N)c1ccc(Br)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3740142239343822,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(/C=C(\\C#N)c1ccc(Cl)c(Cl)c1)C(c1ccccc1)C(C#N)c1ccc(Cl)c(Cl)c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.29619864745341457,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(/C=C(\\C#N)c1ccc(F)cc1)C(c1ccccc1)C(C#N)c1ccc(F)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3640826084648361,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)C1(C)OC12C=Cc1ccccc1C2=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6429062593390971,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)CC(c1ccccc1)c1c([O-])c2ccccc2oc1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02776175409265611,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)N(CC(O)CN(C(C)=O)c1c(I)c(C(=O)NCC(O)CO)c(I)c(C(=O)NCC(O)CO)c1I)c1c(I)c(C(=O)NCC(O)CO)c(I)c(C(=O)NCC(O)CO)c1I",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.12459566074910922,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)N(CC(O)CN(C(C)=O)c1c(I)c(C(=O)NCC(O)CO)c(I)c(C(=O)NCC(O)CO)c1I)c1c(I)c(C(=O)NCC(O)CO)c(I)c(C(=O)NCC(O)CO)c1I",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01528344116802746,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)N(OC(=O)c1ccccc1)c1ccc2c(c1)Cc1ccccc1-2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6333182338880343,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)N(OC1OC(CO)C(O)C(O)C1O)c1ccc(Oc2ccc(Cl)cc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6349161285444964,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)N(O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)c1ccc(Oc2ccc(Cl)cc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6489174484037913,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)N1CCN(Cc2ccc3c(c2)CC[C@H](N2CCN(CCc4ccc(F)cc4)CC2=O)C3)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9946741538159507,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)N=C1C=CC(=O)C=C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.37399912183110184,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)NCc1nc(-c2ccc([N+](=O)[O-])o2)no1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.744109676188754,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Nc1c(I)c(C(=O)N[C@H]2C(O)O[C@H](CO)[C@@H](O)[C@@H]2O)c(I)c(N(C)C(C)=O)c1I",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02846340685532145,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Nc1cc2c(cc1OC(=O)c1ccccc1)-c1ccccc1C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2348977616036981,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Nc1ccc(/C=N/n2nnc3ccnc-3c2O)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5012178979165232,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Nc1ccc(S(=O)(=O)Nc2ccccn2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3042020224590646,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Nc1nnc(-c2ccc([N+](=O)[O-])o2)s1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7171666011763597,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)OC1(C(C)=O)CCC2C3C=C(Cl)C4=CC(=O)C5CC5C4(C)C3CCC21C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.30198406018895124,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)OC12COC1CC(O)C1(C)C(=O)C(O)C3=C(C)C(OC(=O)C(O)C(NC(=O)OC(C)(C)C)c4ccccc4)CC(O)(C(OC(=O)c4ccccc4)C21)C3(C)C",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.2820263593052057,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)OC1C(O)C2OC3C=C(C)C(OC(=O)CC(C)C)CC3(OC(C)=O)C1(C)C21CO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.23734482158253653,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)OCC12CC(OC(=O)CC(C)C)C(C)=CC1OC1C(O)C(OC(C)=O)C2(C)C12CO2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.12326631066373726,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)OCC12CCC(C)=CC1OC1C(O)C(OC(C)=O)C2(C)C12CO2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.42579959667471623,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)OCOC(=O)CN(CC(=O)O)c1ccccc1OCCOc1ccccc1N(CC(=O)O)CC(=O)O",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7325679813635392,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)O[C@@]12CO[C@@H]1C[C@H](O)[C@@]1(C)C(=O)[C@H](O)C3=C(C)[C@@H](OC(=O)[C@H](O)[C@@H](NC(=O)OC(C)(C)C)c4ccccc4)C[C@@](O)([C@@H](OC(=O)c4ccccc4)[C@H]21)C3(C)C",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.027499269183498612,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@@]4(C)[C@@H](CC[C@H]4[C@H](C)CCCC(C)C)[C@@H]3C[C@@H]3N(N4C(=O)c5ccccc5C4=O)[C@@]32C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7234698213984196,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Oc1cc(C=O)cc2c1C(COC(N)=O)C1(OC(C)=O)ON2CC2C1N2C(C)=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4753980456674083,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Oc1ccc(C(c2ccc(OC(C)=O)cc2)c2ccccn2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5392140323753901,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)Oc1ccc(C(c2ccc(OC(C)=O)cc2)c2ccccn2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.20944085207986782,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)c1c(O)c(C)c(O)c2c1OC1=CC(=O)C(C(C)=O)C(=O)C12C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.25978994123119986,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)c1ccc(S(=O)(=O)NC(=O)NC2CCCCC2)cc1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.7821232689896058,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(=O)c1ccc(S(=O)(=O)NC(=O)NC2CCCCC2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3937502639334248,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C(=O)O)c1ccc(N2CC=CC2)c(Cl)c1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.90309717641492,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C#N)c1cc(Cn2cncn2)cc(C(C)(C)C#N)c1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7757401703861709,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)C(=O)C1C(=O)c2ccccc2C1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.35458259427080996,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)C1=CC(=CC=C2C=C(C(C)(C)C)C(=O)C(C(C)(C)C)=C2)C=C(C(C)(C)C)C1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5109821996030791,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)CC(C)(C)c1ccc(OCCOCC[N+](C)(C)Cc2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.12655967917838445,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)N1CCC(c2ccccc2)(c2ccccc2)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7553784851641909,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)NC(=O)C1CN(Cc2cccnc2)CCN1CC(O)CC(Cc1ccccc1)C(=O)NC1c2ccccc2CC1O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.15114636335338758,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)S(=O)(=O)CC(Cc1ccccc1)C(=O)NC(Cc1c[nH]cn1)C(=O)NC(CC1CCCCC1)C(O)C(O)C1CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.10869072641057358,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)[NH2+]C[C@H](O)COc1cccc2c1CCCC2=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.016092040641595817,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)c1ccc(C(=O)CCC[NH+]2CCC(OC(c3ccccc3)c3ccccc3)CC2)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9752723172274531,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)c1ccc(C[NH+]2CCN(C(c3ccccc3)c3ccc(Cl)cc3)CC2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.003461927742709499,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(C)c1ccc(NC(=O)N2CCN(c3ncccc3Cl)CC2)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8697469898688489,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(Cc1ccc2ccccc2c1)NC[C@@H](O)COc1cccc(Cl)c1C#N",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9032449710477031,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(O)C1Cc2cc3ccc(=O)oc3cc2O1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.258293790403831,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(O)[C@H]1C=CC([C@H](c2cc[n+](O)cc2)c2ccc(OC(F)F)c(OC3CCC3)c2)=CN1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7057300042128413,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(O/N=C(\\C(=O)N[C@@H]1C(=O)N2C(C(=O)[O-])=C(C[n+]3ccccc3)CS[C@H]12)c1csc(N)n1)C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.005909358372780845,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(Oc1ccc(CCNC(=O)c2ccc(Cl)cc2)cc1)C(=O)O",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.754044196540444,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(Sc1cc(C(C)(C)C)c(O)c(C(C)(C)C)c1)Sc1cc(C(C)(C)C)c(O)c(C(C)(C)C)c1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.11455827014114657,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)(Sc1cc(C(C)(C)C)c(O)c(C(C)(C)C)c1)Sc1cc(C(C)(C)C)c(O)c(C(C)(C)C)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01694759534369702,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)=C1CCC(C)CC1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3621826877538788,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)=C1CC[C@@H](C)CC1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.35481734436511136,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)=CC1C(C(=O)O)C1(C)C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2914666131223565,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)=CC1C(C(=O)OCN2C(=O)C3=C(CCCC3)C2=O)C1(C)C",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.3058539248348454,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)=C[C@H]1[C@H](C(=O)OCN2C(=O)C3=C(CCCC3)C2=O)C1(C)C",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5207332986398986,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)C(C(=O)OC(C#N)c1cccc(Oc2ccccc2)c1)c1ccc(Cl)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5087090386606103,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)C(O)(C(=O)OCC1CCN2CCCC12)C(C)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3562172637463113,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)C1(NC(=O)C2CC3c4cccc5[nH]cc(c45)CC3N(C)C2)OC2(O)C3CCCN3C(=O)C(Cc3ccccc3)N2C1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.845848918952599,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CC([NH+](C)C)C1(c2ccc(Cl)cc2)CCC1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7135989108735808,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CC([NH+](C)C)C1(c2ccc(Cl)cc2)CCC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05802734395530915,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CCCC(C)C1CCC2C3CC4N(N5C(=O)c6ccccc6C5=O)C45CC(Cl)CCC5(C)C3CCC12C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6429679854706934,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CCCC(C)C1CCC2C3CC4OC45CC(O)CCC5(C)C3CCC12C",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.1457178185718905,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CN(CC(O)C(Cc1ccccc1)NC(=O)OC1COC2OCCC12)S(=O)(=O)c1ccc(N)cc1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.768295169919314,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CN(C[C@@H](O)[C@H](Cc1ccccc1)NC(=O)O[C@H]1CCOC1)S(=O)(=O)c1ccc(N)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.252489923625165,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CN(C[C@@H](O)[C@H](Cc1ccccc1)NC(=O)O[C@H]1CO[C@H]2OCC[C@H]21)S(=O)(=O)c1ccc(N)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.250809573439135,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CN(C[C@@H](OP(=O)([O-])[O-])[C@H](Cc1ccccc1)NC(=O)O[C@H]1CCOC1)S(=O)(=O)c1ccc(N)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09230850417194983,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)CNCc1ccc(-c2ccccc2S(=O)(=O)N2CCCC2)cc1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.2746704521415403,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)C[C@@H]([NH+](C)C)C1(c2ccc(Cl)cc2)CCC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7931020824355179,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)C[C@H](NC(=O)[C@H](CCc1ccccc1)NC(=O)CN1CCOCC1)C(=O)N[C@@H](Cc1ccccc1)C(=O)N[C@@H](CC(C)C)C(=O)[C@@]1(C)CO1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.14348666273897814,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)Cn1cnc2c(N)nc3ccccc3c21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.3152957872066453,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)N1C(=O)c2ccccc2NS1(=O)=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6727516535135569,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)[C@@H](CN1CC[C@@](C)(c2cccc(O)c2)[C@@H](C)C1)NC(=O)[C@H]1Cc2ccc(O)cc2CN1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.059510424936834956,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)[C@@H]1CC[C@@H](C)CC1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4457209528002082,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)[C@]12CC(=O)[C@@H](C)[C@H]1C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.23695786137254665,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)[NH2+]CC(O)COc1ccc(CCOCC2CC2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02767342492568096,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)[NH2+]C[C@H](O)COc1ccc(CCOCC2CC2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.025036374794865795,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)c1c(C(=O)Nc2ccccc2)c(-c2ccccc2)c(-c2ccc(F)cc2)n1CCC(O)CC(O)CC(=O)O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.14366497973773917,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)c1c(C(=O)Nc2ccccc2)c(-c2ccccc2)c(-c2ccc(F)cc2)n1CCC(O)CC(O)CC(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.11694325482609481,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)c1c(C(=O)Nc2ccccc2)c(-c2ccccc2)c(-c2ccc(F)cc2)n1CC[C@@H](O)C[C@@H](O)CC(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.007372981907966903,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)c1nc(CN(C)C(=O)NC(C(=O)NC(Cc2ccccc2)CC(O)C(Cc2ccccc2)NC(=O)OCc2cncs2)C(C)C)cs1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.05064455252421136,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)c1nc(CN(C)C(=O)N[C@H](C(=O)N[C@@H](Cc2ccccc2)C[C@H](O)[C@H](Cc2ccccc2)NC(=O)OCc2cncs2)C(C)C)cs1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.90638513374589,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(C)c1nc(CN(C)C(=O)N[C@H](C(=O)N[C@@H](Cc2ccccc2)C[C@H](O)[C@H](Cc2ccccc2)NC(=O)OCc2cncs2)C(C)C)cs1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.008202700954433862,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(CC1=C(C=O)COC1O)C1=CCC(C)(C)C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29348161473519097,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(CCC(=O)O)C1CCC2C3CCC4CC(O)CCC4(C)C3CC(=O)C12C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3232978207698465,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(CNC(=O)c1cccnc1)NC(=O)c1cccnc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3013821975021563,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(COc1ccccc1)NC(C)C(O)c1ccc(O)cc1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.46447621679486456,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(Cc1ccccc1)[NH2+]CCC(c1ccccc1)c1ccccc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9449774559872393,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(NCc1ccccc1)C(=O)NCc1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.352366293739457,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(O)(CS(=O)(=O)c1ccc(F)cc1)C(=O)Nc1ccc(C#N)c(C(F)(F)F)c1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.3418070586037844,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(O)(CS(=O)(=O)c1ccc(F)cc1)C(=O)Nc1ccc(C#N)c(C(F)(F)F)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.028219446387138573,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(O)C1C(=O)N2C(C(=O)O)=C(C3CCCO3)SC12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.341496677326068,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(O)CN(C)c1ccc(NN)nn1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.32434945498819046,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(O)CN1CC(C)OC1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5473526494655934,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(O)CN1CCN(CC(=O)[O-])CCN(CC(=O)[O-])CCN(CC(=O)[O-])CC1.[Gd+3]",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.18849523391666878,
+    "split": "test"
+  },
+  {
+    "smiles": "CC(O)CN1CCN(CC(=O)[O-])CCN(CC(=O)[O-])CC[NH+](CC(=O)[O-])CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.020315922993931708,
+    "split": "test"
+  },
+  {
+    "smiles": "CC/C=C1\\OC(=O)c2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4489414071115988,
+    "split": "test"
+  },
+  {
+    "smiles": "CC/N=C(\\c1ccc(OC)c(OC)c1)N1CCCc2cc(C3=NNC(=O)S[C@@H]3C)ccc21",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7213292220750147,
+    "split": "test"
+  },
+  {
+    "smiles": "CC/N=c1\\cc2oc3cc(NCC)c(C)cc3c(-c3ccccc3C(=O)OC)c-2cc1C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6197693687394906,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C(=O)NCc2ccccc2)CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5305821573664005,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)C2CC3OC3(C)C1C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.19984846618495344,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)CC(C(=O)NC(CO)C(O)CO)C(C)(C)[N+]1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29998058420347296,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)CCC2(C(=O)O)CCC3(C)C(=CCC4C5(C)CC(O)C(O)C(C)(C(=O)O)C5CCC43C)C2C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.06711751687448131,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)CCC2(C(=O)O)CCC3(C)C(=CCC4C5(C)CC(O)C(OC6OC(CO)C(O)C(O)C6O)C(C)(C(=O)O)C5CCC43C)C2C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.07330596867144368,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)C[C@@H]1C(=O)N/C(=C\\CCCCSC[C@H]([NH3+])C(=O)[O-])C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02148536611025365,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)O[C@@H]2C[C@H]3[C@@H]4CCC5=CC(=O)CC[C@]5(C)[C@@]4(F)[C@@H](O)C[C@]3(C)[C@]2(C(=O)CCl)O1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.149325927220842,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)O[C@@H]2C[C@H]3[C@@H]4C[C@H](F)C5=CC(=O)CC[C@]5(C)[C@H]4[C@@H](O)C[C@]3(C)[C@]2(C(=O)CO)O1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03942431294421737,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)O[C@]2(C)CC[C@H]1CC2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4027985529970012,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)SC(C(NC(=O)Cc2ccccc2)C(=O)NCCCCCC(=O)[O-])[NH2+]C1C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.008974956766656585,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)SC2C(NC(=O)C(NC(=O)N3CCN(S(C)(=O)=O)C3=O)c3ccccc3)C(=O)N2C1C(=O)O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.46085434807051723,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)SC2C(NC(=O)COc3ccccc3)C(=O)N2C1C(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.25148943697381426,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)S[C@@H]2[C@H](NC(=O)C3([NH3+])CCCCC3)C(=O)N2[C@H]1C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.027316375809511448,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)S[C@@H]2[C@H](NC(=O)COc3ccccc3)C(=O)N2[C@H]1C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.035518852851670245,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)S[C@@H]2[C@H](NC(=O)[C@H](NC(=O)N3CCNC3=O)c3ccccc3)C(=O)N2[C@H]1C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.010135016033273459,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(C)[C@H](C(=O)[O-])N2C(=O)C[C@H]2S1(=O)=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06772283872661905,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(Cn2ccnn2)C(C(=O)O)N2C(=O)CC2S1(=O)=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3664155245548396,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1(O)C=Cc2cc3c(ccc4ccccc43)c3c2C1(O)CC3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6882683094551343,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12C/C(=C/O)C(=O)CC1CCC1C2CCC2(C)C1CCC2(C)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4062778592288525,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12C=CC3=C4CCC(=O)CC4=CCC3C1CCC2O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.24117031668046227,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12CC(=CO)C(=O)CC1CCC1C2CCC2(C)C1CCC2(C)O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.38209223050644553,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12CCC(=O)C=C1C1CC1C1C2CCC2(C)C1C1CC1C21CCC(=O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.0640232870262906,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12CCC(CC1)C(C)(C)O2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4022581441989256,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12CCC3C(CC=C4CC(O)CCC43C)C1CCC2=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.28438851295746737,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12CCC3C(CCC4CC(OC(=O)/C=C/c5cccc(N(CCCl)CCCl)c5)CCC43C)C1CCC(=O)N2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8468352078520893,
+    "split": "test"
+  },
+  {
+    "smiles": "CC12CCNC(=O)C=C1CCC1C2CCC2(C)C(OC(=O)/C=C/c3cccc(N(CCCl)CCCl)c3)CCC12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.721930355945471,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=C(/C=C/C(C)=C/C=C/C(C)=C/C=C/C=C(C)/C=C/C=C(C)/C=C/C2=C(C)C(=O)CCC2(C)C)C(C)(C)CCC1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2152891712159507,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=C(C(=O)OC(C)C)C(c2cccc([N+](=O)[O-])c2)C(=C(O)OC2CN(C(c3ccccc3)c3ccccc3)C2)C(N)=N1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6476447646340138,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=C(O)C(=O)CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.32469078034543375,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=C(O)C(=O)CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.3138936100387991,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=C2C(=CC(C)(C)C2O)C(=O)C(C)(O)C12CC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.3076146662342194,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=C2C(=CC(C)(CO)C2O)C(=O)C(C)(O)C12CC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.26538517693357166,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=CC(O)C2CC1C2(C)C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3980852896403233,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=CC2=C(C=O)C(=O)C(C)(O)C(O)C2=CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.561959490310175,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=CC2=C(C=O)C(=O)[C@](C)(O)[C@H](O)C2=CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.3687034972989456,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=CCC2CC1C2(C)C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2652347924254646,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=CC[C@H]2C[C@@H]1C2(C)C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2829965922550497,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=CN2C(N)=C(Cl)C=C(C(=O)NC[C@@H]3CCCN(CC(C)C)C3)[C@@H]2N1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9353492283474959,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1=NCCc2c1[nH]c1cc(O)ccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2158280838287045,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1C(=O)CC2(C(C)C)CC12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3478832242601274,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1C=Cc2c1ccc1c2ccc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8308807977236683,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CC(C)C(=O)C(C(O)CC2CC(=O)NC(=O)C2)C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5529648187776066,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CC2(OC2C)C(=O)OC2CCN(C)CC=C(COC(=O)C1(C)O)C2=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5092754794492488,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CC23CCC4C(C)(C(=O)O)CCCC4(C)C2CCC1(O)C3",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.1142501033563242,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CC2c3cccc4c3c(cn4C3CCCC3)CC2N(C)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6465239174922859,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CCC(C(C)C)C(=O)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5225591656568471,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CCCCC1NC(=O)Nc1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.18755377890309918,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CN(c2cc3c(cc2F)c(=O)c(C(=O)O)cn3-c2ccc(F)cc2F)CCN1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9579306785122264,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1CN(c2cc3c(cc2F)c(=O)c(C(=O)O)cn3-c2ccc(F)cc2F)CCN1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7114403775447792,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1COc2c(C3(N)CC3)c(F)cc3c(=O)c(C(=O)O)cn1c23",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5974538106410261,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1Cc2c(Cl)cc(C(=O)NC(Cc3ccccc3)C(=O)O)c(O)c2C(=O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5202435069493956,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1Cc2ccc(C(=O)NC(Cc3ccccc3)C(=O)O)c(O)c2C(=O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5916930503516894,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1NC(=O)C(N)CNC(=O)C(C2CCN=C(N)N2)NC(=O)C(=CNC(N)=O)NC(=O)C(CNC(=O)CC(N)CCCN)NC1=O.NCCCC(N)CC(=O)NCC1NC(=O)C(CO)NC(=O)C(N)CNC(=O)C(C2CCN=C(N)N2)NC(=O)C(=CNC(N)=O)NC1=O",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.38402712075269735,
+    "split": "test"
+  },
+  {
+    "smiles": "CC1[NH2+]CCOC1c1ccccc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.035135654413042935,
+    "split": "test"
+  },
+  {
+    "smiles": "CC=C1CC(C)C(O)(CO)C(=O)OCC2=CC[N+]3([O-])CCC(OC1=O)C23",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.253423894305849,
+    "split": "test"
+  },
+  {
+    "smiles": "CC=C1CC2C=CC1C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.35933198913362235,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC(=O)N(c1ccccc1)C1(COC)CC[NH+](CCc2cccs2)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9732952618390415,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC(=O)N(c1ccccc1)C1(COC)CC[NH+](CCc2cccs2)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.005169437823511328,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC(=O)N(c1ccccc1)C1(COC)CC[NH+](CCn2nnn(CC)c2=O)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.004646823283298051,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC(C)(C)C1C(=O)N2CCCC2C2(O)OC(NC(=O)C3CC4c5cccc6[nH]cc(c56)CC4[NH+](C)C3)(C(C)C)C(=O)N12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.018317405436171327,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC(c1ccccc1)c1c([O-])c2ccccc2oc1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02837235647521334,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1(c2ccccc2)C(=O)NC(=O)NC1=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.44424457360460856,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1=C(CC2NCCc3cc(OC)c(OC)cc32)CC2c3cc(OC)c(OC)cc3CCN2C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.17377172171943522,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1=C(c2ccc(O)cc2)C(C)c2cc(O)ccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3710234061152226,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1=CC2C[NH+](C1)Cc1c([nH]c3ccccc13)[C@@](C(=O)OC)(c1cc3c(cc1OC)N(C)[C@H]1[C@@](O)(C(=O)OC)[C@H](OC(C)=O)[C@]4(CC)C=CC[NH+]5CC[C@]31[C@@H]54)C2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.2497236396750265,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1C(=O)OCC1Cc1cncn1C",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.7698046456251757,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1C(c2ccc(O)cc2)=C(C)c2cc(O)ccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.617986742426209,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1CN2CCc3cc(OC)c(OC)cc3C2CC1CC1NCCc2cc(OC)c(OC)cc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.233477952082826,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1OC(=O)C(C)C(OC2CC(C)(OC)C(O)C(C)O2)C(C)C(O)(C2OC(C)CC(N(C)C)C2O)C(C)(O)CC(C)C(=O)C(C)C(C)(O)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6443650791218987,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC1OC(CO)C(COCC2OC(COC3OC(CO)C(O)C(O)C3O)C(OC)C(O)C2O)C(O)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.27701678209302494,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCC(C)C1(CC)C(=O)NC(=S)NC1=O",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.5133765759420811,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCC(C)C1(CC)C(=O)NC(=S)NC1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03512725748328326,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCC(CCC)C(=O)O[C@H]1C[C@H]2CC[C@@H](C1)[N+]2(C)C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.027814101233245413,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCC1=N[N+](C)=C2C(=O)N=C(c3cc(S(=O)(=O)N4CC[NH+](C)CC4)ccc3OCC)N=C12",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7631398021054395,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCC(F)(F)[C@@]1(O)CC[C@@H]2[C@H](CCCCCCC(=O)[O-])C(=O)C[C@H]2O1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.021101221265207644,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCC1=NC2(CCCC2)C(=O)N1Cc1ccc(-c2ccccc2-c2nn[n-]n2)cc1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.8461408403776043,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCCC(=O)OCCN1CC[NH+](CCCN2c3ccccc3Sc3ccc(C(F)(F)F)cc32)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.004727183765868074,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCCC(CCCC)COc1ccc(-c2ccc(-c3ccc(-c4ccc(OCC(CCCC)CCCCCC)cc4)cc3)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4193656359615398,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCCCC1CCC(=O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.20292670997237133,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCCCCCC(=O)OCCN1CC[NH+](CCCN2c3ccccc3Sc3ccc(C(F)(F)F)cc32)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.004827630363904824,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCCCCCCCCCCCC(=O)OCC(O)C1OC(O)=C(O)C1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.10383109948865504,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCCCOc1ccccc1NC(=O)OCCN1CCCCC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.20112149973975668,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCCC[N+](CC)(CC)CCCCc1ccc(Cl)cc1.CCCCCCC[N+](CC)(CC)CCCCc1ccc(Cl)cc1.CCCCCCC[N+](CC)(CC)CCCCc1ccc(Cl)cc1.O=P([O-])([O-])[O-]",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9409503543891323,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCOc1ccc(-c2cc(-c3ccc(C(=O)N[C@H]4C[C@@H](O)[C@@H](O)NC(=O)[C@@H]5[C@@H](O)[C@@H](C)CN5C(=O)[C@H]([C@H](O)CC(N)=O)NC(=O)[C@H]([C@H](O)[C@@H](O)c5ccc(O)c(OS(=O)(=O)[O-])c5)NC(=O)[C@@H]5C[C@@H](O)CN5C(=O)[C@H]([C@@H](C)O)NC4=O)cc3)no2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02132103207680699,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCc1cc(O)c2c(c1)OC(C)(C)C1CCC(C)=CC21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2091957866510834,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCCc1cc(O)c2c(c1)OC(C)(C)[C@@H]1CCC(C)=C[C@@H]21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.008001875089204285,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCOc1ccc(C(=O)CC[NH+]2CCCCC2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.07922227004471147,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCOc1ccc(OCCC[NH+]2CCOCC2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.10833010888833276,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCc1nc(Cl)c(CO)n1Cc1ccc(-c2ccccc2-c2nn[n-]n2)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8496251554551578,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCCc1nc(Cl)c(CO)n1Cc1ccc(-c2ccccc2-c2nn[nH]n2)cc1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.901396126038073,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCN(CCC)CCc1cccc2c1CC(=O)N2.Cl",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.6525840272205303,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCOC(C(=O)OC1CCN(C)CC1)(c1ccccc1)c1ccccc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9490211456803164,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCOC(C(=O)OC1CCN(C)CC1)(c1ccccc1)c1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5178659274463754,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCOC(C(=O)OC1CCN(C)CC1)(c1ccccc1)c1ccccc1.Cl",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9352027303497626,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCSc1nc(N[C@@H]2C[C@H]2c2ccc(F)c(F)c2)c2nnn([C@@H]3C[C@H](OCCO)[C@@H](O)[C@H]3O)c2n1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.14882412422598015,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC[C@H](NC(=O)[C@@H]1[C@H]2CCC[C@H]2CN1C(=O)[C@@H](NC(=O)[C@@H](NC(=O)c1cnccn1)C1CCCCC1)C(C)(C)C)C(=O)C(=O)NC1CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.023230741681166317,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC[NH+](CCC)CCc1cccc2c1CC(=O)N2",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7406670191362779,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC[NH+](CCC)CCc1cccc2c1CC(=O)N2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05568896273957451,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC[NH2+][C@H]1CCc2nc(N)sc2C1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7547254122176983,
+    "split": "test"
+  },
+  {
+    "smiles": "CCC[NH2+][C@H]1CCc2nc(N)sc2C1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09506718590403695,
+    "split": "test"
+  },
+  {
+    "smiles": "CCCc1c2oc(C(=O)[O-])cc(=O)c2cc2c(=O)cc(C(=O)[O-])n(CC)c12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.18715354519092614,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)CCCN(c1ccccc1)C1Cc2ccccc2C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.13340874162940336,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)CCNc1ccc2nc(C)n3c4ccc(O)cc4c(=O)c1c23",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8102069705775555,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)CCNc1ccc2ncn3c4ccc(O)cc4c(=O)c1c23",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7214808657115391,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)CCS(=O)(=O)[C@@H]1CCN2C(=O)c3coc(n3)CC(=O)C[C@H](O)/C=C(C)/C=C/CNC(=O)/C=C/[C@@H](C)[C@@H](C(C)C)OC(=O)C12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.25959130426957705,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)Cc1ccc2c(c1)CC[C@H](N1CCN(CCC3CCCCC3)CC1=O)C2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9886424425364905,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)c1ccc(-c2ccc(-c3ccc(-c4ccc(N(CC)CC)cc4)cc3)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5696104065215959,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)c1ccc2c(c1)Oc1cc(N(CC)CC)ccc1C2c1ccccc1C(=O)O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6496661439172311,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CC)c1ccc2nc3ccc(N(CC)CC)cc3[o+]c2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5233777668491193,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN(CCCl)c1ccc(OCCCCCNc2c3ccccc3nc3ccccc23)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8824400173885636,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN1c2cc(N)ccc2-c2ccc(N)cc2C1c1ccccc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7818090977971927,
+    "split": "test"
+  },
+  {
+    "smiles": "CCN=c1cc2oc3cc(NCC)c(C)cc3c(-c3ccccc3C(=O)OCC)c-2cc1C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4826253992341974,
+    "split": "test"
+  },
+  {
+    "smiles": "CCO/N=C(\\C(=O)N[C@@H]1C(=O)N2C(C(=O)[O-])=C(Sc3nc(-c4cc[n+](C)cc4)cs3)CS[C@H]12)c1nsc(NP(=O)([O-])[O-])n1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.0037106331475273667,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)C(CCc1ccccc1)NC1CCc2ccccc2N(CC(=O)O)C1=O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.31837711964620935,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)C1(c2ccccc2)CCN(CCC(C#N)(c2ccccc2)c2ccccc2)CC1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.05782648165242409,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)C1(c2ccccc2)CC[NH+](C)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03445860017882597,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)C1(c2ccccc2)CC[NH+](CCC(C#N)(c2ccccc2)c2ccccc2)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.007210618817135343,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)C1(c2ccccc2)CC[NH+](CCc2ccc(N)cc2)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.010010262977770266,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)C1C(C=C(C)C)C1(C)C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.20837224094133316,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)C[n+]1csc2ccccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.17523141896832814,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)N1CCC(=C2c3ccc(Cl)cc3CCc3cccnc32)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.927392485340535,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)N1CCC(=C2c3ccc(Cl)cc3CCc3cccnc32)CC1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.8165039669843701,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)N1CCC(=C2c3ccc(Cl)cc3CCc3cccnc32)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.16649201510728126,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)Nc1ccc2c(c1)N(C(=O)CCN1CCOCC1)c1ccccc1S2",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.7459197352194588,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)[C@H](CCc1ccccc1)[NH2+][C@@H](C)C(=O)N1[C@H](C(=O)[O-])C[C@@H]2CCC[C@@H]21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.060761666706546584,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)c1c2c(nn[n+]1[O-])c1ccccc1n2C",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.35966715499084656,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC(=O)c1ccc(C#Cc2ccc3c(c2)C(C)(C)CCS3)nc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.08803008600068579,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOC1=CC(=O)C(=NC(C)=O)CC1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5120664438964274,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOCCn1c(N2CCC[NH+](C)CC2)nc2ccccc21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.11085274684455629,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOCn1cc(F)c(=O)n(C(=O)c2cccc(C(=O)Oc3nc(OC(=O)c4ccccc4)ccc3C#N)c2)c1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5254388247122622,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOP(=S)(OCC)Oc1nc(Cl)n(C(C)C)n1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.2895176391011664,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOP(=S)(OCC)SCn1c(=O)oc2cc(Cl)ccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5991100262310288,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOc1cc(CC(=O)N[C@@H](CC(C)C)c2ccccc2N2CCCCC2)ccc1C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05363881043072354,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOc1ccc(-c2cc(C)cn2-c2ccc(S(N)(=O)=O)cc2)cc1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.22129008299251152,
+    "split": "test"
+  },
+  {
+    "smiles": "CCOc1ccccc1C(=O)NCCCN1CCOCC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8293718085843506,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[C@@H]([C@H](C)O)n1ncn(-c2ccc(N3CCN(c4ccc(OC[C@@H]5CO[C@@](Cn6cncn6)(c6ccc(F)cc6F)C5)cc4)CC3)cc2)c1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.546963800277818,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[C@@H]1C(=O)OC[C@@H]1Cc1cncn1C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.14781660858987655,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[C@@](O)(C(=O)O)c1cc2n(c(=O)c1CO)Cc1cc3ccccc3nc1-2.[H-].[Na+]",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.920922968279589,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[C@H]1CN2CCc3cc(OC)c(OC)cc3[C@H]2C[C@H]1C[C@H]1NCCc2cc(OC)c(OC)cc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2920103315662234,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@@H](O)[C@H](C)O2)C(C)[C@@H](O[C@@H]2O[C@H](C)C[C@H]([NH+](C)C)[C@H]2O)[C@](C)(O)C[C@@H](C)C[NH+](C)[C@H](C)[C@@H](O)[C@]1(C)O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.0715952607736802,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[C@](COC(=O)c1cc(OC)c(OC)c(OC)c1)(c1ccccc1)[NH+](C)C",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.9474983306281899,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[C@]1(O)CC[C@H]2[C@@H]3CCC4=CCCC[C@@H]4[C@H]3CC[C@@]21C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.031072023348938955,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[N+](CC)(CCNC(=O)C(=O)NCC[N+](CC)(CC)Cc1ccccc1Cl)Cc1ccccc1Cl",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.07103122206906906,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[N+](CC)=c1ccc2nc3c(cc(N)c4ccccc43)oc-2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7280678853672237,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[NH+](CC)CCCN(c1ccccc1)C1Cc2ccccc2C1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9926779843702589,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[NH2+][C@@H]1C[C@H]([NH3+])[C@@H](O[C@H]2OC(C[NH3+])=CC[C@H]2[NH3+])[C@H](O)[C@H]1O[C@H]1OC[C@](C)(O)[C@H]([NH2+]C)[C@H]1O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.020645759275968747,
+    "split": "test"
+  },
+  {
+    "smiles": "CC[n+]1c2ccccc2nc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.42352633376511445,
+    "split": "test"
+  },
+  {
+    "smiles": "CCc1c(C)[nH]c2c1C(=O)C(CN1CCOCC1)CC2",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.5559630347874915,
+    "split": "test"
+  },
+  {
+    "smiles": "CCc1cc2c(cc1CC)CC([NH2+]C[C@H](O)c1ccc(O)c3[nH]c(=O)ccc13)C2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.024737347235625522,
+    "split": "test"
+  },
+  {
+    "smiles": "CCn1cc(C(=O)[O-])c(=O)c2cc(F)c(N3CC[NH2+]C(C)C3)c(F)c21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.08218934897317254,
+    "split": "test"
+  },
+  {
+    "smiles": "CCn1cc(C(=O)[O-])c(=O)c2cc(F)c(N3CC[NH2+]CC3)cc21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05540353520222294,
+    "split": "test"
+  },
+  {
+    "smiles": "CCn1cc(C(=O)[O-])c(=O)c2cc(F)c(N3CC[NH2+][C@H](C)C3)c(F)c21",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.6404874947728728,
+    "split": "test"
+  },
+  {
+    "smiles": "CCn1nc(C(=O)O)c(=O)c2cc3c(cc21)OCO3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7379528741805113,
+    "split": "test"
+  },
+  {
+    "smiles": "CCn1nc(C(=O)[O-])c(=O)c2cc3c(cc21)OCO3",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.17413263964664102,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C(=O)Cc1ccc(CNS(C)(=O)=O)cc1)[C@@H](CN1CC[C@@H](O)C1)c1ccccc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9355568769201699,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)C(=O)C(CCN1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.17782771713237996,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)C(=O)C(CC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.013381628730348299,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)C(=O)c1nc2n(n1)-c1ccc(Cl)cc1C(c1ccccc1Cl)=NC2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2814690025279523,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)C1C(=O)C(C(N)=O)=C(O)C2(O)C(=O)C3=C(O)c4c(O)ccc(Cl)c4C(O)C3CC12",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.8017509597766314,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)C1C(=O)C(C(N)=O)C(=O)C2(O)C(=O)C3C(=O)c4c(O)cccc4C(C)(O)C3C(O)C12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.24903450337717797,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)C1C(=O)C(C(N)=O)C(=O)C2(O)C(=O)C3C(=O)c4c(O)cccc4C(C)(O)C3CC12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.34479105690929046,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)C1Cc2cccc3cccc(c23)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7327526789477601,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)CCCn1cc(C2=C(c3c[nH]c4ccccc34)C(=O)NC2=O)c2ccccc21",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8766090481303943,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)CCN(Cc1ccsc1)c1ccccn1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.1809011815696655,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)CCNC(=O)c1ccc2ccc3cccnc3c2n1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7496177529211638,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)CCNC(=O)c1cccc2c1Nc1ccccc1O2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7159357662553819,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)CCNC(=O)n1c2ccccc2c(=O)c2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6115492692967031,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)CNc1nnc(/C=C/c2ccc([N+](=O)[O-])o2)o1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8149839017572036,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)N/N=C1/N=CN=C1C(N)=O",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.1619288280353351,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)NN=C1N=CN=C1C(N)=O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.8276868615072979,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)c1ccc(C2CC3(C)C(CCC3(O)C=CCO)C3CC=C4CC(=O)CCC4=C23)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.07525727966615059,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)c1ccc(C2CC3(C)C(CCC3(O)CCCO)C3CC=C4CC(=O)CCC4=C23)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.08146447878546419,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(C)c1ccc(N=Nc2ccc3ncsc3c2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7243120883842599,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(CCC#N)c1ccc(N=Nc2ccc3ncsc3c2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7296568904433074,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(CCCN1c2ccccc2CCc2ccccc21)C(=O)c1cc2cc(Cl)ccc2o1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9099315311854499,
+    "split": "test"
+  },
+  {
+    "smiles": "CN(CCOc1ccc(CC2SC(=O)[N-]C2=O)cc1)c1ccccn1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.42078824904099504,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1C(=O)C(O)CC1c1cccnc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2844675416753928,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1C(=O)CC(C)(c2ccccc2)C1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.025269785809414733,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1C(=O)CC(c2ccccc2)C1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03013292901404902,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1C(=O)CCC1c1cccnc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2897684366337413,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1C(C(=O)Nc2ccccn2)=C(O)c2ccccc2S1(=O)=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.18750618033891744,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1C(C(=O)Nc2ccccn2)C(=O)c2sccc2S1(=O)=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5224836180062731,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CC(=O)N2[C@@H](c3ccc4c(c3)OCO4)c3[nH]c4ccccc4c3C[C@@H]2C1=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.845513722267022,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CC(=O)N2[C@H](c3ccc4c(c3)OCO4)c3[nH]c4ccccc4c3C[C@@H]2C1=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.8417983228577848,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CC(=O)N2[C@H](c3ccc4c(c3)OCO4)c3[nH]c4ccccc4c3C[C@@H]2C1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.19051334689734048,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCC(CNc2ccc3ncc(-c4cccc(OC(F)(F)F)c4)n3n2)CC1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.17837044342889233,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCC(Nc2ncc3ncnc(Nc4ccc(F)c(Cl)c4)c3n2)CC1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9426069638009378,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCC=C2c3nc(N)sc3CCC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.359782243102681,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCCCC1CCN1c2ccccc2Sc2ccc(S(C)=O)cc21",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.40771125496379546,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCN(C2=Nc3ccccc3Oc3ccc(Cl)cc32)CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8019753046451524,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCN(Cc2ccc3c(c2)Cc2c(-c4csc(C#CCOc5ccccc5)c4)n[nH]c2-3)C(=O)C1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.9722770450328895,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCN(c2c(F)cc3c(=O)c(C(=O)O)cn4c3c2OCN4C)CC1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5900134261150047,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCN(c2ccc3[nH]c(Cc4ccc5[nH]c(-c6ccc(N(CCCl)CCCl)cc6)nc5c4)nc3c2)CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8845072097415827,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CC[NH+](CCCN2c3ccccc3Sc3ccc(Cl)cc32)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05218317103002057,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCc2c1ccc1ccc3ccc(O)cc3c21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6002954640502345,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCc2cccc3c2[C@H]1Cc1ccc(O)c(O)c1-3",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9053671798271791,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CCc2cccc3c2[C@H]1Cc1ccc(O)c(O)c1-3.Cl",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8889145469554137,
+    "split": "test"
+  },
+  {
+    "smiles": "CN1CSC(=S)N(C)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.35629140976912543,
+    "split": "test"
+  },
+  {
+    "smiles": "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3ccc(Cl)c(C(F)(F)F)c3)cc2)ccn1.Cc1ccc(S(=O)(=O)O)cc1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.18727071016827251,
+    "split": "test"
+  },
+  {
+    "smiles": "CNC(=O)c1cnn(-c2nc(N)c3ncn([C@@H]4O[C@H](CO)[C@@H](O)[C@H]4O)c3n2)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.5192772866052828,
+    "split": "test"
+  },
+  {
+    "smiles": "CNC1=C2CC(=O)C(OC)=CC=C2c2c(cc(OC)c(OC)c2OC)CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3851540284817872,
+    "split": "test"
+  },
+  {
+    "smiles": "CNC1Cc2cccc3cccc(c23)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6203691395940443,
+    "split": "test"
+  },
+  {
+    "smiles": "CNCCCC1c2ccccc2C=Cc2ccccc21",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.7553893727111239,
+    "split": "test"
+  },
+  {
+    "smiles": "CNc1cc(Oc2ccc(N)cc2)ncn1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.687410379744477,
+    "split": "test"
+  },
+  {
+    "smiles": "CNc1ccc(N=Nc2ccc3ncsc3c2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6868238418342577,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C(\\C(=O)NC1C(=O)N2C(C(=O)O)=C(CSC(=O)c3ccco3)CSC12)c1csc(N)n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8658832249740793,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C(\\C(=O)NC1C(=O)N2C(C(=O)O)=C(C[n+]3ccn4ncccc43)CSC12)c1nsc(N)n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.21393509383230105,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C(\\C(=O)NC1C(=O)N2C(C(=O)OCOC(=O)C(C)(C)C)=C(/C=C/c3scnc3C)CSC12)c1csc(N)n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8628377204167367,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C(\\C(=O)N[C@@H]1C(=O)N2C(C(=O)OC(C)OC(C)=O)=C(COC(N)=O)CS[C@H]12)c1ccco1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.007213640092054871,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C(\\C(=O)N[C@@H]1C(=O)N2C(C(=O)[O-])=C(COC(N)=O)CS[C@H]12)c1ccco1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.005603721950718819,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C(\\C(=O)N[C@@H]1C(=O)N2C(C(=O)[O-])=C(CSc3nc(=O)c(=O)[nH]n3C)CS[C@H]12)c1csc(N)n1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09372795791609197,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C1\\CN(c2nc3c(cc2F)C(=O)[C@H](C(=O)O)CN3C2CC2)CC12CNC2",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.8823822673302135,
+    "split": "test"
+  },
+  {
+    "smiles": "CO/N=C1\\CN(c2nc3c(cc2F)c(=O)c(C(=O)[O-])cn3C2CC2)CC1C[NH3+]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.024057991234221816,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)C(c1ccccc1)C1CCCC[NH2+]1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.016937984866381,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)C1=C(C)N=C(C)C(=C(O)OCCc2ccc(N3CCN(C(c4ccccc4)c4ccccc4)CC3)cc2)C1c1cccc([N+](=O)[O-])c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8266923391553401,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)C1=C(C)NC(C)=C(C(=O)OCC[NH+](C)Cc2ccccc2)C1c1cccc([N+](=O)[O-])c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06955176238237541,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)C1CSC2C(Cl)=C(Cl)C(=O)N12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.705122328501897,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)CC1Cc2cc3cc(OC)c(-c4c(OC)cc5cc6c(c(O)c5c4O)C(=O)OC(CC(=O)OC)C6)c(O)c3c(O)c2C(=O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6468605068910246,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)[C@H](c1ccccc1)[C@H]1CCCC[NH2+]1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01847963025106157,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)[C@H]1[C@@H](O)C[C@H]2CC[C@@H]1[NH+]2C",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7823594916304585,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)[C@H]1[C@H]2C[C@@H]3c4[nH]c5cc(OC)ccc5c4CC[NH+]3C[C@H]2C[C@@H](OC(=O)/C=C/c2cc(OC)c(OC)c(OC)c2)[C@@H]1OC",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.022874858705400878,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)[C@H]1[C@H]2C[C@@H]3c4[nH]c5cc(OC)ccc5c4CC[NH+]3C[C@H]2C[C@@H](OC(=O)c2cc(OC)c(OC)c(OC)c2)[C@@H]1OC",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.024622106842433357,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)[C@H]1[C@H]2C[C@@H]3c4[nH]c5ccccc5c4CC[NH+]3C[C@H]2C[C@@H](OC(=O)c2cc(OC)c(OC)c(OC)c2)[C@@H]1OC",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.025372214772812464,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(=O)c1cc2c([nH]c3ccccc32)c(-c2ccc3c(n2)C(=O)C=CC3=O)n1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7710171555745909,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(COC(N)=O)C1=C(N2CC2)C(=O)C(C)=C(N2CC2)C1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5900364442524269,
+    "split": "test"
+  },
+  {
+    "smiles": "COC(O)=C1C(C)=NC(C)=C(C(=O)OC/C=C/c2ccccc2)[C@@H]1c1cccc([N+](=O)[O-])c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8537265690123765,
+    "split": "test"
+  },
+  {
+    "smiles": "COC1(OC2CCC3C4CCC5CC6SC6CC5(C)C4CCC23C)CCCC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3839698198922098,
+    "split": "test"
+  },
+  {
+    "smiles": "COC1=CC(=O)C(=O)C(C(C)(C)C)=C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4764934567667919,
+    "split": "test"
+  },
+  {
+    "smiles": "COC1=CC(=O)c2c(nc(C)c3c4c[nH]ccc-4nc23)C1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8315614625201067,
+    "split": "test"
+  },
+  {
+    "smiles": "COC1=CC(=O)c2c3nc4ccncc4c-3c[nH]c2C1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.70928428983732,
+    "split": "test"
+  },
+  {
+    "smiles": "COC1C=COC2(C)Oc3c(C)c(O)c4c(c3C2=O)C2=NC3(CCN(CC(C)C)CC3)NC2=C(NC(=O)C(C)=CC=CC(C)C(O)C(C)C(O)C(C)C(OC(C)=O)C1C)C4=O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9652867473248025,
+    "split": "test"
+  },
+  {
+    "smiles": "COC1CC(OC2C(C)C(=O)OC(C)C(C)C(OC(C)=O)C(C)C(=O)C3(CO3)CC(C)C(OC3OC(C)CC(N(C)C)C3OC(C)=O)C2C)OC(C)C1OC(C)=O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.7160649816705364,
+    "split": "test"
+  },
+  {
+    "smiles": "COCCC[NH+]1CCC(NC(=O)c2cc(Cl)c(N)c3c2OCC3)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.5906959024540124,
+    "split": "test"
+  },
+  {
+    "smiles": "CON=C(C(=O)NC1C(=O)N2C(C(=O)O)=C(CSc3nc(=O)c(=O)[nH]n3C)CSC12)c1csc(N)n1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9826937565022443,
+    "split": "test"
+  },
+  {
+    "smiles": "COP(=S)(OC)SCn1nnc2ccccc2c1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5631053533297821,
+    "split": "test"
+  },
+  {
+    "smiles": "CO[C@@H]1C[C@H](O[C@@H]2[C@H](C)[C@H](O[C@H]3O[C@H](C)C[C@@H]([NH+](C)C)[C@@H]3O)[C@H](C)C[C@@]3(CO3)C(=O)[C@H](C)[C@H](O)[C@@H](C)[C@@H](C)OC(=O)[C@H]2C)O[C@H](C)[C@H]1O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.6500902344344766,
+    "split": "test"
+  },
+  {
+    "smiles": "CO[C@@H]1[C@@H](OC(N)=O)[C@@H](O)[C@H](Oc2ccc3c([O-])c(NC(=O)c4ccc(O)c(CC=C(C)C)c4)c(=O)oc3c2C)OC1(C)C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.011730338568840207,
+    "split": "test"
+  },
+  {
+    "smiles": "CO[C@H]1/C=C/O[C@@]2(C)Oc3c(C)c(O)c4c(O)c(c(/C=N/N5CC[NH+](C)CC5)c(O)c4c3C2=O)NC(=O)/C(C)=C\\C=C\\[C@H](C)[C@H](O)[C@@H](C)[C@@H](O)[C@@H](C)[C@H](OC(C)=O)[C@@H]1C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05028372770781864,
+    "split": "test"
+  },
+  {
+    "smiles": "CO[C@H]1C(=O)[C@]2(C)[C@@H](OC)C[C@H]3OC[C@@]3(OC(C)=O)[C@H]2[C@H](OC(=O)c2ccccc2)[C@]2(O)C[C@H](OC(=O)[C@H](O)[C@@H](NC(=O)OC(C)(C)C)c3ccccc3)C(C)=C1C2(C)C",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02166238896330915,
+    "split": "test"
+  },
+  {
+    "smiles": "CO[C@H]1C[C@H](O[C@H]2[C@H](C)[C@@H](O[C@@H]3O[C@H](C)C[C@H]([NH+](C)C)[C@H]3OC(C)=O)[C@@H](C)C[C@@]3(CO3)C(=O)[C@H](C)[C@@H](OC(C)=O)[C@@H](C)[C@@H](C)OC(=O)[C@@H]2C)O[C@@H](C)[C@@H]1OC(C)=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06113671168679768,
+    "split": "test"
+  },
+  {
+    "smiles": "CO[C@H]1O[C@@H]2O[C@@]3(C)CC[C@H]4[C@H](C)CC[C@@H]([C@H]1C)[C@@]24OO3",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05872121873149565,
+    "split": "test"
+  },
+  {
+    "smiles": "CO[C@H]1[C@H](O[C@H]2O[C@H](C)[C@H](O[C@@H]3C[C@@](C)(O)[C@H](OC(=O)CC(C)C)[C@@H](C)O3)[C@H]([NH+](C)C)[C@H]2O)[C@@H](CC=O)C[C@@H](C)[C@@H](O)/C=C/C=C\\C[C@@H](C)OC(=O)C[C@H]1OC(C)=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7743006623179224,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c(C)c2c(c(O)c1C/C=C(\\C)CCC(=O)OCCN1CCOCC1)C(=O)OC2",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.02284042937936758,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c(C)c2c(c([O-])c1C/C=C(\\C)CCC(=O)OCC[NH+]1CCOCC1)C(=O)OC2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.006896141764802465,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c(N2CC3CCCNC3C2)c(F)cc2c(=O)c(C(=O)O)cn(C3CC3)c12",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9066803278543735,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c(N2CC[NH2+][C@H](C)C2)c(F)cc2c1[N+](C1CC1)=C[C@@H](C(=O)[O-])C2=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.7783402224951923,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c(N2C[C@@H]3CCC[NH2+][C@@H]3C2)c(F)cc2c(=O)c(C(=O)[O-])cn(C3CC3)c12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.017980629510213616,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c(N2C[C@H]3CCC[NH2+][C@H]3C2)c(F)cc2c1[N+](C1CC1)=C[C@@H](C(=O)[O-])C2=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.818038929253294,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c(O)cc2c3c1-c1ccccc1CC3N(C)CC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.2758468202151071,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c2cc3c(cc2nc2occc12)OCO3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5967565246925458,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c2ccoc2nc2c(O)c3c(c(CC=C(C)C)c12)OCO3",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5011175348325706,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1c2ccoc2nc2c(OC)c3c(cc12)OCO3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7101614581298746,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(C(=O)OCCCN2CCCN(CCCOC(=O)c3cc(OC)c(OC)c(OC)c3)CC2)cc(OC)c1OC",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.38363108947677893,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(C(C)=O)ccc1OCCC[NH+]1CCC(c2noc3cc(F)ccc23)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.10507899874820197,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(C2Oc3cc(C4Oc5cc(O)cc(O)c5C(=O)C4O)ccc3OC2CO)ccc1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4696165551019525,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(CC2NCCc3cc(O)c(O)cc32)cc(OC)c1OC",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.1089345420246529,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(N)c(Cl)cc1C(=O)NC1CCN(Cc2ccccc2)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9535937333280962,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(N)c(Cl)cc1C(=O)N[C@@H]1CCN(CCCOc2ccc(F)cc2)C[C@@H]1OC",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9228049770933172,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(N)c(Cl)cc1C(=O)N[C@H]1CC[NH+]2CCC[C@H]1C2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.934577247278935,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(N=Nc2ccc(N)cc2)c(C)cc1N=Nc1c(S(=O)(=O)O)cc2ccc(N)cc2c1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.613676238590658,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc(OC)c2c(c1)OC1OC3OC3C21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5998363952015562,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc([C@@H]2c3cc4c(cc3[C@@H](O[C@@H]3O[C@@H]5COC(c6cccs6)O[C@H]5[C@H](O)[C@H]3O)[C@H]3COC(=O)[C@H]23)OCO4)cc(OC)c1O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09460567148035329,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc([C@@H]2c3cc4c(cc3[C@@H](O[C@@H]3O[C@@H]5CO[C@@H](c6cccs6)O[C@H]5[C@H](O)[C@@H]3O)[C@H]3COC(=O)[C@@H]23)OCO4)cc(OC)c1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4490813226979817,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc([N+](=O)[O-])ccc1N=N[C@H](C(C)=O)C(=O)Nc1ccccc1OC",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7683041709351964,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c(Nc3ccc(Br)cc3F)ncnc2cc1OCC1CC[NH+](C)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.48060329780390904,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c(c3oc(=O)c4c(c13)CCC4=O)C1(C)C3OC3OC1(C)O2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6251648023964541,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c(c3oc(=O)c4c(c13)CCC4=O)C1C(O2)OC2OC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6444683508080373,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c(cc1OC)CN(N=O)CC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7716932676272623,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c3c(c1)Oc1c(OC)c(OC)cc4c1[C@H](Cc1ccc(OC)c(c1)Oc1ccc(cc1)C[C@@H]3N(C)CC2)N(C)CC4",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5957833587431983,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c3c(c1O)-c1cc4c(cc1CC3N(C)CC2)OCO4",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5371969839502532,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c3c(c1OC)-c1cc4c(cc1CC3N(C)CC2)OCO4",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5518664861182024,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2c3c(cc4cc5c(cc4c3c1OC)OCO5)N(C)CC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.593885302269867,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCC[NH+]1CCOCC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.5958033361658599,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(-c2ccc3cc(C(=O)[O-])ccc3c2)cc1C12CC3CC(CC(C3)C1)C2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06091954900493643,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(-c2noc(CC(=O)O)c2-c2ccc(OC)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6295433844305044,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(C(=O)N2CCN(c3ccc4c(c3)CCC(=O)N4)CC2)cc1OC",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.5661376468441762,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(C(=O)N2CCN(c3ccc4c(c3)CCC(=O)N4)CC2)cc1OC",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6291903186987055,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(CC(C)[NH2+]CC(O)c2ccc(O)c(NC=O)c2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.025239347495484163,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(CCN(C)CCCC(C#N)(c2ccc(OC)c(OC)c2)C(C)C)cc1OC",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.16471018839196144,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(CCN(C)CCC[C@@](C#N)(c2cc(OC)c(OC)c(OC)c2)C(C)C)cc1OC",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9849442510076061,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(CC[NH+](C)CCCN(C(=O)c2ccc([N+](=O)[O-])cc2)c2ccc(OC)c(OC)c2)cc1OC",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9571314600487042,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(CNCC(O)COc2ccc3nc(O)ccc3c2)cc1OC",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.46103692153166115,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(CNc2nnc(N3CCC4(CC3)CC(O)C4)c3ccc(C#N)cc23)cc1Cl",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.760809838457999,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(C[C@@H](C)[NH2+]C[C@H](O)c2ccc(O)c(NC=O)c2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06333297572701758,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(C[NH2+]CC(O)COc2ccc3[nH]c(=O)ccc3c2)cc1OC",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8460736838949124,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(C[NH2+]C[C@@H](O)COc2ccc3[nH]c(=O)ccc3c2)cc1OC",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8378009597441486,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(Cc2nccc3cc(OC)c(OC)cc23)cc1OC",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.6706941833188743,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(Cc2nccc3cc(OC)c(OC)cc23)cc1OC",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.7215365904408897,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(Cc2nccc3cc(OC)c(OC)cc23)cc1OC",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.463497555104179,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(Cl)cc1C(=O)NCCc1ccc(S(=O)(=O)[N-]C(=O)NC2CCCCC2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.07736825382470981,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc(Cl)cc1C(=O)NCCc1ccc(S(=O)([O-])=NC(=O)NC2CCCCC2)cc1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.35287453534595103,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1)C(=O)c1nccc3cc4c(c-2c13)OCO4",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7927510906820253,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1)C13CCCCC1C(C2)N(C)CC3",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.22000943912609908,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1)[C@]13CCCC[C@@H]1[C@H](C2)N(C)CC3",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9328315293764339,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1)[C@]13CCCC[C@@H]1[C@H](C2)[NH+](C)CC3",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.04640498511790489,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1)c1cc(OC)ccc1c1c3ccc(OC)cc3c3cc(OC)ccc3c21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6702842703482932,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1OC)C(=O)OC2C1c2cc3c(cc2CCN1C)OCO3",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7712978087279344,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1OC)C(=O)O[C@@H]2[C@H]1c2cc3c(cc2CCN1C)OCO3",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7710218429227778,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(c1OC)c(=O)n(C)c1c3cc4c(cc3ccc21)OCO4",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7362837006705044,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c(ccc3oc([N+](=O)[O-])cc32)c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7996631361280967,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c3c([nH]c2c1)C(C)=NCC3",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3259016459000001,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2c3c1O[C@H]1[C@@H](O)CC[C@H]4[C@@H](C2)[NH+](C)CC[C@@]341",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09803765628868287,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2cc1Oc1ccc(cc1)C[C@H]1c3c(cc4c(c3Oc3cc5c(cc3OC)CCN(C)[C@@H]5C2)OCO4)CCN1C",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7181675801618662,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccc2cccc3c2c1C(=O)N(C)C3=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7709408062221608,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1cccc2c(O)c3c(O)c4c(c(O)c3c(O)c12)C(=O)CC(O)(C(C)=O)C4",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5384324016332743,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccccc1OCCNC[C@@H](O)COc1cccc2[nH]c3ccccc3c12",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7818374226802919,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccccc1OCC[NH2+]CC(O)COc1cccc2[nH]c3ccccc3c12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.029362111955732954,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ccccc1Oc1c(NS(=O)(=O)c2ccc(C(C)(C)C)cc2)nc(-c2ncccn2)nc1OCCO",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.25494275834760177,
+    "split": "test"
+  },
+  {
+    "smiles": "COc1ncnc([N-]S(=O)(=O)c2ccc(N)cc2)c1OC",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.058982908012664835,
+    "split": "test"
+  },
+  {
+    "smiles": "CS(=O)(=O)N1CCN(Cc2ccc3c(c2)CC[C@H](N2CCN(CCc4ccc(F)cc4)CC2=O)C3)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9904413290403076,
+    "split": "test"
+  },
+  {
+    "smiles": "CS(=O)(=O)Nc1ccc2c(c1)C(=O)CC1(CCN([C@@H]3CCc4cc(C#N)ccc4C3)CC1)O2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.952365245342147,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H](CN1CC(=O)NC(=O)C1)[NH+]1CC(=O)NC(=O)C1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.032732683981913646,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H](O)CN(C)c1ccc(NN)nn1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.40712965358722547,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H](O[C@H]1OCC[NH+](Cc2n[nH]c(=O)[nH]2)[C@H]1c1ccc(F)cc1)c1cc(C(F)(F)F)cc(C(F)(F)F)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.022047393905130837,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]([NH2+]CCCc1cccc(C(F)(F)F)c1)c1cccc2ccccc12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.015923028994352186,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]1C=Cc2c1ccc1c2ccc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8395624247195859,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]1CCCC[C@H]1NC(=O)Nc1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.18636463480118173,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]1CCN(C(=O)[C@H](CCC[NH+]=C(N)N)NS(=O)(=O)c2cccc3c2NC[C@H](C)C3)[C@@H](C(=O)[O-])C1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02345034035154436,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]1CN(c2c(F)c(N)c3c(c2F)[N+](C2CC2)=C[C@@H](C(=O)[O-])C3=O)C[C@H](C)[NH2+]1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.6309400308995956,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@@]3(Cl)[C@@H](O)C[C@]2(C)[C@@]1(OC(=O)c1ccco1)C(=O)CCl",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09501629429505516,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]1C[C@H]2[C@@H]3C[C@H](F)C4=CC(=O)C=C[C@]4(C)[C@@]3(F)[C@@H](O)C[C@]2(C)[C@@]1(OC(=O)c1ccco1)C(=O)SCF",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01876534832104726,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@H]1O[C@@]2(CS1)C[NH+]1CCC2CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03533441904575626,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@]12CCC3[C@@](CCC4[C@@]3(C)CCC[C@@]4(C)C(=O)O)(CC1=O)C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.09158313249093991,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@@]12CCCCC[C@@H](Cc3ccc(O)cc31)[C@@H]2[NH3+]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03231219077221899,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H](Cc1cc2c(c(C(N)=O)c1)N(CCCO)CC2)NCCOc1ccccc1OCC(F)(F)F",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.975985974867104,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H](Cc1cc2c(c(C(N)=O)c1)N(CCCO)CC2)[NH2+]CCOc1ccccc1OCC(F)(F)F",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03339174793607067,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H](Cc1ccccc1)[NH2+]CCC(c1ccccc1)c1ccccc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8889512390627229,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H](O)[C@H](O)[C@H]1CNc2[nH]c(N)nc(=O)c2N1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.3151328743741601,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H]([NH2+]CCc1ccc(O)cc1)[C@H](O)c1ccc(O)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.016116750649825567,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H]1C[C@@H](C)C(=O)[C@@H]([C@@H](O)CC2CC(=O)NC(=O)C2)C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29794760378131824,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@@]3(F)[C@@H](O)C[C@]2(C)[C@@]1(OC(=O)c1ccccc1)C(=O)CO",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.1371689762888979,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H]1Cc2c(Cl)cc(C(=O)N[C@H](Cc3ccccc3)C(=O)O)c(O)c2C(=O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5499336423650755,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@H]1[C@H](NC(=O)/C(=N\\OC(C)(C)C(=O)[O-])c2csc(N)n2)C(=O)N1S(=O)(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.08052769515055805,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]1(Cn2ccnn2)[C@H](C(=O)[O-])N2C(=O)C[C@H]2S1(=O)=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.16801363980416517,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12C/C(=C/[O-])C(=O)C[C@@H]1CC[C@@H]1[C@@H]2CC[C@@]2(C)[C@H]1CC[C@]2(C)O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.030776896014899222,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12CCC(=O)C=C1[C@@H]1C[C@@H]1[C@H]1[C@@H]3[C@@H]4C[C@@H]4[C@@]4(CCC(=O)O4)[C@@]3(C)CC[C@@H]12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.018178468335472372,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12CC[C@@H]3c4ccc(O)cc4CC[C@H]3[C@@H]1CCC2=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.019068733383735388,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12CC[C@@H]3c4ccc(OS(=O)(=O)[O-])cc4CC[C@H]3[C@@H]1CCC2=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.08071395106913669,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12CC[C@H](OC(=O)Cc3ccc(N(CCCl)CCCl)cc3)C[C@@H]1CC[C@@H]1[C@@H]2CC[C@]2(C)NC(=O)CC[C@@H]12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4303362822511388,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12CC[C@H]3[C@@H](CC=C4NC(=O)CC[C@@]43C)[C@@H]1CC[C@@H]2OC(=O)CCCc1ccc(N(CCCl)CCCl)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5848651621597778,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)CC[C@@H]43)[C@@H]1CC[C@@H]2OC(=O)CCc1ccccc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.025847188972563707,
+    "split": "test"
+  },
+  {
+    "smiles": "C[C@]12CC[C@H]3[C@@H](CC[C@@]45O[C@@H]4C(O)=C(C#N)C[C@]35C)[C@@H]1CC[C@@H]2O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01688572074618652,
+    "split": "test"
+  },
+  {
+    "smiles": "C[N+]1(C)CCC(=C(c2ccccc2)c2ccccc2)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.05536689889871674,
+    "split": "test"
+  },
+  {
+    "smiles": "C[N+]1(C)CCN(CC(O)(c2ccccc2)C2CCCCC2)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.021709255403498585,
+    "split": "test"
+  },
+  {
+    "smiles": "C[N+]1(CCCCC[N+]2(C)CCCC2)CCCC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.027293722827875896,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+](C)CCc1c[nH]c2ccc(CS(=O)(=O)N3CCCC3)cc12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.027273403267203795,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1C2CC(OC(=O)C(CO)c3ccccc3)CC1C1OC12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01381987498120312,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CCC(=C2c3ccccc3C=Cc3ccccc32)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.10250258642801183,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CCC(=C2c3ccccc3CC(=O)c3sccc32)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.07785493850629983,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CCCC(CC2c3ccccc3Sc3ccccc32)C1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01858329997187639,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CCCC[C@@H]1c1c(-c2ccccc2)[nH]c2ccccc12",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9647353583348856,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CCN2c3ncccc3Cc3ccccc3C2C1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.012691396873517459,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CC[C@]23CCCC[C@H]2[C@H]1Cc1ccc(O)cc13",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.04274446968738194,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CC[NH+]([C@@H]2c3ccccc3Nc3ccc(Cl)cc3N2O)CC1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.8202554491521857,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1CCc2cc3c(cc2C(=O)Cc2ccc4c(c2C1)OCO4)OCO3",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.6241111439552715,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1C[C@@H]2c3ccccc3Oc3ccc(Cl)cc3[C@H]2C1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06436853087236076,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH+]1[C@@H]2C[C@@H](OC(=O)[C@H](CO)c3ccccc3)C[C@H]1[C@@H]1O[C@@H]12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.023694556814037607,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH2+]CCCC1c2ccccc2C=Cc2ccccc21",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7693446151678486,
+    "split": "test"
+  },
+  {
+    "smiles": "C[NH2+]CCCC1c2ccccc2C=Cc2ccccc21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.1000671384293241,
+    "split": "test"
+  },
+  {
+    "smiles": "C[n+]1c2ccccc2nc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.44797972505526207,
+    "split": "test"
+  },
+  {
+    "smiles": "C[n+]1ccc(-c2cc[n+](C)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.38533196725053015,
+    "split": "test"
+  },
+  {
+    "smiles": "C[n+]1ccc(-c2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.33950367776150797,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1[nH]cnc1CN1CCc2c(c3ccccc3n2C)C1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.12654130473880826,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c(-c2ccccc2)oc2c(C(=O)OCCN3CCCCC3)cccc2c1=O",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.770846935829133,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c(-c2ccccc2)oc2c(C(=O)OCCN3CCCCC3)cccc2c1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5336311714465012,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c(C)c2c(c(C)c1O)CCC(C)(COc1ccc(CC3SC(=O)[N-]C3=O)cc1)O2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.04960406556217725,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c(Cn2ccnc2)c2cc([N+](=O)[O-])ccc2n1Cc1ccccc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8467598859407536,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c(F)c(N2CC[NH2+][C@H](C)C2)cc2c1C(=O)[C@H](C(=O)[O-])C=[N+]2C1CC1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.840594232202926,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c(N)nc(C)c2c1[nH]c1ccccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7144855672984474,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c2oc3c(C)ccc(C(=O)NC4C(=O)NC(C(C)C)C(=O)N5CCCC5C(=O)N(C)CC(=O)N(C)C(C(C)C)C(=O)OC4C)c3nc-2c(C(=O)NC2C(=O)NC(C(C)C)C(=O)N3CCCC3C(=O)N(C)CC(=O)N(C)C(C(C)C)C(=O)OC2C)c(N)c1=O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9652468930285264,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1c2oc3c(C)ccc(C(=O)NC4C(=O)NC(C(C)C)C(=O)N5CCCC5C(=O)N(C)CC(=O)N(C)C(C(C)C)C(=O)OC4C)c3nc-2c(C(=O)NC2C(=O)NC(C(C)C)C(=O)N3CCCC3C(=O)N(C)CC(=O)N(C)C(C(C)C)C(=O)OC2C)c(N)c1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.580029000835045,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(-c2ccc(N=Nc3c(N)c(C)cc(S(=O)(=O)O)c3N)c(C)c2)ccc1N=Nc1ccc(O)c(C(=O)O)c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.08754287440887365,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(=O)oc2c3c(ccc12)C1(C)OOC1(C)O3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5937664252860214,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(=O)oc2cc3c(cc12)C1(C)OOC1(C)O3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5372952811303815,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(C(=O)NNCc2ccccc2)no1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.7522507918943022,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(C(=O)NNCc2ccccc2)no1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.10486266216269743,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(C)cc(OCC2CNC(=O)O2)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.18430180007599864,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(C)n(-c2[nH]nc(NN)c3c4ccccc4nc2-3)n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7597394080704278,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(C)nc(NS(=O)(=O)c2ccc(N)cc2)n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4244600957714551,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(N)sn1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.33772097299395376,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(O)c2c(=O)c3c(O)cc(O)c4c5c(O)cc(O)c6c(=O)c7c(O)cc(C)c8c1c2c(c34)c(c78)c65",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4246392809114123,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(O)c2c(c1)C(=O)C13C4C(=O)C56C(=O)c7c(O)cc(C)cc7C(=O)C57C(C(=O)C16C2=O)C(C)C3C7C4C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2776317101121859,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(O)c2c(c1)C(=O)c1cc(OC3OC(C)C(O)C(O)C3O)cc(O)c1C2=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6507843153313666,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(O)c2c(c1)C(=O)c1cc(O[C@@H]3O[C@H](C)[C@@H](O)[C@H](O)[C@H]3O)cc(O)c1C2=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5889759104727507,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc(S(=O)(=O)O)c2c(C)ccc(C(C)C)cc1-2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2857983454767503,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc2c(nc(N)n2C)c2ncc(-c3ccccc3)nc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7437149268984541,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc2c(s1)=Nc1ccccc1NC=2N1CC[NH+](C)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.2842193181528392,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cc2c(s1)Nc1ccccc1[NH+]=C2N1CC[NH+](C)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.13995458138539474,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc(/N=C/N=C/N(C)c2ccc(C)cc2C)c(C)c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7073393168259607,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc(C(=O)Nc2ccc(CN3CCN(C)CC3)c(C(F)(F)F)c2)cc1C#Cc1cnc2cccnn12",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.028413756076424615,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc(NC(=O)c2ccc(CN3CC[NH+](C)CC3)cc2)cc1Nc1nccc(-c2cccnc2)n1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.30258137107023514,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc(Nc2nccc(N(C)c3ccc4c(C)n(C)nc4c3)n2)cc1S(N)(=O)=O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9274016111676984,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc(Nc2nccc(N(C)c3ccc4c(C)n(C)nc4c3)n2)cc1S(N)(=O)=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.31244003643199214,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc(S(=O)(=O)NC(=O)NN2CCCCCC2)cc1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9021668666222212,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc(S(=O)(=O)NC(=O)NN2CCCCCC2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5559036347564705,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc2c(c1)-c1cc3ccccc3c3cc4ccccc4c-2c13",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7778371541288086,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc2c(n1)N1[C@@H](CNC[C@H]1C)C2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.6605704356329654,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc2cc3c(ccc4ccccc43)c3c2c1CC3=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.738482189902033,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccc2ccc3c(ccc4c5cccc(C)c5ccc43)c2c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6991711006428672,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cccc(C)c1N(CC(=O)Nc1ccc(-c2ncon2)cc1)C(=O)C1CCS(=O)(=O)CC1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.2844370259375906,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cccc(CC[NH+]2CCC(C(=O)c3ccc(NS(C)(=O)=O)cc3)CC2)n1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.696602720208221,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cccc(CN2CCN(C(c3ccccc3)c3ccc(Cl)cc3)CC2)c1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.08366417732468352,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cccc(C[NH+]2CCN(C(c3ccccc3)c3ccc(Cl)cc3)CC2)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.005951379289408217,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cccc(NC(=O)N[C@@H]2N=C(c3ccccc3)c3ccccc3N(C)C2=O)c1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8039965053506394,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccccc1C(=O)Nc1ccc(C(=O)N2CCCC(O)c3cc(Cl)ccc32)c(C)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.4262174974669468,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccccc1N=Nc1ccc(N=Nc2c(O)ccc3ccccc23)c(C)c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.47543731531058925,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccnc2c1NC(=O)c1cccnc1N2C1CC1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.742949134569855,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ccnc2c1NC(=O)c1cccnc1N2C1CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09528649437585548,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cn(C2C=CC(CO)O2)c(=O)[nH]c1=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.31638525680713325,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cn(C2C=CC(CO)O2)c(=O)[nH]c1=O",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9298921974802421,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cn([C@H]2C=C[C@@H](CO)O2)c(=O)[nH]c1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.462741667005141,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cn[nH]c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.0632142293553701,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1cnc2cc3nc(N)n(C)c3c(C)c2n1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6613842752858211,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1coc2c1CCC(C)C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4526885876082339,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nc(-c2ccc(OCC(C)C)c(C#N)c2)sc1C(=O)[O-]",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.044475623867005064,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nc(N)cc2[nH]c3ccccc3c12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.677041870842542,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nc2c([nH]1)CCN(C(=O)c1ccc(NC(=O)c3ccccc3-c3ccccc3)cc1)c1ccccc1-2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.5897962716257719,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nc2c([nH]1)CCN(C(=O)c1ccc(NC(=O)c3ccccc3-c3ccccc3)cc1)c1ccccc1-2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.3796829826424937,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1ncc2c(n1)CCC2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.1924532069956051,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nn(C)c(N)c1C(=O)c1ccccc1F",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5394596545363141,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nn(C)c(NC(=O)CNCCCN2CCCCC2C)c1C(=O)c1ccccc1F",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.2628012897970247,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nn(C)c(NC(=O)CNCCCN2CCCC[C@H]2C)c1C(=O)c1ccccc1F",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.40025836966626965,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nnc(C(=O)NC(C)(C)c2nc(C(=O)NCc3ccc(F)cc3)c([O-])c(=O)n2C)o1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02887218135154275,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nnc(C(C)C)n1C1C[C@H]2CC[C@@H](C1)N2CC[C@H](NC(=O)C1CCC(F)(F)CC1)c1ccccc1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.85666545762215,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1nnc(SCC2=C(C(=O)[O-])N3C(=O)[C@@H](NC(=O)Cn4cnnn4)[C@H]3SC2)s1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.00699800898142749,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1oc(=O)oc1COC(=O)C1N2C(=O)C(NC(=O)C(N)c3ccccc3)C2SC1(C)C",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6414160018695384,
+    "split": "test"
+  },
+  {
+    "smiles": "Cc1onc(-c2ccccc2)c1-c1ccc(S(N)(=O)=O)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.2116990620110528,
+    "split": "test"
+  },
+  {
+    "smiles": "Cl/C=C\\C[N+]12CN3CN(CN(C3)C1)C2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5199698749560654,
+    "split": "test"
+  },
+  {
+    "smiles": "ClC1(Cl)C2(Cl)C3(Cl)C4(Cl)C(Cl)(Cl)C5(Cl)C3(Cl)C1(Cl)C5(Cl)C24Cl",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.28422028175248265,
+    "split": "test"
+  },
+  {
+    "smiles": "ClC1(Cl)[C@]2(Cl)[C@@]3(Cl)[C@]4(Cl)C(Cl)(Cl)[C@@]5(Cl)[C@](Cl)([C@]1(Cl)[C@]53Cl)[C@]24Cl",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2849776222957248,
+    "split": "test"
+  },
+  {
+    "smiles": "Clc1ccc(C(Cn2ccnc2)OCc2ccsc2Cl)c(Cl)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09813037932818314,
+    "split": "test"
+  },
+  {
+    "smiles": "Clc1ccc(C(Cn2ccnc2)OCc2csc3c(Cl)cccc23)c(Cl)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.15477242751327083,
+    "split": "test"
+  },
+  {
+    "smiles": "Clc1ccc(CO/N=C(/Cn2ccnc2)c2ccc(Cl)cc2Cl)c(Cl)c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.21855687090633086,
+    "split": "test"
+  },
+  {
+    "smiles": "Clc1ccc(Nc2nnc(Cc3ccncc3)c3ccccc23)cc1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.13659922698169877,
+    "split": "test"
+  },
+  {
+    "smiles": "Clc1ccc2c(c1)C(N1CCNCC1)=Nc1ccccc1O2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.6806230724167079,
+    "split": "test"
+  },
+  {
+    "smiles": "Clc1cccc(Cl)c1NC1=NCCN1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.6647735497192899,
+    "split": "test"
+  },
+  {
+    "smiles": "Clc1cccc(Cl)c1NC1=NCCN1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4318110865313775,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1/c(=N/N)sc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5793371299195313,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(=O)c2nc[nH]c2n(C)c1=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.631515807047915,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(=O)c2nc[nH]c2n(C)c1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4033530949741453,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(N)nc2c3ccncc3ccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7290516897434035,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(N)nc2ccc3ncccc3c21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6714654105513898,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(N)nc2nc3ccccc3cc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6929122664278801,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(N)nc2nc3ccncc3cc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6177622557890837,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(N=[N+]=[N-])nc2ccc3ccccc3c21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8412205570460326,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(N=[N+]=[N-])nc2ccc3ncccc3c21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8109031543129284,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c(NCCN(CCO)CCCc2ccc([N+](=O)[O-])cc2)cc(=O)n(C)c1=O",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.777544586926727,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c([N+](=O)[O-])cnc1-c1nnc(N)s1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4618338018457672,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1c2ccccc2c2nn[n+]([O-])c(C(=O)OCCCl)c21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.658585087238935,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1ccc2c3c(ccc4ccc(O)cc43)ccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7112655208484957,
+    "split": "test"
+  },
+  {
+    "smiles": "Cn1nc(C2CC2)cc1N",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4406331921658296,
+    "split": "test"
+  },
+  {
+    "smiles": "Fc1cc2cccnc2c2ncccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6099063246283863,
+    "split": "test"
+  },
+  {
+    "smiles": "Fc1ccc(-n2cc(C3CC[NH2+]CC3)c3cc(Cl)ccc32)cc1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.9325342901156489,
+    "split": "test"
+  },
+  {
+    "smiles": "Fc1ccc2c([C@@H]3C[NH2+]CC[C@@H]3F)c(-c3ccc4ccccc4c3)[nH]c2c1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9969226281262684,
+    "split": "test"
+  },
+  {
+    "smiles": "Fc1ccc2c([C@@H]3C[NH2+]CC[C@@H]3F)c(-c3cccc4ccccc34)[nH]c2c1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.996705039906001,
+    "split": "test"
+  },
+  {
+    "smiles": "Fc1ccc2c([C@@H]3C[NH2+]CC[C@@H]3F)c(C3=CNC=CC3)[nH]c2c1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9970095747107522,
+    "split": "test"
+  },
+  {
+    "smiles": "N#CC(CC[NH+]1CCC(C(=O)[O-])(c2ccccc2)CC1)(c1ccccc1)c1ccccc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.00673523595127948,
+    "split": "test"
+  },
+  {
+    "smiles": "N#Cc1ccc(Cn2cncc2C[NH2+][C@@H]2CCN(C(=O)c3cccc(Cl)c3)C2=O)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8136337873921249,
+    "split": "test"
+  },
+  {
+    "smiles": "N#Cc1ccc(Cn2cncc2C[NH2+][C@H]2CCN(c3ccncc3)C2=O)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9165767974928926,
+    "split": "test"
+  },
+  {
+    "smiles": "N#Cc1ccc2[nH]cc(CCCC[NH+]3CCN(c4ccc5oc(C(N)=O)cc5c4)CC3)c2c1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.037674575432220817,
+    "split": "test"
+  },
+  {
+    "smiles": "N1=NC2C3OC3C1C1OC21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.40107158647369556,
+    "split": "test"
+  },
+  {
+    "smiles": "N=C(N)c1ccc(OCCCCCOc2ccc(C(=N)N)cc2)cc1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.5549794958954107,
+    "split": "test"
+  },
+  {
+    "smiles": "N=C(N)c1ccc(OCCCCCOc2ccc(C(=N)N)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.46914862021872844,
+    "split": "test"
+  },
+  {
+    "smiles": "N=C1N[C@H]2[C@H](COC(N)=O)NC(=N)N3CCC(O)(O)[C@]23N1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.40541381342006194,
+    "split": "test"
+  },
+  {
+    "smiles": "N=c1cc2oc3cc(N)ccc3nc-2c2ccccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7169799614525443,
+    "split": "test"
+  },
+  {
+    "smiles": "N=c1ccc2c(-c3ccccc3C(=O)O)c3ccc(N)cc3oc-2c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6849549617394517,
+    "split": "test"
+  },
+  {
+    "smiles": "N=c1nc(N)c(NCO)c(N)n1O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.4464751109520476,
+    "split": "test"
+  },
+  {
+    "smiles": "N=c1nc(N2CCCCC2)cc(N)n1O",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.8292190819923857,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)/C(=C\\c1ccc([N+](=O)[O-])o1)c1ccco1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7905204943451201,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)CCC1NC(=O)C(Cc2ccccc2)NC(=O)C(Cc2ccc(O)cc2)NC(=O)C([NH3+])CSSCC(C(=O)N2CCCC2C(=O)NC(CCCC[NH3+])C(=O)NCC(N)=O)NC(=O)C(CC(N)=O)NC1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.004677003963137001,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)CCC1NC(=O)C(Cc2ccccc2)NC(=O)C(Cc2ccc(O)cc2)NC(=O)C([NH3+])CSSCC(C(=O)N2CCCC2C(=O)NC(CCC[NH+]=C(N)N)C(=O)NCC(N)=O)NC(=O)C(CC(N)=O)NC1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.003890736361542755,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)N/C=C1/NC(=O)[C@H](CNC(=O)C[C@@H]([NH3+])CCC[NH3+])NC(=O)[C@H](CO)NC(=O)[C@@H]([NH3+])CNC(=O)[C@H]([C@H]2CC[NH+]=C(N)N2)NC1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02973376402304313,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)N/C=C1\\NC(=O)[C@H](CO)NC(=O)[C@H](CO)NC(=O)[C@@H](NC(=O)C[C@@H]([NH3+])CCC[NH3+])CNC(=O)[C@H]([C@H]2C[C@H](O)[NH+]=C(N)N2)NC1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.009734777793882668,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)N1c2ccccc2C=Cc2ccccc21",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.529511435046768,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)N1c2ccccc2C=Cc2ccccc21",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.8420073243601504,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)N1c2ccccc2C=Cc2ccccc21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.16983870443841625,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)OCC1C(NC(=O)/C(=N\\OCC(=O)O)c2csc(N)n2)C(=O)N1S(=O)(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6929650218086466,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)c1cc(N2CC2)c([N+](=O)[O-])cc1[N+](=O)[O-]",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.588387255116185,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=O)c1cc[n+](COC[n+]2ccccc2/C=N/O)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4358913927945495,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(=[NH2+])NCCC[C@@H](NC(=O)[C@@H]1CCCN1C(=O)[C@@H]1CSSCCC(=O)N[C@@H](Cc2ccc(O)cc2)C(=O)N[C@@H](Cc2ccccc2)C(=O)N[C@@H](CCC(N)=O)C(=O)N[C@@H](CC(N)=O)C(=O)N1)C(=O)NCC(N)=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03599226891233654,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(C(=O)O)C1CC(Cl)=NO1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.6604138699369949,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(N)=NCCN1CCCCCCC1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.3014780884413805,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(N)=Nc1nc(CSCCN=CNS(=O)(=O)c2ccc(Br)cc2)cs1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.4660961934915996,
+    "split": "test"
+  },
+  {
+    "smiles": "NC(N)=[NH+]CCN1CCCCCCC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.04585812324934591,
+    "split": "test"
+  },
+  {
+    "smiles": "NC1=NC(=O)C(c2ccccc2)O1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.8670876072220265,
+    "split": "test"
+  },
+  {
+    "smiles": "NCC1CCC(C(=O)c2ccc(CCC(=O)O)cc2)CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.10459646418507527,
+    "split": "test"
+  },
+  {
+    "smiles": "NC[C@H]1CC[C@H](C(=O)c2ccc(CCC(=O)O)cc2)CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.10455051692779892,
+    "split": "test"
+  },
+  {
+    "smiles": "NN(Cc1ccccc1)Cc1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.17276041657107755,
+    "split": "test"
+  },
+  {
+    "smiles": "NS(=O)(=O)Cc1noc2ccccc12",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.8211585075034412,
+    "split": "test"
+  },
+  {
+    "smiles": "NS(=O)(=O)Cc1noc2ccccc12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.15916506361775634,
+    "split": "test"
+  },
+  {
+    "smiles": "NS(=O)(=O)c1cc2c(cc1Cl)NC(CSCc1ccccc1)=NS2(=O)=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.08288560878835222,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1cc(N)c(N=Nc2ccc(S(N)(=O)=O)cc2)cc1N=Nc1ccc(S(N)(=O)=O)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.609735025988812,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc(-c2ccc(-c3ccc(-c4ccc(N)cc4)cc3)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.612013300006729,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc(N(c2ccc3ccccc3c2)c2ccc3ccccc3c2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6527953289475805,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc(N=Nc2cccc(N=Nc3ccc(N)cc3N)c2)c(N)c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6559031963484304,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc(Oc2ccc(Oc3ccc(N)cc3)cc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6499089281408547,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc(S(=O)(=O)Nc2ccccn2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4902749033334069,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc(S(=O)(=O)[N-]c2ccccn2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09117135366294997,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc(S(=O)(=O)[N-]c2ccnn2-c2ccccc2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.17911114133895617,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc2c(=O)[nH]sc2c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6765148147724176,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc2c(c1)Cn1c-2nc2ccccc2c1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7636879137203019,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc2cc(S(=O)(=O)O)cc(O)c2c1N=Nc1ccc(-c2ccc(N=Nc3c(N)ccc4cc(S(=O)(=O)O)cc(O)c34)cc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5323360259213723,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccc2cc(S(=O)(=O)O)cc(O)c2c1N=Nc1ccc(-c2ccc(N=Nc3cc(S(=O)(=O)O)c4ccccc4c3N)cc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5484283399789114,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccccc1C(=O)OCCc1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.287615437552045,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccccc1SCSc1ccccc1N",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6228916663170923,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1ccn(C2C=C(CO)C(O)C2O)c(=O)n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6555922724724941,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1cnn(-c2ccccc2)c(=O)c1Cl",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.49189463105732967,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1n[nH]c(N)n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4096912591332141,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1nc(-c2cccnc2)cs1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5870068250519789,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1nc(=O)c2c(CCc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)c[nH]c2[nH]1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.553102107994679,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1nc(=O)c2c(CCc3ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc3)c[nH]c2[nH]1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.1703164966551523,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1nc(=O)c2nc(CNc3ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc3)cnc2[nH]1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.28463336178075216,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1nc(O)c2ncn(C3C=CC(CO)C3)c2n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3209833594629059,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1nc2c(ccc3ncccc32)s1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6416353491311946,
+    "split": "test"
+  },
+  {
+    "smiles": "Nc1nc[nH]n1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4534694024545664,
+    "split": "test"
+  },
+  {
+    "smiles": "Nn1c2ccccc2c2cnccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.49799879254442697,
+    "split": "test"
+  },
+  {
+    "smiles": "O1[As]2O[As]1O2",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.06523545367994155,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(/C=C/c1ccc([N+](=O)[O-])o1)N/N=C/c1ccc([N+](=O)[O-])o1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8091462333503464,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(/C=C\\c1ccc(O)c(O)c1)O[C@@H]1C[C@](O)(C(=O)O)C[C@H](O)[C@H]1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.24268401887630198,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(C=Cc1ccc(O)c(O)c1)OC1CC(O)(C(=O)O)CC(O)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.19978538828503928,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCCN1CC=C(n2c(=O)[nH]c3ccccc32)CC1)c1ccc(F)cc1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.1859922182381236,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCCN1CCC(O)(c2ccc(Cl)cc2)CC1)c1ccc(F)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.20222412078747687,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCC[NH+]1CC=C(n2c(=O)[nH]c3ccccc32)CC1)c1ccc(F)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.01548145247464889,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)c1ccc(F)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7888478598977139,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCC[NH+]1CCC(O)(c2ccc(Cl)cc2)CC1)c1ccc(F)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.019292410388850507,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCNNC(=O)c1ccncc1)NCc1ccccc1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.47193873754559496,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCNNC(=O)c1ccncc1)NCc1ccccc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.27252879000378943,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(CCOCCOCCOCCOCCC(=O)Nc1c(I)cc(I)c(C(=O)[O-])c1I)Nc1c(I)cc(I)c(C(=O)[O-])c1I",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.005387310333644082,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(COc1cc(Cl)c(Cl)cc1Cl)NC(Cc1c[nH]c2ccccc12)C(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.13360190093506732,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(COc1ccc(Cl)cc1Cl)NC(Cc1c[nH]c2ccccc12)C(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.15406317232614705,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(Cn1c(=O)sc2ccccc21)OCc1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.35775469932697695,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(Cn1ccnc1[N+](=O)[O-])NCc1ccccc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5975360843371235,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NC(=O)c1c(F)cccc1F)Nc1ccc(Cl)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.47549906083596766,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NC1CCN(Cc2ccc3c(c2)OCCO3)CC1)c1cc(=O)c2ccc(F)cc2o1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9440476131745031,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NCC1CCCC[NH2+]1)c1cc(OCC(F)(F)F)ccc1OCC(F)(F)F",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.22598727819210115,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NCCN1CCOCC1)c1ccc(Cl)cc1",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.4998019372057579,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NC[C@H]1CCCC[NH2+]1)c1cc(OCC(F)(F)F)ccc1OCC(F)(F)F",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.86017757045162,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NC[C@H]1CN(c2ccc(N3CCOCC3=O)cc2)C(=O)O1)c1ccc(Cl)s1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.29991464379064803,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NCc1ccccc1)C(Br)c1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5413360596948618,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NCc1ccccc1)C(Cl)c1ccccc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4361283499407589,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NCc1ccccc1)C1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6180556867733805,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(NS(=O)(=O)c1ccc(Br)s1)c1ccc(Cl)cc1Cl",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.3488570059779697,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)C1=NN(c2ccc(S(=O)(=O)O)cc2)C(=O)C1N=Nc1ccc(S(=O)(=O)O)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29640743745789905,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)C1=NN(c2ccc(S(=O)(=O)O)cc2)C(=O)[C@H]1N=Nc1ccc(S(=O)(=O)O)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3493526939570217,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)C1OC(N(O)c2ccc(-c3ccccc3)cc2)C(O)C(O)C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5774369636640527,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)C1OC(Oc2c3ccccc3c3ccc4cccc5ccc2c3c54)C(O)C(O)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8636754711412185,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)C1OC(Oc2ccc3cc4ccc5cccc6ccc(c3c2)c4c56)C(O)C(O)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8701934687994627,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)C1OC(Oc2ccc3ccc4cc5ccccc5c5ccc2c3c45)C(O)C(O)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8384484118506087,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)Cc1csc(-c2ccc(Cl)cc2)n1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9238374908970887,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)[C@@H]1O[C@H](N(O)c2ccc(-c3ccccc3)cc2)[C@@H](O)[C@H](O)[C@H]1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5712813854249942,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)c1cc(N=Nc2ccc(S(=O)(=O)Nc3ccccn3)cc2)ccc1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.26196928134364766,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)c1ccccc1-c1c2cc(Br)c(=O)c(Br)c-2oc2c(Br)c(O)c(Br)cc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5966771034472063,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O)c1cn(-c2ccc(F)cc2)c2cc(N3CCNCC3)c(F)cc2c1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6787736595878106,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(OCC1CO1)C1CCCCC1C(=O)OCC1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8022612521622753,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(OC[C@H]1CO1)[C@H]1CCCC[C@@H]1C(=O)OC[C@H]1CO1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6360699645853417,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(OCc1ccc(Cl)cc1)c1cccc2cccnc12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.36525315804048447,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(OCc1ccc(Cl)cc1Cl)c1cccc2cccnc12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4127367859301536,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(OCc1ccccc1)c1cccc2cccnc12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.34447058072396575,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(OOC(=O)c1ccccc1)c1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29477471517944404,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(OOC(=O)c1ccccc1)c1ccccc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.08148961842812606,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O[C@@H]1Cc2c(O)cc(O)cc2O[C@@H]1c1cc(O)c(O)c(O)c1)c1cc(O)c(O)c(O)c1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.3195096644381569,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(O[C@H]1C[NH+]2CCC1CC2)N1CCc2ccccc2[C@@H]1c1ccccc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.017155986771555047,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C([O-])C1=C[N+](C2CC2)=C2C=C(N3CC[NH2+]CC3)C(F)=C[C@H]2C1=O",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.9064052209161941,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C([O-])CCC[NH+]1CCC(O[C@@H](c2ccc(Cl)cc2)c2ccccn2)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.006585764103088022,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C([O-])CCNC(=O)c1ccc(N/N=C2/C=CC(=O)C(C(=O)[O-])=C2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.129368573874977,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C([O-])CN1CCN(C(CO)C(O)CO)CCN(CC(=O)[O-])CC[NH+](CC(=O)[O-])CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.02733631980689506,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C([O-])COCC[NH+]1CC[NH+]([C@H](c2ccccc2)c2ccc(Cl)cc2)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7311981852590081,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C([O-])[C@H]1/C(=C/CO)O[C@@H]2CC(=O)N21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.0861413450868155,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C([O-])c1ccc(NC(=O)C(Cc2ccc(O)cc2)NC(=O)c2ccccc2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.059985742436706874,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(c1ccc(F)c(F)c1Nc1ccc(I)cc1F)N1CC(O)([C@@H]2CCCCN2)C1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.15368354163982306,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(c1ccc(OCC[NH+]2CCCCC2)cc1)c1c(-c2ccc(O)cc2)sc2cc(O)ccc12",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.6755984938773542,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(c1ccc(OCC[NH+]2CCCCC2)cc1)c1c(-c2ccc(O)cc2)sc2cc(O)ccc12",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.17761168788198828,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(c1ccccc1)C1OC1c1ccc(-c2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.596670641490189,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C(c1ccccc1)C1OC1c1ccc(Oc2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6286580102305915,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C(=O)c2cccc3cccc1c23",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6670323131361632,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C(O)=C(O)O[C@@H]1[C@@H](O)CO",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3939684696909152,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C(c2[nH]c3ccc(S(=O)(=O)O)cc3c2O)=Nc2ccc(S(=O)(=O)O)cc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.32668104984589147,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C(c2[nH]c3ccccc3c2O)=Nc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6611040814422479,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=C(c2nnc(NC(=O)c3ccccc3)s2)C(O)=C/C1=N\\c1ccc([N+](=O)[O-])cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.654881903504375,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=C2C(=CCOC2O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.42841328028325865,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=C2C(=CCO[C@H]2O)O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4504102511968968,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=CC(=C(Cl)Cl)O1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.47747813223182234,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=CC(=O)N1c1ccc(Cc2ccc(N3C(=O)C=CC3=O)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.42394561105977757,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=CC[C@@H]2[C@H]3CCCN4CCC[C@H](CN12)[C@H]34",
+    "endpoint": "herg",
+    "label": 0,
+    "score": 0.8504996095392835,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=Cc2ccc3c4c(ccc1c24)C(=O)C=C3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5305725464683159,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1C=Cc2cccc3cccc1c23",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7194073100649643,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CC2SCC=CN12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4870441161540303,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCC2(O)c3c(ccc(O)c31)-c1ccc(O)c3c1C2C1OC1C3=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.300187531168516,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCC2c3c(ccc(O)c31)-c1ccc(O)c3c1C2(O)C(O)CC3=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.41447696607879825,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCCCC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4275787242321382,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCCCCCCCCCCC(=O)OCCO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.41448660176014296,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCCCCN1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.35081508201648276,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCCCCO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4200491255708558,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCCN1c1ncc([N+](=O)[O-])s1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6841497597901198,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCCO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4442513673888586,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CC[C@@H]2c3c(ccc(O)c31)-c1ccc(O)c3c1[C@@]2(O)[C@H](O)CC3=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.39839319371002974,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2c1cc(C(F)(F)F)c1c3c(ccc21)C(O)C(O)C=C3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7644274323347837,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2c1cc(C(F)(F)F)c1c3c(ccc21)[C@H](O)[C@@H](O)C=C3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.709094060635371,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2c1ccc1c3c(ccc21)C(O)C(O)C=C3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.798152274875175,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2ccc(OCCCCN3CCN(c4cccc(Cl)c4Cl)CC3)cc2N1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9568201190863483,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2ccc(OCCCCN3CCN(c4cccc(Cl)c4Cl)CC3)cc2N1",
+    "endpoint": "clintox",
+    "label": 1,
+    "score": 0.13575534134859363,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2ccc(OCCCC[NH+]3CCN(c4cccc(Cl)c4Cl)CC3)cc2N1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.03174743122403532,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2ccc3ccc4ccccc4c3c21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7329497522495675,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CCc2ccccc2O1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.43036784201472,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CN(CCN2CC(=O)N(CN3CCOCC3)C(=O)C2)CC(=O)N1CN1CCOCC1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.49539623267567656,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CN(CCc2ccc(F)cc2)CCN1[C@H]1CCc2cc(CN3CCC(C(F)(F)F)CC3)ccc2C1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9958704484338782,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CN(CCc2ccc(F)cc2)CCN1[C@H]1CCc2cc(CN3CCCCC3)ccc2C1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9942659402140336,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1CN(CCc2ccc(F)cc2)CCN1[C@H]1CCc2cc(Cn3ccnc3)ccc2C1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9886981508817461,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1COP(=O)(N(CCCl)CCCl)OC1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7577233045332598,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1N=c2ccccc2=[N+]1C1CC[NH+](CCCC(c2ccc(F)cc2)c2ccc(F)cc2)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.944879376664612,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1NC(c2ccc([N+](=O)[O-])s2)Nc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7599711610930968,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1NCCCN1/N=C/c1ccc([N+](=O)[O-])o1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8596251651384554,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1NCCN1CCN1CC=C(c2cn(-c3ccc(F)cc3)c3ccc(Cl)cc23)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.7685022040517201,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1NCCN1CC[NH+]1CC=C(c2cn(-c3ccc(F)cc3)c3ccc(Cl)cc23)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8183822853455143,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1NCN(c2ccccc2)C12CC[NH+](CCCC(c1ccc(F)cc1)c1ccc(F)cc1)CC2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9649513742314464,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1NC[C@@H](c2ccc(F)cc2)C12CCN(C1(c3ccc(F)cc3)CCCCC1)CC2",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8068943121648118,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1N[C@@H](c2ccc([N+](=O)[O-])s2)Nc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7593896836194962,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1Nc2ccc(Cl)cc2[C@@](C#CC2CC2)(C(F)(F)F)O1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.13228202589873359,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1OC(=C(Cl)Cl)C(Cl)=C1Cl",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.45126124781926547,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1OC(=C(Cl)Cl)C=C1Cl",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.437721757285334,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1OC2(c3cc([131I])c([O-])c([131I])c3Oc3c2cc([131I])c([O-])c3[131I])c2c(Cl)c(Cl)c(Cl)c(Cl)c21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.07893363168877103,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1OC2(c3ccc(O)cc3Oc3cc(O)ccc32)c2ccccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6306104644256673,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1OC2(c3ccc(O)cc3Oc3cc(O)ccc32)c2ccccc21",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.22059797378021032,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.2806885230013597,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2c(ccc3ccccc23)-c2ccc3ccccc3c21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7487936756988373,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2ccc3ccccc3c2-c2c1ccc1ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7289681502960443,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2cccc3ccc4ccc5cccc1c5c4c23",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7118238058447871,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2ccccc2-c2c3c(cc4ccnc1c24)OCO3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7563302388996975,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2ccccc2-c2ccc3c4c(ccc1c24)-c1ccccc1C3=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6508435269684645,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2ccccc2-c2ccc3c4ccc5c6c(ccc(c7ccc1c2c73)c64)C(=O)c1ccccc1-5",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7284142929503644,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2ccccc2C(=O)C1(O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4409441998248694,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2ccccc2C(=O)N1SC1CCCCC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5940842452346402,
+    "split": "test"
+  },
+  {
+    "smiles": "O=C1c2ccccc2CCc2ccccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5565532767308451,
+    "split": "test"
+  },
+  {
+    "smiles": "O=NN(CC1(O)CCC(O)C(O)C1O)C(Cc1ccccc1)C(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3983070308794563,
+    "split": "test"
+  },
+  {
+    "smiles": "O=NN(CCc1c[nH]c2ccccc12)C1OCC(O)C(O)C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.879059454997679,
+    "split": "test"
+  },
+  {
+    "smiles": "O=NN(Cc1ccccc1)Cc1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7891789433155999,
+    "split": "test"
+  },
+  {
+    "smiles": "O=NN(c1ccc([N+](=O)[O-])cc1)C1OC(CO)C(O)C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8385540485757643,
+    "split": "test"
+  },
+  {
+    "smiles": "O=NN(c1ccc([N+](=O)[O-])cc1)[C@@H]1O[C@H](CO)[C@@H](O)[C@H]1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8771401354642686,
+    "split": "test"
+  },
+  {
+    "smiles": "O=NN1CCCCCCC1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8269238376008783,
+    "split": "test"
+  },
+  {
+    "smiles": "O=P1(Oc2ccccc2)OCc2ccccc2O1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5222329895232051,
+    "split": "test"
+  },
+  {
+    "smiles": "O=S(=O)(O)c1cc(N=Nc2c(O)ccc3ccccc23)ccc1-c1ccc(N=Nc2c(O)ccc3ccccc23)cc1S(=O)(=O)O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3503784239056852,
+    "split": "test"
+  },
+  {
+    "smiles": "O=S(=O)(O)c1cc(S(=O)(=O)O)c2c(N=Nc3ccc(S(=O)(=O)O)c4ccccc34)c(O)ccc2c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.23537299602779446,
+    "split": "test"
+  },
+  {
+    "smiles": "O=S(=O)(O)c1ccc2c(N=Nc3ccc(S(=O)(=O)O)c4ccccc34)c(O)c(S(=O)(=O)O)cc2c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.15525641949402993,
+    "split": "test"
+  },
+  {
+    "smiles": "O=S(c1cc(Cl)cc(Cl)c1O)c1cc(Cl)cc(Cl)c1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.2767588183186298,
+    "split": "test"
+  },
+  {
+    "smiles": "O=S1(=O)CC=CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3590442697741653,
+    "split": "test"
+  },
+  {
+    "smiles": "O=S1OCC2C(CO1)C1(Cl)C(Cl)=C(Cl)C2(Cl)C1(Cl)Cl",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6280919420945287,
+    "split": "test"
+  },
+  {
+    "smiles": "O=S1OC[C@H]2[C@H](CO1)[C@@]1(Cl)C(Cl)=C(Cl)[C@]2(Cl)C1(Cl)Cl",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.596584193253301,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1cc2c(ccc3cc(N(CCCl)CCCl)ccc32)o1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.9110028428205079,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1cc2c3c(c1)CCc1cc([N+](=O)[O-])cc(c1-3)CC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6879633140210075,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1cc2c3c(c1)CCc1cccc(c1-3)CC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7251161670586017,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1cc2c3ccccc3sc2c2ccccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.768453507624547,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(-c2nc(N3CCOCC3)c3ccccc3n2)s1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7748860927912284,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(-n2nc(-c3ccccc3)n[n+]2-c2ccc(I)cc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7973521266528207,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(/C=N/n2cccn2)o1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7419167078250575,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(C2OCC3(CO)COC(c4ccc([N+](=O)[O-])cc4)N23)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6651486518089862,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(N/N=C(/N=Nc2ccc(I)cc2)c2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7882803185685228,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(OC2CO2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.837925651872488,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(O[C@H]2CO2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8150573880588541,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(S(=O)(=O)Nc2ccccn2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6380483360096475,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc(SSc2ccc([N+](=O)[O-])cc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7438008308961481,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc2c(c1)-c1nc3ccccc3c3c1c-2nc1ccccc13",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8173937652700614,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc2c(c1)CCN2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6707103196196954,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc2c(c1)CCc1c-2ccc2c1CCCC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7631869738276273,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc2c(c1)NCC2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.594024606329535,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc2c3c4c(cccc4c4ccccc4c13)C(O)C2O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.829507283763027,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc2ccc3c4c(ccc1c24)c1ccccc1[n+]3[O-]",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8724211995470943,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1ccc2ccc3c4ccccc4[n+]([O-])c4ccc1c2c34",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8724151818246191,
+    "split": "test"
+  },
+  {
+    "smiles": "O=[N+]([O-])c1cccc2c1ncc1cnc3ccccc3c12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7466338925127388,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH][nH]c(=O)c2cc([N+](=O)[O-])ccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7297626208116653,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH][nH]c(=O)c2ccccc12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4802741899322752,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH]c2c(c(=O)n1C1CCCCC1)CCC2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29938074876664095,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH]c2cc(Cl)ccc2o1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.7487613323408696,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH]c2cc(Cl)ccc2o1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.10268931104892455,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH]c2ccccc2n1C1CCN(CCCC(c2ccc(F)cc2)c2ccc(F)cc2)CC1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.2412653672608338,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH]c2ccccc2n1CCCN1CCN(C(c2ccccc2)c2ccccc2)CC1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9804844168108924,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1[nH]sc2cc([N+](=O)[O-])ccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.72533553838861,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1c(=O)c2cc3ccccc3c3ccc4cccc1c4c23",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7922614384225871,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1c(O)c(O)c1=O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2990535266212675,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1c2ccc3c4c(ccc(c24)c2nc4ccccc4n12)c(=O)n1c2ccccc2nc31",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.648710444893536,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1c2cccc3ccc4c5ccccc5cc1c4c32",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7967900852373607,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1c2ccccc2c(=O)c2c1ccc1c2[nH]c2c3c(=O)c4ccccc4c(=O)c3c3[nH]c4c(ccc5c(=O)c6ccccc6c(=O)c54)c3c12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6611423663976043,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1c2ccccc2sn1CC1CO1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7360854119834235,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1ccc2c(cc3ccc4cccc5ccc2c3c45)c1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.813649675561927,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1n(CCCN2CCN(c3cccc(Cl)c3)CC2)nc2ccccn12",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.8895583256115889,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1n(CCCN2CCN(c3cccc(Cl)c3)CC2)nc2ccccn12",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.7376231727146304,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1nc[nH]c2c1ncn2C1CCC(CO)O1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.9697510074703034,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1oc2cc(-n3nc4ccc5ccccc5c4n3)ccc2cc1-c1ccccc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7281298119418811,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1oc2cccc3ccc4c5ccccc5cc1c4c32",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7441141800505092,
+    "split": "test"
+  },
+  {
+    "smiles": "O=c1oc2ccccc2c([O-])c1Cc1c([O-])c2ccccc2oc1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.12764314512327596,
+    "split": "test"
+  },
+  {
+    "smiles": "OC(CCC[NH+]1CCCCC1)(c1ccccc1)c1ccccc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.015601342866163118,
+    "split": "test"
+  },
+  {
+    "smiles": "OC(CCN1CCCC1)(c1ccccc1)C1CCCCC1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.1689408927456034,
+    "split": "test"
+  },
+  {
+    "smiles": "OC(CCN1CCCCC1)(c1ccccc1)C1CCCCC1",
+    "endpoint": "dili",
+    "label": 0,
+    "score": 0.1682479627110846,
+    "split": "test"
+  },
+  {
+    "smiles": "OC(CC[NH+]1CCCCC1)(c1ccccc1)C1CCCCC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.024544182613437562,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1C2(Cl)C3(Cl)C4(Cl)C(Cl)(Cl)C5(Cl)C3(Cl)C1(Cl)C5(Cl)C24Cl",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.20930809023120428,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1C=CC=CC1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5097805874405293,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1C=Cc2c(ccc3c2sc2ccccc23)C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7779309020427516,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1C=Cc2c(ccc3cc4c(ccc5ccccc54)cc23)C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8151667842365657,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1C=Cc2c(ccc3cc4c5c(ccc4cc23)C(O)C(O)C=C5)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7334701658504406,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1C=Cc2c(ccc3cccnc23)C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6785238154336282,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1C=Cc2ccc3ncccc3c2C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6126021424825093,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1COC(NCCc2c[nH]c3ccccc23)C(O)C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5991374456770592,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2c(ccc3ncccc23)C2OC2C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5352588463280628,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2cc3c4ccccc4c4ccccc4c3cc2C2OC2C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.42720910394744704,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2cc3ccc4ccccc4c3cc2C2OC2C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5451741190022918,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2ccc3c(c2C2OC2C1O)-c1cccc2cccc-3c12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.710591189929051,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2ccc3ccc4ccccc4c3c2C2OC2C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6688679411558385,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2ccc3cccnc3c2C2OC2C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4135791077882026,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2cccc3c2C2(OC2C1O)c1ccc2ccccc2c1-3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7691265653251536,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2ccccc2-c2cc3c(ccc4ccccc43)nc2C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7832325697017822,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2ccccc2-c2cc3ccc4ccccc4c3cc2C1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7899755940699437,
+    "split": "test"
+  },
+  {
+    "smiles": "OC1c2ccccc2-c2ccc3ccccc3c2C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.7546860709740058,
+    "split": "test"
+  },
+  {
+    "smiles": "OCC1OC(n2cnc3c2ncn2ccnc32)C(O)C1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3003415300698762,
+    "split": "test"
+  },
+  {
+    "smiles": "OCC1OC(n2cnc3c2ncn2ccnc32)CC1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.33799790198755814,
+    "split": "test"
+  },
+  {
+    "smiles": "OCCN(CCO)c1nc(N2CCCCC2)c2nc(N(CCO)CCO)nc(N3CCCCC3)c2n1",
+    "endpoint": "dili",
+    "label": 1,
+    "score": 0.6355384036374279,
+    "split": "test"
+  },
+  {
+    "smiles": "OCCN1CN(CCO)CN(CCO)C1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.29276537111312056,
+    "split": "test"
+  },
+  {
+    "smiles": "OCCOCC[NH+]1CCN(C2=[NH+]c3ccccc3Sc3ccccc32)CC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.018379633544958272,
+    "split": "test"
+  },
+  {
+    "smiles": "OC[C@H]1O[C@@H](n2cnc3c2NC=[NH+]C[C@H]3O)C[C@@H]1O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.09487556025660393,
+    "split": "test"
+  },
+  {
+    "smiles": "OCc1ccc(-c2[nH]ccc3c4ccccc4nc2-3)o1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5569358014104911,
+    "split": "test"
+  },
+  {
+    "smiles": "ON1CN(Cl)CN(Cl)C1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.32164815927173207,
+    "split": "test"
+  },
+  {
+    "smiles": "ON=C1CCCCC1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4339729270990682,
+    "split": "test"
+  },
+  {
+    "smiles": "O[C@@H]1[C@@H]2O[C@@H]2c2c(ccc3c2-c2cccc4cccc-3c24)[C@H]1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7581127677292852,
+    "split": "test"
+  },
+  {
+    "smiles": "O[C@@H]1[C@H]2O[C@H]2c2cc3c(ccc4ccccc43)cc2[C@H]1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7466525437817895,
+    "split": "test"
+  },
+  {
+    "smiles": "O[C@@H]1c2ccccc2-c2cc3c(ccc4ccccc43)nc2[C@H]1O",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.8342170250142107,
+    "split": "test"
+  },
+  {
+    "smiles": "O[C@H](CCCN1CCC(O)(c2ccc(Cl)cc2)CC1)c1ccc(F)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.919996467231143,
+    "split": "test"
+  },
+  {
+    "smiles": "O[C@H]1[C@H]2O[C@]23c2ccc4ccccc4c2-c2cccc(c23)[C@@H]1O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8129215946971249,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1[nH]cnc2nncc1-2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.34190828342041774,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1c2ccccc2nc2ccc3c(c12)OCCO3",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6805049785674393,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1cc2c(cc1O)C1c3ccc(O)c(O)c3OCC1(O)C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.19058409137050164,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1cc2c(cc1O)[C@H]1c3ccc(O)c(O)c3OC[C@]1(O)C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.17311618606438797,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1cc2ccc3cccc4ccc(n1)c2c34",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6694641934800397,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1ccc(Nc2ccc3ccccc3c2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.35462023907145057,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1ccc(O)nn1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2526746104375936,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1ccc2c(c1)-c1cc3ccccc3c3cc4ccccc4c-2c13",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.739883265484087,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1ccc2ccccc2c1N=Nc1ccc(N=Nc2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.47005932115846494,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1nc2ccccc2n1C1CCN(CCCC(c2ccc(F)cc2)c2ccc(F)cc2)CC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2067159362865003,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1ncc2ccc3cccc4ccc1c2c34",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6067801542865614,
+    "split": "test"
+  },
+  {
+    "smiles": "Oc1ncnc2ccccc12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3938554468599342,
+    "split": "test"
+  },
+  {
+    "smiles": "S=C(NC1CCCCC1)NC1CCCCC1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3112518927431596,
+    "split": "test"
+  },
+  {
+    "smiles": "[H]/[NH+]=C(\\N)c1ccc(OCCCCCOc2ccc(/C(N)=[NH+]/[H])cc2)cc1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.18110335407273975,
+    "split": "test"
+  },
+  {
+    "smiles": "[N-]=[N+]=C1C=NC(=O)NC1=O",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5658671365006246,
+    "split": "test"
+  },
+  {
+    "smiles": "[NH3+]CCc1cc[nH]n1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.07577892156982906,
+    "split": "test"
+  },
+  {
+    "smiles": "[NH3+][C@@H]1CONC1=O",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.2963140633347587,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-][N+](=Nc1ccc2c(c1)Cc1ccccc1-2)c1ccc2c(c1)Cc1ccccc1-2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6580253090435887,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-][n+]1c2ccc3ccccc3c2cc2c3ccccc3ccc21",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6666873177675555,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-][n+]1c2ccccc2c2ccc3cccc4ccc1c2c34",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7626039493806201,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-][n+]1c2ccccc2nc2ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4464367211345607,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-][n+]1cc2ccccc2cn1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5092067352313844,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-][n+]1cc2cccnc2cn1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5528299078940888,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-][n+]1cccc2c1C1OC1C=C2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.29317982411923355,
+    "split": "test"
+  },
+  {
+    "smiles": "[O-]n1ccccc1=S",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.18013349244046936,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cc(-c2ccncc2)ccn1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.46453450092291115,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cc(C[NH+]2CCCNCC[NH2+]CCCNCC2)ccc1C[NH+]1CCCNCC[NH2+]CCCNCC1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.018904529054770643,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cc2c3c(c1)C1OC1c1cccc(c1-3)C1OC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5621166048344293,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cc2c3c(c4c(ccc5ccccc54)cc3c1)C1OC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8407987138553501,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cc2ccc3ccnc4ccc(c1)c2c34",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7007638211233129,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cc2ccc3cncc4ccc(c1)c2c34",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6039406703769364,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(-c2ccc(OCC3CO3)cc2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.836789182704877,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(-c2ccccc2OCC2CO2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7508861576319749,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(C2OC2c2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3832215715424708,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(CNc2[nH]cnc3ncnc2-3)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5738764565606262,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(COCC2CO2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7675080085057884,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(COCc2ccccc2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.33037366390246586,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(C[NH+]2CCC[C@H](c3c(-c4ccccc4)[nH]c4ccccc34)C2)cc1",
+    "endpoint": "herg",
+    "label": 1,
+    "score": 0.9961779364655506,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(Nc2ccc3ccccc3c2)cc1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4591940130413353,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc(OC2CO2)cc1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6158908619124775,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2[nH]c(-c3cscn3)nc2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5421713474915497,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(CC3CO3)cccc2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8262224051073683,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(COCC3CO3)cccc2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8400187102822908,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1c(c3ccccc3c3ccccc13)C1NC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.754225661041707,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1c(c3ccccc3c3ccccc13)[C@H]1N[C@@H]21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7954466854855022,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1c(ccc3ccccc13)C1NC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8198403642949408,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1c(ccc3ccccc13)[C@@H]1N[C@H]21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8316740435816076,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1cc3c(cc1C1OC21)-c1ccccc1C1OC31",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7287670314216572,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1cc3c(ccc4ccccc43)nc1C1OC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8482460747466287,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1cc3ccc4ccccc4c3cc1C1NC21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8474869254717696,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1cc3ccccc3c3cc4c(c-2c13)CCCC4",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.733044605567242,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1cc3ccccc3c3cc4ccccc4c-2c13",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7480139548695472,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1ccc3c4c1c-2cc1cccc(c14)C1OC31",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8315962470465147,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)-c1nc3ccccc3c3c1c-2nc1ccccc13",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6303754481461964,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)CCC1CCCC3OC213",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2734484777133431,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)CCCC2C1=[NH+]CCN1",
+    "endpoint": "clintox",
+    "label": 0,
+    "score": 0.034123285582137654,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)CCNC2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.2417975946191114,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)Cc1c(c3ccccc3c3ccccc13)C2",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.4810480262069727,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)OCCOCCOCCOCCO2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.4911384560110795,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)c1ccccc1c1ccccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5657211054795651,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)cc1c3c2ccc2cccc(c23)C2NC12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8294967017302498,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)cc1c3ccccc3c3cccc4ccc2c1c43",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7947610988639918,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)cc1ccc3cc4ccccc4c4ccc2c1c34",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7724138633528328,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)cc1sc3cccc4ccc2c1c43",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7285035010723024,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ccc1c2ccc2c3ccccc3ccc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6825511144485615,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ccc1c3ccccc3c(C3CO3)cc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.8298819605204167,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ccc1c3ccccc3c([C@@H]3CO3)cc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.823618142604461,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ccc1c3ccccc3sc21",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7134729414094916,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ccc1cc3ccc4ccccc4c3cc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6646961148947064,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ccc1nc3c(ccc4ccccc43)cc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6541456967267163,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ccc1nc3ccc4c(c3cc12)CCCC4",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7339442188230638,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c(c1)ncc1cnc3ccccc3c12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.6008113993315297,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c3c4c(cc5ccccc5c4cc2c1)C1=C3CCCC1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7571679894792375,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c3c4c(cc5ccccc5c4cc2c1)C1OC31",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7319287507307944,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2c3c4c(cc5ccccc5c4cc2c1)[C@@H]1O[C@H]31",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6868724075945973,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2cc(Nc3ccc(Nc4ccc5ccccc5c4)cc3)ccc2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5125231808004777,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2cc3c(cc2c1)c1c(c2ccccc23)O1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7422728442054586,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2cc3c(ccc4cccnc43)cc2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.654098515846201,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2cc3c(ccc4ccncc43)cc2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6360154458301306,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2cc3cc4ccccc4cc3cc2c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5854972836903461,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2sc(SN3CCOCC3)nc2c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5809929238132375,
+    "split": "test"
+  },
+  {
+    "smiles": "c1ccc2sc(SNC3CCCCC3)nc2c1",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.3936271164911017,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cnc2c(c1)C1OC1CC2",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5794344176239783,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cnc2c(c1)ccc1c3cccnc3ccc12",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.7306751439360409,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cnc2c(c1)ccc1cccnc12",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5696028030065484,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cnc2c3c(ccc2c1)CCC1OC31",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.5150404009570639,
+    "split": "test"
+  },
+  {
+    "smiles": "c1cnc2ccc3c(c2c1)CCC1OC31",
+    "endpoint": "ames",
+    "label": 0,
+    "score": 0.5577267993278691,
+    "split": "test"
+  },
+  {
+    "smiles": "c1csc(-c2nc(N3CCOCC3)c3ccccc3n2)c1",
+    "endpoint": "ames",
+    "label": 1,
+    "score": 0.6892827907228628,
+    "split": "test"
+  }
+]

@@ -1,0 +1,489 @@
+{
+  "schema": "toxilens.audit.v2",
+  "purpose": "Explainable toxicity screening; experimental validation required",
+  "generatedAt": "2026-10-12T01:52:59.439386+00:00",
+  "mode": "model",
+  "provider": "local",
+  "scoreKind": "probability",
+  "input": {
+    "smiles": "CC(=O)Nc1ccc(O)cc1",
+    "canonicalSmiles": "CC(=O)Nc1ccc(O)cc1",
+    "structureId": "2908012d4d1af71b20b6ce8aa15ec902a6ec288a21be1855d631a6045052fe25",
+    "referenceCompound": {
+      "id": "acetaminophen",
+      "name": "对乙酰氨基酚",
+      "note": "DILI 示例；固定演示数据，未核验真实标签来源。"
+    }
+  },
+  "overall": {
+    "score": 0.548,
+    "kind": "aggregate_screening_index",
+    "tier": {
+      "id": "moderate",
+      "label": "中分区间",
+      "color": "amber",
+      "action": "结合实验与适用域证据复核",
+      "meaning": "model composite score tier; not a calibrated risk category"
+    }
+  },
+  "endpoints": [
+    {
+      "id": "herg",
+      "short": "hERG",
+      "label": "hERG 抑制",
+      "description": "来源数据中的 hERG 通道阻断标签",
+      "source": "蓝研 ToxNet · 自训练",
+      "ruleScore": 0.091,
+      "referenceScore": 0.19,
+      "scoreSource": "model",
+      "explanationSource": "none",
+      "ruleDrivers": [
+        {
+          "id": "baseline",
+          "label": "演示规则基线",
+          "detail": "预设规则常数，未经数据拟合。",
+          "contribution": 0.07
+        },
+        {
+          "id": "polarity",
+          "label": "低极性 / 低 TPSA",
+          "detail": "RDKit TPSA 49.33",
+          "contribution": 0.020536
+        }
+      ],
+      "score": 0.2686402499675751,
+      "modelScore": 0.2686402499675751,
+      "drivers": [],
+      "evidence": "本地自主模型输出"
+    },
+    {
+      "id": "dili",
+      "short": "DILI",
+      "label": "药物性肝损伤",
+      "description": "来源数据中的药物性肝损伤标签",
+      "source": "蓝研 ToxNet · 自训练",
+      "ruleScore": 0.104,
+      "referenceScore": 0.78,
+      "scoreSource": "model",
+      "explanationSource": "none",
+      "ruleDrivers": [
+        {
+          "id": "baseline",
+          "label": "演示规则基线",
+          "detail": "预设规则常数，未经数据拟合。",
+          "contribution": 0.09
+        },
+        {
+          "id": "polarity",
+          "label": "低极性 / 低 TPSA",
+          "detail": "RDKit TPSA 49.33",
+          "contribution": 0.013691
+        }
+      ],
+      "score": 0.6490678787231445,
+      "modelScore": 0.6490678787231445,
+      "drivers": [],
+      "evidence": "本地自主模型输出"
+    },
+    {
+      "id": "ames",
+      "short": "Ames",
+      "label": "Ames 致突变",
+      "description": "来源 Ames 致突变试验标签",
+      "source": "蓝研 ToxNet · 自训练",
+      "ruleScore": 0.055,
+      "referenceScore": 0.09,
+      "scoreSource": "model",
+      "explanationSource": "none",
+      "ruleDrivers": [
+        {
+          "id": "baseline",
+          "label": "演示规则基线",
+          "detail": "预设规则常数，未经数据拟合。",
+          "contribution": 0.045
+        },
+        {
+          "id": "polarity",
+          "label": "低极性 / 低 TPSA",
+          "detail": "RDKit TPSA 49.33",
+          "contribution": 0.010268
+        }
+      ],
+      "score": 0.24678438901901245,
+      "modelScore": 0.24678438901901245,
+      "drivers": [],
+      "evidence": "本地自主模型输出"
+    },
+    {
+      "id": "clintox",
+      "short": "ClinTox",
+      "label": "临床毒性",
+      "description": "临床毒性标签；区别于 FDA 批准状态",
+      "source": "蓝研 ToxNet · 自训练",
+      "ruleScore": 0.077,
+      "referenceScore": 0.48,
+      "scoreSource": "model",
+      "explanationSource": "none",
+      "ruleDrivers": [
+        {
+          "id": "baseline",
+          "label": "演示规则基线",
+          "detail": "预设规则常数，未经数据拟合。",
+          "contribution": 0.06
+        },
+        {
+          "id": "polarity",
+          "label": "低极性 / 低 TPSA",
+          "detail": "RDKit TPSA 49.33",
+          "contribution": 0.017113
+        }
+      ],
+      "score": 0.08891067653894424,
+      "modelScore": 0.08891067653894424,
+      "drivers": [],
+      "evidence": "本地自主模型输出"
+    }
+  ],
+  "structuralAlerts": [],
+  "descriptors": {
+    "molecularWeight": 151.16,
+    "logP": 1.35,
+    "tpsa": 49.33,
+    "hbd": 2,
+    "hba": 2,
+    "rings": 1,
+    "aromaticAtoms": 6,
+    "rotatableBonds": 1,
+    "heavyAtoms": 11,
+    "basicAmines": 0,
+    "elementCounts": {
+      "C": 8,
+      "H": 9,
+      "N": 1,
+      "O": 2
+    },
+    "formula": "C8H9NO2"
+  },
+  "provenance": {
+    "chemistryVersion": "rdkit-chemistry-1.0.0",
+    "rulesVersion": "local-demo-rules-2.0.0",
+    "rdkitVersion": "2026.09.1",
+    "descriptors": "RDKit MolWt / Crippen MolLogP / TPSA (including S,P) / Lipinski",
+    "identity": "canonical isomeric SMILES; atom maps removed; salts, isotopes and stereo retained",
+    "referenceScores": {
+      "kind": "demonstration-fixture",
+      "source": null,
+      "verified": false,
+      "usedForScoring": false
+    },
+    "contractVersion": "toxilens.api.v2",
+    "apiVersion": "2.0.0",
+    "mode": "model",
+    "requestId": "77be37073e544758a35fcac52e66cfb6",
+    "chemistry": {
+      "version": "rdkit-chemistry-1.0.0",
+      "rulesVersion": "local-demo-rules-2.0.0",
+      "rdkitVersion": "2026.09.1"
+    },
+    "rules": {
+      "version": "local-demo-rules-2.0.0",
+      "method": "additive-structure-rules",
+      "calibrated": false,
+      "scoreMeaning": "heuristic-score-not-probability",
+      "thresholds": [
+        0.33,
+        0.58,
+        0.78
+      ],
+      "thresholdMeaning": "demonstration-rule-score-tiers"
+    },
+    "model": {
+      "providerFormat": "local-pytorch",
+      "modelName": "蓝研 ToxNet",
+      "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+      "modelVersionSource": "checksum-verified-local-training-artifact",
+      "scoreKind": "probability",
+      "endpointContractVersion": "toxilens.endpoints.v1",
+      "inferenceVersion": "aidd.toxnet.inference.v1",
+      "architecture": {
+        "id": "aidd.graph-transformer.v2",
+        "name": "Graph-aware molecular Transformer",
+        "hiddenSize": 192,
+        "layers": 4,
+        "heads": 6,
+        "feedForward": 768,
+        "fingerprintSize": 2048,
+        "dropout": 0.15,
+        "maxAtoms": 200,
+        "input": "RDKit atom graph + shortest-distance/bond attention bias + Morgan fingerprint",
+        "description": "从随机权重训练的分子专用 Transformer；非十亿级语言模型。"
+      },
+      "parameterCount": 2374390,
+      "device": "cpu",
+      "torchVersion": "2.14.1+cpu",
+      "rdkitVersion": "2026.09.1",
+      "artifactSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "datasetVersion": "aidd-toxicity-75e5f2c8766efe24",
+      "datasetProvenance": [
+        {
+          "endpoint": "herg",
+          "name": "TDC hERG",
+          "fileId": 4259588,
+          "sha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+          "documentedRows": 648,
+          "positiveClass": "hERG blocker (1); non-blocker (0)",
+          "sourcePopulation": "Literature-compiled drug molecules; assay thresholds follow the source dataset, not a new uniform threshold.",
+          "reference": "Wang, Shuangquan, et al. ADMET evaluation in drug discovery. 16. Predicting hERG blockers by combining multiple pharmacophores and machine learning approaches. Molecular Pharmaceutics 13.8 (2016): 2855-2866.",
+          "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#herg-blockers",
+          "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259588?format=original",
+          "localFile": "data\\raw\\herg.csv",
+          "verifiedSha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+          "bytes": 47590,
+          "downloadedThisRun": false,
+          "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+          "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+        },
+        {
+          "endpoint": "dili",
+          "name": "TDC DILI",
+          "fileId": 4259585,
+          "sha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09",
+          "documentedRows": 475,
+          "positiveClass": "Drug-induced liver injury positive (1); negative (0)",
+          "sourcePopulation": "Literature-compiled drugs aggregated from US FDA National Center for Toxicological Research, per TDC documentation.",
+          "reference": "Xu, Youjun, et al. Deep learning for drug-induced liver injury. Journal of Chemical Information and Modeling 55.10 (2015): 2085-2093.",
+          "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#dili-drug-induced-liver-injury",
+          "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259585?format=original",
+          "localFile": "data\\raw\\dili.csv",
+          "verifiedSha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09",
+          "bytes": 25727,
+          "downloadedThisRun": false,
+          "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+          "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+        },
+        {
+          "endpoint": "ames",
+          "name": "TDC Ames",
+          "fileId": 4259564,
+          "sha256": "a17d2d6b9aa17f1cfaa1e3e4137788b2ef2700404042e285102f18543ca954b5",
+          "documentedRows": 7255,
+          "positiveClass": "Ames mutagenic (1); non-mutagenic (0)",
+          "sourcePopulation": "Bacterial reverse mutation assay labels aggregated from four papers, per TDC documentation.",
+          "reference": "Xu, Congying, et al. In silico prediction of chemical Ames mutagenicity. Journal of Chemical Information and Modeling 52.11 (2012): 2840-2847.",
+          "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#ames-mutagenicity",
+          "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259564?format=original",
+          "localFile": "data\\raw\\ames.csv",
+          "verifiedSha256": "a17d2d6b9aa17f1cfaa1e3e4137788b2ef2700404042e285102f18543ca954b5",
+          "bytes": 315016,
+          "downloadedThisRun": false,
+          "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+          "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+        },
+        {
+          "endpoint": "clintox",
+          "name": "TDC ClinTox",
+          "fileId": 4259572,
+          "sha256": "32f8542b5ed007ca76506b7dbdaaed32c9bbe864ea1ce52d4d49f176d5c63455",
+          "documentedRows": 1484,
+          "positiveClass": "Clinical-trial failure due to toxicity / CT_TOX (1); comparator drug (0). This is not FDA_APPROVED.",
+          "sourcePopulation": "Drugs associated with clinical-trial outcomes; negative labels do not prove absence of every possible clinical toxicity.",
+          "reference": "Gayvert, Kaitlyn M., Neel S. Madhukar, and Olivier Elemento. A data-driven approach to predicting successes and failures of clinical trials. Cell Chemical Biology 23.10 (2016): 1294-1301.",
+          "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#clintox",
+          "downloadUrl": "https://dataverse.harvard.edu/api/access/datafile/4259572?format=original",
+          "localFile": "data\\raw\\clintox.csv",
+          "verifiedSha256": "32f8542b5ed007ca76506b7dbdaaed32c9bbe864ea1ce52d4d49f176d5c63455",
+          "bytes": 103676,
+          "downloadedThisRun": false,
+          "license": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+          "tdcMetadataUrl": "https://raw.githubusercontent.com/mims-harvard/TDC/e70285e5ace3bb1d72eb3c57bad2e73d750f5d42/tdc/metadata.py"
+        }
+      ],
+      "training": {
+        "status": "completed",
+        "initialization": "random-from-scratch",
+        "optimizationSplit": "train",
+        "selectionSplit": "validation",
+        "testUsedForSelection": false,
+        "seed": 42,
+        "epochs": 10,
+        "bestEpoch": 3,
+        "bestValidationMacroAUROC": 0.8170508278932853,
+        "completedAt": "2026-10-11T15:04:11.985926+00:00",
+        "durationSeconds": 231.9,
+        "device": "cpu",
+        "torchVersion": "2.14.1+cpu",
+        "rdkitVersion": "2026.09.1",
+        "threads": 6,
+        "batchSize": 48,
+        "maximumEpochs": 30,
+        "patience": 7,
+        "splits": {
+          "train": 7851,
+          "validation": 982,
+          "test": 981
+        },
+        "uniqueMoleculeCounts": {
+          "train": 7535,
+          "validation": 956,
+          "test": 937
+        },
+        "classCounts": {
+          "train": {
+            "herg": {
+              "positive": 274,
+              "negative": 142
+            },
+            "dili": {
+              "positive": 149,
+              "negative": 191
+            },
+            "ames": {
+              "positive": 3358,
+              "negative": 2762
+            },
+            "clintox": {
+              "positive": 54,
+              "negative": 921
+            }
+          },
+          "validation": {
+            "herg": {
+              "positive": 92,
+              "negative": 24
+            },
+            "dili": {
+              "positive": 45,
+              "negative": 25
+            },
+            "ames": {
+              "positive": 308,
+              "negative": 261
+            },
+            "clintox": {
+              "positive": 23,
+              "negative": 204
+            }
+          },
+          "test": {
+            "herg": {
+              "positive": 78,
+              "negative": 35
+            },
+            "dili": {
+              "positive": 42,
+              "negative": 23
+            },
+            "ames": {
+              "positive": 285,
+              "negative": 281
+            },
+            "clintox": {
+              "positive": 16,
+              "negative": 221
+            }
+          }
+        },
+        "splitMethod": "Bemis-Murcko scaffold; all acyclic molecules share one group",
+        "targetFractions": {
+          "train": 0.8,
+          "validation": 0.1,
+          "test": 0.1
+        },
+        "encodingExclusions": [],
+        "optimizer": "AdamW lr3e-4 weightDecay0.01 cosine schedule; clipped gradient1; task-balanced masked BCE with sqrt class weight",
+        "sourceHashes": {
+          "modelCode": "cef3a7102c3c31dbc6baa9cfe4735d2ff73fc625837e6d2339d67848144438c3",
+          "trainingScript": "e32527be24c0785f813c8c08a88c76294c218440e054110b6fdf82e41f7115ff",
+          "labels": "75e5f2c8766efe24cf6cbca57ce1e72bc9028705303b29fff8ad6016c6b0bd6b",
+          "split": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+        }
+      },
+      "explanationMethod": "none",
+      "scoreMeaning": "validation-adjusted neural-network probability; not clinical risk or experimental assay measurement",
+      "providerId": "local",
+      "imageIncluded": false
+    },
+    "aggregation": {
+      "method": "0.70*max + 0.30*mean",
+      "version": "model-composite.v1",
+      "meaning": "composite index; not probability; excludes rule and reference scores"
+    },
+    "scoreKind": "probability",
+    "calibration": {
+      "status": "measured-not-certified",
+      "method": "validation-temperature-and-bias",
+      "fitSplit": "validation",
+      "temperatures": {
+        "herg": 1.5351986219993956,
+        "dili": 2.4629477243463174,
+        "ames": 1.9756018468257412,
+        "clintox": 1.589988241964107
+      },
+      "biases": {
+        "herg": 1.2612702222144343,
+        "dili": 0.09795753039146711,
+        "ames": -0.02996653956561954,
+        "clintox": -0.43405120577481565
+      },
+      "fitStatus": {
+        "herg": "fitted",
+        "dili": "fitted",
+        "ames": "fitted",
+        "clintox": "fitted"
+      },
+      "certified": false,
+      "source": "local-validation-calibration-and-held-out-measurement",
+      "evaluationSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+    },
+    "applicability": {
+      "status": "similarity-heuristic",
+      "insideThreshold": true,
+      "maximumTanimoto": 1,
+      "threshold": 0.5,
+      "referenceCount": 7535,
+      "referenceDatasetVersion": "aidd-toxicity-75e5f2c8766efe24",
+      "method": "Morgan-radius2-2048/Tanimoto",
+      "source": "local-training-reference-structures",
+      "validated": false
+    }
+  },
+  "calibration": {
+    "status": "measured-not-certified",
+    "method": "validation-temperature-and-bias",
+    "fitSplit": "validation",
+    "temperatures": {
+      "herg": 1.5351986219993956,
+      "dili": 2.4629477243463174,
+      "ames": 1.9756018468257412,
+      "clintox": 1.589988241964107
+    },
+    "biases": {
+      "herg": 1.2612702222144343,
+      "dili": 0.09795753039146711,
+      "ames": -0.02996653956561954,
+      "clintox": -0.43405120577481565
+    },
+    "fitStatus": {
+      "herg": "fitted",
+      "dili": "fitted",
+      "ames": "fitted",
+      "clintox": "fitted"
+    },
+    "certified": false,
+    "source": "local-validation-calibration-and-held-out-measurement",
+    "evaluationSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+  },
+  "applicability": {
+    "status": "similarity-heuristic",
+    "insideThreshold": true,
+    "maximumTanimoto": 1,
+    "threshold": 0.5,
+    "referenceCount": 7535,
+    "referenceDatasetVersion": "aidd-toxicity-75e5f2c8766efe24",
+    "method": "Morgan-radius2-2048/Tanimoto",
+    "source": "local-training-reference-structures",
+    "validated": false
+  },
+  "limitation": "Model, rule baseline and demonstration reference scores have separate sources. An aggregate index is not a toxicity probability. Calibration and applicability require independent validation; not suitable for clinical or regulatory decisions."
+}

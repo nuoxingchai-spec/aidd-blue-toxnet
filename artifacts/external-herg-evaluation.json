@@ -1,0 +1,48 @@
+{
+  "schema": "aidd.external-herg-evaluation.v1",
+  "status": "completed",
+  "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+  "candidateVersion": "aidd-candidates-333b4f7d03532e15",
+  "poolSha256": "7e1df556c8674898e48b37c44f9bfdbcb9a4f60aba8df00dadff7564ce957262",
+  "modelManifestSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+  "splitSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+  "heldOutStatus": "canonical-parent-full-and-parent-scaffold-separation-reverified-against-all-prior-endpoints",
+  "evaluationType": "retrospective-external-source-under-label-and-source-shift",
+  "prospective": false,
+  "sourcePopulationIndependenceVerified": false,
+  "neuralModel": {
+    "count": 9978,
+    "positives": 4886,
+    "auroc": 0.6434760054779209,
+    "averagePrecision": 0.6255624413516429,
+    "status": "computed",
+    "brier": 0.33493622857125843,
+    "ece10Bins": 0.3116050646871466,
+    "calibrationStatus": "measured-not-certified"
+  },
+  "fingerprintBaseline": {
+    "count": 9978,
+    "positives": 4886,
+    "auroc": 0.6470175540420567,
+    "averagePrecision": 0.6429569048716897,
+    "status": "computed",
+    "brier": 0.34682640930573017,
+    "ece10Bins": 0.31424608500158674,
+    "calibrationStatus": "measured-not-certified"
+  },
+  "calibrationRefit": false,
+  "thresholdSelected": false,
+  "modelUpdated": false,
+  "baselineFitSplit": "original-train-only",
+  "durationSeconds": 42.9,
+  "limitations": [
+    "Structural exclusions do not prove source-population independence.",
+    "hERG_Karim threshold differs from the original hERG training collection; scores are exploratory under endpoint/source shift.",
+    "Tox21 assay activity cannot substitute for hERG, DILI, Ames or ClinTox labels.",
+    "Same-parent label conflicts are excluded from the external hERG pool; parent normalization is only a leakage safeguard.",
+    "No new model weights or calibration are selected using these candidate labels.",
+    "External hERG_Karim labels use a <10 micromolar cutoff; original hERG training collection does not establish a uniform matching threshold.",
+    "Metrics are descriptive, without prospective validation or a scaffold-cluster uncertainty interval."
+  ]
+}

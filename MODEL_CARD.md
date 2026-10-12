@@ -1,0 +1,134 @@
+# 蓝研 ToxNet 模型说明
+
+蓝研 ToxNet 是本项目从随机权重训练的**小型分子专用 Transformer**，用于 hERG、DILI、Ames、ClinTox 四端点研究筛选。它没有调用外部模型 API 产生预测，没有使用 TxGemma 或通用语言模型权重，也不是十亿参数语言大模型。
+
+正式 v2 已完成训练，模型版本为 **`aidd-toxnet-v2-5c22f6cc5dd3`**，实际参数量 **2,374,390**。本机工件清单为 `models/aidd-toxnet/manifest.json`，状态为 `training.status=completed`；服务只加载完成且通过 SHA256 校验的工件。以下数值读取自该清单与 `evaluation.json`，不是演示数据或待填指标。
+
+记录的完成时间为北京时间 **2026-10-11 23:04:11**。本轮使用 CPU、6 个线程、PyTorch `2.14.1+cpu` 与 RDKit `2026.09.1`，实际运行 10 轮，第 3 轮检查点被 validation 选择，validation 宏平均 AUROC 为 0.817051。清单记录训练及评估阶段耗时 231.9 秒；该时长不包含依赖安装、下载和前置特征准备。运行环境虽然具有 RTX 4060 8GB，本轮安装的是 CPU 版 PyTorch，未使用 GPU。
+
+## 输入、架构与输出
+
+输入是经过严格 RDKit 解析的 canonical isomeric SMILES。架构使用原子属性嵌入、含键类型与图最短距离偏置的多头注意力、全局图表示及 Morgan radius-2 / 2048-bit 指纹分支，融合后输出四个端点的 logits。图 Transformer 有 4 层、192 维隐藏表示、6 个注意力头、768 维前馈层及 0.15 dropout。
+
+原子特征包括元素、形式电荷、邻接度、总氢数、杂化、芳香性、环信息、手性标记及同位素质量编号。正式 v2 加入同位素嵌入，属于输入表达正确性的修复；不依据测试性能选择这一变化。数据规范化保留盐、电荷、同位素和立体信息。模型最大接受 200 个原子，支持质量数不超过 300 的同位素，不接受未定义原子 `*`，也不负责识别给药剂量、辐射暴露或体内代谢产物。
+
+输出四个独立二分类标签预测，经 `sigmoid(logit / temperature + bias)` 调整到 0–1。各端点并非互斥类别，不要求四个值加起来等于 1。hERG 正类为通道阻断，DILI 为肝损伤标签阳性，Ames 为试验致突变阳性，ClinTox 为因毒性导致临床试验失败（CT_TOX）。概率是来源标签预测，不是特定剂量下的人体毒性发生风险。
+
+当前模型没有机制归因输出。页面的 SMARTS 警示与规则贡献独立展示，不能当作 Transformer 产生这些预测的原因。综合指数与页面风险档位也不是经过实验验证的临床决策阈值。
+
+## 数据与固定划分
+
+数据来自 TDC 官方代码指定的 Harvard Dataverse 文件。下载、正类定义、原始文献、SHA256、时间、清洗和许可记录见 [DATA_SOURCES.md](DATA_SOURCES.md)。未用模型生成标签、固定示例分数或规则分数训练。
+
+数据版本为 `aidd-toxicity-75e5f2c8766efe24`，包含 9,814 条有效结构—端点记录。相同分子可能有多个端点标签，缺失端点用 mask 屏蔽，不赋予阴性标签。冲突标签对应的全部结构记录已隔离，同标签等价结构重复已删除。
+
+固定 seed=42，所有端点共同按 Bemis–Murcko 骨架分组；同一分子和骨架不能跨集合，无环结构保守地共享一个组。80/10/10 是全体标签记录的目标比例，不是每个端点的强制分层比例。
+
+| 端点 | train 阳性 / 阴性 | validation 阳性 / 阴性 | test 阳性 / 阴性 |
+|---|---:|---:|---:|
+| hERG | 274 / 142 | 92 / 24 | 78 / 35 |
+| DILI | 149 / 191 | 45 / 25 | 42 / 23 |
+| Ames | 3,358 / 2,762 | 308 / 261 | 285 / 281 |
+| ClinTox | 54 / 921 | 23 / 204 | 16 / 221 |
+
+train / validation / test 标签记录总数为 7,851 / 982 / 981，分别对应 **7,535 / 956 / 937 个不同分子**，全体合计 9,428 个不同分子。每个端点在每个集合均有正负两类。统一结构划分带来端点覆盖率和阳性比例差异；没有搜索划分种子或按 test 指标选划分。
+
+## 训练与评估约束
+
+只对 train 的已测标签计算损失。优化器为 AdamW，学习率 3e-4、weight decay 0.01、余弦调度，batch size 48；采用端点权重、平方根类权重和 masked BCE，梯度裁剪为 1。最大 30 轮，连续 7 轮 validation 宏平均 AUROC 无提升则停止。
+
+检查点由 validation 宏平均 AUROC 选择，温度与偏置也只在 validation 拟合。使用固定弱正则，并记录各端点拟合成功/不足/失败状态；在 test 评价前冻结全部参数。test 不参与优化、检查点或概率调整选择。
+
+`evaluation.json` 记录 test AUROC、average precision（AP）、Brier、十等宽分箱 ECE 及调整前后对比。固定 Morgan radius-2 / 2048-bit 指纹 + LogisticRegression（C=1）基线只用 train，未搜索超参数。训练与测试结构、骨架分离均通过清单成员核验；这是本项目记录的训练过程证据，不是外部或前瞻效能认证。
+
+## 实际内部留出结果
+
+以下均为固定 test 集上的 v2 结果；神经网络概率已经过 validation 拟合的温度和偏置调整。AUROC、AP 越高越好；Brier、ECE 越低越好。AP 对类别比例敏感，应同时读取阳性数。
+
+| 端点 | test 总数 / 阳性 | Transformer AUROC | AUROC bootstrap 95% 区间 | AP | Brier | ECE（10 箱） |
+|---|---:|---:|---|---:|---:|---:|
+| hERG | 113 / 78 | 0.735897 | 0.639816–0.826469 | 0.873353 | 0.200405 | 0.121915 |
+| DILI | 65 / 42 | 0.763975 | 0.634005–0.878543 | 0.868845 | 0.197407 | 0.140622 |
+| Ames | 566 / 285 | 0.775851 | 0.739312–0.808558 | 0.731558 | 0.195348 | 0.060184 |
+| ClinTox | 237 / 16 | 0.742647 | 0.609389–0.853991 | 0.164085 | 0.065938 | 0.036678 |
+
+区间使用每个端点 500 次分子级 bootstrap 的百分位数估计，不校正骨架相关性、模型选择或数据偏差，也没有重复训练带来的不确定性。ClinTox 阳性率为 16/237（约 6.8%），AP 为 0.164085；较低的 Brier 或 ECE 不能单独说明对少数阳性有足够识别能力。
+
+| 端点 | 指纹逻辑回归 AUROC | 指纹逻辑回归 AP | 指纹逻辑回归 Brier | 指纹逻辑回归 ECE |
+|---|---:|---:|---:|---:|
+| hERG | 0.788278 | 0.879065 | 0.175175 | 0.114524 |
+| DILI | 0.838509 | 0.902304 | 0.184563 | 0.161457 |
+| Ames | 0.786851 | 0.783909 | 0.206397 | 0.133734 |
+| ClinTox | 0.870192 | 0.414187 | 0.052020 | 0.029899 |
+
+**四个端点的基线 AUROC 和 AP 均高于本轮 Transformer。** 当前结果支持模型确实完成学习和推理，但未证明 Transformer 优于简单基线，不能据此宣称性能领先。没有执行配对差异显著性检验；基线概率也未获得校准认证。后续模型改进需另设评估版本，不能反复查看此 test 集再将其作为新模型的独立验收。
+
+| 端点 | 调整前 Brier → 调整后 Brier | 调整前 ECE → 调整后 ECE |
+|---|---|---|
+| hERG | 0.204421 → 0.200405 | 0.139313 → 0.121915 |
+| DILI | 0.251944 → 0.197407 | 0.253109 → 0.140622 |
+| Ames | 0.199982 → 0.195348 | 0.092667 → 0.060184 |
+| ClinTox | 0.072760 → 0.065938 | 0.047439 → 0.036678 |
+
+本次调整后四端点的 Brier 和 ECE 均下降。温度为正，单端点排序不变，因此 AUROC 和 AP 与调整前相同；误差下降不等于校准已经认证。
+
+## hERG 外部来源回顾性评估
+
+冻结 v2 权重和原 validation 校准参数后，另在官方 TDC hERG_Karim 审计池完成来源变更条件下的回顾性评估。候选版本为 `aidd-candidates-333b4f7d03532e15`，保留 **9,978 个分子：4,886 阳性 / 5,092 阴性**。评价脚本重新核验规范结构、中和去盐母体、完整结构骨架及母体骨架均与原四端点的全部 train / validation / test 无交集，并排除母体冲突与重复。
+
+| 模型 | AUROC | AP | Brier | ECE（10 箱） |
+|---|---:|---:|---:|---:|
+| 冻结蓝研 ToxNet v2 | 0.643476 | 0.625562 | 0.334936 | 0.311605 |
+| 原 train 拟合的固定指纹逻辑回归 | 0.647018 | 0.642957 | 0.346826 | 0.314246 |
+
+未用候选标签更新神经网络权重、重拟合校准或选择阈值；基线仍只在原 train 拟合。批量推理前三个分子与已部署 `LocalModelClient` 的输出误差小于 `1e-6`。42.9 秒是本轮完整评价脚本的任务耗时，包含审计、特征计算、批量推理和基线计算，不是单次 API 延迟或吞吐基准。
+
+**本次外部来源评估的概率误差较大，模型仍是研究原型，不能据其概率给出可靠筛选结论。** hERG_Karim 正类采用 `<10 μM` 阈值，原 hERG 数据未建立统一且相同的实验阈值；来源、标签定义与阳性比例同时变化。因此不能把内部 AUROC 与此表直接相比，并将差异归因于纯粹的泛化下降。精确结构和骨架排除也不证明原文献或来源人群独立，`sourcePopulationIndependenceVerified=false`。尚无前瞻验证、域内外效能认证、外部骨架簇不确定性区间或配对模型差异显著性检验。
+
+证据保存为 `artifacts/external-herg-evaluation.json` 和 `artifacts/external-herg-evaluation-predictions.json`。审计池 CSV 的 SHA256 为 `7e1df556c8674898e48b37c44f9bfdbcb9a4f60aba8df00dadff7564ce957262`。模型清单保持训练完成时的记录不变，新增外部来源评价作为独立附录关联同一权重版本，未改写内部测试或训练历史。
+
+“模型详情”及 `GET /api/local-model/info` 现已展示这份外部附录，字段为 `externalEvaluation`。后台仅在附录状态完成、模型版本、权重 SHA256、模型清单 SHA256 与已加载模型完全一致、权重/校准/阈值均未被改动且指标数值合法时加载；不匹配或无效记录不展示。页面同时列出 9,978 分子的模型/基线比较，以及来源阈值变化、来源人群独立性未验证和研究原型的限制，附录自身 SHA256 也可追溯。
+
+## 校准、结构相似度与限制
+
+校准状态为 **measured-not-certified（已测量，未认证）**。validation 上拟合参数及 test 上测量误差，只说明有真实实验记录，不能等同“概率已可靠校准”。训练、验证、测试阳性比例变化及小样本都可能影响调整效果。
+
+相似度只对实际 train 集结构计算 Morgan radius-2 / 2048-bit 最大 Tanimoto，使用固定探索阈值 0.5，明确 `validated=false`。这个阈值不是通过域内/域外性能验证确定的适用域，最大相似度也不是预测置信度。
+
+本模型已完成一次内部骨架留出及一次 hERG 外部来源回顾性评估，来源人群独立性及前瞻验证仍未建立；其他三个端点尚无外部来源评估。ClinTox 测试仅 16 个阳性，其 AP 和校准误差尤其需要谨慎解释。数据包括少量同位素标记分子，不足以建立放射毒性预测能力。来源混合实验与临床结局，模型没有剂量、暴露途径、实验物种、疗程或人群协变量，不能将不同情境的风险等同。
+
+TDC 页面同时出现“Not Specified”和“CC BY 4.0”许可文字。数据原始权利和商业再分发尚未独立解决；软件许可不覆盖全部底层数据。项目保留来源与作者归属，不声称拥有全部原始数据的商业再分发许可。
+
+## 本机使用与重训
+
+工作台选择“真实模型” → “蓝研 ToxNet · 自训练”，输入 SMILES 后筛选，不需要 API 密钥。旁边“模型详情”展示训练来源、样本数、实测指标和版本；也可以读取 `/api/local-model/info`。
+
+实际权重的 HTTP 集成核验由 `scripts/verify_local_model.py` 完成，最终重新运行通过，记录在 `artifacts/local-model-verification.json`：乙醇、苯、对乙酰氨基酚、氯化钠、乙腈五组合法等价写法得到相同结构和相同四端点预测。本次已加载模型后的本地 HTTP 单次检查约 0.03–0.08 秒，只是功能 smoke check，未测冷启动、并发、吞吐量或 p95 延迟。
+
+实际浏览器也已核验本机供应商选择、模型详情实测指标、输入修改后暂停导出、三键显示、请求进行时重置、重新生成报告及 JSON 导出；导出权重 SHA256 与正式模型一致且不含凭据字段。最后刷新后已看到外部评估的 9,978 分子、AUROC 约 0.643 / 0.647 及限制说明。截图为 `artifacts/aidd-toxnet-workbench.jpg`、`artifacts/aidd-toxnet-details.jpg`、`artifacts/aidd-toxnet-external-evaluation.jpg`，导出证据为 `artifacts/local-model-browser-audit.json`。最终完整运行通过 101 项 Python 测试、41 项 JavaScript 测试，另通过 `pip check` 与两份前端脚本语法检查。这些验证证明产品链路运行，不提升模型效能证据等级。
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-model.txt
+.\.venv\Scripts\python.exe scripts/prepare_toxicity_data.py --offline
+.\.venv\Scripts\python.exe scripts/train_toxnet.py --seed 42 --device cpu --threads 6 --epochs 30 --patience 7 --batch-size 48 --output models/aidd-toxnet-new
+```
+
+没有原始数据时去掉 `--offline`。已完成模型不能被该命令覆盖，重新训练应使用新输出目录。启动新模型前设置 `$env:AIDD_LOCAL_MODEL_DIR = "新模型目录的绝对路径"`，再启动后台。CPU、GPU、PyTorch 与 RDKit 版本差异可能影响数值，应同时记录依赖和设备。
+
+复查外部来源评价使用 `scripts/evaluate_external_herg.py --output artifacts/external-herg-recheck.json`。脚本默认拒绝覆盖既有评价，需指定新的输出路径；它只评价冻结模型，不使用外部标签调参或校准。
+
+权重、训练参考集合和评价记录由 SHA256 与清单关联；本机服务只加载完成且校验通过的工件。模型信息接口不公开权重、训练结构或密钥。审计包记录模型与数据版本、校验值、训练和验证状态；导出后应结合相应模型说明解读。
+
+## 可追溯工件
+
+| 项目 | SHA256 |
+|---|---|
+| `weights.pt` | `5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398` |
+| `training-references.json` | `3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6` |
+| `evaluation.json` | `e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1` |
+| 训练标签 CSV | `75e5f2c8766efe24cf6cbca57ce1e72bc9028705303b29fff8ad6016c6b0bd6b` |
+| `split.json` | `39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193` |
+| 训练时 `backend/toxnet.py` | `cef3a7102c3c31dbc6baa9cfe4735d2ff73fc625837e6d2339d67848144438c3` |
+| 训练时 `scripts/train_toxnet.py` | `e32527be24c0785f813c8c08a88c76294c218440e054110b6fdf82e41f7115ff` |
+
+`training-history.json` 保留每轮损失和 validation 指标，`test-predictions.json` 保留实际 test 概率，`split.json` 保留冻结成员与骨架。上述代码哈希对应训练时版本；后续代码变化不能改变已生成权重的历史记录。下一轮数据筛选与接入优先级见 [DATASET_SELECTION.md](DATASET_SELECTION.md)。新数据在端点语义、许可、去重与数据重叠核验通过前，不混入此版本训练集。

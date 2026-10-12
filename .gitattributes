@@ -1,0 +1,9 @@
+# Preserve checksum-recorded training sources and artifacts byte for byte.
+* text=auto eol=lf
+backend/toxnet.py -text
+scripts/train_toxnet.py -text
+models/aidd-toxnet/** -text whitespace=cr-at-eol
+artifacts/*.json -text whitespace=cr-at-eol
+*.pt -text
+*.jpg -text
+*.png -text

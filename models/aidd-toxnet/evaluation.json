@@ -1,0 +1,154 @@
+{
+  "version": "toxilens.validation.v1",
+  "split": "test",
+  "heldOutStatus": "manifest-membership-and-scaffold-separation-verified",
+  "trainingHistoryVerified": true,
+  "scoreKind": "probability",
+  "endpoints": {
+    "herg": {
+      "count": 113,
+      "positives": 78,
+      "auroc": 0.735897435897436,
+      "averagePrecision": 0.873352818305034,
+      "status": "computed",
+      "brier": 0.20040546033267317,
+      "ece10Bins": 0.12191537169362525,
+      "calibrationStatus": "measured-not-certified",
+      "aurocBootstrap95CI": [
+        0.6398155640022078,
+        0.8264690827190827
+      ]
+    },
+    "dili": {
+      "count": 65,
+      "positives": 42,
+      "auroc": 0.7639751552795031,
+      "averagePrecision": 0.8688445170397312,
+      "status": "computed",
+      "brier": 0.19740666349236044,
+      "ece10Bins": 0.14062189768003408,
+      "calibrationStatus": "measured-not-certified",
+      "aurocBootstrap95CI": [
+        0.6340047265117622,
+        0.8785426731078905
+      ]
+    },
+    "ames": {
+      "count": 566,
+      "positives": 285,
+      "auroc": 0.7758506586751577,
+      "averagePrecision": 0.7315581993088647,
+      "status": "computed",
+      "brier": 0.1953479866268514,
+      "ece10Bins": 0.060184089917410734,
+      "calibrationStatus": "measured-not-certified",
+      "aurocBootstrap95CI": [
+        0.739312239292966,
+        0.80855817199186
+      ]
+    },
+    "clintox": {
+      "count": 237,
+      "positives": 16,
+      "auroc": 0.7426470588235294,
+      "averagePrecision": 0.16408549558989582,
+      "status": "computed",
+      "brier": 0.06593808050710472,
+      "ece10Bins": 0.03667846011722421,
+      "calibrationStatus": "measured-not-certified",
+      "aurocBootstrap95CI": [
+        0.609389234734672,
+        0.8539909617580702
+      ]
+    }
+  },
+  "trainingHistoryEvidence": "This model was initialized randomly and optimized only on the hash-recorded training split; validation selected checkpoint and calibration; held-out test did not select any parameter.",
+  "uncertaintyMethod": "500 molecule-level bootstrap samples per endpoint; percentile CI; no correction for model selection or dataset bias",
+  "fingerprintLogisticRegressionBaseline": {
+    "method": "Morgan radius2 2048-bit + LogisticRegression C=1; fit on train only; no hyperparameter search",
+    "endpoints": {
+      "herg": {
+        "count": 113,
+        "positives": 78,
+        "auroc": 0.7882783882783883,
+        "averagePrecision": 0.8790652772221859,
+        "status": "computed",
+        "brier": 0.1751750775139596,
+        "ece10Bins": 0.11452376662827699,
+        "calibrationStatus": "measured-not-certified"
+      },
+      "dili": {
+        "count": 65,
+        "positives": 42,
+        "auroc": 0.8385093167701864,
+        "averagePrecision": 0.9023042094007101,
+        "status": "computed",
+        "brier": 0.18456280949968268,
+        "ece10Bins": 0.16145658152034653,
+        "calibrationStatus": "measured-not-certified"
+      },
+      "ames": {
+        "count": 566,
+        "positives": 285,
+        "auroc": 0.7868514703127927,
+        "averagePrecision": 0.7839091025822279,
+        "status": "computed",
+        "brier": 0.20639742539299397,
+        "ece10Bins": 0.13373406153979317,
+        "calibrationStatus": "measured-not-certified"
+      },
+      "clintox": {
+        "count": 237,
+        "positives": 16,
+        "auroc": 0.8701923076923077,
+        "averagePrecision": 0.41418704649984983,
+        "status": "computed",
+        "brier": 0.05201967244718296,
+        "ece10Bins": 0.02989868486514644,
+        "calibrationStatus": "measured-not-certified"
+      }
+    }
+  },
+  "beforeCalibration": {
+    "herg": {
+      "count": 113,
+      "positives": 78,
+      "auroc": 0.735897435897436,
+      "averagePrecision": 0.873352818305034,
+      "status": "computed",
+      "brier": 0.2044212585113008,
+      "ece10Bins": 0.1393127151417884,
+      "calibrationStatus": "measured-not-certified"
+    },
+    "dili": {
+      "count": 65,
+      "positives": 42,
+      "auroc": 0.7639751552795031,
+      "averagePrecision": 0.8688445170397312,
+      "status": "computed",
+      "brier": 0.25194398301656745,
+      "ece10Bins": 0.25310914937854173,
+      "calibrationStatus": "measured-not-certified"
+    },
+    "ames": {
+      "count": 566,
+      "positives": 285,
+      "auroc": 0.7758506586751577,
+      "averagePrecision": 0.7315581993088647,
+      "status": "computed",
+      "brier": 0.19998232181313533,
+      "ece10Bins": 0.09266650395858603,
+      "calibrationStatus": "measured-not-certified"
+    },
+    "clintox": {
+      "count": 237,
+      "positives": 16,
+      "auroc": 0.7426470588235294,
+      "averagePrecision": 0.16408549558989582,
+      "status": "computed",
+      "brier": 0.07275992331875275,
+      "ece10Bins": 0.0474390061251703,
+      "calibrationStatus": "measured-not-certified"
+    }
+  }
+}
