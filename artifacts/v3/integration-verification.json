@@ -1,0 +1,116 @@
+{
+  "schema": "aidd.toxnet.run-verification.v3",
+  "status": "verified",
+  "experimentSha256": "e99df03b28b9815cb2091e79c986aed10adc390b7222bf3684f76be60d826625",
+  "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+  "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "runs": [
+    {
+      "model": "B0",
+      "seed": 42,
+      "modelVersion": "aidd-toxnet-v3-b0-42-b49185ab66a3",
+      "manifestSha256": "302b4828a1317cceca2efde9620f9974249a621049dd41f3b54070123e93f62f",
+      "weightsSha256": "b49185ab66a32e9c2a0ac5920ccb4a75b7b3103a93efe81d26e5e4a76ae968ae",
+      "parameterCount": 8196,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B0",
+      "seed": 43,
+      "modelVersion": "aidd-toxnet-v3-b0-43-b49185ab66a3",
+      "manifestSha256": "bdf1ec982c9aa7bc818335d21b8cfe0662ef812866af47720a4c9f9923f50b8f",
+      "weightsSha256": "b49185ab66a32e9c2a0ac5920ccb4a75b7b3103a93efe81d26e5e4a76ae968ae",
+      "parameterCount": 8196,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B0",
+      "seed": 44,
+      "modelVersion": "aidd-toxnet-v3-b0-44-b49185ab66a3",
+      "manifestSha256": "b3c9e95f11234d5c3de3e99719df821b34fc4837e99db12595377aa8e4e5991a",
+      "weightsSha256": "b49185ab66a32e9c2a0ac5920ccb4a75b7b3103a93efe81d26e5e4a76ae968ae",
+      "parameterCount": 8196,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B1",
+      "seed": 42,
+      "modelVersion": "aidd-toxnet-v3-b1-42-f8ef1fbe7dfe",
+      "manifestSha256": "b6a527b65a91d1789c44cf5ce60e29098ca49dcc31cdc97bc98127613b7ebcd5",
+      "weightsSha256": "f8ef1fbe7dfe83e6f6c617aa2773fd5a280d22808fd0095810dd3e5e6ec08e7d",
+      "parameterCount": 3076,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 6.74277389894895e-08
+    },
+    {
+      "model": "B1",
+      "seed": 43,
+      "modelVersion": "aidd-toxnet-v3-b1-43-f8ef1fbe7dfe",
+      "manifestSha256": "7d6e3943c81910bdd422e6ecd9fc257d6de8dbcbea94e37095542caabfb38643",
+      "weightsSha256": "f8ef1fbe7dfe83e6f6c617aa2773fd5a280d22808fd0095810dd3e5e6ec08e7d",
+      "parameterCount": 3076,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 6.74277389894895e-08
+    },
+    {
+      "model": "B1",
+      "seed": 44,
+      "modelVersion": "aidd-toxnet-v3-b1-44-f8ef1fbe7dfe",
+      "manifestSha256": "a87fe1122227618b68fb082bb498ea83af5e075efce892c1d498b9858ae79a99",
+      "weightsSha256": "f8ef1fbe7dfe83e6f6c617aa2773fd5a280d22808fd0095810dd3e5e6ec08e7d",
+      "parameterCount": 3076,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 6.74277389894895e-08
+    },
+    {
+      "model": "B2",
+      "seed": 42,
+      "modelVersion": "aidd-toxnet-v3-b2-42-52331e925f9f",
+      "manifestSha256": "36af0a3786ff3e849a1e0178477ae1c55472669df914e4de58241a8e9da8057d",
+      "weightsSha256": "52331e925f9f3a883b585ae71b1f03ce9b3fe374adf00867c5dab8797ff0c1b9",
+      "parameterCount": 98948,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 4.5183514596480734e-08
+    },
+    {
+      "model": "B2",
+      "seed": 43,
+      "modelVersion": "aidd-toxnet-v3-b2-43-95c2598d62a5",
+      "manifestSha256": "043b7077d68213f6d8889e2146586aa8a4692033a63f32928368a424032e44d1",
+      "weightsSha256": "95c2598d62a58fb21ba158c1bad94246467cfb4c2f8c7fffb0bdc5fe8d6efffa",
+      "parameterCount": 98948,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 2.0203732464807445e-08
+    },
+    {
+      "model": "B2",
+      "seed": 44,
+      "modelVersion": "aidd-toxnet-v3-b2-44-73266d0b00be",
+      "manifestSha256": "0d24cb167668eed3226e9e70c8ba7ed83721051a30fc379f10738cab041f13ec",
+      "weightsSha256": "73266d0b00befa0b7a02f3afd8983f58c4dcadaad766b9f7f8f1b250464a2602",
+      "parameterCount": 98948,
+      "recordedMetricRecomputation": "passed",
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 4.6917138334101605e-08
+    }
+  ],
+  "independentTest": false,
+  "oldHeldoutOrKarimLabelsUsed": false,
+  "purpose": "Artifact/inference/membership verification; not a new performance experiment"
+}

@@ -1,0 +1,58 @@
+{
+  "status": "unchanged",
+  "files": [
+    {
+      "file": "models/aidd-toxnet/evaluation.json",
+      "beforeSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+      "afterSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+    },
+    {
+      "file": "models/aidd-toxnet/manifest.json",
+      "beforeSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "afterSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850"
+    },
+    {
+      "file": "models/aidd-toxnet/split.json",
+      "beforeSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+      "afterSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+    },
+    {
+      "file": "models/aidd-toxnet/test-predictions.json",
+      "beforeSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae",
+      "afterSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae"
+    },
+    {
+      "file": "models/aidd-toxnet/training-history.json",
+      "beforeSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340",
+      "afterSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340"
+    },
+    {
+      "file": "models/aidd-toxnet/training-progress.json",
+      "beforeSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398",
+      "afterSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398"
+    },
+    {
+      "file": "models/aidd-toxnet/training-references.json",
+      "beforeSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+      "afterSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6"
+    },
+    {
+      "file": "models/aidd-toxnet/weights.pt",
+      "beforeSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "afterSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation-predictions.json",
+      "beforeSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89",
+      "afterSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation.json",
+      "beforeSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+      "afterSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476"
+    }
+  ],
+  "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "httpEquivalentPairsVerified": 5,
+  "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398"
+}

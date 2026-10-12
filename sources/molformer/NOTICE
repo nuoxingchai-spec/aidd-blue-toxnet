@@ -1,0 +1,14 @@
+This directory vendors the audited configuration/modeling/tokenization files
+and small model metadata from:
+  ibm-research/MoLFormer-XL-both-10pct
+  https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct
+  commit 7b12d946c181a37f6012b9dc3b002275de070314
+
+Upstream Python copyright notices are retained without modification:
+  Copyright 2023 The HuggingFace Inc. team. All rights reserved.
+The upstream model card declares the Apache License, Version 2.0.
+The full license text is included in LICENSE.
+
+This vendored code is used for a strictly frozen feature extractor in AIDD
+ToxNet v3. No affiliation with or endorsement by IBM or Hugging Face is implied.
+The AIDD wrappers, audit, and tests are separate project files.

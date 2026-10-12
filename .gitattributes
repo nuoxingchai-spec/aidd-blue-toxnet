@@ -7,3 +7,5 @@ artifacts/*.json -text whitespace=cr-at-eol
 *.pt -text
 *.jpg -text
 *.png -text
+sources/molformer/** -text
+artifacts/v3/** -text whitespace=cr-at-eol
