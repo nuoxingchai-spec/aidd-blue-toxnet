@@ -23,6 +23,16 @@ artifacts/v3/baselines-20261013/*
 !artifacts/v3/development-summary.json
 !artifacts/v3/v2-preservation.json
 !artifacts/v3/integration-verification.json
+!artifacts/v3-multitask/
+artifacts/v3-multitask/*
+!artifacts/v3-multitask/baselines-20261013/
+artifacts/v3-multitask/baselines-20261013/*
+!artifacts/v3-multitask/baselines-20261013/experiment.json
+!artifacts/v3-multitask/development-summary.json
+!artifacts/v3-multitask/integration-verification-final.json
+!artifacts/v3-multitask/research-http-verification.json
+!artifacts/v3-multitask/ablation-verification.json
+!artifacts/v3-multitask/v2-preservation.json
 data/raw/
 data/processed/
 data/candidates/

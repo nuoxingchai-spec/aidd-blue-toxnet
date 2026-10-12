@@ -9,6 +9,7 @@ from typing import Literal
 from uuid import uuid4
 
 from fastapi import FastAPI, Request
+from backend.research_routes import create_research_router
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictStr, field_validator
@@ -207,6 +208,7 @@ def create_app(registry: dict | None = None, default_provider: str | None = None
             return JSONResponse({"error": {"code": "NOT_FOUND", "message": "未找到该资源。"}}, status_code=404)
         return FileResponse(ROOT / asset)
 
+    application.include_router(create_research_router(env=configuration.startup_values))
     return application
 
 

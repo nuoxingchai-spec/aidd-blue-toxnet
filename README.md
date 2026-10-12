@@ -153,3 +153,9 @@ node --test test/*.test.js
 真实浏览器已验证本机模型选择、模型详情、输入修改状态、请求中重置、重新生成报告、三键及实际 JSON 导出；最后刷新后确认外部评价显示 9,978 分子、模型与基线对照及来源/研究限制。截图为 `artifacts/aidd-toxnet-workbench.jpg`、`artifacts/aidd-toxnet-details.jpg`、`artifacts/aidd-toxnet-external-evaluation.jpg`，审计导出为 `artifacts/local-model-browser-audit.json`；它们验证产品交互和版本链路，不能替代模型效能评估。
 
 文件 `项目审查分析.md` 保留 v1 的审查记录，反映修复前的问题；本轮实现和实测结果见 `完善与验证记录.md`。
+
+## v3 多任务研究扩展
+
+四毒性端点与十二个 Tox21 通路采用独立标签、共享结构分组和缺失掩码，沿用固定修订的冻结 MoLFormer 表征。新增 A4、B16、Morgan 对照及零通路损失消融，默认不替换正式 v2。独立 `/api/research/tox21` 只返回十二通路活动分数，没有完整已训练工件和显式研究启用时返回不可用。
+
+数据隔离、真实实验结果、负迁移分析、Windows 训练及离线服务命令见 [TOXNET_V3_MULTITASK.md](TOXNET_V3_MULTITASK.md)。原四任务 v3 历史成绩保留；本轮同划分比较使用重新训练的对照，不称新盲测。

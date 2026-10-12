@@ -1,0 +1,43 @@
+{
+  "schema": "aidd.toxnet.multitask-ablation-verification.v1",
+  "status": "passed",
+  "experimentSha256": "2363fef3d0cda147b8a230cbee036ba62355de7a5edcc5b8150d493218a0858d",
+  "comparison": "A4 vs B16_noTox21; real CPU weights and validation metrics",
+  "bitExactClaimed": false,
+  "absoluteTolerance": 1e-07,
+  "seeds": [
+    {
+      "seed": 42,
+      "maximumSharedAndFourHeadWeightAbsoluteDifference": 1.4901161193847656e-08,
+      "maximumOriginalEndpointMetricAbsoluteDifferences": {
+        "auroc": 0.0,
+        "averagePrecision": 0.0,
+        "brier": 7.028200077474622e-09,
+        "ece10Bins": 8.677730978234877e-09
+      },
+      "selectedEpochEqual": true
+    },
+    {
+      "seed": 43,
+      "maximumSharedAndFourHeadWeightAbsoluteDifference": 0.0,
+      "maximumOriginalEndpointMetricAbsoluteDifferences": {
+        "auroc": 0.0,
+        "averagePrecision": 0.0,
+        "brier": 0.0,
+        "ece10Bins": 0.0
+      },
+      "selectedEpochEqual": true
+    },
+    {
+      "seed": 44,
+      "maximumSharedAndFourHeadWeightAbsoluteDifference": 1.4901161193847656e-08,
+      "maximumOriginalEndpointMetricAbsoluteDifferences": {
+        "auroc": 0.0,
+        "averagePrecision": 0.0,
+        "brier": 1.6903889676900263e-09,
+        "ece10Bins": 3.134296433504602e-09
+      },
+      "selectedEpochEqual": true
+    }
+  ]
+}
