@@ -1,0 +1,57 @@
+{
+  "schema": "aidd.integration-test-summary.v1",
+  "status": "passed",
+  "python": [
+    {
+      "environment": ".venv-v3",
+      "command": "python -m unittest discover -s test -p 'test_*.py'",
+      "passed": 326,
+      "seconds": 19.185,
+      "status": "passed",
+      "logSha256": "c875206c454642611f48f44daa1e86a496beb472461d12064b92669060c7289c"
+    },
+    {
+      "environment": ".venv-v3-cuda",
+      "command": "python -m unittest discover -s test -p 'test_*.py'",
+      "passed": 326,
+      "seconds": 18.832,
+      "status": "passed",
+      "logSha256": "b69f2721ffa550d59e48a4143056fc168482e173faa04584a66307128fb3d1d5"
+    }
+  ],
+  "javascript": {
+    "command": "npm test",
+    "passed": 52,
+    "failed": 0,
+    "skipped": 0,
+    "status": "passed",
+    "logSha256": "48c1320884f6a87d4d56149497a2a4b3706b604c4a7df3c7efc4b5058bd11626"
+  },
+  "dependencies": [
+    {
+      "log": "artifacts/integration-cpu-pip-check.log",
+      "status": "passed",
+      "logSha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "log": "artifacts/integration-cuda-pip-check.log",
+      "status": "passed",
+      "logSha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    }
+  ],
+  "unitFixturesAreBenchmarks": false,
+  "realModelEvidence": [
+    "cuda-validation-20261013.json",
+    "runtime-cpu-20261013.json",
+    "runtime-cuda-20261013.json",
+    "browser-verification-20261013.json"
+  ],
+  "sourceHashes": {
+    "backend/v3_experiments.py": "ffa2d635f767d0b928fd811f754b48b7c99e4093c29e7e1e0c5895fc53f37987",
+    "backend/multitask_experiments.py": "c65fd9263f9acd6b06ed4e120f267cfbbcf2cc90ee613f45b6f8e4674b7c5e51",
+    "scripts/verify_toxnet_v3_run.py": "25fb69450d51b0dc936f6071d12ae54e05f23aeb1db3a0a0b717fdfed7a550f1",
+    "backend/training_provenance.py": "c763087d24fc90a513a55d8cbf6f9725b8f10fc04a507ec0ec2c636a48e35878",
+    "scripts/verify_v3_cuda.py": "ae647d74fbd04c0a377c54968f889a65c56f97a06bca68fee370ed43690478b5",
+    "scripts/verify_toxnet_integration.py": "5520b496065a9b7e517ecb4c19d45fd691660a3927e5ea9e53d63ebf377a74af"
+  }
+}

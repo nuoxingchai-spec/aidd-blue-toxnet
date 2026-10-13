@@ -332,6 +332,7 @@ def run_experiments(*, data_dir: Path, output: Path, models=("B0", "B1", "B2"), 
     branches = {model: select_feature_branches(model, fusion_branches) for model in models}
     fingerprints = morgan_features(smiles) if any("morgan" in selected for selected in branches.values()) else None
     embeddings, encoder_provenance = None, None
+    embedding_cache_reused = False
     feature_started = time.perf_counter()
     if any("molformer" in selected for selected in branches.values()):
         if snapshot_dir is None:
@@ -340,6 +341,7 @@ def run_experiments(*, data_dir: Path, output: Path, models=("B0", "B1", "B2"), 
         encoder = PretrainedEncoder(snapshot_dir=Path(snapshot_dir), device=device)
         encoder_provenance = copy.deepcopy(encoder.provenance)
         cache = Path(embedding_cache) if embedding_cache is not None else Path(data_dir) / "molformer-embeddings.npz"
+        embedding_cache_reused = cache.exists()
         embeddings = cache_embeddings(cache, smiles, encoder, source_hash=source_hash, batch_size=encoder_batch_size)
         if embeddings.shape != (len(samples), encoder_provenance["dimension"]):
             raise ValueError("Embedding cache dimension or molecular order contract is invalid.")
@@ -432,7 +434,9 @@ def run_experiments(*, data_dir: Path, output: Path, models=("B0", "B1", "B2"), 
                                          "hyperparameters": {"logisticC": 1.0, "logisticMaxIter": 2000} if head_type == "logistic-regression" else {"learningRate": 1e-3, "weightDecay": 1e-3, "epochsLimit": epochs, "patience": patience},
                                          "dependencies": copy.deepcopy(context["dependencies"]),
                                          "device": "cpu" if head_type == "logistic-regression" else device,
-                                         "featureExtractionDevice": device if encoder_provenance is not None else None,
+                                         "featureExtractionDevice": device if "molformer" in branches[model_id] and not embedding_cache_reused else None,
+                                         "featureExtractionMode": ("verified-cache-load" if embedding_cache_reused else "computed-this-run") if "molformer" in branches[model_id] else "not-used",
+                                         "encoderLoadDevice": device if "molformer" in branches[model_id] else None,
                                          "sourceHashes": {str(path.relative_to(ROOT)).replace("\\", "/"): sha256_file(path)
                                                           for path in (Path(__file__).resolve(), ROOT / "scripts/train_toxnet_v3.py",
                                                                        ROOT / "backend/chemistry.py", ROOT / "backend/v3_data.py", ROOT / "backend/pretrained_encoder.py") if path.is_file()}},

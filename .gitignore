@@ -59,6 +59,10 @@ artifacts/integration/multitask-cuda-20261013/*
 !artifacts/integration/multitask-cuda-20261013/experiment.json
 !artifacts/integration/fourtask-cuda-verification-final-20261013.json
 !artifacts/integration/multitask-cuda-verification-20261013.json
+!artifacts/integration/fourtask-cuda-verification-bound-20261013.json
+!artifacts/integration/historical-fourtask-verification-bound.json
+!artifacts/integration/training-source-audit-20261013.json
+!artifacts/integration/validation-tests-20261013.json
 data/raw/
 data/processed/
 data/candidates/

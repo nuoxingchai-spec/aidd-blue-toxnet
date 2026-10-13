@@ -132,7 +132,7 @@ node --check toxicity-core.js
 | 真实 B16 副本训练步 | 4 | 66.626 | 68.000 | 0.022225 | 否 |
 | 真实 B16 副本训练步 | 8 | 66.638 | 68.000 | 0.024914 | 否 |
 
-完整来源、诊断、模型/数据/代码哈希和保护工件见 [cuda-validation-20261013.json](artifacts/integration/cuda-validation-20261013.json)。两个环境均通过 **314 项 Python**，JavaScript **52 项**，两套 `pip check` 和前端语法检查通过。官方安装包校验见 [official-wheel-verification.json](artifacts/integration/official-wheel-verification.json)；其中 `downloadSeconds` 是最后一次续传和组装校验运行的耗时，不是首次下载到完成的总墙钟时间。
+完整来源、诊断、模型/数据/代码哈希和保护工件见 [cuda-validation-20261013.json](artifacts/integration/cuda-validation-20261013.json)。最终两个环境均通过 **326 项 Python**，JavaScript **52 项**，两套 `pip check` 和前端语法检查通过，计数与日志哈希见 [validation-tests-20261013.json](artifacts/integration/validation-tests-20261013.json)。官方安装包校验见 [official-wheel-verification.json](artifacts/integration/official-wheel-verification.json)；其中 `downloadSeconds` 是最后一次续传和组装校验运行的耗时，不是首次下载到完成的总墙钟时间。
 
 两组新冻结实验均已实际完成：B0/B1/B2 × seeds 42/43/44 的 9 个工件，以及 A4/B16/C_Morgan/B16_noTox21 × 三种子的 12 个工件。实际新 B16 CUDA 后端链路也已通过独立运行验收；真实开发指标见下一节。独立盲测、全量编码器微调、概率校准和适用域仍未完成。
 
@@ -145,7 +145,7 @@ node --check toxicity-core.js
 ### 第一组 B0/B1/B2
 
 数据版本 `aidd-toxnet-v3-development-c1d448002df99aa3`；split SHA256 `7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91`。
-[完整指标](artifacts/integration/fourtask-cuda-20261013/experiment.json)，[独立工件/指标核验](artifacts/integration/fourtask-cuda-verification-final-20261013.json)。
+[完整指标](artifacts/integration/fourtask-cuda-20261013/experiment.json)，[独立工件/指标核验](artifacts/integration/fourtask-cuda-verification-bound-20261013.json)。
 
 | 模型 | 端点 | n / 阳性 | AUROC 均值 | AP 均值 | Brier 均值 | ECE10 均值 |
 |---|---|---:|---:|---:|---:|---:|
@@ -201,3 +201,29 @@ B16−A4 在相同原四任务 validation 标签上的逐种子配对描述性�
 三种子的零辅助损失消融仍保留独立工件和禁用任务状态；未混合成临床毒性概率。模型全部为 `formalAvailability=false`、未校准且适用域未验证。旧 test 和 Karim 的标签没有用于任何新的拟合/选择/校准。没有新的独立盲测、前瞻评价或全量编码器微调。
 
 实际新 B16 CUDA 运行验收 [runtime-cuda-20261013.json](artifacts/integration/runtime-cuda-20261013.json) 通过：16 个真实任务、12 条独立通路、v2 的真实 CPU 四端点/归因、报告和拒绝路径均核验。原 v2 的 10 个保护文件未改，其中 9 个与 origin/main 字节一致，未公开进度文件依据原保护快照核验。
+
+实际训练源码固定在 Git 提交 `998afbf0a9cea32cb11b7f33377b7d40cff59032`。之后修正了后续工件的分支设备和缓存命中记录，没有改写已生成清单。已生成清单的 `featureExtractionDevice` 记录整组共享编码器设备，不能据此称 Morgan-only 分支使用 GPU；实际头设备 `training.device` 已正确区分 CPU/CUDA。完整不可变源码和字节核验见 [training-source-audit-20261013.json](artifacts/integration/training-source-audit-20261013.json)。
+
+## 9. 使用本机已完成工件
+
+本机已保留 `.venv-v3-cuda` 和 `multitask-cuda-20261013/B16-seed-42`。可直接在项目根目录的新 PowerShell 启动独立研究工作台，保留原 4173 服务：
+
+```powershell
+$taskCudaPy = '.\.venv-v3-cuda\Scripts\python.exe'
+$env:TOXNET_MULTITASK_ENABLE = 'true'
+$env:TOXNET_MULTITASK_MODEL_DIR = (Resolve-Path 'artifacts\integration\multitask-cuda-20261013\B16-seed-42').Path
+$env:TOXNET_MULTITASK_ENCODER_DIR = (Resolve-Path 'models\pretrained\molformer').Path
+$env:TOXNET_MULTITASK_DEVICE = 'cuda'
+$env:OMP_NUM_THREADS = '6'
+$env:MKL_NUM_THREADS = '6'
+& $taskCudaPy -m uvicorn backend.main:app --host 127.0.0.1 --port 4183
+```
+
+浏览器访问 `http://127.0.0.1:4183/`，四端点本机供应商仍为正式 v2，B16 独立研究接口只在上述显式配置后可用。来源不足和外部语言模型未配置时保留真实本机报告及证据不足状态。
+
+复核本轮已完成工件时指定真实训练提交；该提交只提供审计字节，不执行历史代码：
+
+```powershell
+& $taskCudaPy scripts\verify_toxnet_v3_run.py --experiment artifacts\integration\fourtask-cuda-20261013 --data-dir data\v3-development --snapshot models\pretrained\molformer --training-source-ref 998afbf0a9cea32cb11b7f33377b7d40cff59032 --output artifacts\integration\fourtask-local-next.json
+& $taskCudaPy scripts\verify_multitask_run.py --experiment artifacts\integration\multitask-cuda-20261013 --data-dir data\v3-multitask-audited --snapshot models\pretrained\molformer --training-source-ref 998afbf0a9cea32cb11b7f33377b7d40cff59032 --output artifacts\integration\multitask-local-next.json
+```

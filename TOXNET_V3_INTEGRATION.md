@@ -28,7 +28,8 @@
 | Morgan-only v3 加载路径未核对训练时化学引擎、RDKit 版本 | `backend/versioned_local_model.py` 对所有分支执行相同版本合同校验，防止改变特征语义却仍引用旧模型版本。 |
 | v3 可以加载来自不同数据/划分/种子的评价，或将双类但全空指标视为完成 | 绑定评价 schema、完成状态、开发角色、数据版本、split SHA、seed 和四端点合同；检查类别计数和指标是否可定义。单类 AUROC/AP 保留 null，无观测任务所有指标保留 null，不构造指标。 |
 | 更新验收代码后，旧训练源码 SHA 与当前源码不同 | 新增 `backend/training_provenance.py`；四任务和多任务验收脚本的 `--training-source-ref` 按指定完整 Git 提交读取原训练 blob 字节，核对记录 SHA，另列当前运行源码 SHA 和差异。历史 Python 只读取，不执行；旧 manifest 不修改。 |
-| CUDA 实验中的 sklearn 逻辑回归也被记录为 CUDA 训练 | 两组实验分别记录实际预测头 `device` 与冻结编码器 `featureExtractionDevice`；B0/B1/C_Morgan 拟合为 CPU，MLP 为 CUDA。新增回归检查，历史清单保持原字节。 |
+| CUDA 实验中的 sklearn 逻辑回归也被记录为 CUDA 训练 | 两组实验分别记录实际预测头与冻结编码器设备；B0/B1/C_Morgan 拟合为 CPU，MLP 为 CUDA。最终追加分支级 `featureExtractionDevice`、`encoderLoadDevice`、`featureExtractionMode`：Morgan 不继承共享编码器设备，校验缓存命中不声称本轮重算。已完成工件保持原字节，记录限制见下文。 |
+| 四任务验收只把重算指标与汇总比较，未同时绑定实际评价文件和模型/种子 | `scripts/verify_toxnet_v3_run.py` 同时核对真实评价与汇总指标，绑定实际 model/seed/清单/权重/版本；新增 8 项防错配测试，新旧 9 个工件分别重新通过严格验收。 |
 | 缺少统一真实运行验收及 GPU 验证入口 | 新增 `scripts/verify_toxnet_integration.py`、`scripts/verify_v3_cuda.py` 及相应单元测试。输出采用新路径，失败、缺设备、权重缺失和 SHA 错误均保留明确状态。 |
 
 预训练编码器仍固定为 `ibm-research/MoLFormer-XL-both-10pct` 的修订 `7b12d946c181a37f6012b9dc3b002275de070314`，权重 SHA256 为 `0795977fe7192c4acdaf052f0e8464af57bc4bb59211271c5e61aaba2637b9c6`。运行时仅执行核验过的本地 vendored 代码；不使用 `trust_remote_code=True`、浮动 main、动态远程 Python 或自动权重下载。PyTorch 权重采用 `weights_only=True`，NumPy 缓存采用 `allow_pickle=False`。
@@ -41,11 +42,11 @@
 
 | 项目 | 实际结果 | 证据 |
 |---|---|---|
-| Python 单元、API、版本/哈希及回归测试 | **CPU 和 CUDA 环境各 314 项通过** | 本轮两套完整 `unittest discover` 运行记录 |
+| Python 单元、API、版本/哈希及回归测试 | **CPU 和 CUDA 环境各 326 项通过** | [validation-tests-20261013.json](artifacts/integration/validation-tests-20261013.json) |
 | JavaScript 单元及工作台状态测试 | **52 项通过** | 本轮 `npm test` 运行记录 |
 | Python 依赖检查 | 两套 `pip check` 通过 | 独立 v3 CPU 与 CUDA 环境 |
 | JavaScript 语法检查 | `app.js`、`toxicity-core.js` 通过 | `node --check` |
-| 四任务历史真实工件 | B0/B1/B2 × seeds 42/43/44，**9 次已训练运行重新验收通过** | [historical-fourtask-verification-final.json](artifacts/integration/historical-fourtask-verification-final.json) |
+| 四任务历史真实工件 | B0/B1/B2 × seeds 42/43/44，**9 次已训练运行重新验收通过** | [historical-fourtask-verification-bound.json](artifacts/integration/historical-fourtask-verification-bound.json) |
 | 多任务历史真实工件 | A4/B16/C_Morgan/B16_noTox21 × seeds 42/43/44，**12 次已训练/消融运行重新验收通过** | [historical-multitask-verification.json](artifacts/integration/historical-multitask-verification.json) |
 | 真实 CPU 工作台后端链路 | v2 四端点、模型信息、IG、中文报告、实验检索、B16 十二通路、错误场景和分数对应关系通过 | [runtime-cpu-20261013.json](artifacts/integration/runtime-cpu-20261013.json) |
 | GPU 验收 | **真实 CUDA、冻结 MoLFormer、B16 副本更新、batch 1/2/4/8 全部通过** | [cuda-validation-20261013.json](artifacts/integration/cuda-validation-20261013.json) |
@@ -237,10 +238,12 @@ PR #3 也 squash 完成后，集成分支还需要以原 `c997ae7` 为旧 base�
 
 各模型均保留三个固定种子，特征变换/类别权重只拟合 train，checkpoint 只用合法开发 validation。完整逐种子、全部端点、标准差、阳性数和参数/文件版本见两组 `experiment.json`；下表只列原四端点的三种子均值。两组开发划分不同，禁止跨表直接当作同一验证集比较。
 
+本轮实际训练源码已保存在完整提交 `998afbf0a9cea32cb11b7f33377b7d40cff59032`，其 Git blob 与 21 个新工件中的 141 条训练源码哈希一致。最终审查之后只修正后续设备记录和验收绑定，没有重写已训练工件。已生成清单中 `training.device` 准确记录预测头设备；其旧 `featureExtractionDevice` 是整组共享编码器提取设备，Morgan-only 清单也可能保留该值，不能据此声称 Morgan 在 GPU 提取或拟合。后续版本改为分支级字段，并区分校验缓存读取和本轮计算。全部 42 个历史/新工件的当前字节及不可变训练来源另见 [training-source-audit-20261013.json](artifacts/integration/training-source-audit-20261013.json)。
+
 ### 第一组 B0/B1/B2
 
 数据版本 `aidd-toxnet-v3-development-c1d448002df99aa3`；split SHA256 `7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91`。
-[完整指标](artifacts/integration/fourtask-cuda-20261013/experiment.json)，[独立工件/指标核验](artifacts/integration/fourtask-cuda-verification-final-20261013.json)。
+[完整指标](artifacts/integration/fourtask-cuda-20261013/experiment.json)，[独立工件/指标核验](artifacts/integration/fourtask-cuda-verification-bound-20261013.json)。
 
 | 模型 | 端点 | n / 阳性 | AUROC 均值 | AP 均值 | Brier 均值 | ECE10 均值 |
 |---|---|---:|---:|---:|---:|---:|
@@ -307,7 +310,7 @@ B16−A4 在相同原四任务 validation 标签上的逐种子配对描述性�
 | 训练设备记录 | `backend/v3_experiments.py`、`backend/multitask_experiments.py` |
 | 不可变训练源码核验 | `backend/training_provenance.py`、`scripts/verify_toxnet_v3_run.py`、`scripts/verify_multitask_run.py` |
 | 真实 CUDA 和集成验收入口 | `scripts/verify_v3_cuda.py`、`scripts/verify_toxnet_integration.py` |
-| 新增/加强回归 | `test/test_v3_data.py`、`test/test_versioned_local_model.py`、`test/test_v3_experiments.py`、`test/test_multitask_experiments.py`、`test/test_training_provenance.py`、`test/test_v3_cuda.py`、`test/test_toxnet_integration.py` |
+| 新增/加强回归 | `test/test_v3_data.py`、`test/test_versioned_local_model.py`、`test/test_v3_experiments.py`、`test/test_multitask_experiments.py`、`test/test_training_provenance.py`、`test/test_training_device_provenance.py`、`test/test_verify_toxnet_v3_run.py`、`test/test_v3_cuda.py`、`test/test_toxnet_integration.py` |
 | 文档及提交范围 | `README.md`、`CUDA_VALIDATION.md`、`TOXNET_V3_INTEGRATION.md`、`.gitignore`、`.gitattributes` |
 | 聚合验收证据 | `artifacts/integration/` 中明确白名单的验收 JSON、两组 `experiment.json` 和可移植依赖清单 |
 

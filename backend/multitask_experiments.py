@@ -363,6 +363,7 @@ def run_multitask(*, data_dir, output, snapshot_dir=None, embedding_cache=None, 
     print(__import__("json").dumps({"phase": "multitask-data-verified", "molecules": len(samples), "eligibleSelectionTasks": selection["eligible"]}), flush=True)
     feature_start = time.perf_counter()
     embeddings, encoder_info = None, None
+    embedding_cache_reused = False
     if any(model != "C_Morgan" for model in models):
         if snapshot_dir is None:
             raise FileNotFoundError("A4/B16 require a real verified frozen MoLFormer snapshot; no simulated features are provided.")
@@ -370,6 +371,7 @@ def run_multitask(*, data_dir, output, snapshot_dir=None, embedding_cache=None, 
         encoder = PretrainedEncoder(Path(snapshot_dir), device=device)
         encoder_info = copy.deepcopy(encoder.provenance)
         embedding_cache = Path(embedding_cache) if embedding_cache else Path(data_dir) / "molformer-embeddings.npz"
+        embedding_cache_reused = embedding_cache.exists()
         embeddings = cache_embeddings(embedding_cache, smiles, encoder, source_hash=source_hash, batch_size=encoder_batch_size)
         if embeddings.shape != (len(samples), encoder_info["dimension"]):
             raise ValueError("Multitask embedding cache dimensions/order do not match the common data.")
@@ -480,7 +482,9 @@ def run_multitask(*, data_dir, output, snapshot_dir=None, embedding_cache=None, 
                                                "fourTaskValidationMembershipSha256": four_validation_hash, "dropoutSeedResetAfterHeadInitialization": kind == "shared-mlp",
                                                "hyperparameters": {"learningRate": .001, "weightDecay": .001, "epochsLimit": epochs, "patience": patience, "batchSize": batch_size} if kind == "shared-mlp" else {"C": 1, "solver": "lbfgs", "maxIter": 2000},
                                                "device": "cpu" if kind == "logistic-regression" else device,
-                                               "featureExtractionDevice": device if encoder_info is not None else None,
+                                               "featureExtractionDevice": device if kind != "logistic-regression" and not embedding_cache_reused else None,
+                                               "featureExtractionMode": ("verified-cache-load" if embedding_cache_reused else "computed-this-run") if kind != "logistic-regression" else "not-used",
+                                               "encoderLoadDevice": device if kind != "logistic-regression" else None,
                                                "dependencies": copy.deepcopy(experiment["dependencies"]),
                                                "sourceHashes": {str(path.relative_to(ROOT)).replace("\\", "/"): sha256_file(path) for path in sources if path.is_file()}},
                                   "calibration": {"status": "not-fitted", "certified": False}, "applicability": {"validated": False, "status": "not-validated"},
