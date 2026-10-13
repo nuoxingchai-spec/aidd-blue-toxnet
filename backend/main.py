@@ -10,6 +10,9 @@ from uuid import uuid4
 
 from fastapi import FastAPI, Request
 from backend.research_routes import create_research_router
+from backend.explanation_routes import create_explanation_router
+from backend.explanation_service import ExplanationService
+from backend.multitask_model import MultitaskModelClient
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictStr, field_validator
@@ -127,7 +130,7 @@ def _compose(smiles: str, mode: str, provider: str | None, registry: dict, defau
     return result
 
 
-def create_app(registry: dict | None = None, default_provider: str | None = None, config_path: Path | None = None, env: dict | None = None, local_client=None) -> FastAPI:
+def create_app(registry: dict | None = None, default_provider: str | None = None, config_path: Path | None = None, env: dict | None = None, local_client=None, explanation_service=None) -> FastAPI:
     configuration = ModelConfigurationStore(config_path or ROOT / ".env", registry=registry, env=env)
     registry = configuration.registry
     local = registry.get("local") or local_client or LocalModelClient(model_dir=config_path.parent / "models/aidd-toxnet" if config_path else None, env=configuration.startup_values)
@@ -209,6 +212,8 @@ def create_app(registry: dict | None = None, default_provider: str | None = None
         return FileResponse(ROOT / asset)
 
     application.include_router(create_research_router(env=configuration.startup_values))
+    application.include_router(create_explanation_router(explanation_service or ExplanationService(local, configuration,
+                               research_client=MultitaskModelClient.from_env(configuration.startup_values))))
     return application
 
 

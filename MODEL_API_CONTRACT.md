@@ -32,7 +32,7 @@ ChatGPT / OpenAI、DeepSeek、千问、GLM 使用各供应商的 OpenAI-compatib
 
 后续外部来源回顾性评估作为可选的 `externalEvaluation` 单独提供。只有评估记录中的模型版本、权重和清单 SHA256 与当前加载模型相符、权重/校准/阈值没有用新标签修改、指标合法时才展示；记录缺失或不匹配不影响本机推理。该字段同时提供固定原训练集基线、来源偏移限制及独立评估 SHA256，不能当作前瞻验证或可靠校准证明。它不修改原始训练清单和内部测试记录。
 
-本机模型返回 `scoreKind=probability`，使用验证集拟合的温度及偏置调整。`calibration.status=measured-not-certified` 表示在内部独立测试中测量过 Brier/ECE，不能理解为临床风险概率已验证。`applicability.status=similarity-heuristic` 是与真实训练结构的 Morgan/Tanimoto 相似度，`validated=false`。`drivers=[]`、`explanationSource=none` 明确没有模型机制归因；规则说明仅解释规则分数。模型版本、权重 SHA256、数据版本、训练与推理版本随每次结果返回。详见 [MODEL_CARD.md](MODEL_CARD.md)。
+本机模型返回 `scoreKind=probability`，使用验证集拟合的温度及偏置调整。`calibration.status=measured-not-certified` 表示在内部独立测试中测量过 Brier/ECE，不能理解为临床风险概率已验证。`applicability.status=similarity-heuristic` 是与真实训练结构的 Morgan/Tanimoto 相似度，`validated=false`。原推理结果继续返回 `drivers=[]`、`explanationSource=none`，该接口不提供模型机制归因；规则说明仅解释规则分数。神经归因与来源报告由独立研究接口返回，不改写原结果。模型版本、权重 SHA256、数据版本、训练与推理版本随每次结果返回。详见 [MODEL_CARD.md](MODEL_CARD.md)。
 
 四端点的正类定义：hERG 通道抑制、DILI 药物性肝损伤、Ames 致突变阳性、ClinTox 临床毒性。ClinTox 不等于 FDA 审批状态；若数据源同时含两个任务，应选择正确的标签列。hERG 输出也不等同于 IC50。
 
@@ -93,3 +93,60 @@ ChatGPT / OpenAI、DeepSeek、千问、GLM 使用各供应商的 OpenAI-compatib
 - 非法 SMILES / 不受支持的 tokenizer 输入返回 422；未启用研究、缺工件、训练未完成、校验失败、CUDA 不可用返回 503。错误包含 `error.code`、`error.message`、`error.requestId`；没有模型回退或模拟值。
 
 只有显式 `TOXNET_MULTITASK_ENABLE=true`、模型目录与完整所需工件核验成功，且十二通路全部完成监督训练后才可调用。A4 或零通路损失消融工件可离线审计，但不能充当 Tox21 服务。共享原同源/请求大小/安全响应头约束。部署及复现步骤见 [TOXNET_V3_MULTITASK.md](TOXNET_V3_MULTITASK.md)。
+
+## 独立解释与报告研究接口 v1
+
+`POST /api/research/explain` 使用严格同源 JSON，额外字段被拒绝；原 `/api/analyze` 与 `/api/research/tox21` 的预测语义和工件保持不变。请求示例可直接运行，不包含演示预测数值：
+
+```powershell
+$body = @{
+    smiles = 'CCO'
+    model = 'v2'
+    endpoint = 'herg'
+    steps = 32
+    includeLanguage = $false
+} | ConvertTo-Json
+$result = Invoke-RestMethod -Uri 'http://127.0.0.1:4173/api/research/explain' -Method Post -ContentType 'application/json' -Body $body
+$result | ConvertTo-Json -Depth 100 | Set-Content -Encoding utf8 'explanation-result.json'
+```
+
+| 请求字段 | 类型、默认值与含义 |
+|---|---|
+| `smiles` | 必填严格字符串，1..4096 字符；用现有 RDKit 规范化，保留盐、立体、同位素和电荷身份 |
+| `model` | `v2`（默认）或 `v3`；v3 必须显式配置且已完成训练，不自动切换 |
+| `endpoint` | 默认 `herg`，严格字符串 1..64 字符；必须是实际加载模型的已训练端点 ID |
+| `steps` | 严格整数 8..128，默认 32；v2 实际用此步数及最多两倍步数做积分收敛比较，128 步时没有更高步数比较，不标记收敛通过；v3 不使用积分步数 |
+| `includeLanguage` | 严格布尔值，默认 `false`；只启用封闭结论排序，原预测与报告事实保持不变 |
+| `languageProvider` | 可选严格字符串，最长 64 字符或 `null`；使用已配置的兼容对话接口供应商 ID，未配置时保留本机报告并注明语言服务不可用 |
+| `expectedWeightsSha256` | 可选 64 位小写十六进制 SHA256；与原报告实际权重不一致时拒绝解释 |
+| `expectedStructureId` | 可选 64 位小写十六进制 SHA256；与当前 canonical SMILES 标识不一致时拒绝解释 |
+
+成功响应的 `contractVersion=aidd.research.explanation.api.v1`，包含下列字段；实际数值由已加载真实模型计算，本文不填写示例实验值：
+
+| 响应字段 | 含义 |
+|---|---|
+| `status` | `available` 或 `partial`；有真实预测但归因带警告/不可用，或无实验匹配时为 `partial`；顶层状态不证明科学机制或临床效能 |
+| `canonicalSmiles`、`structureId`、`generatedAt` | 规范结构、其 SHA256 与 UTC 生成时间 |
+| `model`、`endpoint`、`modelPrediction` | 选定模型/解释端点，以及未经报告修改的真实预测、校准、适用域与 provenance |
+| `attribution` | 状态、方法、原子/片段、PNG data URL、数值诊断及模型/源码 SHA256；不可用时没有替代贡献 |
+| `evidence` | 本机检索状态、最多三条所选端点观察、结构 PNG、Tanimoto、实验正类定义、来源行/版本/哈希、定义一致性与用途限制 |
+| `structuralAlerts` | 既有 SMARTS 警示与规则版本，明确 `sourceKind=human-rule`、`notNeuralAttribution=true` |
+| `report` | `aidd.source-bounded-research-report.v1`；中文 sections、逐条 claims、sources、`evidenceBundleSha256`、`mechanismAssessment` 和独立 `language` 状态 |
+| `provenance`、`limitations`、`requestId` | 模型/权重/报告/契约版本、研究用途与临床限制、关联请求标识 |
+
+v2 `attribution.method=joint-embedding-morgan-integrated-gradients`，单位为校准 logit 贡献，不是概率变化。零嵌入/零指纹基线保留原图，可能偏离训练分布；位贡献到原子的映射存在碰撞/重复环境限制，重叠官能团汇总不能相加。数值检查未通过时返回 `computed-with-warning`，归因预算最多 128 个原子。v3 `method=legal-fragment-deletion-model-rerun` 返回合法片段删除后的真实预测差；`atoms=[]`，片段差异不是加性原子贡献或因果证明。
+
+`report.claims` 每条含 `id`、`sectionId`、`text`、`sourceKind`、`sourceIds`、`confidence`、`limitations`。来源区分 `model-computation`、`model-metadata`、`neural-attribution`、`human-rule`、`experimental-observation`、`mechanism-hypothesis`、`insufficient-evidence` 与 `limitation`；可信度是证据措辞，不是新增置信概率。`report.mechanismAssessment.status=insufficient-evidence`、`verifiedMechanisticClaims=[]`；实验来源只提供背景标签定义，机制章节明确“不确定；尚无充分证据”，数据集文献来源不能冒充分子特异机制验证。
+
+实验索引只从固定来源、原始和处理文件哈希、冻结成员以及确切标签核验成功的数据显式构建；未随仓库分发。默认 `data/evidence-index`，可配置 `TOXNET_EVIDENCE_INDEX_DIR`。索引缺失、来源文件缺失、哈希/标签核验失败或无相似记录时返回 `evidence.status=insufficient-evidence` 和空 `results`，不阻断其余真实本机报告。相似度使用包含手性的 Morgan radius-2 / 2048-bit，与旧 v2 适用域方法分开；Tanimoto 不能当预测置信度。已曝光 test/validation/Karim 观察保留角色，不能用于新调参或称新盲测；不同来源的 hERG 阈值不可默认相同。
+
+可选语言整理只复用 `apiFormat=openai` 且完整配置的对话服务。上游请求只含结论 ID、章节标题、来源类型与可信度措辞，不含分子结构、单条标签、实验行或文献。上游仅允许返回 `aidd.llm.report-plan.v1` 的 `schema`、`sectionOrder` 与 `claimOrder`；必须完整且不重复地排序已有 ID，不得增删、跨章节挪用或附加科学文本。所有文本本机渲染。语言失败分别注明未配置、超时、HTTP 错误或无效响应，保留本机报告。`report.language` 记录配置/返回模型标识、提示词版本、未独立核验不可变快照、供应商管理硬件及账户条款；不声称本地 TxGemma 权重或许可已审核。
+
+| HTTP 状态 | 行为 |
+|---|---|
+| 200 | 实际预测已获得，归因/检索可以部分不可用；语言模型失败只反映在 `report.language` |
+| 422 | 严格请求字段验证失败、非法 SMILES 或选定模型没有训练该端点；字段错误由既有处理器返回 `error.code=INVALID_REQUEST`，业务错误也使用 `error` 格式 |
+| 409 | `EXPLANATION_STRUCTURE_CHANGED` 或 `EXPLANATION_MODEL_CHANGED`；输入结构或真实权重与原报告不一致，需重新筛选 |
+| 503 | 模型未配置、工件/依赖不可用或解释基础设施异常；返回明确不可用，不提供模拟预测 |
+
+业务错误包含顶层 `status` 和 `error.code`、`error.message`、`error.requestId`。同源、请求大小限制及安全响应头沿用现有后台。模型密钥和上游响应原文不返回浏览器。JSON 导出是用户主动下载的本机研究报告，可能含本机检索的来源观察，应遵守底层数据许可，不将导出当作允许公开数据库的授权。方法、验证和启动流程见 [EXPLANATION_REPORTS.md](EXPLANATION_REPORTS.md)。

@@ -14,7 +14,23 @@
 
 输出四个独立二分类标签预测，经 `sigmoid(logit / temperature + bias)` 调整到 0–1。各端点并非互斥类别，不要求四个值加起来等于 1。hERG 正类为通道阻断，DILI 为肝损伤标签阳性，Ames 为试验致突变阳性，ClinTox 为因毒性导致临床试验失败（CT_TOX）。概率是来源标签预测，不是特定剂量下的人体毒性发生风险。
 
-当前模型没有机制归因输出。页面的 SMARTS 警示与规则贡献独立展示，不能当作 Transformer 产生这些预测的原因。综合指数与页面风险档位也不是经过实验验证的临床决策阈值。
+原四端点推理契约保持 `drivers=[]`、`explanationSource=none`，不将解释写入历史预测。新增独立研究接口可对当前实际加载模型生成端点级神经归因，方法和限制如下；它不是经实验验证的机制归因。页面的 SMARTS 警示与规则贡献仍独立展示，不能当作 Transformer 产生这些预测的原因。综合指数与页面风险档位也不是经过实验验证的临床决策阈值。
+
+## 独立研究归因与证据报告
+
+`POST /api/research/explain` 的 v2 方法为原子嵌入与 Morgan 输入联合 Integrated Gradients，目标是实际校准 logit `raw_logit / temperature + bias`，贡献单位不是概率变化。指定零原子嵌入与零指纹基线，固定原图的键、距离、掩码及 CLS；该基线与插值输入可能不在训练分布中。计算用 Gauss–Legendre 积分，默认比较 32 与 64 步，发布完整性残差和收敛诊断；检查失败时为 `computed-with-warning`，不能把数值警告当作解释已验证。
+
+图分支与指纹分支的贡献分别记录。Morgan 位贡献按实际记录的环境平均分配，再分配到各环境的原子；指纹碰撞和重复环境使这种映射不唯一。官能团仅用 SMARTS 命名并汇总神经原子贡献，不能将重叠片段相加为总风险。注意力不被当作因果解释。归因最多接受 128 个原子，该预算小于原模型 200 原子输入上限，不改变原推理范围；无法计算时返回 `unavailable`，不生成替代归因。
+
+归因先核对已加载工件中的训练时模型源码 SHA256，验证嵌入前向与原始 forward 一致，绑定权重和清单 SHA256，并核对归因前后的原预测。梯度只对解释输入求导，不更新权重、校准或参数梯度。真实权重验证包含两个分子的五项端点归因及预测不变检查；小型可解释模型测试检验积分与贡献守恒。单个通过数值检查的例子不能建立稳定解释或化学机制真实性。
+
+显式启用的完整 v3 多任务研究模型采用合法末端原子/BRICS 片段删除后重算，最多八个变体；删除后重新进行 RDKit 价态、规范结构及模型输入校验。响应差是原分子与变体的有限模型差异，不能解释为加性原子贡献，合法变体仍可能发生分布偏移。无完整研究工件时 v3 解释不可用，不自动切换正式 v2。
+
+报告中的本机实验检索独立使用包含手性的 radius-2 / 2048-bit Morgan 指纹，按所选端点展示有来源核验的标签。正式 v2 历史适用域相似度没有启用手性，两者的方法与阈值分开记录，不能混用。原始四端点、Tox21 及此前已曝光的 Karim 记录维持来源与角色，不合并任务定义、不重训模型、不形成新盲测。没有通过审计的索引或匹配时报告证据不足。原 hERG 与 Karim 的实验阈值不默认一致；结构相似度不能作为预测置信度。
+
+本机中文报告保留原预测数值，并逐条标注模型计算、神经归因、人工规则、实验观察、机制假设和证据不足。可选 API 语言模型仅对已有结论 ID 排序，不能新增科学文本、分数、实验或文献；外部请求不含分子结构和单条实验记录。模型版本仅记录配置/返回标识，未独立验证供应商不可变快照，服务和许可受供应商账户条款约束。未配置或失败时仍可使用本机报告。
+
+尚无经核验的分子特异机制文献或机制实验，报告机制结论明确为“不确定；尚无充分证据”。结构归因不等于毒性因果机制，自然语言整理不等于科学验证。研究原型不构成临床诊断或人体风险概率。完整方法和可复现命令见 [EXPLANATION_REPORTS.md](EXPLANATION_REPORTS.md)。本轮完整软件测试通过 281 项 Python、52 项 JavaScript；未执行付费外部语言模型实调用或 GPU 归因验证。
 
 ## 数据与固定划分
 
@@ -105,7 +121,7 @@ TDC 页面同时出现“Not Specified”和“CC BY 4.0”许可文字。数据
 
 实际权重的 HTTP 集成核验由 `scripts/verify_local_model.py` 完成，最终重新运行通过，记录在 `artifacts/local-model-verification.json`：乙醇、苯、对乙酰氨基酚、氯化钠、乙腈五组合法等价写法得到相同结构和相同四端点预测。本次已加载模型后的本地 HTTP 单次检查约 0.03–0.08 秒，只是功能 smoke check，未测冷启动、并发、吞吐量或 p95 延迟。
 
-实际浏览器也已核验本机供应商选择、模型详情实测指标、输入修改后暂停导出、三键显示、请求进行时重置、重新生成报告及 JSON 导出；导出权重 SHA256 与正式模型一致且不含凭据字段。最后刷新后已看到外部评估的 9,978 分子、AUROC 约 0.643 / 0.647 及限制说明。截图为 `artifacts/aidd-toxnet-workbench.jpg`、`artifacts/aidd-toxnet-details.jpg`、`artifacts/aidd-toxnet-external-evaluation.jpg`，导出证据为 `artifacts/local-model-browser-audit.json`。最终完整运行通过 101 项 Python 测试、41 项 JavaScript 测试，另通过 `pip check` 与两份前端脚本语法检查。这些验证证明产品链路运行，不提升模型效能证据等级。
+原 v2 交付的实际浏览器已核验本机供应商选择、模型详情实测指标、输入修改后暂停导出、三键显示、请求进行时重置、重新生成报告及 JSON 导出；导出权重 SHA256 与正式模型一致且不含凭据字段。最后刷新后已看到外部评估的 9,978 分子、AUROC 约 0.643 / 0.647 及限制说明。截图为 `artifacts/aidd-toxnet-workbench.jpg`、`artifacts/aidd-toxnet-details.jpg`、`artifacts/aidd-toxnet-external-evaluation.jpg`，导出证据为 `artifacts/local-model-browser-audit.json`。该次完整运行通过 101 项 Python 测试、41 项 JavaScript 测试，另通过 `pip check` 与两份前端脚本语法检查。本次独立解释系统验证见上节及 `artifacts/explanations/system-verification-final.json`。这些验证证明产品链路运行，不提升模型效能证据等级。
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-model.txt

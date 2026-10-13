@@ -289,6 +289,21 @@
             </div>
             <div class="evidence-flow" id="evidenceFlow"></div>
           </section>
+          <section class="detail-panel explanation-panel" aria-labelledby="explanationTitle">
+            <p class="eyebrow">Research explanation</p>
+            <h3 id="explanationTitle">可追溯 AIDD 研究解释</h3>
+            <p class="explanation-note">研究原型，不构成临床诊断或人体风险概率。结构归因不等于因果机制，语言整理不等于科学验证。</p>
+            <div class="explanation-controls">
+              <label>归因端点<select id="explanationEndpoint"><option value="herg">hERG</option><option value="dili">DILI</option><option value="ames">Ames</option><option value="clintox">ClinTox</option></select></label>
+              <label><input id="explanationLanguage" type="checkbox">可选语言模型整理</label>
+              <label>语言供应商<select id="explanationProvider"><option value="">未配置</option></select></label>
+              <button id="explainButton" class="primary-button" type="button" disabled>解释当前本机模型</button>
+              <button id="exportExplanationButton" class="secondary-button" type="button" disabled>导出解释 JSON</button>
+            </div>
+            <p class="explanation-note">语言模型仅接收编排摘要，不接收实验库结构或个体标签。未配置时仍使用本机真实预测、归因与证据检索。</p>
+            <p id="explanationStatus" role="status" aria-live="polite">先使用本机 ToxNet 生成当前分子的报告。</p>
+            <div id="explanationContent" hidden></div>
+          </section>
         </section>
       </main>
     </div>
