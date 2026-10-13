@@ -15,7 +15,9 @@ import re
 import threading
 from pathlib import Path
 
-from backend.chemistry import canonicalize_smiles
+from rdkit import rdBase
+
+from backend.chemistry import CHEMISTRY_VERSION, canonicalize_smiles
 from backend.local_model import ARTIFACT_SCHEMA, LocalModelClient
 from backend.model_client import ENDPOINT_IDS, ModelAPIError
 from backend.v3_data import TASK_CONTRACT_VERSION
@@ -100,6 +102,8 @@ class V3ArtifactClient:
             manifest = _json(self.model_dir / "manifest.json")
             if not isinstance(manifest, dict) or manifest.get("schema") != V3_SCHEMA or manifest.get("endpoints") != list(ENDPOINT_IDS):
                 _fail("Unsupported v3 schema or endpoint contract.")
+            if manifest.get("chemistryVersion") != CHEMISTRY_VERSION or manifest.get("rdkitVersion") != rdBase.rdkitVersion:
+                _fail("V3 chemistry engine or RDKit version differs from the trained feature contract.", "V3_CHEMISTRY_VERSION_MISMATCH")
             if manifest.get("status") != "trained-completed":
                 _fail("V3 model has not completed real training and validation.", "V3_MODEL_NOT_READY")
             if manifest.get("formalAvailability") is not False:
@@ -148,14 +152,43 @@ class V3ArtifactClient:
                 _fail("V3 model is missing required auditable artifacts.")
             paths = {name: _artifact_path(self.model_dir, record) for name, record in records.items()}
             evaluation = _json(paths["evaluation"])
-            if not isinstance(evaluation, dict) or evaluation.get("split") != "validation" or not isinstance(evaluation.get("endpoints"), dict) or set(evaluation["endpoints"]) != set(ENDPOINT_IDS):
-                _fail("V3 evaluation must describe the development validation split.")
+            if (not isinstance(evaluation, dict)
+                or manifest.get("evaluationStatus") != "evaluated-validation-only"
+                or evaluation.get("schema") != "aidd.toxnet.development-evaluation.v3"
+                or evaluation.get("status") != "evaluated-validation-only"
+                or evaluation.get("split") != "validation"
+                or evaluation.get("evaluationType") != "development-validation-used-for-model-selection"
+                or evaluation.get("independentTest") is not False
+                or evaluation.get("calibrationStatus") != "not-fitted"
+                or evaluation.get("datasetVersion") != dataset["datasetVersion"]
+                or evaluation.get("splitSha256") != dataset["splitSha256"]
+                or type(training.get("seed")) is not int
+                or type(evaluation.get("seed")) is not int or evaluation["seed"] != training["seed"]
+                or not isinstance(evaluation.get("endpoints"), dict)
+                or set(evaluation["endpoints"]) != set(ENDPOINT_IDS)):
+                _fail("V3 evaluation must match the completed model's development data, split, seed and task contract.")
             for value in evaluation["endpoints"].values():
                 if not isinstance(value, dict) or type(value.get("count")) is not int or value["count"] < 0 or type(value.get("positives")) is not int or not 0 <= value["positives"] <= value["count"]:
                     _fail("V3 validation class counts are invalid.")
+                if type(value.get("negatives")) is not int or value["negatives"] < 0 or value["positives"] + value["negatives"] != value["count"]:
+                    _fail("V3 validation positive, negative and total counts disagree.")
                 for metric in ("auroc", "averagePrecision", "brier", "ece10Bins"):
                     if value.get(metric) is not None and (not _finite(value[metric]) or not 0 <= value[metric] <= 1):
                         _fail("V3 validation metrics are invalid.")
+                count, positives = value["count"], value["positives"]
+                expected_status = "no-data" if not count else "computed" if 0 < positives < count else "single-class"
+                expected_reason = "no-observed-labels" if not count else None if 0 < positives < count else "both-classes-required"
+                if value.get("status") != expected_status or value.get("rankingMetricReason") != expected_reason:
+                    _fail("V3 evaluation status must reflect its actual observed class support.")
+                if expected_status == "computed":
+                    if any(value.get(metric) is None for metric in ("auroc", "averagePrecision", "brier", "ece10Bins")):
+                        _fail("A two-class V3 validation task is missing actual evaluation metrics.", "V3_MODEL_NOT_READY")
+                elif any(value.get(metric) is not None for metric in ("auroc", "averagePrecision")):
+                    _fail("Missing or single-class V3 validation cannot claim AUROC/AP.")
+                if count and any(value.get(metric) is None for metric in ("brier", "ece10Bins")):
+                    _fail("Observed V3 validation predictions require Brier/ECE measurements.", "V3_MODEL_NOT_READY")
+                if not count and any(value.get(metric) is not None for metric in ("brier", "ece10Bins")):
+                    _fail("Missing V3 validation observations cannot claim Brier/ECE.")
             history = _json(paths["trainingHistory"])
             if not history:
                 _fail("V3 actual training history is empty.")

@@ -243,7 +243,7 @@ class V3BoundaryAndTrainingTests(unittest.TestCase):
         manifest = {"schema": "aidd.toxnet.development-data.v3", "datasetVersion": "synthetic-unit-fixture-only",
                     "taskContractVersion": "synthetic-unit-fixture-task", "splitSha256": "a" * 64,
                     "trainingPermission": {"status": "unit-fixture-never-a-benchmark"}}
-        with tempfile.TemporaryDirectory() as directory, patch.object(v3_data, "load_v3_data", return_value=(manifest, samples)):
+        with tempfile.TemporaryDirectory() as directory, patch.object(v3_data, "load_v3_data", return_value=(manifest, samples)), patch.object(experiments, "resolve_device", return_value="cuda"):
             data = Path(directory) / "data"
             data.mkdir()
             (data / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
@@ -257,6 +257,9 @@ class V3BoundaryAndTrainingTests(unittest.TestCase):
                 record = json.loads((run / "manifest.json").read_text(encoding="utf-8"))
                 self.assertEqual(record["status"], "trained-completed")
                 self.assertEqual(record["parameterCount"], 8196)
+                # A CUDA request must not mislabel actual sklearn CPU fitting.
+                self.assertEqual(record["training"]["device"], "cpu")
+                self.assertIsNone(record["training"]["featureExtractionDevice"])
                 self.assertEqual(record["training"]["splits"], {"train": 6, "validation": 4})
                 self.assertEqual(record["training"]["endpointStatus"], {endpoint: "trained" for endpoint in ENDPOINTS})
                 self.assertEqual(record["training"]["featureTransformFitSplit"], "train")

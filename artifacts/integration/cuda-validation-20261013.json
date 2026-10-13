@@ -1,0 +1,965 @@
+{
+  "schema": "aidd.toxnet.v3-cuda-verification.v1",
+  "generatedAt": "2026-10-13T04:24:26.882863+00:00",
+  "status": "passed",
+  "formalAvailability": false,
+  "validationCodeSha256": "ae647d74fbd04c0a377c54968f889a65c56f97a06bca68fee370ed43690478b5",
+  "environment": {
+    "pythonVersion": "3.13.2",
+    "pythonExecutable": "D:\\安装包\\OneDrive\\เอกสาร\\ChatGPT\\项目实践  二\\.venv-v3-cuda\\Scripts\\python.exe",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "driver": {
+      "status": "available",
+      "returnCode": 0,
+      "rows": [
+        "NVIDIA GeForce RTX 4060 Laptop GPU, 566.24, 8188"
+      ],
+      "error": ""
+    },
+    "torchVersion": "2.14.1+cu126",
+    "cudaBuildVersion": "12.6",
+    "cudaAvailable": true,
+    "gpuDevices": [
+      {
+        "index": 0,
+        "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "totalMemoryBytes": 8585216000,
+        "computeCapability": [
+          8,
+          9
+        ]
+      }
+    ],
+    "dependencies": {
+      "torch": "2.14.1+cu126",
+      "rdkit": "2026.9.1",
+      "numpy": "2.5.4",
+      "transformers": "4.57.6",
+      "tokenizers": "0.22.2",
+      "safetensors": "0.6.2",
+      "scikit-learn": "1.9.1"
+    },
+    "pytorchWheelKind": "cuda"
+  },
+  "requestedBatchSizes": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "basicCuda": {
+    "status": "passed",
+    "cudaDevice": "cuda:0",
+    "oom": false,
+    "baselineAllocatedBytes": 0,
+    "baselineReservedBytes": 0,
+    "peakAllocatedBytes": 67176960,
+    "peakReservedBytes": 69206016,
+    "executionSeconds": 1.574598,
+    "peakAdditionalAllocatedBytes": 67176960,
+    "peakAdditionalReservedBytes": 69206016,
+    "verification": {
+      "matmulDevice": "cuda",
+      "forwardDevice": "cuda",
+      "backwardDevice": "cuda",
+      "optimizerUpdated": true,
+      "loss": 22.952083587646484,
+      "purpose": "GPU arithmetic; not a molecular-model benchmark"
+    }
+  },
+  "encoderBatches": [
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 246364672,
+      "baselineReservedBytes": 281018368,
+      "peakAllocatedBytes": 246986240,
+      "peakReservedBytes": 281018368,
+      "executionSeconds": 0.111961,
+      "peakAdditionalAllocatedBytes": 621568,
+      "peakAdditionalReservedBytes": 0,
+      "batchSize": 1,
+      "operation": "frozen-MoLFormer-extraction",
+      "encoderResidentOnCuda": true,
+      "cpuGpuTolerance": {
+        "atol": 0.001,
+        "rtol": 0.001
+      },
+      "embeddingShape": [
+        1,
+        768
+      ],
+      "finite": true,
+      "maximumAbsoluteCpuGpuDifference": 3.337860107421875e-06,
+      "meanAbsoluteCpuGpuDifference": 3.4890186384473054e-07,
+      "cpuGpuAgreement": true
+    },
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 246364672,
+      "baselineReservedBytes": 281018368,
+      "peakAllocatedBytes": 247594496,
+      "peakReservedBytes": 281018368,
+      "executionSeconds": 0.032693,
+      "peakAdditionalAllocatedBytes": 1229824,
+      "peakAdditionalReservedBytes": 0,
+      "batchSize": 2,
+      "operation": "frozen-MoLFormer-extraction",
+      "encoderResidentOnCuda": true,
+      "cpuGpuTolerance": {
+        "atol": 0.001,
+        "rtol": 0.001
+      },
+      "embeddingShape": [
+        2,
+        768
+      ],
+      "finite": true,
+      "maximumAbsoluteCpuGpuDifference": 3.5762786865234375e-06,
+      "meanAbsoluteCpuGpuDifference": 5.799517452942382e-07,
+      "cpuGpuAgreement": true
+    },
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 246364672,
+      "baselineReservedBytes": 281018368,
+      "peakAllocatedBytes": 248812032,
+      "peakReservedBytes": 283115520,
+      "executionSeconds": 0.028869,
+      "peakAdditionalAllocatedBytes": 2447360,
+      "peakAdditionalReservedBytes": 2097152,
+      "batchSize": 4,
+      "operation": "frozen-MoLFormer-extraction",
+      "encoderResidentOnCuda": true,
+      "cpuGpuTolerance": {
+        "atol": 0.001,
+        "rtol": 0.001
+      },
+      "embeddingShape": [
+        4,
+        768
+      ],
+      "finite": true,
+      "maximumAbsoluteCpuGpuDifference": 8.493661880493164e-06,
+      "meanAbsoluteCpuGpuDifference": 9.443347721571627e-07,
+      "cpuGpuAgreement": true
+    },
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 246364672,
+      "baselineReservedBytes": 281018368,
+      "peakAllocatedBytes": 253909504,
+      "peakReservedBytes": 289406976,
+      "executionSeconds": 0.051388,
+      "peakAdditionalAllocatedBytes": 7544832,
+      "peakAdditionalReservedBytes": 8388608,
+      "batchSize": 8,
+      "operation": "frozen-MoLFormer-extraction",
+      "encoderResidentOnCuda": true,
+      "cpuGpuTolerance": {
+        "atol": 0.001,
+        "rtol": 0.001
+      },
+      "embeddingShape": [
+        8,
+        768
+      ],
+      "finite": true,
+      "maximumAbsoluteCpuGpuDifference": 1.1444091796875e-05,
+      "meanAbsoluteCpuGpuDifference": 5.942469556430297e-07,
+      "cpuGpuAgreement": true
+    }
+  ],
+  "headTrainingBatches": [
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 67518976,
+      "baselineReservedBytes": 71303168,
+      "peakAllocatedBytes": 69853696,
+      "peakReservedBytes": 71303168,
+      "executionSeconds": 0.092593,
+      "peakAdditionalAllocatedBytes": 2334720,
+      "peakAdditionalReservedBytes": 0,
+      "batchSize": 1,
+      "operation": "real-B16-memory-clone-train-step",
+      "encoderResidentOnCuda": false,
+      "verification": {
+        "outputShape": [
+          1,
+          16
+        ],
+        "device": "cuda",
+        "loss": 1.2095072269439697,
+        "observedLabels": 12,
+        "missingLabels": 4,
+        "observedPerTask": {
+          "herg": 0,
+          "dili": 0,
+          "ames": 1,
+          "clintox": 0,
+          "tox21_nr_ar": 1,
+          "tox21_nr_ar_lbd": 1,
+          "tox21_nr_ahr": 1,
+          "tox21_nr_aromatase": 1,
+          "tox21_nr_er": 1,
+          "tox21_nr_er_lbd": 1,
+          "tox21_nr_ppar_gamma": 1,
+          "tox21_sr_are": 0,
+          "tox21_sr_atad5": 1,
+          "tox21_sr_hse": 1,
+          "tox21_sr_mmp": 1,
+          "tox21_sr_p53": 1
+        },
+        "tasksSkippedWithoutObservations": [
+          "herg",
+          "dili",
+          "clintox",
+          "tox21_sr_are"
+        ],
+        "finiteGradients": true,
+        "optimizerUpdatedMemoryClone": true,
+        "optimizerSaved": false,
+        "split": "train",
+        "seed": 42,
+        "classWeightsFitSplit": "train",
+        "taskWeights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ]
+      }
+    },
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 67518976,
+      "baselineReservedBytes": 71303168,
+      "peakAllocatedBytes": 69856768,
+      "peakReservedBytes": 71303168,
+      "executionSeconds": 0.029358,
+      "peakAdditionalAllocatedBytes": 2337792,
+      "peakAdditionalReservedBytes": 0,
+      "batchSize": 2,
+      "operation": "real-B16-memory-clone-train-step",
+      "encoderResidentOnCuda": false,
+      "verification": {
+        "outputShape": [
+          2,
+          16
+        ],
+        "device": "cuda",
+        "loss": 0.7218873500823975,
+        "observedLabels": 24,
+        "missingLabels": 8,
+        "observedPerTask": {
+          "herg": 0,
+          "dili": 0,
+          "ames": 2,
+          "clintox": 0,
+          "tox21_nr_ar": 2,
+          "tox21_nr_ar_lbd": 2,
+          "tox21_nr_ahr": 2,
+          "tox21_nr_aromatase": 2,
+          "tox21_nr_er": 2,
+          "tox21_nr_er_lbd": 2,
+          "tox21_nr_ppar_gamma": 2,
+          "tox21_sr_are": 1,
+          "tox21_sr_atad5": 2,
+          "tox21_sr_hse": 2,
+          "tox21_sr_mmp": 1,
+          "tox21_sr_p53": 2
+        },
+        "tasksSkippedWithoutObservations": [
+          "herg",
+          "dili",
+          "clintox"
+        ],
+        "finiteGradients": true,
+        "optimizerUpdatedMemoryClone": true,
+        "optimizerSaved": false,
+        "split": "train",
+        "seed": 42,
+        "classWeightsFitSplit": "train",
+        "taskWeights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ]
+      }
+    },
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 67518976,
+      "baselineReservedBytes": 71303168,
+      "peakAllocatedBytes": 69862912,
+      "peakReservedBytes": 71303168,
+      "executionSeconds": 0.022225,
+      "peakAdditionalAllocatedBytes": 2343936,
+      "peakAdditionalReservedBytes": 0,
+      "batchSize": 4,
+      "operation": "real-B16-memory-clone-train-step",
+      "encoderResidentOnCuda": false,
+      "verification": {
+        "outputShape": [
+          4,
+          16
+        ],
+        "device": "cuda",
+        "loss": 0.7241029739379883,
+        "observedLabels": 26,
+        "missingLabels": 38,
+        "observedPerTask": {
+          "herg": 0,
+          "dili": 0,
+          "ames": 4,
+          "clintox": 0,
+          "tox21_nr_ar": 2,
+          "tox21_nr_ar_lbd": 2,
+          "tox21_nr_ahr": 2,
+          "tox21_nr_aromatase": 2,
+          "tox21_nr_er": 2,
+          "tox21_nr_er_lbd": 2,
+          "tox21_nr_ppar_gamma": 2,
+          "tox21_sr_are": 1,
+          "tox21_sr_atad5": 2,
+          "tox21_sr_hse": 2,
+          "tox21_sr_mmp": 1,
+          "tox21_sr_p53": 2
+        },
+        "tasksSkippedWithoutObservations": [
+          "herg",
+          "dili",
+          "clintox"
+        ],
+        "finiteGradients": true,
+        "optimizerUpdatedMemoryClone": true,
+        "optimizerSaved": false,
+        "split": "train",
+        "seed": 42,
+        "classWeightsFitSplit": "train",
+        "taskWeights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ]
+      }
+    },
+    {
+      "status": "passed",
+      "cudaDevice": "cuda:0",
+      "oom": false,
+      "baselineAllocatedBytes": 67518976,
+      "baselineReservedBytes": 71303168,
+      "peakAllocatedBytes": 69875200,
+      "peakReservedBytes": 71303168,
+      "executionSeconds": 0.024914,
+      "peakAdditionalAllocatedBytes": 2356224,
+      "peakAdditionalReservedBytes": 0,
+      "batchSize": 8,
+      "operation": "real-B16-memory-clone-train-step",
+      "encoderResidentOnCuda": false,
+      "verification": {
+        "outputShape": [
+          8,
+          16
+        ],
+        "device": "cuda",
+        "loss": 0.7193579077720642,
+        "observedLabels": 30,
+        "missingLabels": 98,
+        "observedPerTask": {
+          "herg": 0,
+          "dili": 0,
+          "ames": 8,
+          "clintox": 0,
+          "tox21_nr_ar": 2,
+          "tox21_nr_ar_lbd": 2,
+          "tox21_nr_ahr": 2,
+          "tox21_nr_aromatase": 2,
+          "tox21_nr_er": 2,
+          "tox21_nr_er_lbd": 2,
+          "tox21_nr_ppar_gamma": 2,
+          "tox21_sr_are": 1,
+          "tox21_sr_atad5": 2,
+          "tox21_sr_hse": 2,
+          "tox21_sr_mmp": 1,
+          "tox21_sr_p53": 2
+        },
+        "tasksSkippedWithoutObservations": [
+          "herg",
+          "dili",
+          "clintox"
+        ],
+        "finiteGradients": true,
+        "optimizerUpdatedMemoryClone": true,
+        "optimizerSaved": false,
+        "split": "train",
+        "seed": 42,
+        "classWeightsFitSplit": "train",
+        "taskWeights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ]
+      }
+    }
+  ],
+  "maximumSuccessfulEncoderBatchSize": 8,
+  "maximumSuccessfulHeadTrainingBatchSize": 8,
+  "maximumSuccessfulCombinedBatchSize": 8,
+  "diskArtifactsUnchanged": true,
+  "limitations": [
+    "One-step clone training validates engineering only; it is not a new training run or a new evaluation.",
+    "Only fixed audited train rows are used. Historical test/Karim labels do not fit or select any parameter.",
+    "Measured sizes 1..8 do not certify capacity on longer molecules, fine-tuning, or other workloads.",
+    "CUDA success does not validate clinical toxicity, causal mechanisms, calibration, or scientific generalization."
+  ],
+  "data": {
+    "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+    "manifestSha256": "ff4837c1bcb0e568c506e503cab9321f23be328f5c432d495be3606f15d7ceae",
+    "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+    "sourceSplit": "train",
+    "trainingRows": 4804,
+    "probeStructureOrderSha256": "fd6d6f07dd14609b324e81b4cf3a83f91977431c34b773e6254a5877d962353a",
+    "probeCount": 8,
+    "sourceHashes": [
+      {
+        "pathFromData": "../../models/aidd-toxnet/manifest.json",
+        "role": "frozen-v2-model-manifest",
+        "sha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+        "useInThisProtocol": "frozen-v2-preservation-reference"
+      },
+      {
+        "pathFromData": "../../models/aidd-toxnet/split.json",
+        "role": "frozen-v2-split",
+        "sha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+        "useInThisProtocol": "old-train-membership-and-heldout-exclusion; heldout-labels-never-optimized"
+      },
+      {
+        "pathFromData": "../../models/aidd-toxnet/weights.pt",
+        "role": "frozen-v2-weights",
+        "sha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+        "useInThisProtocol": "frozen-v2-preservation-reference"
+      },
+      {
+        "pathFromData": "../../models/aidd-toxnet/training-references.json",
+        "role": "frozen-v2-trainingReferences",
+        "sha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+        "useInThisProtocol": "frozen-v2-preservation-reference"
+      },
+      {
+        "pathFromData": "../../models/aidd-toxnet/evaluation.json",
+        "role": "frozen-v2-evaluation",
+        "sha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+        "useInThisProtocol": "frozen-v2-preservation-reference"
+      },
+      {
+        "pathFromData": "../../artifacts/external-herg-evaluation.json",
+        "role": "previously-exposed-herg-evidence",
+        "sha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+        "useInThisProtocol": "structural-exclusion-only"
+      },
+      {
+        "pathFromData": "../processed/manifest.json",
+        "role": "processed-data-manifest",
+        "sha256": "7b0c026c988627544b066810f76786b571360207d08cfa7c88d80ff00249ee00",
+        "useInThisProtocol": "pinned-source-provenance-verification"
+      },
+      {
+        "pathFromData": "../processed/toxicity.csv",
+        "role": "verified-experimental-labels",
+        "sha256": "75e5f2c8766efe24cf6cbca57ce1e72bc9028705303b29fff8ad6016c6b0bd6b",
+        "useInThisProtocol": "old-train-four-task-experimental-label-membership"
+      },
+      {
+        "pathFromData": "../raw/herg.csv",
+        "role": "experimental-source-herg",
+        "sha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+        "useInThisProtocol": "original-four-task-label-verification"
+      },
+      {
+        "pathFromData": "../raw/dili.csv",
+        "role": "experimental-source-dili",
+        "sha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09",
+        "useInThisProtocol": "original-four-task-label-verification"
+      },
+      {
+        "pathFromData": "../raw/ames.csv",
+        "role": "experimental-source-ames",
+        "sha256": "a17d2d6b9aa17f1cfaa1e3e4137788b2ef2700404042e285102f18543ca954b5",
+        "useInThisProtocol": "original-four-task-label-verification"
+      },
+      {
+        "pathFromData": "../raw/clintox.csv",
+        "role": "experimental-source-clintox",
+        "sha256": "32f8542b5ed007ca76506b7dbdaaed32c9bbe864ea1ce52d4d49f176d5c63455",
+        "useInThisProtocol": "original-four-task-label-verification"
+      },
+      {
+        "pathFromData": "../raw/clintox_moleculenet.csv.gz",
+        "role": "clintox-label-verification",
+        "sha256": "7324a84a180ad9068d3847677c85d58e8432e82b3ae6ac95cf0e98b3a58d9697",
+        "useInThisProtocol": "original-four-task-label-verification"
+      },
+      {
+        "pathFromData": "../candidates/processed/manifest.json",
+        "role": "candidate-audit-manifest",
+        "sha256": "f6e11645adcd8f8bc171f0a01c785ffe63d96c89a1089ed79bca92b07039f099",
+        "useInThisProtocol": "pinned-source-provenance-verification"
+      },
+      {
+        "pathFromData": "../candidates/raw/herg_karim.tsv",
+        "role": "audit-only-source-herg_karim",
+        "sha256": "b47cbff0d65bbb5c6ade5ecd4c5bab20158c6cbf631a68f355efbe7e5fafc099",
+        "useInThisProtocol": "structural-exclusion-only"
+      },
+      {
+        "pathFromData": "../candidates/raw/tox21.csv",
+        "role": "audit-only-source-tox21",
+        "sha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1",
+        "useInThisProtocol": "multitask-experimental-label-source"
+      },
+      {
+        "pathFromData": "../candidates/processed/herg_external_pool.csv",
+        "role": "previously-exposed-herg-pool",
+        "sha256": "7e1df556c8674898e48b37c44f9bfdbcb9a4f60aba8df00dadff7564ce957262",
+        "useInThisProtocol": "structural-exclusion-only"
+      },
+      {
+        "pathFromData": "../candidates/processed/tox21.csv",
+        "role": "audit-only-tox21-clean-structures",
+        "sha256": "6546b23e114788a0e5c2ca41122b83b88e6a0ba1cedcf760c03db005d831059c",
+        "useInThisProtocol": "multitask-experimental-label-source"
+      },
+      {
+        "pathFromData": "../v3-development/manifest.json",
+        "role": "previously-exposed-v3-development-manifest",
+        "sha256": "1fffa35d1da6e4f58e269a0d74d6dc3473d98251ae419b8c8c762a7bbe4b4bf6",
+        "useInThisProtocol": "exposure-audit-only"
+      },
+      {
+        "pathFromData": "../v3-development/split.json",
+        "role": "previously-exposed-v3-development-split",
+        "sha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "useInThisProtocol": "exposure-audit-only"
+      },
+      {
+        "pathFromData": "../candidates/fda-provenance.json",
+        "role": "audit-only-fda-provenance",
+        "sha256": "6350c4c05f70e14ae7d406d6744e27c35c2ceba6b5dd9032220facec03c38d83",
+        "useInThisProtocol": "audit-only-pending-structure-mapping"
+      },
+      {
+        "pathFromData": "../candidates/raw/dilirank_fda.xlsx",
+        "role": "audit-only-fda-raw",
+        "sha256": "1ca1352ff727af68e68e250eae2ed775bca8492335140ac0afd2233248694993",
+        "useInThisProtocol": "audit-only-pending-structure-mapping"
+      },
+      {
+        "pathFromData": "../candidates/raw/dilist_fda.xlsx",
+        "role": "audit-only-fda-raw",
+        "sha256": "4331ee9d16ae7641488161e4dc2c603c29e06baa8667dd16e7f3d635366e7e5e",
+        "useInThisProtocol": "audit-only-pending-structure-mapping"
+      }
+    ],
+    "trainingPermission": {
+      "allowedRoles": [
+        "train-optimization",
+        "validation-model-selection"
+      ],
+      "approvedLabelSources": [
+        "TDC hERG",
+        "TDC DILI",
+        "TDC Ames",
+        "TDC ClinTox",
+        "TDC Tox21"
+      ],
+      "commercialRedistributionApproved": false,
+      "externalOrHeldoutLabelsAllowed": false,
+      "note": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+      "status": "research-only-source-rights-unresolved",
+      "tox21LabelsSubstitutedForFourEndpoints": false
+    },
+    "validationLabelsUsedForFitting": false,
+    "oldHeldoutLabelsUsedForFitting": false
+  },
+  "model": {
+    "version": "aidd-toxnet-multitask-b16-42-867b8b11413d",
+    "manifestSha256": "98638c37077043dd0e956f0960e63e6fd990389e7271e85503a806f5b89bba0e",
+    "weightsSha256": "867b8b11413d30647d026b945efda16643f432af3d4487995f0473c30789fd06",
+    "parameterCount": 100496,
+    "tasks": [
+      "herg",
+      "dili",
+      "ames",
+      "clintox",
+      "tox21_nr_ar",
+      "tox21_nr_ar_lbd",
+      "tox21_nr_ahr",
+      "tox21_nr_aromatase",
+      "tox21_nr_er",
+      "tox21_nr_er_lbd",
+      "tox21_nr_ppar_gamma",
+      "tox21_sr_are",
+      "tox21_sr_atad5",
+      "tox21_sr_hse",
+      "tox21_sr_mmp",
+      "tox21_sr_p53"
+    ],
+    "taskContracts": {
+      "herg": {
+        "group": "four-toxicity-tasks",
+        "positiveClass": "hERG blocker (1); non-blocker (0)",
+        "reference": "Wang, Shuangquan, et al. ADMET evaluation in drug discovery. 16. Predicting hERG blockers by combining multiple pharmacophores and machine learning approaches. Molecular Pharmaceutics 13.8 (2016): 2855-2866.",
+        "sourceSha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54"
+      },
+      "dili": {
+        "group": "four-toxicity-tasks",
+        "positiveClass": "Drug-induced liver injury positive (1); negative (0)",
+        "reference": "Xu, Youjun, et al. Deep learning for drug-induced liver injury. Journal of Chemical Information and Modeling 55.10 (2015): 2085-2093.",
+        "sourceSha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09"
+      },
+      "ames": {
+        "group": "four-toxicity-tasks",
+        "positiveClass": "Ames mutagenic (1); non-mutagenic (0)",
+        "reference": "Xu, Congying, et al. In silico prediction of chemical Ames mutagenicity. Journal of Chemical Information and Modeling 52.11 (2012): 2840-2847.",
+        "sourceSha256": "a17d2d6b9aa17f1cfaa1e3e4137788b2ef2700404042e285102f18543ca954b5"
+      },
+      "clintox": {
+        "group": "four-toxicity-tasks",
+        "positiveClass": "Clinical-trial failure due to toxicity / CT_TOX (1); comparator drug (0). This is not FDA_APPROVED.",
+        "reference": "Gayvert, Kaitlyn M., Neel S. Madhukar, and Olivier Elemento. A data-driven approach to predicting successes and failures of clinical trials. Cell Chemical Biology 23.10 (2016): 1294-1301.",
+        "sourceSha256": "32f8542b5ed007ca76506b7dbdaaed32c9bbe864ea1ce52d4d49f176d5c63455"
+      },
+      "tox21_nr_ar": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 NR-AR assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "NR-AR",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_nr_ar_lbd": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 NR-AR-LBD assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "NR-AR-LBD",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_nr_ahr": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 NR-AhR assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "NR-AhR",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_nr_aromatase": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 NR-Aromatase assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "NR-Aromatase",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_nr_er": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 NR-ER assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "NR-ER",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_nr_er_lbd": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 NR-ER-LBD assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "NR-ER-LBD",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_nr_ppar_gamma": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 NR-PPAR-gamma assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "NR-PPAR-gamma",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_sr_are": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 SR-ARE assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "SR-ARE",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_sr_atad5": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 SR-ATAD5 assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "SR-ATAD5",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_sr_hse": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 SR-HSE assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "SR-HSE",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_sr_mmp": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 SR-MMP assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "SR-MMP",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      },
+      "tox21_sr_p53": {
+        "clinicalToxicityInterpretation": false,
+        "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#tox21",
+        "group": "tox21-assay-activity",
+        "positiveClass": "Tox21 SR-p53 assay active (1); inactive (0); absent label remains unknown",
+        "sourceAssay": "SR-p53",
+        "sourceFileId": 4259612,
+        "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1"
+      }
+    },
+    "taskContractVersion": "aidd.toxnet.four-toxicity-twelve-assay-tasks.v1",
+    "formalAvailability": false,
+    "encoderRevision": "7b12d946c181a37f6012b9dc3b002275de070314",
+    "encoderWeightsSha256": "0795977fe7192c4acdaf052f0e8464af57bc4bb59211271c5e61aaba2637b9c6"
+  },
+  "frozenEncoderAndLoadedHeadUnchanged": true,
+  "protectedFiles": [
+    {
+      "file": "artifacts/external-herg-evaluation-predictions.json",
+      "beforeSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89",
+      "afterSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation.json",
+      "beforeSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+      "afterSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/evaluation.json",
+      "beforeSha256": "9b7b758888879576c3adf5859d7bb3ad995088ca8ee4be7a17245442043e074a",
+      "afterSha256": "9b7b758888879576c3adf5859d7bb3ad995088ca8ee4be7a17245442043e074a"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/manifest.json",
+      "beforeSha256": "98638c37077043dd0e956f0960e63e6fd990389e7271e85503a806f5b89bba0e",
+      "afterSha256": "98638c37077043dd0e956f0960e63e6fd990389e7271e85503a806f5b89bba0e"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/preprocessing.npz",
+      "beforeSha256": "5f34be1ae58c6f8d43eff8bae89f10c7524930f2e21e385bf044f8ca8669d02e",
+      "afterSha256": "5f34be1ae58c6f8d43eff8bae89f10c7524930f2e21e385bf044f8ca8669d02e"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/run-status.json",
+      "beforeSha256": "0eae10886f501c7f601bfef8c6609dfb248b010732fe60a032c654231304da32",
+      "afterSha256": "0eae10886f501c7f601bfef8c6609dfb248b010732fe60a032c654231304da32"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/training-history.json",
+      "beforeSha256": "c82aeb03c2c27e74f4b5eba1d9bf24cf7040f5528c30e80bec1b10a84db8c921",
+      "afterSha256": "c82aeb03c2c27e74f4b5eba1d9bf24cf7040f5528c30e80bec1b10a84db8c921"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/training-references.json",
+      "beforeSha256": "1ff0c4a5db94315656229ee500938227a05fd0abc2c278b1d838e37582919b00",
+      "afterSha256": "1ff0c4a5db94315656229ee500938227a05fd0abc2c278b1d838e37582919b00"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/validation-predictions.json",
+      "beforeSha256": "bc82124aa94ca37ecdea19127a18590e5a5b95a4db5f7cd195571429ce211ff2",
+      "afterSha256": "bc82124aa94ca37ecdea19127a18590e5a5b95a4db5f7cd195571429ce211ff2"
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/B16-seed-42/weights.pt",
+      "beforeSha256": "867b8b11413d30647d026b945efda16643f432af3d4487995f0473c30789fd06",
+      "afterSha256": "867b8b11413d30647d026b945efda16643f432af3d4487995f0473c30789fd06"
+    },
+    {
+      "file": "models/aidd-toxnet/evaluation.json",
+      "beforeSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+      "afterSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+    },
+    {
+      "file": "models/aidd-toxnet/manifest.json",
+      "beforeSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "afterSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850"
+    },
+    {
+      "file": "models/aidd-toxnet/split.json",
+      "beforeSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+      "afterSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+    },
+    {
+      "file": "models/aidd-toxnet/test-predictions.json",
+      "beforeSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae",
+      "afterSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae"
+    },
+    {
+      "file": "models/aidd-toxnet/training-history.json",
+      "beforeSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340",
+      "afterSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340"
+    },
+    {
+      "file": "models/aidd-toxnet/training-progress.json",
+      "beforeSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398",
+      "afterSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398"
+    },
+    {
+      "file": "models/aidd-toxnet/training-references.json",
+      "beforeSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+      "afterSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6"
+    },
+    {
+      "file": "models/aidd-toxnet/weights.pt",
+      "beforeSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "afterSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398"
+    },
+    {
+      "file": "models/pretrained/molformer/config.json",
+      "beforeSha256": "3ef9eaac8c7ca6282fd6256ed038d151bd4ff42a4ff855367e0d7197bbc1c284",
+      "afterSha256": "3ef9eaac8c7ca6282fd6256ed038d151bd4ff42a4ff855367e0d7197bbc1c284"
+    },
+    {
+      "file": "models/pretrained/molformer/configuration_molformer.py",
+      "beforeSha256": "d48f6c133b27c3d6d9922acc554c2203aedf1a56d2061bd7aae72c11b7ec7aa5",
+      "afterSha256": "d48f6c133b27c3d6d9922acc554c2203aedf1a56d2061bd7aae72c11b7ec7aa5"
+    },
+    {
+      "file": "models/pretrained/molformer/model.safetensors",
+      "beforeSha256": "0795977fe7192c4acdaf052f0e8464af57bc4bb59211271c5e61aaba2637b9c6",
+      "afterSha256": "0795977fe7192c4acdaf052f0e8464af57bc4bb59211271c5e61aaba2637b9c6"
+    },
+    {
+      "file": "models/pretrained/molformer/modeling_molformer.py",
+      "beforeSha256": "a3f6273bb44709e566ee02987c50372db727de21799c3d297f64b2437f9e32a8",
+      "afterSha256": "a3f6273bb44709e566ee02987c50372db727de21799c3d297f64b2437f9e32a8"
+    },
+    {
+      "file": "models/pretrained/molformer/README.md",
+      "beforeSha256": "4e679b138ae5c29c17de907d3e3a03050b3eb2a82462917ad80fb6a5ffe63736",
+      "afterSha256": "4e679b138ae5c29c17de907d3e3a03050b3eb2a82462917ad80fb6a5ffe63736"
+    },
+    {
+      "file": "models/pretrained/molformer/snapshot.json",
+      "beforeSha256": "b88d5559673a8da3544f2fa657d5a2ad046fd1e74140fa9fa6c3b5c87daade7e",
+      "afterSha256": "b88d5559673a8da3544f2fa657d5a2ad046fd1e74140fa9fa6c3b5c87daade7e"
+    },
+    {
+      "file": "models/pretrained/molformer/special_tokens_map.json",
+      "beforeSha256": "f0bb97cedb7e5d9eb744a3b2e499a9c464659e1a363853bfd6056ba126f5c16c",
+      "afterSha256": "f0bb97cedb7e5d9eb744a3b2e499a9c464659e1a363853bfd6056ba126f5c16c"
+    },
+    {
+      "file": "models/pretrained/molformer/tokenization_molformer.py",
+      "beforeSha256": "a816f7b6e540f27544e7aa924104d6fc0d5cedcc62117ec9d31d35d0cefbd2e2",
+      "afterSha256": "a816f7b6e540f27544e7aa924104d6fc0d5cedcc62117ec9d31d35d0cefbd2e2"
+    },
+    {
+      "file": "models/pretrained/molformer/tokenization_molformer_fast.py",
+      "beforeSha256": "1921cf245ceb613a19e9a30ba4aa33e02b328ac6fdbbf63080b775bd8b4c8bdb",
+      "afterSha256": "1921cf245ceb613a19e9a30ba4aa33e02b328ac6fdbbf63080b775bd8b4c8bdb"
+    },
+    {
+      "file": "models/pretrained/molformer/tokenizer.json",
+      "beforeSha256": "3df1f2219653c44fac9fa03b7f788b372eb2544ecc176737bb9aca8411b471a5",
+      "afterSha256": "3df1f2219653c44fac9fa03b7f788b372eb2544ecc176737bb9aca8411b471a5"
+    },
+    {
+      "file": "models/pretrained/molformer/tokenizer_config.json",
+      "beforeSha256": "17e4fb4c6f77f2d9c482cf54fce528d97635e6bb9d0e2ab8b9638cc8a52e6fae",
+      "afterSha256": "17e4fb4c6f77f2d9c482cf54fce528d97635e6bb9d0e2ab8b9638cc8a52e6fae"
+    },
+    {
+      "file": "models/pretrained/molformer/vocab.json",
+      "beforeSha256": "8592dced2879cb164332b9ec14e99164ba017949a6c05344cb64163d4839dbb2",
+      "afterSha256": "8592dced2879cb164332b9ec14e99164ba017949a6c05344cb64163d4839dbb2"
+    }
+  ]
+}

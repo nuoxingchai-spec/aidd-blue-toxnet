@@ -1,0 +1,56 @@
+{
+  "schema": "aidd.toxnet.v3-cuda-verification.v1",
+  "generatedAt": "2026-10-13T03:53:51.862353+00:00",
+  "status": "not-tested-no-cuda-device",
+  "formalAvailability": false,
+  "validationCodeSha256": "ae647d74fbd04c0a377c54968f889a65c56f97a06bca68fee370ed43690478b5",
+  "environment": {
+    "pythonVersion": "3.13.2",
+    "pythonExecutable": "D:\\安装包\\OneDrive\\เอกสาร\\ChatGPT\\项目实践  二\\.venv-v3\\Scripts\\python.exe",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "driver": {
+      "status": "available",
+      "returnCode": 0,
+      "rows": [
+        "NVIDIA GeForce RTX 4060 Laptop GPU, 566.24, 8188"
+      ],
+      "error": ""
+    },
+    "torchVersion": "2.14.1+cpu",
+    "cudaBuildVersion": null,
+    "cudaAvailable": false,
+    "gpuDevices": [],
+    "dependencies": {
+      "torch": "2.14.1",
+      "rdkit": "2026.9.1",
+      "numpy": "2.5.4",
+      "transformers": "4.57.6",
+      "tokenizers": "0.22.2",
+      "safetensors": "0.6.2",
+      "scikit-learn": "1.9.1"
+    },
+    "pytorchWheelKind": "cpu"
+  },
+  "requestedBatchSizes": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "basicCuda": {
+    "status": "not-run"
+  },
+  "encoderBatches": [],
+  "headTrainingBatches": [],
+  "maximumSuccessfulEncoderBatchSize": null,
+  "maximumSuccessfulHeadTrainingBatchSize": null,
+  "maximumSuccessfulCombinedBatchSize": null,
+  "diskArtifactsUnchanged": null,
+  "limitations": [
+    "One-step clone training validates engineering only; it is not a new training run or a new evaluation.",
+    "Only fixed audited train rows are used. Historical test/Karim labels do not fit or select any parameter.",
+    "Measured sizes 1..8 do not certify capacity on longer molecules, fine-tuning, or other workloads.",
+    "CUDA success does not validate clinical toxicity, causal mechanisms, calibration, or scientific generalization."
+  ],
+  "reason": "CPU-only PyTorch wheel"
+}

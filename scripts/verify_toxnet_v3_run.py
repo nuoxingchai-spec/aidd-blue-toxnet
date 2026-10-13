@@ -19,9 +19,10 @@ import torch
 from backend.v3_data import load_v3_data
 from backend.v3_experiments import ENDPOINTS, evaluate_probabilities, label_arrays, sha256_file
 from backend.versioned_local_model import V3ArtifactClient
+from backend.training_provenance import verify_training_sources
 
 
-def verify_run(experiment: Path, data_dir: Path, snapshot: Path) -> dict:
+def verify_run(experiment: Path, data_dir: Path, snapshot: Path, *, training_source_ref=None) -> dict:
     torch.set_num_threads(6)
     summary = json.loads((experiment / "experiment.json").read_text(encoding="utf-8"))
     data, samples = load_v3_data(data_dir)
@@ -49,6 +50,8 @@ def verify_run(experiment: Path, data_dir: Path, snapshot: Path) -> dict:
         info = client.get_model_info()
         if not info.get("configured"):
             raise ValueError(f"Real run cannot load: {run['directory']}: {info.get('errorCode')}")
+        manifest = json.loads((directory / 'manifest.json').read_text(encoding='utf-8'))
+        training_sources = verify_training_sources(manifest['training']['sourceHashes'], ROOT, commit=training_source_ref)
         if info["dataset"]["splitSha256"] != data["splitSha256"] or info["dataset"]["datasetVersion"] != data["datasetVersion"]:
             raise ValueError("Run has a different development data identity")
         records = json.loads((directory / "validation-predictions.json").read_text(encoding="utf-8"))
@@ -82,6 +85,7 @@ def verify_run(experiment: Path, data_dir: Path, snapshot: Path) -> dict:
         verified.append({"model": run["model"], "seed": run["seed"], "modelVersion": info["version"],
                          "manifestSha256": run["manifestSha256"], "weightsSha256": info["weightsSha256"],
                          "parameterCount": info["parameterCount"], "recordedMetricRecomputation": "passed",
+                         "trainingSourceVerification": training_sources,
                          "validationPredictions": len(records), "loadedInferenceMaximumAbsoluteDifference": max(errors)})
     return {"schema": "aidd.toxnet.run-verification.v3", "status": "verified", "experimentSha256": sha256_file(experiment / "experiment.json"),
             "datasetVersion": data["datasetVersion"], "splitSha256": data["splitSha256"], "seeds": seeds,
@@ -95,11 +99,12 @@ def main():
     parser.add_argument("--data-dir", type=Path, default=Path("data/v3-development"))
     parser.add_argument("--snapshot", type=Path, default=Path("models/pretrained/molformer"))
     parser.add_argument("--output", type=Path, default=Path("artifacts/v3/integration-verification.json"))
+    parser.add_argument('--training-source-ref', help='Full immutable Git commit SHA for historical recorded training bytes; never executed')
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Verification output exists; preserve it and choose a new path")
     try:
-        result = verify_run(args.experiment, args.data_dir, args.snapshot)
+        result = verify_run(args.experiment, args.data_dir, args.snapshot, training_source_ref=args.training_source_ref)
     except (ValueError, OSError, KeyError) as error:
         parser.exit(1, f"Verification failed: {error}\n")
     args.output.parent.mkdir(parents=True, exist_ok=True)

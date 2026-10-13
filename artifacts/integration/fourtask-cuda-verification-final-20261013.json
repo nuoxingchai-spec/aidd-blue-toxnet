@@ -1,0 +1,449 @@
+{
+  "schema": "aidd.toxnet.run-verification.v3",
+  "status": "verified",
+  "experimentSha256": "7860f732fb75697cee8297334b2871ce39c2bde43305e1c6f5f150ebcc9f98b2",
+  "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+  "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "runs": [
+    {
+      "model": "B0",
+      "seed": 42,
+      "modelVersion": "aidd-toxnet-v3-b0-42-b49185ab66a3",
+      "manifestSha256": "0d6f0045292f2bdd0a9aa6212fa5db548b1a179f166531a777b7889bf1d626ee",
+      "weightsSha256": "b49185ab66a32e9c2a0ac5920ccb4a75b7b3103a93efe81d26e5e4a76ae968ae",
+      "parameterCount": 8196,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B0",
+      "seed": 43,
+      "modelVersion": "aidd-toxnet-v3-b0-43-b49185ab66a3",
+      "manifestSha256": "c14da15d4da955fc481ed4fa29687364c75dce622d29e7acf7b715326b212932",
+      "weightsSha256": "b49185ab66a32e9c2a0ac5920ccb4a75b7b3103a93efe81d26e5e4a76ae968ae",
+      "parameterCount": 8196,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B0",
+      "seed": 44,
+      "modelVersion": "aidd-toxnet-v3-b0-44-b49185ab66a3",
+      "manifestSha256": "510386d4d6ecec356dce30c5ce472c7e00c2165da385a85341a0a569726492af",
+      "weightsSha256": "b49185ab66a32e9c2a0ac5920ccb4a75b7b3103a93efe81d26e5e4a76ae968ae",
+      "parameterCount": 8196,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B1",
+      "seed": 42,
+      "modelVersion": "aidd-toxnet-v3-b1-42-9481a68ab62d",
+      "manifestSha256": "01ca9310eda039a2f80da2ef961bf4bfedc5297f574f902b698a6aebae3077f2",
+      "weightsSha256": "9481a68ab62dd0efccc1c41fd184298ed3d3097fa51df3795b2dd7c695883521",
+      "parameterCount": 3076,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 1.6901703865646045e-07
+    },
+    {
+      "model": "B1",
+      "seed": 43,
+      "modelVersion": "aidd-toxnet-v3-b1-43-9481a68ab62d",
+      "manifestSha256": "a9999a0291d743053848e1e700b15f1621c7e1cd6534b41a20a2bf565c0a7e46",
+      "weightsSha256": "9481a68ab62dd0efccc1c41fd184298ed3d3097fa51df3795b2dd7c695883521",
+      "parameterCount": 3076,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 1.6901703865646045e-07
+    },
+    {
+      "model": "B1",
+      "seed": 44,
+      "modelVersion": "aidd-toxnet-v3-b1-44-9481a68ab62d",
+      "manifestSha256": "b222b22ff79ab756a033b4e620b23f7ba079d43c9346a24cfc3916f3f5fefec3",
+      "weightsSha256": "9481a68ab62dd0efccc1c41fd184298ed3d3097fa51df3795b2dd7c695883521",
+      "parameterCount": 3076,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 1.6901703865646045e-07
+    },
+    {
+      "model": "B2",
+      "seed": 42,
+      "modelVersion": "aidd-toxnet-v3-b2-42-e2b1e6669c7b",
+      "manifestSha256": "6a7149e556f150d1751ecd6f4561691807bc62b23fd9f7fc891b23c818443ff5",
+      "weightsSha256": "e2b1e6669c7b2ba7a0afee0f7501b1c61ff21764b28678c67cc7ce29e664aca5",
+      "parameterCount": 98948,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 5.7753547499928004e-08
+    },
+    {
+      "model": "B2",
+      "seed": 43,
+      "modelVersion": "aidd-toxnet-v3-b2-43-e9d204cfde91",
+      "manifestSha256": "c6ad921b662469915d3bdcc80f2ce04975c6cf7a6e8665a8314597da06646755",
+      "weightsSha256": "e9d204cfde91265bb0468a1cbed0b848ff137d5fee40ef7a5c4bfd7874955f9b",
+      "parameterCount": 98948,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 3.157236266870811e-08
+    },
+    {
+      "model": "B2",
+      "seed": 44,
+      "modelVersion": "aidd-toxnet-v3-b2-44-6a8eb678c3c1",
+      "manifestSha256": "79f6b792a0219d24f30ebd25c4b2bd5b6f065cfb51dabda3d92162febe3ccb96",
+      "weightsSha256": "6a8eb678c3c1c78c72ef98c7ac097a82d0c610152e201564da525c77179b610c",
+      "parameterCount": 98948,
+      "recordedMetricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_toxnet_v3.py",
+            "trainingSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeSha256": "123c4fd90344ea566b61b375ff2726baaceb737f3b95d96104c95d17ab0ab250",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "validationPredictions": 1100,
+      "loadedInferenceMaximumAbsoluteDifference": 5.071332624673186e-08
+    }
+  ],
+  "independentTest": false,
+  "oldHeldoutOrKarimLabelsUsed": false,
+  "purpose": "Artifact/inference/membership verification; not a new performance experiment"
+}

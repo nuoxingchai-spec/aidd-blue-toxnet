@@ -620,9 +620,20 @@ def load_v3_data(data_dir: Path) -> tuple[dict, list[dict]]:
         raise ValueError("v3 dataset version does not match its immutable artifact/source hashes")
     with (data_dir / files["samples"]["file"]).open(encoding="utf-8") as source:
         samples = [json.loads(line) for line in source if line.strip()]
-    forbidden_index = _load_json(data_dir / files["forbiddenIdentities"]["file"])
-    verify_development_samples(samples, forbidden_index)
-    _verify_old_train_membership(samples, _load_json(role_paths["frozen-v2-split"]))
+    frozen_split = _load_json(role_paths["frozen-v2-split"])
+    forbidden = {
+        "old-validation": [row["smiles"] for row in frozen_split["splits"]["validation"]],
+        "old-test": [row["smiles"] for row in frozen_split["splits"]["test"]],
+        "previously-exposed-herg-karim": [row["smiles"] for row in _read_csv(role_paths["previously-exposed-herg-pool"])],
+    }
+    # A coherently rehashed development manifest cannot relax fixed historical
+    # exclusions. Derive the authority from pinned source bytes, as in v3's
+    # multitask protocol, rather than trusting its derived index alone.
+    fresh_forbidden, _ = build_forbidden_index(forbidden)
+    if _load_json(data_dir / files["forbiddenIdentities"]["file"]) != fresh_forbidden:
+        raise ValueError("Recorded forbidden identity index differs from fixed historical references; hashes cannot authorize leakage")
+    verify_development_samples(samples, fresh_forbidden)
+    _verify_old_train_membership(samples, frozen_split)
     if input_filter is not None and any(input_filter(sample["smiles"]) != sample["smiles"] for sample in samples):
         raise ValueError("v3 encoder compatibility validation changed chemical identity")
     split = _load_json(data_dir / files["split"]["file"])

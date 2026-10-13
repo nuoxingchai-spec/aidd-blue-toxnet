@@ -8,23 +8,31 @@ from unittest.mock import patch
 
 import numpy as np
 import torch
+from rdkit import rdBase
 
-from backend.chemistry import canonicalize_smiles
+from backend.chemistry import CHEMISTRY_VERSION, canonicalize_smiles
 from backend.local_model import LocalModelClient
 from backend.model_client import ENDPOINT_IDS, ModelAPIError
 from backend.versioned_local_model import V3_ARCHITECTURE, V3_SCHEMA, V3ArtifactClient, load_versioned_local_model
 from backend.v3_data import TASK_CONTRACT_VERSION
+from backend.v3_experiments import evaluate_probabilities, sigmoid
 
 
 def write_fixture(directory):
     """Controlled artifact fixture; not evidence of a trained toxicity model."""
     np.savez(directory / "weights.npz", coefficients=np.zeros((4, 2048)), intercepts=np.array([0., 1., -1., 2.]))
     np.savez(directory / "preprocessing.npz", mean=np.zeros(2048), scale=np.ones(2048))
-    evaluation = {"split": "validation", "endpoints": {endpoint: {"count": 2, "positives": 1, "auroc": None,
-                    "averagePrecision": None, "brier": None, "ece10Bins": None} for endpoint in ENDPOINT_IDS}}
+    # These are computed toy-tensor boundary metrics, never experimental model
+    # performance. A completed-schema fixture still needs coherent evaluation.
+    evaluation = evaluate_probabilities(np.array([[0.] * 4, [1.] * 4]), np.ones((2, 4)),
+                                        np.tile(sigmoid(np.array([0., 1., -1., 2.])), (2, 1)))
+    evaluation.update(schema="aidd.toxnet.development-evaluation.v3", status="evaluated-validation-only",
+                      datasetVersion="test-only-data", splitSha256="a" * 64, model="B0", seed=42)
     (directory / "evaluation.json").write_text(json.dumps(evaluation), encoding="utf-8")
     (directory / "training-history.json").write_text(json.dumps([{"fixtureOnly": True, "method": "test tensor boundary"}]), encoding="utf-8")
     manifest = {"schema": V3_SCHEMA, "status": "trained-completed", "formalAvailability": False,
+                "evaluationStatus": "evaluated-validation-only",
+                "chemistryVersion": CHEMISTRY_VERSION, "rdkitVersion": rdBase.rdkitVersion,
                 "modelName": "test-only-v3-tensor-fixture-NOT-A-TRAINED-MODEL", "modelVersion": "test-only-v3",
                 "taskContractVersion": TASK_CONTRACT_VERSION, "endpoints": list(ENDPOINT_IDS), "parameterCount": 4 * 2049,
                 "trainableParameterCount": 4 * 2049, "frozenEncoderParameterCount": 0, "encoder": None,
@@ -32,6 +40,7 @@ def write_fixture(directory):
                                  "outputDim": 4, "endpointOrder": list(ENDPOINT_IDS), "featureBranches": ["morgan"],
                                  "fingerprint": {"radius": 2, "bits": 2048, "includeChirality": True}},
                 "training": {"status": "completed", "optimizationSplit": "train", "selectionSplit": "validation",
+                             "seed": 42,
                              "testUsedForSelection": False, "previouslyExposedUsedForSelection": False,
                              "featureTransformFitSplit": "train", "splits": {"train": 2, "validation": 2},
                              "endpointStatus": {endpoint: "trained" for endpoint in ENDPOINT_IDS}},
@@ -98,11 +107,73 @@ class VersionedArtifactTests(unittest.TestCase):
         (self.directory / "weights.npz").write_bytes(b"tampered")
         self.assertEqual(self.client().get_public_config()["errorCode"], "V3_MODEL_CHECKSUM_MISMATCH")
 
+    def test_morgan_only_model_rejects_changed_or_missing_chemical_feature_version(self):
+        for field in ("chemistryVersion", "rdkitVersion"):
+            for value in (None, "unreviewed-future-version"):
+                with self.subTest(field=field, value=value):
+                    manifest = write_fixture(self.directory)
+                    if value is None:
+                        manifest.pop(field)
+                    else:
+                        manifest[field] = value
+                    persist(self.directory, manifest)
+                    public = self.client().get_public_config()
+                    self.assertFalse(public["configured"])
+                    self.assertEqual(public["errorCode"], "V3_CHEMISTRY_VERSION_MISMATCH")
+
     def test_evaluation_hash_and_validation_role_are_required(self):
         manifest = write_fixture(self.directory)
         manifest["artifacts"].pop("evaluation")
         persist(self.directory, manifest)
         self.assertFalse(self.client().get_public_config()["configured"])
+
+    def rewrite_evaluation(self, manifest, change):
+        path = self.directory / "evaluation.json"
+        evaluation = json.loads(path.read_text(encoding="utf-8"))
+        change(evaluation)
+        path.write_text(json.dumps(evaluation), encoding="utf-8")
+        manifest["artifacts"]["evaluation"]["sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+        persist(self.directory, manifest)
+
+    def test_rehashed_evaluation_from_other_data_split_seed_or_role_is_rejected(self):
+        for field, value in (("datasetVersion", "different-data"), ("splitSha256", "b" * 64),
+                             ("seed", 43), ("schema", "unknown"), ("status", "not-evaluated"),
+                             ("evaluationType", "blind-test"), ("independentTest", True),
+                             ("calibrationStatus", "fitted"), ("split", "test")):
+            with self.subTest(field=field):
+                manifest = write_fixture(self.directory)
+                self.rewrite_evaluation(manifest, lambda value_dict: value_dict.update({field: value}))
+                self.assertFalse(self.client().get_public_config()["configured"])
+
+    def test_two_class_evaluation_cannot_claim_completion_with_missing_metrics(self):
+        for metric in ("auroc", "averagePrecision", "brier", "ece10Bins"):
+            manifest = write_fixture(self.directory)
+            self.rewrite_evaluation(manifest, lambda e: e["endpoints"]["herg"].update({metric: None}))
+            self.assertEqual(self.client().get_public_config()["errorCode"], "V3_MODEL_NOT_READY")
+
+    def test_single_class_validation_is_legal_with_null_ranking_metrics(self):
+        manifest = write_fixture(self.directory)
+        self.rewrite_evaluation(manifest, lambda e: e["endpoints"]["herg"].update(
+            positives=0, negatives=2, status="single-class", rankingMetricReason="both-classes-required",
+            auroc=None, averagePrecision=None))
+        self.assertTrue(self.client().get_public_config()["configured"])
+        self.rewrite_evaluation(manifest, lambda e: e["endpoints"]["herg"].update(auroc=.5))
+        self.assertFalse(self.client().get_public_config()["configured"])
+
+    def test_unobserved_validation_has_no_fabricated_metrics(self):
+        manifest = write_fixture(self.directory)
+        self.rewrite_evaluation(manifest, lambda e: e["endpoints"]["herg"].update(
+            count=0, positives=0, negatives=0, status="no-data", rankingMetricReason="no-observed-labels",
+            auroc=None, averagePrecision=None, brier=None, ece10Bins=None))
+        self.assertTrue(self.client().get_public_config()["configured"])
+        self.rewrite_evaluation(manifest, lambda e: e["endpoints"]["herg"].update(brier=.2))
+        self.assertFalse(self.client().get_public_config()["configured"])
+
+    def test_rehashed_evaluation_class_counts_and_status_must_agree(self):
+        for changes in ({"negatives": 0}, {"status": "single-class"}, {"rankingMetricReason": "both-classes-required"}):
+            manifest = write_fixture(self.directory)
+            self.rewrite_evaluation(manifest, lambda e: e["endpoints"]["herg"].update(changes))
+            self.assertFalse(self.client().get_public_config()["configured"])
 
     def test_paths_cannot_escape_the_model_directory(self):
         manifest = write_fixture(self.directory)

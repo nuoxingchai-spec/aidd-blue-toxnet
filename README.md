@@ -179,3 +179,7 @@ node --test test/*.test.js
 四毒性端点与十二个 Tox21 通路采用独立标签、共享结构分组和缺失掩码，沿用固定修订的冻结 MoLFormer 表征。新增 A4、B16、Morgan 对照及零通路损失消融，默认不替换正式 v2。独立 `/api/research/tox21` 只返回十二通路活动分数，没有完整已训练工件和显式研究启用时返回不可用。
 
 数据隔离、真实实验结果、负迁移分析、Windows 训练及离线服务命令见 [TOXNET_V3_MULTITASK.md](TOXNET_V3_MULTITASK.md)。原四任务 v3 历史成绩保留；本轮同划分比较使用重新训练的对照，不称新盲测。
+
+## 三轮整合与 CUDA 验收
+
+三轮代码在独立 `codex/toxnet-integration-cuda` 分支审查，正式 v2 工件与历史评价保持原字节。新增真实运行验收和 CUDA 工具，加固 v3 禁入来源重建、化学引擎/评价合同与历史源码核验，并区分 GPU 特征提取和 CPU 逻辑回归训练。Windows 安装、实际显存与实验记录见 [CUDA_VALIDATION.md](CUDA_VALIDATION.md)，PR 顺序、squash 注意事项、接口兼容及科学边界见 [TOXNET_V3_INTEGRATION.md](TOXNET_V3_INTEGRATION.md)。代码整合不自动合并 main 或发布 v3。
