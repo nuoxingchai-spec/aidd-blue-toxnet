@@ -1,0 +1,6 @@
+# Optional isolated ToxNet v3 environment. Install requirements-model.txt first.
+# CPU/CUDA torch is installed explicitly for the host; do not replace its wheel here.
+transformers==4.57.6
+tokenizers==0.22.2
+huggingface-hub==0.36.2
+safetensors==0.6.2

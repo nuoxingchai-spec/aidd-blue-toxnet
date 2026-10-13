@@ -1,0 +1,915 @@
+{
+  "schema": "aidd.toxnet.experiment-summary.v3",
+  "version": "aidd.toxnet.frozen-feature-experiment.v3",
+  "status": "completed",
+  "createdAt": "2026-10-12T16:41:08.919607+00:00",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+  "dataManifestSha256": "1fffa35d1da6e4f58e269a0d74d6dc3473d98251ae419b8c8c762a7bbe4b4bf6",
+  "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+  "taskContractVersion": "aidd.toxnet.four-real-label-tasks.v3.1",
+  "featureExtractionSeconds": 70.514,
+  "dependencies": {
+    "python": "3.13.2",
+    "rdkit": "2026.09.1",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2",
+    "safetensors": "0.6.2",
+    "huggingface-hub": "0.36.2"
+  },
+  "device": "cpu",
+  "models": [
+    "B0",
+    "B1",
+    "B2"
+  ],
+  "runs": [
+    {
+      "model": "B0",
+      "seed": 42,
+      "directory": "B0-seed-42",
+      "manifestSha256": "302b4828a1317cceca2efde9620f9974249a621049dd41f3b54070123e93f62f",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7673127779096062,
+        "macroAP": 0.665576327576612,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7487562189054726,
+            "averagePrecision": 0.8415131621556968,
+            "brier": 0.1986864819719725,
+            "ece10Bins": 0.20232011493240212,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.8421750663129973,
+            "averagePrecision": 0.8620510784982501,
+            "brier": 0.1864219812800889,
+            "ece10Bins": 0.16010274497664553,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7649051922736134,
+            "averagePrecision": 0.8265830321490686,
+            "brier": 0.20691142736710266,
+            "ece10Bins": 0.12518445058517924,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7134146341463414,
+            "averagePrecision": 0.13215803750343225,
+            "brier": 0.06636124429097397,
+            "ece10Bins": 0.059724244547973135,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B0",
+        "seed": 42,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B0",
+      "seed": 43,
+      "directory": "B0-seed-43",
+      "manifestSha256": "bdf1ec982c9aa7bc818335d21b8cfe0662ef812866af47720a4c9f9923f50b8f",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7673127779096062,
+        "macroAP": 0.665576327576612,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7487562189054726,
+            "averagePrecision": 0.8415131621556968,
+            "brier": 0.1986864819719725,
+            "ece10Bins": 0.20232011493240212,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.8421750663129973,
+            "averagePrecision": 0.8620510784982501,
+            "brier": 0.1864219812800889,
+            "ece10Bins": 0.16010274497664553,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7649051922736134,
+            "averagePrecision": 0.8265830321490686,
+            "brier": 0.20691142736710266,
+            "ece10Bins": 0.12518445058517924,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7134146341463414,
+            "averagePrecision": 0.13215803750343225,
+            "brier": 0.06636124429097397,
+            "ece10Bins": 0.059724244547973135,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B0",
+        "seed": 43,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B0",
+      "seed": 44,
+      "directory": "B0-seed-44",
+      "manifestSha256": "b3c9e95f11234d5c3de3e99719df821b34fc4837e99db12595377aa8e4e5991a",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7673127779096062,
+        "macroAP": 0.665576327576612,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7487562189054726,
+            "averagePrecision": 0.8415131621556968,
+            "brier": 0.1986864819719725,
+            "ece10Bins": 0.20232011493240212,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.8421750663129973,
+            "averagePrecision": 0.8620510784982501,
+            "brier": 0.1864219812800889,
+            "ece10Bins": 0.16010274497664553,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7649051922736134,
+            "averagePrecision": 0.8265830321490686,
+            "brier": 0.20691142736710266,
+            "ece10Bins": 0.12518445058517924,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7134146341463414,
+            "averagePrecision": 0.13215803750343225,
+            "brier": 0.06636124429097397,
+            "ece10Bins": 0.059724244547973135,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B0",
+        "seed": 44,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B1",
+      "seed": 42,
+      "directory": "B1-seed-42",
+      "manifestSha256": "b6a527b65a91d1789c44cf5ce60e29098ca49dcc31cdc97bc98127613b7ebcd5",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7412713647773129,
+        "macroAP": 0.6884593957424364,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7850746268656716,
+            "averagePrecision": 0.887738703782363,
+            "brier": 0.25552458915584086,
+            "ece10Bins": 0.27380314532650785,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.7546419098143237,
+            "averagePrecision": 0.775223849646204,
+            "brier": 0.31704279965215365,
+            "ece10Bins": 0.321863093841164,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7038242069821017,
+            "averagePrecision": 0.7904097187788344,
+            "brier": 0.258695223979829,
+            "ece10Bins": 0.20376340109770563,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7215447154471545,
+            "averagePrecision": 0.3004653107623442,
+            "brier": 0.05958143005801821,
+            "ece10Bins": 0.059070726616631146,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B1",
+        "seed": 42,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B1",
+      "seed": 43,
+      "directory": "B1-seed-43",
+      "manifestSha256": "7d6e3943c81910bdd422e6ecd9fc257d6de8dbcbea94e37095542caabfb38643",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7412713647773129,
+        "macroAP": 0.6884593957424364,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7850746268656716,
+            "averagePrecision": 0.887738703782363,
+            "brier": 0.25552458915584086,
+            "ece10Bins": 0.27380314532650785,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.7546419098143237,
+            "averagePrecision": 0.775223849646204,
+            "brier": 0.31704279965215365,
+            "ece10Bins": 0.321863093841164,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7038242069821017,
+            "averagePrecision": 0.7904097187788344,
+            "brier": 0.258695223979829,
+            "ece10Bins": 0.20376340109770563,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7215447154471545,
+            "averagePrecision": 0.3004653107623442,
+            "brier": 0.05958143005801821,
+            "ece10Bins": 0.059070726616631146,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B1",
+        "seed": 43,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B1",
+      "seed": 44,
+      "directory": "B1-seed-44",
+      "manifestSha256": "a87fe1122227618b68fb082bb498ea83af5e075efce892c1d498b9858ae79a99",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7412713647773129,
+        "macroAP": 0.6884593957424364,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7850746268656716,
+            "averagePrecision": 0.887738703782363,
+            "brier": 0.25552458915584086,
+            "ece10Bins": 0.27380314532650785,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.7546419098143237,
+            "averagePrecision": 0.775223849646204,
+            "brier": 0.31704279965215365,
+            "ece10Bins": 0.321863093841164,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7038242069821017,
+            "averagePrecision": 0.7904097187788344,
+            "brier": 0.258695223979829,
+            "ece10Bins": 0.20376340109770563,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7215447154471545,
+            "averagePrecision": 0.3004653107623442,
+            "brier": 0.05958143005801821,
+            "ece10Bins": 0.059070726616631146,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B1",
+        "seed": 44,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B2",
+      "seed": 42,
+      "directory": "B2-seed-42",
+      "manifestSha256": "36af0a3786ff3e849a1e0178477ae1c55472669df914e4de58241a8e9da8057d",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.776384149020216,
+        "macroAP": 0.7033731754442527,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7860696517412935,
+            "averagePrecision": 0.8826743025549755,
+            "brier": 0.17011615716368436,
+            "ece10Bins": 0.12405966438120235,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.7904509283819628,
+            "averagePrecision": 0.7837438087446108,
+            "brier": 0.23792673661905636,
+            "ece10Bins": 0.24390730169807992,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7785078858763068,
+            "averagePrecision": 0.8334999819333035,
+            "brier": 0.19173988516418192,
+            "ece10Bins": 0.0823763336198077,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7505081300813008,
+            "averagePrecision": 0.3135746085441208,
+            "brier": 0.05689797586247856,
+            "ece10Bins": 0.02705856808958979,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B2",
+        "seed": 42,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B2",
+      "seed": 43,
+      "directory": "B2-seed-43",
+      "manifestSha256": "043b7077d68213f6d8889e2146586aa8a4692033a63f32928368a424032e44d1",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7908417677372905,
+        "macroAP": 0.6928971895243803,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7965174129353234,
+            "averagePrecision": 0.8847455482404682,
+            "brier": 0.1623968111530858,
+            "ece10Bins": 0.07238848351924668,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.8381962864721485,
+            "averagePrecision": 0.834053979657437,
+            "brier": 0.19548157427390223,
+            "ece10Bins": 0.19156378387477274,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7827184121920965,
+            "averagePrecision": 0.832027914703531,
+            "brier": 0.18631134721326664,
+            "ece10Bins": 0.0874329611254095,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7459349593495935,
+            "averagePrecision": 0.22076131549608502,
+            "brier": 0.06297162812100808,
+            "ece10Bins": 0.04772581140509831,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B2",
+        "seed": 43,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    },
+    {
+      "model": "B2",
+      "seed": 44,
+      "directory": "B2-seed-44",
+      "manifestSha256": "0d24cb167668eed3226e9e70c8ba7ed83721051a30fc379f10738cab041f13ec",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-model-output",
+        "macroAUROC": 0.7702121068439824,
+        "macroAP": 0.704431161762831,
+        "endpoints": {
+          "herg": {
+            "count": 97,
+            "positives": 67,
+            "negatives": 30,
+            "auroc": 0.7970149253731345,
+            "averagePrecision": 0.9001171835136137,
+            "brier": 0.19137470045054417,
+            "ece10Bins": 0.13153620361339058,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "dili": {
+            "count": 55,
+            "positives": 26,
+            "negatives": 29,
+            "auroc": 0.7984084880636604,
+            "averagePrecision": 0.7655239512206792,
+            "brier": 0.23915053499046404,
+            "ece10Bins": 0.24947653610999054,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "ames": {
+            "count": 772,
+            "positives": 475,
+            "negatives": 297,
+            "auroc": 0.7806485911749069,
+            "averagePrecision": 0.8479872825736358,
+            "brier": 0.19979703552363645,
+            "ece10Bins": 0.10859695777498489,
+            "status": "computed",
+            "rankingMetricReason": null
+          },
+          "clintox": {
+            "count": 176,
+            "positives": 12,
+            "negatives": 164,
+            "auroc": 0.7047764227642277,
+            "averagePrecision": 0.30409622974339534,
+            "brier": 0.06079443017083353,
+            "ece10Bins": 0.06784053779394765,
+            "status": "computed",
+            "rankingMetricReason": null
+          }
+        },
+        "schema": "aidd.toxnet.development-evaluation.v3",
+        "model": "B2",
+        "seed": 44,
+        "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+        "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+        "status": "evaluated-validation-only"
+      }
+    }
+  ],
+  "legacyTestUsed": false,
+  "externalHergUsed": false,
+  "newBlindTestClaimed": false,
+  "aggregate": {
+    "B0": {
+      "herg": {
+        "auroc": {
+          "mean": 0.7487562189054726,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8415131621556968,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.1986864819719725,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.20232011493240212,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "dili": {
+        "auroc": {
+          "mean": 0.8421750663129973,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8620510784982501,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.1864219812800889,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.16010274497664553,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "ames": {
+        "auroc": {
+          "mean": 0.7649051922736133,
+          "standardDeviation": 1.3597399555105182e-16,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8265830321490686,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.20691142736710266,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.12518445058517924,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "mean": 0.7134146341463414,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.13215803750343225,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.06636124429097397,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.05972424454797313,
+          "standardDeviation": 8.498374721940739e-18,
+          "definedSeeds": 3
+        }
+      }
+    },
+    "B1": {
+      "herg": {
+        "auroc": {
+          "mean": 0.7850746268656716,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8877387037823631,
+          "standardDeviation": 1.3597399555105182e-16,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.25552458915584086,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.27380314532650785,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "dili": {
+        "auroc": {
+          "mean": 0.7546419098143237,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.775223849646204,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.31704279965215365,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.321863093841164,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "ames": {
+        "auroc": {
+          "mean": 0.7038242069821017,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.7904097187788345,
+          "standardDeviation": 1.3597399555105182e-16,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.258695223979829,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.20376340109770563,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "mean": 0.7215447154471545,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.3004653107623442,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.05958143005801821,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.059070726616631146,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      }
+    },
+    "B2": {
+      "herg": {
+        "auroc": {
+          "mean": 0.7932006633499172,
+          "standardDeviation": 0.006180645158734463,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8891790114363524,
+          "standardDeviation": 0.009529177349921184,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.1746292229224381,
+          "standardDeviation": 0.015006843070448386,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.10932811717127987,
+          "standardDeviation": 0.032208338368851466,
+          "definedSeeds": 3
+        }
+      },
+      "dili": {
+        "auroc": {
+          "mean": 0.8090185676392573,
+          "standardDeviation": 0.025579975493350015,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.7944405798742423,
+          "standardDeviation": 0.03549516704898707,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.22418628196114088,
+          "standardDeviation": 0.02486653580961426,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.22831587389428107,
+          "standardDeviation": 0.03194982290381646,
+          "definedSeeds": 3
+        }
+      },
+      "ames": {
+        "auroc": {
+          "mean": 0.7806249630811034,
+          "standardDeviation": 0.00210536260038548,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8378383930701568,
+          "standardDeviation": 0.008819961116558969,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.19261608930036167,
+          "standardDeviation": 0.006785406956646381,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.0928020841734007,
+          "standardDeviation": 0.013910459895349184,
+          "definedSeeds": 3
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "mean": 0.733739837398374,
+          "standardDeviation": 0.025187060429662025,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.2794773845945337,
+          "standardDeviation": 0.0510699764436294,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.06022134471810672,
+          "standardDeviation": 0.003077114418002768,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.04754163909621192,
+          "standardDeviation": 0.020391608637410415,
+          "definedSeeds": 3
+        }
+      }
+    }
+  },
+  "durationSeconds": 3.936,
+  "repetitionStatus": "at-least-three-seeds"
+}

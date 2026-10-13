@@ -12,6 +12,8 @@
 
 新增 **蓝研 ToxNet**：已完成从随机权重训练的分子 Transformer，实际参数量 **2,374,390**，模型版本 `aidd-toxnet-v2-5c22f6cc5dd3`，通过真实 TDC 标签学习 hERG、DILI、Ames、ClinTox 四个端点。它在本机运行，不需要第三方 API 密钥。架构、权重校验值、训练记录及实测指标见 [MODEL_CARD.md](MODEL_CARD.md)，数据来源见 [DATA_SOURCES.md](DATA_SOURCES.md)。它是适合本机运行的小型分子模型，没有使用 TxGemma 权重。
 
+**v3 独立研究链路**已接入固定修订的真实 MoLFormer 冻结表征，完成同一隔离开发划分上的 B0 指纹 LR、B1 embedding LR、B2 embedding MLP 三种子实验。没有覆盖 v2 或切换网站供应商；开发 validation 用于选择，不能当新盲测或据此宣称泛化提升。架构与数据协议见 [TOXNET_V3_PLAN.md](TOXNET_V3_PLAN.md)，Windows/离线复现见 [TOXNET_V3_TRAINING.md](TOXNET_V3_TRAINING.md)，真实完整指标及未运行项目见 [TOXNET_V3_EVALUATION.md](TOXNET_V3_EVALUATION.md)。预训练大权重、完整本机研究工件、缓存与原始/派生分子标签不提交；仓库保存审核源、许可和不含分子行的汇总证据。
+
 本轮冻结骨架 test 集的 AUROC 为 hERG **0.7359**、DILI **0.7640**、Ames **0.7759**、ClinTox **0.7426**。四个端点的指纹逻辑回归基线 AUROC 均更高；ClinTox test 仅 16 个阳性。另已完成 hERG 外部来源回顾性评价：9,978 个审计分子上的 AUROC **0.6435**、AP **0.6256**、Brier **0.3349**、ECE **0.3116**，概率误差较大。**当前模型是研究原型，尚不能支持可靠筛选结论**；未证明优于简单基线，来源人群独立性、前瞻验证和临床效能认证仍未建立。
 
 ## 启动

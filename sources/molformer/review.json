@@ -1,0 +1,78 @@
+{
+  "schema": "aidd.pretrained.code-review.v1",
+  "reviewDate": "2026-10-13",
+  "source": "ibm-research/MoLFormer-XL-both-10pct",
+  "revision": "7b12d946c181a37f6012b9dc3b002275de070314",
+  "referenceBranchAtReview": "compat-v4",
+  "license": "Apache-2.0",
+  "metadataUrl": "https://huggingface.co/api/models/ibm-research/MoLFormer-XL-both-10pct/revision/7b12d946c181a37f6012b9dc3b002275de070314",
+  "treeUrl": "https://huggingface.co/api/models/ibm-research/MoLFormer-XL-both-10pct/tree/7b12d946c181a37f6012b9dc3b002275de070314",
+  "files": {
+    "README.md": {
+      "sha256": "4e679b138ae5c29c17de907d3e3a03050b3eb2a82462917ad80fb6a5ffe63736",
+      "bytes": 6165,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/README.md"
+    },
+    "config.json": {
+      "sha256": "3ef9eaac8c7ca6282fd6256ed038d151bd4ff42a4ff855367e0d7197bbc1c284",
+      "bytes": 1015,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/config.json"
+    },
+    "configuration_molformer.py": {
+      "sha256": "d48f6c133b27c3d6d9922acc554c2203aedf1a56d2061bd7aae72c11b7ec7aa5",
+      "bytes": 7601,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/configuration_molformer.py"
+    },
+    "modeling_molformer.py": {
+      "sha256": "a3f6273bb44709e566ee02987c50372db727de21799c3d297f64b2437f9e32a8",
+      "bytes": 39292,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/modeling_molformer.py"
+    },
+    "special_tokens_map.json": {
+      "sha256": "f0bb97cedb7e5d9eb744a3b2e499a9c464659e1a363853bfd6056ba126f5c16c",
+      "bytes": 125,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/special_tokens_map.json"
+    },
+    "tokenization_molformer.py": {
+      "sha256": "a816f7b6e540f27544e7aa924104d6fc0d5cedcc62117ec9d31d35d0cefbd2e2",
+      "bytes": 9480,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/tokenization_molformer.py"
+    },
+    "tokenization_molformer_fast.py": {
+      "sha256": "1921cf245ceb613a19e9a30ba4aa33e02b328ac6fdbbf63080b775bd8b4c8bdb",
+      "bytes": 6503,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/tokenization_molformer_fast.py"
+    },
+    "tokenizer.json": {
+      "sha256": "3df1f2219653c44fac9fa03b7f788b372eb2544ecc176737bb9aca8411b471a5",
+      "bytes": 54010,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/tokenizer.json"
+    },
+    "tokenizer_config.json": {
+      "sha256": "17e4fb4c6f77f2d9c482cf54fce528d97635e6bb9d0e2ab8b9638cc8a52e6fae",
+      "bytes": 1294,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/tokenizer_config.json"
+    },
+    "vocab.json": {
+      "sha256": "8592dced2879cb164332b9ec14e99164ba017949a6c05344cb64163d4839dbb2",
+      "bytes": 41641,
+      "url": "https://huggingface.co/ibm-research/MoLFormer-XL-both-10pct/resolve/7b12d946c181a37f6012b9dc3b002275de070314/vocab.json"
+    }
+  },
+  "weights": {
+    "filename": "model.safetensors",
+    "sha256": "0795977fe7192c4acdaf052f0e8464af57bc4bb59211271c5e61aaba2637b9c6",
+    "bytes": 187248784,
+    "sha256Source": "official Hugging Face fixed-revision tree API lfs.oid"
+  },
+  "allowedRuntimeCode": [
+    "configuration_molformer.py",
+    "modeling_molformer.py"
+  ],
+  "executionMethod": "sha-verified vendored local imports and strict safetensors tensor loading",
+  "remoteCodeExecution": false,
+  "excluded": [
+    "pytorch_model.bin",
+    "convert_molformer_original_checkpoint_to_pytorch.py"
+  ]
+}

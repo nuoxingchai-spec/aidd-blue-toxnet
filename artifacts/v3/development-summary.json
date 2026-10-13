@@ -1,0 +1,188 @@
+{
+  "schema": "aidd.toxnet.development-data.v3",
+  "datasetVersion": "aidd-toxnet-v3-development-c1d448002df99aa3",
+  "status": "prepared-development-only",
+  "taskContractVersion": "aidd.toxnet.four-real-label-tasks.v3.1",
+  "identityVersion": "aidd.v3.leakage-identities.v1",
+  "chemistryVersion": "rdkit-chemistry-1.0.0",
+  "rdkitVersion": "2026.09.1",
+  "endpoints": [
+    "herg",
+    "dili",
+    "ames",
+    "clintox"
+  ],
+  "taskContracts": {
+    "ames": {
+      "positiveClass": "Ames mutagenic (1); non-mutagenic (0)",
+      "reference": "Xu, Congying, et al. In silico prediction of chemical Ames mutagenicity. Journal of Chemical Information and Modeling 52.11 (2012): 2840-2847.",
+      "sourceSha256": "a17d2d6b9aa17f1cfaa1e3e4137788b2ef2700404042e285102f18543ca954b5"
+    },
+    "clintox": {
+      "positiveClass": "Clinical-trial failure due to toxicity / CT_TOX (1); comparator drug (0). This is not FDA_APPROVED.",
+      "reference": "Gayvert, Kaitlyn M., Neel S. Madhukar, and Olivier Elemento. A data-driven approach to predicting successes and failures of clinical trials. Cell Chemical Biology 23.10 (2016): 1294-1301.",
+      "sourceSha256": "32f8542b5ed007ca76506b7dbdaaed32c9bbe864ea1ce52d4d49f176d5c63455"
+    },
+    "dili": {
+      "positiveClass": "Drug-induced liver injury positive (1); negative (0)",
+      "reference": "Xu, Youjun, et al. Deep learning for drug-induced liver injury. Journal of Chemical Information and Modeling 55.10 (2015): 2085-2093.",
+      "sourceSha256": "f977be424b9e509dc721e24106dd51cfb5a63ad8df0104ae51d9ab51cef7be09"
+    },
+    "herg": {
+      "positiveClass": "hERG blocker (1); non-blocker (0)",
+      "reference": "Wang, Shuangquan, et al. ADMET evaluation in drug discovery. 16. Predicting hERG blockers by combining multiple pharmacophores and machine learning approaches. Molecular Pharmaceutics 13.8 (2016): 2855-2866.",
+      "sourceSha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54"
+    }
+  },
+  "trainingPermission": {
+    "allowedRoles": [
+      "train-optimization",
+      "validation-model-selection"
+    ],
+    "approvedLabelSources": [
+      "TDC hERG",
+      "TDC DILI",
+      "TDC Ames",
+      "TDC ClinTox"
+    ],
+    "commercialRedistributionApproved": false,
+    "externalOrHeldoutLabelsAllowed": false,
+    "note": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+    "status": "research-only-source-rights-unresolved"
+  },
+  "encoderCompatibility": {
+    "appliedBeforeSplit": true,
+    "appliesToAllBaselines": true,
+    "id": "aidd.molformer-frozen.v1",
+    "labelsUsedForFiltering": false,
+    "maxTokens": 202,
+    "modelRevision": "7b12d946c181a37f6012b9dc3b002275de070314",
+    "policy": "strict canonical input, no truncation, no UNK; rejected observations quarantined before common split"
+  },
+  "sampleCounts": {
+    "train": 4243,
+    "validation": 1045
+  },
+  "classCounts": {
+    "train": {
+      "ames": {
+        "negative": 1531,
+        "positive": 1967
+      },
+      "clintox": {
+        "negative": 485,
+        "positive": 19
+      },
+      "dili": {
+        "negative": 93,
+        "positive": 78
+      },
+      "herg": {
+        "negative": 82,
+        "positive": 146
+      }
+    },
+    "validation": {
+      "ames": {
+        "negative": 297,
+        "positive": 475
+      },
+      "clintox": {
+        "negative": 164,
+        "positive": 12
+      },
+      "dili": {
+        "negative": 29,
+        "positive": 26
+      },
+      "herg": {
+        "negative": 30,
+        "positive": 67
+      }
+    }
+  },
+  "warnings": [],
+  "splitSha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91",
+  "frozenReference": {
+    "labelsUsedForDevelopment": false,
+    "manifestSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+    "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+    "previouslyExposedHergPoolSha256": "7e1df556c8674898e48b37c44f9bfdbcb9a4f60aba8df00dadff7564ce957262",
+    "splitSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+    "v2Modified": false
+  },
+  "limitations": [
+    "Development validation is available for model selection, not unbiased final performance claims.",
+    "Exposed v2 validation/test and hERG_Karim are structural exclusion references only; their labels cannot tune v3.",
+    "Conservative equivalent/scaffold exclusions can sharply reduce sample size and remove positive examples.",
+    "Source-population independence and commercial source rights remain unverified.",
+    "Tox21/FDA supply no labels to these four tasks; FDA structure overlap awaits audited mapping."
+  ],
+  "dataManifestSha256": "1fffa35d1da6e4f58e269a0d74d6dc3473d98251ae419b8c8c762a7bbe4b4bf6",
+  "redistribution": "Aggregate audit only; raw and derived molecule/label rows excluded",
+  "auditCounts": {
+    "acyclicPolicy": "one indivisible connected group; never split to improve class balance",
+    "eligibleLabelRows": 5501,
+    "eligibleUniqueStructures": 5288,
+    "excludedUniqueStructures": 2247,
+    "exposedLabelsUsedForDevelopment": false,
+    "fda": {
+      "datasets": [
+        {
+          "dataset": "DILIrank 2.0",
+          "license": {
+            "evidenceUrl": "https://www.fda.gov/science-research/liver-toxicity-knowledge-base-ltkb/drug-induced-liver-injury-rank-dilirank-20-dataset",
+            "note": "Publicly downloadable FDA source; no blanket commercial redistribution license is asserted. The FDA website download-contact request is recorded; no email was sent.",
+            "status": "dataset-specific-license-not-stated-on-landing-page"
+          },
+          "rawDrugRows": 1336,
+          "reason": "Drug names are not structures; no guessed SMILES or endpoint labels imported",
+          "role": "audit-only-not-training",
+          "sha256": "1ca1352ff727af68e68e250eae2ed775bca8492335140ac0afd2233248694993",
+          "structureOverlap": "not-assessable-no-verified-structure-mapping"
+        },
+        {
+          "dataset": "DILIst",
+          "license": {
+            "evidenceUrl": "https://www.fda.gov/science-research/liver-toxicity-knowledge-base-ltkb/drug-induced-liver-injury-severity-and-toxicity-dilist-dataset",
+            "note": "Publicly downloadable FDA source; no blanket commercial redistribution license is asserted. The FDA website download-contact request is recorded; no email was sent.",
+            "status": "dataset-specific-license-not-stated-on-landing-page"
+          },
+          "rawDrugRows": 1279,
+          "reason": "Drug names are not structures; no guessed SMILES or endpoint labels imported",
+          "role": "audit-only-not-training",
+          "sha256": "4331ee9d16ae7641488161e4dc2c603c29e06baa8667dd16e7f3d635366e7e5e",
+          "structureOverlap": "not-assessable-no-verified-structure-mapping"
+        }
+      ],
+      "status": "role-audited-overlap-pending-structure-mapping",
+      "trainingImported": false
+    },
+    "groupCount": 894,
+    "heldoutLabelsUsedForSelection": false,
+    "identityPolicy": "Strict canonical input retained. Audit only: remove stereo and isotopes; LargestFragmentChooser(preferOrganic=True), Uncharger, tautomer canonicalizer; compare original/full and neutral-parent Bemis-Murcko scaffolds. All acyclic structures share [ACYCLIC]. Connected components are indivisible.",
+    "identityVersion": "aidd.v3.leakage-identities.v1",
+    "largestGroupMolecules": 1409,
+    "oldTrainLabelRows": 7851,
+    "oldTrainUniqueStructures": 7534,
+    "prospectiveBlindTest": false,
+    "status": "prepared-development-only",
+    "tox21": {
+      "identityUnavailableStructures": 0,
+      "missingLabelPolicy": "no row for an absent assay label; never imputed as negative",
+      "multiTaskIntegrationStatus": "deferred-requires-independent-role-and-split-contract",
+      "observedLabelRows": 77853,
+      "overlapUniqueStructuresByRole": {
+        "old-test": 2173,
+        "old-validation": 651,
+        "previously-exposed-herg-karim": 127,
+        "v3-train": 3180,
+        "v3-validation": 464
+      },
+      "status": "structure-role-overlap-audit-only",
+      "taskContract": "12 assay-specific activity tasks, never substituted for four toxicity endpoints",
+      "trainingImported": false,
+      "uniqueStructures": 7822
+    }
+  }
+}
