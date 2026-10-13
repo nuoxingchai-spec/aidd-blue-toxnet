@@ -28,8 +28,12 @@
             <select id="comparePredictor" disabled><option value="toxnet-v3-b16">ToxNet v3 B16 · 本机研究模型</option></select>
             <label class="compare-check"><input id="compareIncludeTox21" type="checkbox" checked /><span>展示十二个 Tox21 通路</span></label>
             <label class="compare-check"><input id="compareIncludeEvidence" type="checkbox" /><span>检索已审计的本机实验依据</span></label>
-            <label for="compareExplainEndpoint">可选模型归因</label>
-            <select id="compareExplainEndpoint"><option value="">关闭</option><option value="herg">hERG</option><option value="dili">DILI</option><option value="ames">Ames</option><option value="clintox">ClinTox</option></select>
+            <label for="compareEvidenceEndpoint">实验检索端点</label>
+            <select id="compareEvidenceEndpoint"><option value="">全部已审计端点</option><option value="herg">hERG</option><option value="dili">DILI</option><option value="ames">Ames</option><option value="clintox">ClinTox</option></select>
+            <label class="compare-check"><input id="compareIncludeAttribution" type="checkbox" /><span>计算真实模型片段归因</span></label>
+            <label for="compareExplainEndpoint">归因端点</label>
+            <select id="compareExplainEndpoint"><option value="herg">hERG</option><option value="dili">DILI</option><option value="ames">Ames</option><option value="clintox">ClinTox</option></select>
+            <p class="compare-hint">检索与归因独立启用。只检索实验依据时，不会触发片段重算。</p>
             <p class="compare-hint">只解释实际加载的模型。归因不代表因果机制。</p>
           </div>
           <div class="compare-field-block">
@@ -51,20 +55,32 @@
             <label class="compare-check compare-cloud-consent"><input id="compareAllowCloud" type="checkbox" /><span>本次允许向 DeepSeek 发送规范 SMILES、未校准预测、任务定义、规则及已审计证据摘要。调用可能产生费用。</span></label>
             <p class="compare-hint">不外发原始实验行、受限数据库、私有数据、自由问题或完整本机路径。每次新运行均需确认。</p>
           </div>
+          <div class="compare-field-block compare-persistence-block">
+            <label class="compare-check"><input id="comparePersistSensitive" type="checkbox" /><span>本次允许在本机保存完整敏感研究内容</span></label>
+            <p class="compare-hint">默认只保存运行摘要。完整保存会包含查询分子、研究问题、检索到的实验记录及报告正文，保存在本机数据库，不上传 GitHub。此授权不保存在预设，下一次运行需重新勾选。</p>
+          </div>
           <button class="primary-button compare-run" id="compareRunButton" type="submit"><span aria-hidden="true">↗</span> 运行 Compare</button>
           <div class="compare-inline-actions"><button class="secondary-button" id="compareCancelButton" type="button" disabled>取消运行</button><button class="secondary-button" id="compareResetButton" type="button">清空</button></div>
         </form>
-        <details class="compare-config-help compare-preset-box"><summary>保存研究配置</summary><label for="comparePresetSelect">已有配置</label><select id="comparePresetSelect"><option value="">选择预设…</option></select><label for="comparePresetName">配置名称</label><input id="comparePresetName" type="text" maxlength="80" placeholder="例如 十二通路研究" /><button class="secondary-button" id="compareSavePreset" type="button">保存当前配置</button><p class="compare-hint">不保存分子、自由问题、密钥或云端授权。</p><p id="comparePresetStatus" role="status" aria-live="polite"></p></details>
+        <details class="compare-config-help compare-preset-box"><summary>研究配置</summary><label for="comparePresetSelect">已有配置</label><select id="comparePresetSelect"><option value="">选择预设…</option></select><label for="comparePresetName">配置名称 / 重命名</label><input id="comparePresetName" type="text" maxlength="80" placeholder="例如 十二通路研究" /><p id="comparePresetUpdated" class="compare-hint"></p><button class="secondary-button" id="compareSavePreset" type="button">另存为新配置</button><div class="compare-inline-actions"><button class="secondary-button" id="compareUpdatePreset" type="button" disabled>更新选中配置</button><button class="secondary-button" id="compareDeletePreset" type="button" disabled>删除选中配置</button></div><p class="compare-hint">不保存分子、自由问题、密钥、云端授权或敏感内容保存授权。名称必须唯一。</p><p id="comparePresetStatus" role="status" aria-live="polite"></p></details>
         <a class="compare-back-link" href="/">← 返回原分子毒性工作台</a>
       </aside>
       <main class="compare-workspace">
-        <header class="compare-topbar"><div><p class="eyebrow">Independent research comparison</p><h1>多模型对照实验室</h1><p>独立运行 · 共同事实 · 透明差异</p></div><div class="compare-header-actions"><button class="secondary-button" id="compareRefreshModels" type="button">刷新模型</button><button class="secondary-button" id="compareExportButton" type="button" disabled>导出 JSON</button></div></header>
+        <header class="compare-topbar"><div><p class="eyebrow">Independent research comparison</p><h1>多模型对照实验室</h1><p>独立运行 · 共同事实 · 透明差异</p></div><div class="compare-header-actions"><button class="secondary-button" id="compareHistoryButton" type="button" aria-expanded="false" aria-controls="compareHistoryPanel">实验历史</button><button class="secondary-button" id="compareRefreshModels" type="button">刷新模型</button><button class="secondary-button" id="compareExportButton" type="button" disabled>导出 JSON</button></div></header>
+        <section id="compareHistoryPanel" class="compare-panel compare-history-panel" aria-labelledby="compareHistoryTitle" hidden>
+          <div class="compare-section-head"><div><p class="eyebrow">Local experiment history</p><h2 id="compareHistoryTitle">实验历史 · 默认仅摘要</h2></div><button class="secondary-button" id="compareHistoryRefresh" type="button">刷新历史</button></div>
+          <p class="compare-hint">打开历史仅查询记录，不再次运行模型、不复用云端授权。没有保存全文的记录，在后台重启后只能恢复摘要。</p>
+          <div class="compare-table-wrap"><table><thead><tr><th>开始时间</th><th>运行状态 / 结构标识</th><th>四模型状态</th><th>保存内容</th><th>操作</th></tr></thead><tbody id="compareHistoryRows"></tbody></table></div>
+          <div class="compare-history-pages"><button class="secondary-button" id="compareHistoryPrevious" type="button" disabled>上一页</button><span id="compareHistoryPage" role="status"></span><button class="secondary-button" id="compareHistoryNext" type="button" disabled>下一页</button></div>
+          <p id="compareHistoryStatus" role="status" aria-live="polite"></p>
+        </section>
         <div id="compareFixtureBanner" class="compare-fixture-banner" role="note" hidden></div>
         <div class="compare-research-note" role="note"><strong>研究原型</strong><p>未校准分数与通路活性均不构成人体风险概率。独立对照不做模型投票或分数平均；没有新独立标注数据时，不给出科学准确率排名。ClinTox 样本少，B16 可能存在负迁移。</p></div>
         <section class="compare-model-section" aria-labelledby="compareModelsTitle"><div class="compare-section-head"><div><p class="eyebrow">Model readiness</p><h2 id="compareModelsTitle">四模型 · 实际运行能力</h2></div><span class="compare-small-note" id="compareRegistryStatus" role="status" aria-live="polite">正在读取服务端注册信息…</span></div><div id="compareModelCards" class="compare-model-grid"></div><p class="compare-hint" id="compareResourcePolicy"></p></section>
         <div id="compareRunStatus" class="compare-run-status" role="status" aria-live="polite">准备输入一个分子，开始可追溯的研究对照。</div>
         <div id="compareError" class="compare-error" role="alert" hidden></div>
         <div id="compareStaleBanner" class="compare-stale-banner" role="status" hidden>输入或配置已修改。下面显示的是旧运行记录，请重新运行后导出。</div>
+        <div id="compareRecoveryNotice" class="compare-recovery-notice" role="status" hidden></div>
         <section id="compareEmptyState" class="compare-empty-state"><div class="compare-empty-orbit" aria-hidden="true"><span>B16</span><span>Tx</span><span>Q</span><span>D</span></div><h2>让每个模型说清楚自己的依据</h2><p>同一结构输入，真实预测与独立报告各自留痕。缺少模型时会明确显示不可用，已完成的结果仍会保留。</p><div><span>01 验证分子</span><span>02 独立执行</span><span>03 核验来源</span></div></section>
         <div id="compareResults" hidden>
           <section class="compare-panel compare-identity" aria-labelledby="compareStructureTitle"><div><p class="eyebrow">Shared molecular identity</p><h2 id="compareStructureTitle">当前研究分子</h2><code id="compareCanonical"></code></div><dl><dt>结构标识</dt><dd id="compareStructureId"></dd><dt>运行 ID</dt><dd id="compareRunId"></dd><dt>事实快照 SHA256</dt><dd id="compareSnapshotHash"></dd></dl></section>

@@ -60,7 +60,7 @@ def _public_info(client, loaded):
 
 def run_worker(payload, emit=None):
     if (not isinstance(payload, dict) or payload.get("schema") != WORKER_SCHEMA
-        or set(payload) - {"schema", "action", "modelDir", "encoderDir", "device", "enabled", "canonicalSmiles", "structureId", "includeTox21", "includeEvidence", "explainEndpoint", "evidenceIndex"}
+        or set(payload) - {"schema", "action", "modelDir", "encoderDir", "device", "enabled", "canonicalSmiles", "structureId", "includeTox21", "includeEvidence", "includeAttribution", "evidenceEndpoint", "explainEndpoint", "evidenceIndex"}
         or payload.get("action") not in ("status", "execute") or type(payload.get("enabled")) is not bool
         or payload.get("device") not in ("cpu", "cuda", "cuda:0")):
         raise ModelAPIError("COMPARE_WORKER_INVALID", "Compare 离线 worker 配置无效。", 503)
@@ -86,6 +86,7 @@ def run_worker(payload, emit=None):
     if prediction["structureId"] != payload.get("structureId"):
         raise ModelAPIError("COMPARE_STRUCTURE_MISMATCH", "B16 输出结构标识与 Compare 输入不一致。", 409)
     prediction_seconds = perf_counter() - prediction_started
+    explain_endpoint = payload.get('explainEndpoint') if payload.get('includeAttribution', payload.get('explainEndpoint') is not None) else None
     # B16 always computes/preserves all sixteen outputs. includeTox21 controls
     # snapshot/UI scope in the parent, never the true model output contract.
     chemistry = analyze_chemistry(payload["canonicalSmiles"])
@@ -97,7 +98,7 @@ def run_worker(payload, emit=None):
         emit({"kind": "prediction", "ok": True, "info": info,
               "result": {"status": "partial", "data": {"prediction": prediction, "structuralAlerts": alerts,
                        "evidence": {"status": "pending" if payload.get("includeEvidence") else "not-requested", "results": []},
-                       "attribution": {"status": "pending" if payload.get("explainEndpoint") else "not-requested", "atoms": [], "fragments": []}},
+                       "attribution": {"status": "pending" if explain_endpoint else "not-requested", "atoms": [], "fragments": []}},
                        "provenance": {**prediction["provenance"], "device": client.device, "isolatedWorker": True},
                        "metrics": {"loadAndExecutionSeconds": perf_counter() - started, "predictionSeconds": prediction_seconds,
                                    "gpu": gpu_metrics, "promptTokens": None, "completionTokens": None, "cost": None}}})
@@ -107,14 +108,14 @@ def run_worker(payload, emit=None):
     if payload.get("includeEvidence"):
         try:
             from backend.evidence_search import EvidenceSearch
-            evidence = EvidenceSearch(payload["evidenceIndex"]).search(payload["canonicalSmiles"], endpoint=payload.get("explainEndpoint"), limit=3)
+            evidence = EvidenceSearch(payload["evidenceIndex"]).search(payload["canonicalSmiles"], endpoint=payload.get("evidenceEndpoint", payload.get("explainEndpoint")), limit=3)
         except Exception:
             evidence = {"status": "insufficient-evidence", "results": [], "errorCode": "COMPARE_EVIDENCE_UNAVAILABLE"}
         partial |= evidence["status"] != "available"
-    if payload.get("explainEndpoint"):
+    if explain_endpoint:
         try:
             from backend.attribution import AttributionEngine
-            attribution = AttributionEngine(None, client).explain(payload["canonicalSmiles"], endpoint=payload["explainEndpoint"], model="multitask")
+            attribution = AttributionEngine(None, client).explain(payload["canonicalSmiles"], endpoint=explain_endpoint, model="multitask")
             if attribution.get("status") in ("available", "computed-with-warning") and any(
                 attribution.get("provenance", {}).get(key) != prediction["provenance"].get(key)
                 for key in ("weightsSha256", "manifestSha256", "modelVersion")):
@@ -130,7 +131,11 @@ def run_worker(payload, emit=None):
     return {"ok": True, "result": {"status": "partial" if partial else "completed",
             "data": {"prediction": prediction, "evidence": evidence, "attribution": attribution,
                      "structuralAlerts": alerts},
-            "provenance": {**prediction["provenance"], "device": client.device, "isolatedWorker": True},
+            "provenance": {**prediction["provenance"], "device": client.device, "isolatedWorker": True,
+                           "researchSteps": {"evidenceRequested": payload.get('includeEvidence') is True,
+                                             "evidenceEndpoint": payload.get('evidenceEndpoint', payload.get('explainEndpoint')),
+                                             "attributionRequested": explain_endpoint is not None,
+                                             "attributionEndpoint": explain_endpoint}},
             "metrics": {"loadAndExecutionSeconds": perf_counter() - started, "predictionSeconds": prediction_seconds,
                         "promptTokens": None, "completionTokens": None, "cost": None, "gpu": gpu_metrics}}, "info": info}
 

@@ -1,0 +1,90 @@
+{
+  "schema": "aidd.compare.stability-validation.v1",
+  "generatedAt": "2026-10-13T17:45:47.499603+00:00",
+  "baseCommit": "2d51de2173622f2afafa85c8bd95d875e1af3823",
+  "sourceState": "tested worktree; commit linked by Draft PR #5",
+  "sourceSha256": {
+    "backend/compare_adapters.py": "3edccf4b8741179b06a9987895d02b68e625ce3611a9b20d2bd8668fdea0e733",
+    "backend/compare_resources.py": "b83bd8b63bde6da0f2859cd08ef2279c71b6c72ead8b5c6318955159dc5bd4be",
+    "backend/compare_txgemma.py": "d5522b2dab59da2c3ea25f36ca3f9e73ade54e317b7cb200ab148ab77ece1601",
+    "backend/compare_orchestrator.py": "b4cbccd3c264a14ca81d5839c92f0e46713cc3d67f9965f365a4604f845cd447",
+    "backend/compare_persistence.py": "202f6a47f394d29ac33d5641f840a5ad4ea6123bedc6c46acb73cf8822d0dbf1",
+    "backend/compare_logging.py": "b24d2b632b674b2eb2ed6681b1cf3b1ba13a76a503fb15b61210fc70e2aa994a",
+    "backend/compare_schemas.py": "f378e7a29bdf832b0ae625790cf67928e1831962d46de4175968de20829ff4f9",
+    "backend/compare_worker.py": "39123fc8c3c307ff44ccfd28617d7b130c36a15cf6f9b6e007b005b4062bfe4c",
+    "backend/compare_routes.py": "ff2ae6ea7c435f3e2196688e4a88c6f8b8b2ed339a8c37e30b9d6b915a6f6fc8",
+    "backend/main.py": "94d269758c4f89d91224886ae315d15d0ee464ffbcc07b0b4dd61c99450ecfb5",
+    "compare-app.js": "ecc8670f74d4e216423514e32913136f09263af10d8da00a11b17590df2f41e4",
+    "compare-core.js": "d2e8ab03d908d0882ea290bd364336c6b89244981fa239617794a26f3240e84b",
+    "compare.html": "97464bc9ec31d1eeeaa74251e7287495ee54517293db998a436834f1c9b27df1",
+    "compare.css": "00a1792af02353ccbb7230377c6dcabf4b7bf4d17bfbe7be53124ba4317b6922",
+    "scripts/verify_compare_cleanup.py": "c3aef655f749b95ffbfa1b3580ea1f1bc946ffe93d80b6d9d6b4905cc705789f",
+    "scripts/verify_compare_preservation.py": "503fb88403bb61b88c24459a33e7320311074881a8180af9c8835d9356b7dbff",
+    ".github/workflows/compare-cpu.yml": "b2224611e20aaf383b0284c00f9d6236d1a62170684d75fc1dd3a78e7d2ecb97"
+  },
+  "pythonCpu": {
+    "run": 504,
+    "passed": 503,
+    "skipped": 1,
+    "failed": 0,
+    "skip": "POSIX permission test on Windows"
+  },
+  "pythonCudaEnvironment": {
+    "run": 504,
+    "passed": 503,
+    "skipped": 1,
+    "failed": 0,
+    "scope": "software suite, not all real models"
+  },
+  "javascript": {
+    "run": 92,
+    "passed": 92,
+    "failed": 0,
+    "skipped": 0
+  },
+  "dependencyChecks": {
+    "cpu": "passed",
+    "cuda": "passed"
+  },
+  "javascriptSyntax": "passed",
+  "diffCheck": "passed",
+  "raceNegativeControl": "deterministically reproduces legacy early-release risk; not a claimed real GPU incident",
+  "newCancellationLifecycle": "passed tracked cleanup, repeated cancel, timeouts, shutdown and quarantine software tests",
+  "sqlite": {
+    "schemaVersion": 2,
+    "default": "minimal-summary",
+    "fullContent": "per-run explicit opt-in",
+    "startupReplay": false,
+    "windowsProtectedAcl": "passed",
+    "ownerLock": "passed",
+    "multiWorker": "explicitly refused",
+    "oneDriveDefault": "non-synchronized LOCALAPPDATA",
+    "maintenanceQuarantineClearance": "strict recent UTC proof"
+  },
+  "failedProviderUsage": "passed explicit MockTransport responses; no real billing claim",
+  "realB16Verification": "passed",
+  "realB16Version": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+  "realV2Verification": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "protectedHistoricalFiles": 50,
+  "originalCompareReceiptsUnchangedGitContent": 4,
+  "localB16ArtifactsUnchanged": true,
+  "actualModelAcceptance": {
+    "b16": "real CUDA 16-task HTTP passed",
+    "ollamaService": "reachable; actual model list empty",
+    "qwen": "no actual generation; model not installed",
+    "txgemma": "not licensed or installed",
+    "deepseek": "no paid API request"
+  },
+  "paidCallsMade": false,
+  "largeModelsDownloaded": false,
+  "formalAvailability": false,
+  "scientificAccuracyMeasured": false,
+  "githubActions": {
+    "configured": true,
+    "localScope": "CPU software only",
+    "statusAtReceipt": "awaiting push; inspect PR checks"
+  },
+  "rawExperimentalRowsIncluded": false,
+  "credentialsIncluded": false,
+  "privateLocalPathsIncluded": false
+}

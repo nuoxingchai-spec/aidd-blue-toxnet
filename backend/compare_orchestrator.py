@@ -15,6 +15,8 @@ from backend.chemistry import analyze_chemistry
 from backend.compare_reporting import (CLOUD_CATEGORIES, LIMITATIONS, build_snapshot, encoded,
                                        report_messages, validate_b16, validate_report, validate_specialist)
 from backend.compare_resources import CompareResourceManager, ResourceUnavailable
+from backend.compare_logging import configure_diagnostics, diagnostic
+from backend.compare_persistence import CompareRunStore
 from backend.compare_schemas import CONTRACT_VERSION, MODEL_IDS, ComparePresetRequest, CompareSettings
 
 TERMINAL = {'completed', 'partial', 'failed', 'cancelled'}
@@ -38,7 +40,7 @@ class CompareRunError(Exception):
 
 
 class CompareOrchestrator:
-    def __init__(self, registry, *, env=None, resources=None, presets_path=None):
+    def __init__(self, registry, *, env=None, resources=None, presets_path=None, persistence_path=None, store=None):
         self.registry = registry
         self.adapters = registry.adapters
         self.resources = resources or CompareResourceManager()
@@ -50,9 +52,55 @@ class CompareOrchestrator:
         self.max_running = bounded_int(env, 'TOXNET_COMPARE_MAX_RUNNING', 1, 1, 4)
         self.semaphore = asyncio.Semaphore(self.max_running)
         self.runs, self.tasks, self.expiry = {}, {}, {}
+        self.store = store or CompareRunStore(persistence_path, recovery_ttl_seconds=self.ttl)
+        self.cancel_tasks = {}
+        self.started, self.closing, self._close_task = False, False, None
+        self.single_worker = bounded_int(env, 'WEB_CONCURRENCY', 1, 1, 32) == 1
         self.presets_path = Path(presets_path).resolve() if presets_path else None
         self.presets = []
         self._load_presets()
+
+    async def start(self):
+        if self.started:
+            return
+        if not self.single_worker:
+            raise CompareRunError('COMPARE_SINGLE_WORKER_REQUIRED', 'Compare 当前仅支持本机单 worker；不得使用多 worker GPU 调度。', 503)
+        configure_diagnostics()
+        self.store.start()
+        # An interrupted local execution can leave an independent Ollama
+        # daemon or orphan worker alive. Restart is not evidence of release.
+        if self.store.has_interrupted_local_execution():
+            self.store.set_quarantine('INTERRUPTED_LOCAL_EXECUTION')
+        recovered = self.store.recover_interrupted()
+        self.store.prune()
+        blocked = self.store.get_quarantine()
+        if blocked:
+            self.resources.blocked_reason = blocked
+        self.started = True
+        diagnostic(stage='service-started', error_code='INTERRUPTED_RUNS_RECOVERED' if recovered else None)
+
+    def _persist(self, record, *, strict=True):
+        try:
+            if self.resources.blocked_reason:
+                # Never overwrite an interrupted local record with a terminal
+                # one until the durable quarantine marker has been saved.
+                self.store.set_quarantine('LOCAL_MODEL_CLEANUP_UNCONFIRMED')
+            remaining = max(0, self.expiry[record['runId']] - time.monotonic()) if record['status'] in TERMINAL and record['runId'] in self.expiry else self.ttl
+            self.store.upsert(record, time.time() + remaining)
+        except Exception:
+            record['persistence'] = {'status': 'failed', 'errorCode': 'COMPARE_PERSISTENCE_UNAVAILABLE'}
+            diagnostic(request_id=record.get('requestId'), run_id=record['runId'], stage='persistence-failed', error_code='COMPARE_PERSISTENCE_UNAVAILABLE')
+            if strict:
+                raise CompareRunError('COMPARE_PERSISTENCE_UNAVAILABLE', '实验记录保存失败；停止后续调用，请检查本机数据库。', 503) from None
+
+    def _log(self, record, stage, model_id=None):
+        item = record['models'].get(model_id, {})
+        adapter = self.adapters.get(model_id)
+        cleanup = getattr(adapter, 'cleanup_status', lambda: None)()
+        diagnostic(request_id=record.get('requestId'), run_id=record['runId'], model_id=model_id, stage=stage,
+                   error_code=(item.get('error') or record.get('error') or {}).get('code'),
+                   duration_ms=(item.get('metrics') or {}).get('durationMs', record.get('durationMs')),
+                   cleanup_state=cleanup, provider_request_attempted=record['cloudTransfer']['requestAttempted'])
 
     def _load_presets(self):
         if self.presets_path and self.presets_path.is_file():
@@ -64,10 +112,12 @@ class CompareOrchestrator:
                     return
                 validated = []
                 for row in value:
-                    if not isinstance(row, dict) or set(row) != {'id', 'name', 'settings'} or not isinstance(row['id'], str):
+                    if not isinstance(row, dict) or set(row) - {'id', 'name', 'settings', 'createdAt', 'updatedAt'} or not {'id', 'name', 'settings'} <= set(row) or not isinstance(row['id'], str):
                         return
                     item = ComparePresetRequest.model_validate({'name': row['name'], 'settings': row['settings']})
-                    validated.append({'id': row['id'], **item.model_dump()})
+                    if any(v['id'] == row['id'] or v['name'].casefold() == item.name.casefold() for v in validated):
+                        return
+                    validated.append({'id': row['id'], **item.model_dump(), 'createdAt': row.get('createdAt', now()), 'updatedAt': row.get('updatedAt', now())})
                 self.presets = validated
             except (ValueError, OSError, TypeError):
                 self.presets = []
@@ -79,15 +129,48 @@ class CompareOrchestrator:
                 self.runs.pop(identifier, None)
                 self.tasks.pop(identifier, None)
                 self.expiry.pop(identifier, None)
+                self.cancel_tasks.pop(identifier, None)
+                self.store.delete(identifier)
+        self.store.prune()
 
     async def describe(self):
         async with self.resources.slot('availability-check'):
-            models = await asyncio.wait_for(self.registry.describe(), timeout=self.stage_seconds)
+            try:
+                models = await asyncio.wait_for(self.registry.describe(), timeout=self.stage_seconds)
+            finally:
+                # Status probes can load a real worker too. Own one drain task
+                # and finish all adapters even if one cleanup raises/cancels.
+                from backend.compare_resources import wait_tracked_cleanup
+                await wait_tracked_cleanup(asyncio.create_task(self._drain_adapters()))
         return {'contractVersion': CONTRACT_VERSION, 'models': models,
                 'specialistTasks': self._task_list(), 'resourcePolicy': self.resources.public(),
                 'runPolicy': {'maxRunning': self.max_running, 'maxRecords': self.maximum_records,
                               'stageTimeoutSeconds': self.stage_seconds, 'runTimeoutSeconds': self.run_seconds,
-                              'terminalRecordTtlSeconds': self.ttl, 'persistence': 'process-memory-only'}}
+                              'terminalRecordTtlSeconds': self.ttl, 'persistence': 'local-sqlite',
+                              'defaultContentPolicy': 'minimal-summary; full content requires explicit per-run local consent',
+                              'singleWorkerRequired': True, 'automaticResume': False}}
+
+    def _quarantine(self, reason='LOCAL_MODEL_CLEANUP_UNCONFIRMED'):
+        self.resources.blocked_reason = reason
+        try:
+            self.store.set_quarantine(reason)
+        except Exception:
+            diagnostic(stage='quarantine-persistence-failed', error_code='COMPARE_PERSISTENCE_UNAVAILABLE')
+
+    async def _drain_adapters(self, *, close=False):
+        uncertain = bool(self.resources.blocked_reason)
+        for adapter in self.adapters.values():
+            operation = getattr(adapter, 'close' if close else 'wait_cleanup', None)
+            if operation:
+                try:
+                    await operation()
+                except (Exception, asyncio.CancelledError):
+                    uncertain = True
+            if getattr(adapter, 'cleanup_safe', True) is False:
+                uncertain = True
+        if uncertain:
+            self._quarantine()
+        return not uncertain
 
     @staticmethod
     def _task_list():
@@ -98,7 +181,9 @@ class CompareOrchestrator:
         if task is not None and task not in {item['id'] for item in self._task_list()}:
             raise CompareRunError('UNKNOWN_SPECIALIST_TASK', '专项任务不在已审核注册中心。')
 
-    def submit(self, payload):
+    def submit(self, payload, request_id=None):
+        if self.closing:
+            raise CompareRunError('COMPARE_SERVICE_STOPPING', '服务正在关闭，不能启动新的模型。', 503)
         self._validate_task(payload.specialistTask)
         self.sweep()
         if len(self.runs) >= self.maximum_records:
@@ -106,36 +191,55 @@ class CompareOrchestrator:
         chemistry = analyze_chemistry(payload.smiles)
         identifier = uuid4().hex
         record = {'contractVersion': CONTRACT_VERSION, 'runId': identifier, 'status': 'pending',
-                  'createdAt': now(), 'updatedAt': now(), 'request': payload.model_dump(),
+                  'createdAt': now(), 'updatedAt': now(), 'requestId': request_id, 'request': payload.model_dump(),
+                  'contentSaved': payload.persistSensitiveContent, 'restored': False,
+                  'recovery': {'contentAvailable': True, 'executionResumed': False},
                   'structure': {key: chemistry[key] for key in ('canonicalSmiles', 'structureId')},
                   'models': {model: {'status': 'pending', 'data': None, 'metrics': {}, 'provenance': {}, 'error': None}
                              for model in MODEL_IDS}, 'snapshot': None, 'reports': {}, 'comparison': None,
                   'limitations': LIMITATIONS, 'cloudTransfer': {'allowed': payload.allowCloudTransfer,
                       'executed': False, 'requestAttempted': False, 'informationCategories': CLOUD_CATEGORIES if payload.allowCloudTransfer else [],
                       'rawExperimentalRows': False, 'privatePaths': False, 'freeQuestion': False}}
+        self._persist(record)
         self.runs[identifier] = record
         self.tasks[identifier] = asyncio.create_task(self._run(record, chemistry))
+        self._log(record, 'run-submitted')
         return {'contractVersion': CONTRACT_VERSION, 'runId': identifier, 'status': 'pending',
                 'pollUrl': f'/api/research/compare/runs/{identifier}'}
 
     def get(self, identifier):
         self.sweep()
         if identifier not in self.runs:
-            raise CompareRunError('COMPARE_RUN_NOT_FOUND', '运行不存在或已过期。', 404)
+            saved = self.store.get(identifier)
+            if saved is None:
+                raise CompareRunError('COMPARE_RUN_NOT_FOUND', '运行不存在或已过期。', 404)
+            saved['restored'] = True
+            return saved
         return copy.deepcopy(self.runs[identifier])
+
+    def list_runs(self, limit=20, offset=0):
+        self.sweep()
+        saved = self.store.list(limit=limit, offset=offset)
+        return {'contractVersion': CONTRACT_VERSION, 'runs': saved['items'], 'total': saved['total'],
+                'limit': limit, 'offset': offset, 'hasMore': offset + len(saved['items']) < saved['total']}
 
     async def cancel(self, identifier):
         record = self.get(identifier)
         if record['status'] in TERMINAL:
             return record
-        task = self.tasks[identifier]
-        task.cancel()
-        try:
-            await task
-        except asyncio.CancelledError:
-            pass
-        # A pending task can be cancelled before its coroutine entered try.
-        self._cancel_record(self.runs[identifier])
+        if identifier not in self.tasks:
+            return record
+        if identifier not in self.cancel_tasks:
+            async def stop_once():
+                task = self.tasks[identifier]
+                if not task.done():
+                    task.cancel()
+                await asyncio.gather(task, return_exceptions=True)
+                if self.runs[identifier]['status'] not in TERMINAL:
+                    self._cancel_record(self.runs[identifier])
+            self.cancel_tasks[identifier] = asyncio.create_task(stop_once())
+        # HTTP client cancellation never cancels the tracked stop operation.
+        await asyncio.shield(self.cancel_tasks[identifier])
         return self.get(identifier)
 
     def _cancel_record(self, record):
@@ -144,10 +248,14 @@ class CompareOrchestrator:
             if item['status'] in ('pending', 'running'):
                 item['status'] = 'cancelled'
         self.expiry[record['runId']] = time.monotonic() + self.ttl
+        self._persist(record, strict=False)
+        self._log(record, 'run-cancelled')
 
     async def _execute(self, record, model_id, context, *, reporter=False):
         item, adapter = record['models'][model_id], self.adapters[model_id]
         item['status'], record['updatedAt'] = 'running', now()
+        self._persist(record)
+        self._log(record, 'model-started', model_id)
         started = time.perf_counter()
         execution_started = False
         try:
@@ -175,12 +283,16 @@ class CompareOrchestrator:
                 validate_specialist(data, record['structure'], record['request']['specialistTask'], result.get('provenance') or {})
             if reporter:
                 raw = data.get('rawReport', data.get('report', data))
+                item['metrics']['reportValidation'] = 'verifying'
                 verified = validate_report(raw, context['snapshot'])
                 record['reports'][model_id] = verified
                 data = {'report': verified}
+                item['metrics']['reportValidation'] = 'verified'
             item.update(status='partial' if result.get('status') == 'partial' else 'completed', data=copy.deepcopy(data),
-                        provenance=copy.deepcopy(result.get('provenance') or {}), metrics={**copy.deepcopy(result.get('metrics') or {}), **queue})
-        except asyncio.CancelledError:
+                        provenance=copy.deepcopy(result.get('provenance') or {}), metrics={**item['metrics'], **queue})
+        except asyncio.CancelledError as error:
+            item['metrics'].update(copy.deepcopy(getattr(error, 'metrics', {}) or {}))
+            item['provenance'].update(copy.deepcopy(getattr(error, 'provenance', {}) or {}))
             partial = getattr(adapter, 'last_partial', None)
             if execution_started and model_id == 'toxnet-v3-b16' and isinstance(partial, dict):
                 try:
@@ -189,6 +301,7 @@ class CompareOrchestrator:
                     item.update(status='partial', data={'prediction': copy.deepcopy(prediction)},
                                 provenance=copy.deepcopy(partial.get('provenance') or {}),
                                 error={'code': 'OPTIONAL_STAGE_CANCELLED', 'message': '已完成真实预测保留；后续阶段已取消。'})
+                    item['metrics'].update(copy.deepcopy(partial.get('metrics') or {}))
                 except ValueError:
                     item['status'] = 'cancelled'
             else:
@@ -204,22 +317,36 @@ class CompareOrchestrator:
                     item.update(status='partial', data={'prediction': copy.deepcopy(prediction)},
                                 provenance=copy.deepcopy(partial.get('provenance') or {}),
                                 error={'code': 'OPTIONAL_STAGE_TIMEOUT', 'message': '已完成真实预测保留；后续阶段超时。'})
+                    item['metrics'].update(copy.deepcopy(partial.get('metrics') or {}))
                 except ValueError:
                     pass
         except Exception as error:
+            item['metrics'].update(copy.deepcopy(getattr(error, 'metrics', {}) or {}))
+            item['provenance'].update(copy.deepcopy(getattr(error, 'provenance', {}) or {}))
             code = getattr(error, 'code', 'COMPARE_INVALID_OR_FAILED_OUTPUT')
             message = getattr(error, 'public_message', '模型输出或事实核验失败；该结果不可用。')
+            if reporter and item['metrics'].get('reportValidation') == 'verifying':
+                item['metrics']['reportValidation'] = 'fact-check-failed'
+                code = 'COMPARE_REPORT_FACT_CHECK_FAILED'
             status = 'unsupported' if 'UNSUPPORTED' in code else 'unavailable' if any(word in code for word in ('UNAVAILABLE', 'NOT_READY', 'NOT_CONFIGURED', 'UNCONFIGURED', 'MISSING', 'AUTHORIZATION', 'DISABLED', 'LICENSE_REQUIRED', 'NOT_INSTALLED', 'CONNECTION_ERROR')) else 'failed'
             if isinstance(error, ResourceUnavailable):
-                code, message, status = 'COMPARE_RESOURCE_QUARANTINED', '本地模型资源清理未确认，请检查服务后重启。', 'unavailable'
+                code, message, status = 'COMPARE_RESOURCE_QUARANTINED', '本地资源已隔离；停止 Compare 后按安全恢复流程验证清理，普通重启不会解除隔离。', 'unavailable'
             item.update(status=status, error={'code': code, 'message': message})
         finally:
             if model_id == 'deepseek-api':
                 attempted_for = getattr(adapter, 'attempted_for', None)
                 record['cloudTransfer']['requestAttempted'] = bool(attempted_for(record['runId']) if attempted_for else item['provenance'].get('requestAttempted', False))
                 record['cloudTransfer']['executed'] = item['status'] in ('completed', 'partial')
+                item['metrics'].setdefault('httpRequestState', 'attempted-unconfirmed' if record['cloudTransfer']['requestAttempted'] else 'not-attempted')
             item['metrics']['durationMs'] = round((time.perf_counter() - started) * 1000, 3)
+            cleanup = getattr(adapter, 'cleanup_status', lambda: None)()
+            if cleanup is not None:
+                item['metrics']['cleanupState'] = cleanup
+            if self.resources.blocked_reason:
+                self._quarantine()
             record['updatedAt'] = now()
+            self._persist(record)
+            self._log(record, 'model-finished', model_id)
 
     async def _run(self, record, chemistry):
         started = time.perf_counter()
@@ -227,6 +354,7 @@ class CompareOrchestrator:
             async with asyncio.timeout(self.run_seconds):
                 async with self.semaphore:
                     record['status'], record['updatedAt'] = 'running', now()
+                    self._persist(record)
                     context = {**record['structure'], 'request': record['request']}
                     await self._execute(record, 'toxnet-v3-b16', context)
                     task = record['request']['specialistTask']
@@ -240,6 +368,7 @@ class CompareOrchestrator:
                         include_tox21=record['request']['includeTox21'], question=record['request']['question'])
                     frozen = encoded(snapshot)
                     record['snapshot'] = json.loads(frozen)
+                    self._persist(record)
                     # Only the immutable common snapshot is provided, never a
                     # preceding generator's report or the free user question.
                     report_request = {key: value for key, value in record['request'].items() if key not in ('smiles', 'question')}
@@ -263,9 +392,9 @@ class CompareOrchestrator:
             for item in record['models'].values():
                 if item['status'] in ('pending', 'running'):
                     item['status'] = 'cancelled'
-        except Exception:
+        except Exception as error:
             record['status'] = 'partial' if any(item['status'] in ('completed', 'partial') for item in record['models'].values()) else 'failed'
-            record['error'] = {'code': 'COMPARE_RUN_FAILED', 'message': '比较运行失败，已完成结果保留。'}
+            record['error'] = {'code': getattr(error, 'code', 'COMPARE_RUN_FAILED'), 'message': getattr(error, 'public_message', '比较运行失败，已完成结果保留。')}
             for item in record['models'].values():
                 if item['status'] in ('pending', 'running'):
                     item['status'] = 'unavailable'
@@ -273,6 +402,8 @@ class CompareOrchestrator:
             record['durationMs'] = round((time.perf_counter() - started) * 1000, 3)
             record['updatedAt'] = now()
             self.expiry[record['runId']] = time.monotonic() + self.ttl
+            self._persist(record, strict=False)
+            self._log(record, 'run-finished')
 
     @staticmethod
     def _comparison(record):
@@ -292,10 +423,33 @@ class CompareOrchestrator:
 
     def save_preset(self, payload):
         self._validate_task(payload.settings.specialistTask)
+        if any(row['name'].casefold() == payload.name.casefold() for row in self.presets):
+            raise CompareRunError('PRESET_NAME_CONFLICT', '已存在同名配置，请修改名称或编辑原配置。', 409)
         if len(self.presets) >= 20:
             raise CompareRunError('PRESET_CAPACITY_EXCEEDED', '预设已达数量限制。', 429)
-        row = {'id': uuid4().hex, **payload.model_dump()}
+        row = {'id': uuid4().hex, **payload.model_dump(), 'createdAt': now(), 'updatedAt': now()}
         updated = [*self.presets, row]
+        self._write_presets(updated)
+        return copy.deepcopy(row)
+
+    def update_preset(self, identifier, payload):
+        self._validate_task(payload.settings.specialistTask)
+        original = next((row for row in self.presets if row['id'] == identifier), None)
+        if original is None:
+            raise CompareRunError('PRESET_NOT_FOUND', '预设不存在。', 404)
+        if any(row['id'] != identifier and row['name'].casefold() == payload.name.casefold() for row in self.presets):
+            raise CompareRunError('PRESET_NAME_CONFLICT', '已存在同名配置，请修改名称。', 409)
+        row = {'id': identifier, **payload.model_dump(), 'createdAt': original['createdAt'], 'updatedAt': now()}
+        self._write_presets([row if item['id'] == identifier else item for item in self.presets])
+        return copy.deepcopy(row)
+
+    def delete_preset(self, identifier):
+        if not any(row['id'] == identifier for row in self.presets):
+            raise CompareRunError('PRESET_NOT_FOUND', '预设不存在。', 404)
+        self._write_presets([row for row in self.presets if row['id'] != identifier])
+        return {'id': identifier, 'deleted': True}
+
+    def _write_presets(self, updated):
         if self.presets_path:
             self.presets_path.parent.mkdir(parents=True, exist_ok=True)
             temporary = None
@@ -312,10 +466,18 @@ class CompareOrchestrator:
                 if temporary and temporary.exists():
                     temporary.unlink()
         self.presets = updated
-        return copy.deepcopy(row)
 
     async def close(self):
-        active = [task for task in self.tasks.values() if not task.done()]
-        for task in active:
-            task.cancel()
-        await asyncio.gather(*active, return_exceptions=True)
+        if self._close_task is None:
+            self.closing = True
+            async def close_once():
+                try:
+                    await asyncio.gather(*(self.cancel(identifier) for identifier, task in self.tasks.items() if not task.done()), return_exceptions=True)
+                    await self._drain_adapters(close=True)
+                    for record in self.runs.values():
+                        self._persist(record, strict=False)
+                finally:
+                    self.store.close()
+            self._close_task = asyncio.create_task(close_once())
+        from backend.compare_resources import wait_tracked_cleanup
+        await wait_tracked_cleanup(self._close_task)

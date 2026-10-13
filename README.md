@@ -191,4 +191,8 @@ node --test test/*.test.js
 
 新增 `/compare`：真实 ToxNet v3 B16 主预测、审核合同下的 TxGemma 专项预测、本机 Ollama Qwen 主报告，以及逐次授权的 DeepSeek 独立报告。浅蓝色独立页面连接异步 FastAPI，支持四卡状态、4+12任务表、双栏报告、来源核验、真实性能、取消、预设与JSON导出；输入或配置变化使旧结果失效。
 
-真实 CUDA B16 16任务及旧v2 HTTP已验证。Ollama当前不可达；TxGemma尚未授权/下载，DeepSeek未执行收费调用。这三项适配器的软件测试不能称为真实部署。模型不投票、不平均、不排名，v3始终 `formalAvailability=false`。启动、配置、实际验收、科学限制与重现命令见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md)。
+初版Compare已记录真实CUDA B16及旧v2 HTTP验收；其余三项适配器的软件测试不代表真实部署。后续P0/P1加固取消/清理、脱敏诊断、真实usage保留、本机历史和交互恢复：不变报告保留原DOM、详情和焦点，实验检索与归因可独立启用，预设支持创建/更新/重命名/删除，当前Qwen选择和DeepSeek访问待核验分别展示。
+
+历史默认只在本机SQLite schema2保存脱敏摘要；完整SMILES、研究问题、检索观察和报告全文需逐次勾选 `persistSensitiveContent=true`。预设不保存云端授权，历史只保留原运行的授权/请求审计标记，不复用执行许可。浏览器仅记住runId，历史打开和刷新不重跑模型。Windows OneDrive目录默认把数据库放到非同步的LocalAppData；资源清理未确认时持久隔离，普通重启不解锁。当前实现仅支持同一库的单进程/单worker，无法调度外部GPU应用。维护恢复命令及API详情见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md) 和 [MODEL_API_CONTRACT.md](MODEL_API_CONTRACT.md)。
+
+本次P0/P1最终测试、Linux CI与真实模型复验状态以新增验收记录为准，未在这里预先填写通过数量或部署结论。Ollama、TxGemma、DeepSeek哪些已安装/授权/真正执行，需要分别验收；未报告费用为unknown，不能当作零费用。模型不投票、不平均、不排名，v3始终 `formalAvailability=false`。

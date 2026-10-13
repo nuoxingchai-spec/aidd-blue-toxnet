@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import AsyncMock, Mock, patch
 
@@ -313,6 +314,74 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
                 await running
         process.kill.assert_called_once()
         process.wait.assert_awaited_once()
+
+    async def test_repeat_cancel_during_spawn_and_exit_wait_drains_once(self):
+        from backend.compare_resources import CompareResourceManager
+        adapter = TxGemmaPredictAdapter(env={})
+        adapter.status = AsyncMock(return_value={"available": True})
+        spawning_started, release_spawn, exit_started, release_exit = [asyncio.Event() for _ in range(4)]
+        process = SimpleNamespace(returncode=None, kills=0)
+        def kill():
+            process.kills += 1
+        async def wait():
+            exit_started.set()
+            await release_exit.wait()
+            process.returncode = -9
+            return -9
+        process.kill, process.wait = kill, wait
+        async def spawn(*args, **kwargs):
+            spawning_started.set()
+            await release_spawn.wait()
+            return process
+        manager = CompareResourceManager()
+        async def operation():
+            async with manager.slot("txgemma", adapter):
+                await adapter.execute({"canonicalSmiles": "CCO", "structureId": "fixture", "request": {"specialistTask": "tdc-bbb-martins"}})
+        with patch("backend.compare_txgemma.asyncio.create_subprocess_exec", spawn):
+            task = asyncio.create_task(operation())
+            await spawning_started.wait()
+            task.cancel()
+            await asyncio.sleep(0)
+            task.cancel()
+            await asyncio.sleep(0)
+            self.assertFalse(task.done())
+            self.assertFalse(adapter.cleanup_safe)
+            release_spawn.set()
+            await exit_started.wait()
+            task.cancel()
+            await asyncio.sleep(0)
+            self.assertFalse(task.done())
+            self.assertEqual(manager.active_model, "txgemma")
+            self.assertEqual(process.kills, 1)
+            release_exit.set()
+            with self.assertRaises(asyncio.CancelledError):
+                await task
+        self.assertTrue(adapter.cleanup_safe)
+        self.assertEqual(adapter.cleanup_status()["state"], "released")
+        await adapter.close()
+        await adapter.close()
+        self.assertEqual(process.kills, 1)
+        self.assertFalse(manager.public()["blocked"])
+
+    async def test_exit_wait_failure_quarantines_resource(self):
+        from backend.compare_resources import CompareResourceManager, ResourceUnavailable
+        adapter = TxGemmaPredictAdapter(env={})
+        adapter.status = AsyncMock(return_value={"available": True})
+        process = AsyncMock(returncode=None)
+        process.returncode = None
+        process.kill = Mock()
+        process.communicate.side_effect = asyncio.TimeoutError()
+        process.wait.side_effect = OSError("private-path-must-not-be-exposed")
+        manager = CompareResourceManager()
+        with patch("backend.compare_txgemma.asyncio.create_subprocess_exec", return_value=process):
+            with self.assertRaises(TxGemmaAdapterError):
+                async with manager.slot("txgemma", adapter):
+                    await adapter.execute({"canonicalSmiles": "CCO", "structureId": "fixture", "request": {"specialistTask": "tdc-bbb-martins"}})
+        self.assertFalse(adapter.cleanup_safe)
+        self.assertEqual(adapter.cleanup_status()["state"], "quarantined")
+        self.assertNotIn("private-path", str(adapter.cleanup_status()))
+        with self.assertRaises(ResourceUnavailable):
+            async with manager.slot("next"): pass
 
 
 if __name__ == "__main__":

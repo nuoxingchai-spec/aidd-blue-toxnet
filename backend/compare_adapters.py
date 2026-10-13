@@ -6,6 +6,7 @@ scores. Cloud calls require per-run permission and server-side credentials.
 from __future__ import annotations
 
 import asyncio
+from copy import deepcopy
 from collections import OrderedDict
 import json
 import math
@@ -19,6 +20,7 @@ from urllib.parse import urlsplit
 import httpx
 
 from backend.model_client import ModelConfig
+from backend.compare_resources import wait_tracked_cleanup
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_HTTP_BYTES = 2 * 1024 * 1024
@@ -27,9 +29,61 @@ WORKER_SCHEMA = "aidd.compare.b16.worker.v1"
 
 
 class CompareAdapterError(Exception):
-    def __init__(self, code, public_message):
+    def __init__(self, code, public_message, *, metrics=None, provenance=None):
         super().__init__(public_message)
         self.code, self.public_message = code, public_message
+        self.metrics = deepcopy(metrics or {})
+        self.provenance = deepcopy(provenance or {})
+
+
+class _CleanupLifecycle:
+    """One bounded cleanup per execution, retained until safely drained."""
+    def _initialize_cleanup(self):
+        self.cleanup_safe, self._cleanup_state = True, "idle"
+        self._cleanup_task, self._cleanup_error = None, None
+        self._closed = False
+
+    def _begin_execution(self):
+        if self._closed:
+            raise CompareAdapterError("COMPARE_RESOURCE_CLOSED", "本地适配器已经关闭；不会重新加载模型。")
+        if self._cleanup_state in ("running", "cleaning"):
+            raise CompareAdapterError("COMPARE_RESOURCE_BUSY", "同一本地适配器仍在执行或清理；没有并行加载。")
+        if not self.cleanup_safe:
+            raise CompareAdapterError("COMPARE_RESOURCE_QUARANTINED", "上次本地资源清理尚未确认；请检查本机服务后重启。")
+        self.cleanup_safe, self._cleanup_state = False, "running"
+        self._cleanup_task, self._cleanup_error = None, None
+
+    def _start_cleanup(self, operation):
+        if self._cleanup_task is None:
+            self.cleanup_safe, self._cleanup_state = False, "cleaning"
+            async def owned_cleanup():
+                confirmed = False
+                try:
+                    # Real subprocess termination is normally immediate. Local
+                    # HTTP cleanup gets its own bounded deadline as well.
+                    confirmed = bool(await asyncio.wait_for(operation(), timeout=10))
+                except (Exception, asyncio.CancelledError):
+                    self._cleanup_error = "LOCAL_MODEL_CLEANUP_UNCONFIRMED"
+                self.cleanup_safe = confirmed
+                self._cleanup_state = "released" if confirmed else "quarantined"
+                if not confirmed:
+                    self._cleanup_error = "LOCAL_MODEL_CLEANUP_UNCONFIRMED"
+                return confirmed
+            self._cleanup_task = asyncio.create_task(owned_cleanup())
+        return self._cleanup_task
+
+    def cleanup_status(self):
+        return {"state": self._cleanup_state, "pending": self._cleanup_task is not None and not self._cleanup_task.done(),
+                "confirmed": self.cleanup_safe, "errorCode": self._cleanup_error}
+
+    async def wait_cleanup(self):
+        if self._cleanup_task is not None:
+            return await wait_tracked_cleanup(self._cleanup_task)
+        return self.cleanup_safe
+
+    async def close(self):
+        self._closed = True
+        await self.wait_cleanup()
 
 
 def _json(raw, code="COMPARE_INVALID_RESPONSE"):
@@ -69,6 +123,45 @@ def _duration(value):
     return value / 1e9 if type(value) in (int, float) and math.isfinite(value) and value >= 0 else None
 
 
+def _report_usage(payload, provider, metrics):
+    """Keep valid counters before report parsing; invalid counters stay null."""
+    if provider == "ollama":
+        fields = {"prompt_eval_count": "promptTokens", "eval_count": "completionTokens"}
+        usage = payload
+    else:
+        usage = payload.get("usage")
+        fields = {"prompt_tokens": "promptTokens", "completion_tokens": "completionTokens", "total_tokens": "totalTokens"}
+        if usage is None:
+            metrics["usageStatus"] = "not-returned"
+            return
+        if not isinstance(usage, dict):
+            metrics.update(usageStatus="invalid", invalidUsageFields=["usage"])
+            raise CompareAdapterError("COMPARE_INVALID_USAGE", "模型 Token 计量格式无效；未将无效计量当作零。", metrics=metrics)
+    invalid, present = [], False
+    for source, destination in fields.items():
+        value = usage.get(source)
+        if value is None:
+            continue
+        present = True
+        if type(value) is int and 0 <= value <= 2**53 - 1:
+            metrics[destination] = value
+        else:
+            metrics[destination] = None
+            invalid.append(source)
+    metrics["usageStatus"] = "invalid" if invalid else "provider-reported" if present else "not-returned"
+    if invalid:
+        metrics["invalidUsageFields"] = invalid
+        raise CompareAdapterError("COMPARE_INVALID_USAGE", "模型 Token 计量含负数或无效类型；有效字段保留，无效字段为 null。", metrics=metrics)
+
+
+def _error_evidence(error, metrics, provenance):
+    if isinstance(error, CompareAdapterError):
+        error.metrics = {**deepcopy(metrics), **error.metrics}
+        error.provenance = deepcopy(provenance)
+    elif isinstance(error, asyncio.CancelledError):
+        error.metrics, error.provenance = deepcopy(metrics), deepcopy(provenance)
+
+
 def _messages(context):
     messages = context.get("messages")
     if (not isinstance(messages, list) or len(messages) != 2
@@ -103,22 +196,46 @@ def _snapshot_sha(context):
     return checksum
 
 
-async def _http_json(client, method, url, *, payload=None, headers=None, timeout=None):
+async def _http_json(client, method, url, *, payload=None, headers=None, timeout=None, metrics=None, usage_provider=None):
+    observed = metrics if metrics is not None else {}
     try:
         async with client.stream(method, url, json=payload, headers=headers,
                                  **({"timeout": timeout} if timeout is not None else {})) as response:
+            observed.update(httpStatusCode=response.status_code, httpResponseReceived=True, httpRequestState='response-received')
             if not 200 <= response.status_code < 300:
-                raise CompareAdapterError("COMPARE_HTTP_ERROR", f"模型服务请求失败（HTTP {response.status_code}）；请检查服务、模型名及权限。")
+                code = ("COMPARE_HTTP_RATE_LIMITED" if response.status_code == 429 else
+                        "COMPARE_HTTP_SERVER_ERROR" if 500 <= response.status_code < 600 else
+                        "COMPARE_HTTP_ACCESS_DENIED" if response.status_code in (401, 403) else
+                        "COMPARE_HTTP_REDIRECT_BLOCKED" if 300 <= response.status_code < 400 else "COMPARE_HTTP_ERROR")
+                # Some error responses also contain genuine provider usage.
+                # Inspect bounded JSON counters only, never retain its text.
+                if usage_provider:
+                    raw = bytearray()
+                    async for chunk in response.aiter_bytes():
+                        raw.extend(chunk)
+                        if len(raw) > MAX_HTTP_BYTES:
+                            break
+                    if len(raw) <= MAX_HTTP_BYTES:
+                        try:
+                            _report_usage(_json(bytes(raw)), usage_provider, observed)
+                        except CompareAdapterError:
+                            pass  # Keep HTTP error identity and any valid counters.
+                raise CompareAdapterError(code, f"模型服务请求失败（HTTP {response.status_code}）；未重试或切换模型。", metrics=observed)
             raw = bytearray()
             async for chunk in response.aiter_bytes():
                 raw.extend(chunk)
                 if len(raw) > MAX_HTTP_BYTES:
-                    raise CompareAdapterError("COMPARE_RESPONSE_TOO_LARGE", "模型响应超过允许大小。")
+                    raise CompareAdapterError("COMPARE_RESPONSE_TOO_LARGE", "模型响应超过允许大小。", metrics=observed)
             return _json(bytes(raw))
-    except httpx.TimeoutException:
-        raise CompareAdapterError("COMPARE_TIMEOUT", "模型服务响应超时。") from None
+    except httpx.TimeoutException as error:
+        phase = {"ConnectTimeout": "connect", "ReadTimeout": "read", "WriteTimeout": "write", "PoolTimeout": "pool"}.get(type(error).__name__, "unknown")
+        observed["timeoutPhase"] = phase
+        raise CompareAdapterError("COMPARE_TIMEOUT", "模型服务响应超时。", metrics=observed) from None
     except httpx.HTTPError:
-        raise CompareAdapterError("COMPARE_CONNECTION_ERROR", "无法连接模型服务；未自动切换到其他模型。") from None
+        raise CompareAdapterError("COMPARE_CONNECTION_ERROR", "无法连接模型服务；未自动切换到其他模型。", metrics=observed) from None
+    except CompareAdapterError as error:
+        error.metrics = {**deepcopy(observed), **error.metrics}
+        raise
 
 
 def validate_ollama_url(value):
@@ -148,7 +265,7 @@ def validate_deepseek_url(value):
         raise CompareAdapterError("DEEPSEEK_TRUSTED_URL_REQUIRED", "Compare 报告仅允许官方 api.deepseek.com 的 HTTPS Chat Completions 地址。") from None
 
 
-class B16Adapter:
+class B16Adapter(_CleanupLifecycle):
     model_id = "toxnet-v3-b16"
 
     def __init__(self, *, model_dir=None, encoder_dir=None, device="cpu", enabled=False,
@@ -161,7 +278,8 @@ class B16Adapter:
         self.timeout_seconds = timeout_seconds
         self._status_cache = None
         self.last_partial = None
-        self.cleanup_safe = True
+        self._initialize_cleanup()
+        self._spawning_task = None
 
     @classmethod
     def from_env(cls, env=None):
@@ -187,9 +305,13 @@ class B16Adapter:
                    "device": self.device, "enabled": self.enabled, "evidenceIndex": self.evidence_index}
         if action == "execute":
             request = (context or {}).get("request", {})
+            include_attribution = request.get("includeAttribution", request.get("explainEndpoint") is not None)
             payload.update(canonicalSmiles=context["canonicalSmiles"], structureId=context["structureId"],
                            includeTox21=request.get("includeTox21", True), includeEvidence=request.get("includeEvidence", False),
-                           explainEndpoint=request.get("explainEndpoint"))
+                           includeAttribution=include_attribution,
+                           evidenceEndpoint=request.get("evidenceEndpoint") if request.get("includeEvidence") else None,
+                           explainEndpoint=request.get("explainEndpoint") if include_attribution else None)
+        self._begin_execution()
         process, fallback, spawning = None, None, None
         self.last_partial = None
         def retain_prediction(code):
@@ -206,21 +328,12 @@ class B16Adapter:
             # Unbuffered stdin/stdout; no shell, inherited HF/network proxy env
             # is disabled for this already-local loading path.
             worker_env = {**os.environ, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1", "PYTHONIOENCODING": "utf-8"}
-            self.cleanup_safe = False
             spawning = asyncio.create_task(asyncio.create_subprocess_exec(str(self.python_executable), "-m", "backend.compare_worker", cwd=str(ROOT),
                         stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL,
                         env=worker_env, limit=MAX_WORKER_BYTES,
                         **({"creationflags": 0x08000000} if os.name == "nt" else {})))
-            try:
-                process = await asyncio.shield(spawning)
-            except asyncio.CancelledError:
-                # Retain the child handle even if cancellation races process
-                # creation. The outer finally kills/waits that exact process.
-                try:
-                    process = await asyncio.shield(spawning)
-                except (OSError, NotImplementedError):
-                    pass
-                raise
+            self._spawning_task = spawning
+            process = await asyncio.shield(spawning)
             process.stdin.write(json.dumps(payload, ensure_ascii=False, allow_nan=False).encode("utf-8"))
             await process.stdin.drain()
             process.stdin.close()
@@ -274,23 +387,37 @@ class B16Adapter:
                 return retained
             raise
         finally:
-            if process is not None and process.returncode is None:
-                try:
-                    process.kill()
-                except ProcessLookupError:
-                    pass
-                # Cancellation never leaves a live worker occupying CUDA.
-                await asyncio.shield(process.wait())
-            if process is not None and process.returncode is not None:
-                self.cleanup_safe = True
-            elif spawning is not None and spawning.done() and not spawning.cancelled() and spawning.exception() is not None:
-                # No child was created at all.
-                self.cleanup_safe = True
+            self._start_cleanup(lambda: self._release_worker(spawning))
+            await self.wait_cleanup()
+
+    async def _release_worker(self, spawning):
+        if spawning is None:
+            return True
+        try:
+            process = await asyncio.shield(spawning)
+        except (OSError, NotImplementedError):
+            return True  # No child exists.
+        if process.returncode is None:
+            try:
+                process.kill()
+            except ProcessLookupError:
+                pass
+            await process.wait()
+        return process.returncode is not None
+
+    async def close(self):
+        self._closed = True
+        if self._cleanup_state == "running":
+            self._start_cleanup(lambda: self._release_worker(self._spawning_task))
+        await self.wait_cleanup()
 
     async def status(self):
+        if self._cleanup_state == "quarantined" or self._closed:
+            return {**self._base(), "errorCode": "COMPARE_RESOURCE_QUARANTINED" if not self._closed else "COMPARE_RESOURCE_CLOSED",
+                    "reason": "本地资源清理未确认或适配器已关闭；需要检查并重启服务。", "cleanup": self.cleanup_status()}
         # Status is advisory; every execute re-verifies actual file bytes.
         if self._status_cache and monotonic() - self._status_cache[0] < 30:
-            return dict(self._status_cache[1])
+            return {**self._status_cache[1], "cleanup": self.cleanup_status()}
         base = self._base()
         try:
             response = await self._worker("status")
@@ -298,7 +425,7 @@ class B16Adapter:
         except CompareAdapterError as error:
             result = {**base, "errorCode": error.code, "reason": error.public_message}
         self._status_cache = (monotonic(), result)
-        return dict(result)
+        return {**result, "cleanup": self.cleanup_status()}
 
     async def execute(self, context):
         started = perf_counter()
@@ -311,13 +438,15 @@ class B16Adapter:
         return result
 
 
-class OllamaQwenAdapter:
+class OllamaQwenAdapter(_CleanupLifecycle):
     model_id = "ollama-qwen-local"
 
     def __init__(self, base_url="http://127.0.0.1:11434", model_id="qwen3.5:4b", *, timeout_seconds=180, transport=None):
         self.base_url, self.requested_model = base_url, model_id
         self.timeout_seconds, self.transport = timeout_seconds, transport
-        self.cleanup_safe = True
+        self._initialize_cleanup()
+        self._cleanup_target = None
+        self._cleanup_confirmed = False
 
     @classmethod
     def from_env(cls, env=None):
@@ -351,7 +480,11 @@ class OllamaQwenAdapter:
     async def status(self):
         base = {"available": False, "configured": False, "actualModelId": None, "revision": None,
                 "requestedModelId": self.requested_model, "selectedDefaultModel": None, "installedModels": [], "device": "ollama-managed; unmeasured",
-                "licenseStatus": "local-package-license-not-reviewed", "reason": None, "errorCode": None}
+                "licenseStatus": "local-package-license-not-reviewed", "reason": None, "errorCode": None,
+                "cleanup": self.cleanup_status()}
+        if self._cleanup_state == "quarantined" or self._closed:
+            return {**base, "errorCode": "COMPARE_RESOURCE_QUARANTINED" if not self._closed else "COMPARE_RESOURCE_CLOSED",
+                    "reason": "本地资源清理未确认或适配器已关闭；不再次调用模型服务。"}
         try:
             url = validate_ollama_url(self.base_url)
             base["configured"] = True
@@ -368,26 +501,50 @@ class OllamaQwenAdapter:
             return {**base, "errorCode": error.code if error.code == "OLLAMA_LOOPBACK_REQUIRED" else "OLLAMA_UNAVAILABLE", "reason": error.public_message}
 
     async def execute(self, context):
-        self.cleanup_safe = True
         url, messages = validate_ollama_url(self.base_url), _messages(context)
         selected_id = context.get("reporterModel") or self.requested_model
         started = perf_counter()
-        async with self._client() as client:
-            try:
-                tags = await self._tags(client, url)
-            except CompareAdapterError as error:
-                if error.code in ("COMPARE_TIMEOUT", "COMPARE_CONNECTION_ERROR"):
-                    raise CompareAdapterError("OLLAMA_UNAVAILABLE", "本机 Ollama 在 3 秒健康检查内不可连接；未启动生成、下载或切换模型。") from None
-                raise
-            selected = next((record for record in tags if record["id"] == selected_id), None)
-            if selected is None:
-                raise CompareAdapterError("OLLAMA_MODEL_NOT_INSTALLED", "所选 Qwen 模型不在真实本机模型清单中。")
-            try:
+        metrics = {"promptTokens": None, "completionTokens": None, "totalTokens": None, "cost": None,
+                   "costStatus": "local-compute-cost-not-estimated", "httpResponseReceived": False,
+                   "httpRequestState": "not-attempted",
+                   "gpu": {"measured": False, "peakAllocatedBytes": None, "peakReservedBytes": None}}
+        provenance = {"modelId": selected_id, "revision": None, "revisionSource": "ollama-api-tags-digest",
+                      "runtime": "ollama", "device": "ollama-managed; unmeasured", "licenseStatus": "local-package-license-not-reviewed",
+                      "reportOnly": True, "snapshotSha256": _snapshot_sha(context), "independentReport": True}
+        pending_error = None
+        self._begin_execution()
+        self._cleanup_target, self._cleanup_confirmed = None, False
+        try:
+            async with self._client() as client:
+                try:
+                    tags = await self._tags(client, url)
+                except CompareAdapterError as error:
+                    if error.code in ("COMPARE_TIMEOUT", "COMPARE_CONNECTION_ERROR"):
+                        raise CompareAdapterError("OLLAMA_UNAVAILABLE", "本机 Ollama 在 3 秒健康检查内不可连接；未启动生成、下载或切换模型。", metrics=error.metrics) from None
+                    raise
+                selected = next((record for record in tags if record["id"] == selected_id), None)
+                if selected is None:
+                    raise CompareAdapterError("OLLAMA_MODEL_NOT_INSTALLED", "所选 Qwen 模型不在真实本机模型清单中。")
+                provenance["revision"] = selected["digest"]
+                self._cleanup_target = (url, selected_id)
+                metrics['httpRequestState'] = 'attempted-unconfirmed'
                 payload = await _http_json(client, "POST", url + "/api/chat", payload={"model": selected_id, "messages": messages,
-                              "format": "json", "stream": False, "keep_alive": 0, "think": False, "options": {"temperature": 0}})
+                              "format": "json", "stream": False, "keep_alive": 0, "think": False, "options": {"temperature": 0}}, metrics=metrics, usage_provider='ollama')
+                _report_usage(payload, "ollama", metrics)
+                metrics.update(generationSeconds=_duration(payload.get("eval_duration")), totalDurationSeconds=_duration(payload.get("total_duration")))
+                tokens, seconds = metrics["completionTokens"], metrics["generationSeconds"]
+                metrics["tokensPerSecond"] = tokens / seconds if tokens is not None and seconds and seconds > 0 else None
+                if payload.get("done") is not True or payload.get("done_reason") == "length":
+                    raise CompareAdapterError("OLLAMA_REPORT_TRUNCATED", "本地报告生成尚未完成或达到输出上限；没有发布截断内容。")
                 message = payload.get("message")
-                if (payload.get("done") is not True or payload.get("model") != selected_id
-                    or not isinstance(message, dict) or message.get("role") != "assistant" or not isinstance(message.get("content"), str)):
+                if payload.get("model") != selected_id:
+                    raise CompareAdapterError("OLLAMA_MODEL_CHANGED", "Ollama 返回模型 ID 与所选真实标签不一致。")
+                if payload.get("done_reason") == "content_filter" or isinstance(message, dict) and message.get("refusal"):
+                    raise CompareAdapterError("OLLAMA_REPORT_REFUSED", "本地模型拒绝生成该报告；没有发布拒绝原文。")
+                if (not isinstance(message, dict) or message.get("content") is None
+                    or isinstance(message.get("content"), str) and not message["content"].strip()):
+                    raise CompareAdapterError("OLLAMA_REPORT_EMPTY", "本地报告没有返回内容；真实计量保留。")
+                if message.get("role") != "assistant" or not isinstance(message.get("content"), str) or message.get("tool_calls"):
                     raise CompareAdapterError("OLLAMA_INVALID_REPORT", "本地 Qwen 没有返回完成的结构化报告。")
                 report = _json(message["content"], "OLLAMA_INVALID_REPORT")
                 after = await self._tags(client, url)
@@ -395,26 +552,37 @@ class OllamaQwenAdapter:
                     raise CompareAdapterError("OLLAMA_MODEL_CHANGED", "Qwen 模型 digest 在报告生成期间变化，报告未发布。")
                 active = await _http_json(client, "GET", url + "/api/ps", timeout=3)
                 models = active.get("models")
-                self.cleanup_safe = (isinstance(models, list) and not any(isinstance(record, dict) and
+                self._cleanup_confirmed = (isinstance(models, list) and not any(isinstance(record, dict) and
                                      selected_id in (record.get("name"), record.get("model")) for record in models))
-            except BaseException:
-                # Best-effort local unload on cancellation/timeout. It cannot
-                # kill an independently managed Ollama daemon, so the resource
-                # manager must treat cleanup failure as a busy/unavailable GPU.
-                self.cleanup_safe = await self._unload(url, selected_id)
+            return {"status": "completed", "data": {"rawReport": report}, "provenance": provenance, "metrics": metrics}
+        except BaseException as error:
+            pending_error = error
+            raise
+        finally:
+            self._start_cleanup(self._release_ollama)
+            cleanup_error = None
+            try:
+                await self.wait_cleanup()
+            except BaseException as error:
+                cleanup_error = error
                 raise
-        wall = perf_counter() - started
-        prompt_tokens, completion_tokens = _count(payload.get("prompt_eval_count")), _count(payload.get("eval_count"))
-        evaluation_seconds = _duration(payload.get("eval_duration"))
-        return {"status": "completed", "data": {"rawReport": report},
-                "provenance": {"modelId": selected_id, "revision": selected["digest"], "revisionSource": "ollama-api-tags-digest",
-                               "runtime": "ollama", "device": "ollama-managed; unmeasured", "licenseStatus": "local-package-license-not-reviewed",
-                               "reportOnly": True, "snapshotSha256": _snapshot_sha(context), "independentReport": True},
-                "metrics": {"wallSeconds": wall, "promptTokens": prompt_tokens, "completionTokens": completion_tokens,
-                            "generationSeconds": evaluation_seconds, "totalDurationSeconds": _duration(payload.get("total_duration")),
-                            "resourceCleanupVerified": self.cleanup_safe,
-                            "tokensPerSecond": completion_tokens / evaluation_seconds if completion_tokens is not None and evaluation_seconds and evaluation_seconds > 0 else None,
-                            "cost": None, "costStatus": "local-compute-cost-not-estimated", "gpu": {"measured": False, "peakAllocatedBytes": None, "peakReservedBytes": None}}}
+            finally:
+                metrics.update(wallSeconds=perf_counter() - started, resourceCleanupVerified=self.cleanup_safe)
+                if pending_error is not None:
+                    _error_evidence(pending_error, metrics, provenance)
+                if cleanup_error is not None:
+                    _error_evidence(cleanup_error, metrics, provenance)
+
+    async def _release_ollama(self):
+        if self._cleanup_target is None or self._cleanup_confirmed:
+            return True
+        return await self._unload(*self._cleanup_target)
+
+    async def close(self):
+        self._closed = True
+        if self._cleanup_state == "running":
+            self._start_cleanup(self._release_ollama)
+        await self.wait_cleanup()
 
     async def _unload(self, url, model_id):
         async def unload():
@@ -427,7 +595,7 @@ class OllamaQwenAdapter:
                         and not any(isinstance(record, dict) and model_id in (record.get("name"), record.get("model")) for record in models))
             except Exception:
                 return False
-        return await asyncio.shield(unload())
+        return await unload()
 
 
 class DeepSeekReportAdapter:
@@ -494,34 +662,53 @@ class DeepSeekReportAdapter:
         checksum = _snapshot_sha(context)
         from backend.compare_reporting import CLOUD_CATEGORIES
         started = perf_counter()
-        async with httpx.AsyncClient(timeout=config.timeout_seconds, trust_env=False, follow_redirects=False, transport=self.transport) as client:
-            # This proves an HTTP request was attempted, not that the provider
-            # received it, generated a valid report, or billed any amount.
-            self._mark_attempt(run_id, True)
-            payload = await _http_json(client, "POST", validate_deepseek_url(config.api_url),
-                        headers={"Authorization": "Bearer " + config.api_key, "Content-Type": "application/json"},
-                        payload={"model": config.model_name, "messages": messages, "stream": False,
-                                 "temperature": 0, "response_format": {"type": "json_object"}})
+        metrics = {"promptTokens": None, "completionTokens": None, "totalTokens": None, "tokensPerSecond": None,
+                   "cost": None, "costStatus": "provider-billing-not-returned", "httpResponseReceived": False,
+                   "gpu": {"measured": False, "peakAllocatedBytes": None, "peakReservedBytes": None}}
+        provenance = {"modelId": config.model_name, "revision": config.model_version, "returnedModel": None,
+                      "revisionSource": "server-configured", "runtime": "external-api", "reportOnly": True,
+                      "snapshotSha256": checksum, "independentReport": True, "cloudTransferAuthorized": True,
+                      "requestAttempted": False, "transferredCategories": list(CLOUD_CATEGORIES),
+                      "rawExperimentalRowsTransferred": False, "localPathsTransferred": False}
         try:
-            message = payload["choices"][0]["message"]
-            finish = payload["choices"][0].get("finish_reason")
-            if not isinstance(message, dict) or message.get("role") != "assistant" or not isinstance(message.get("content"), str) or finish != "stop":
-                raise ValueError()
+            async with httpx.AsyncClient(timeout=config.timeout_seconds, trust_env=False, follow_redirects=False, transport=self.transport) as client:
+                # An attempt is not proof of receipt, validated generation or billing.
+                self._mark_attempt(run_id, True)
+                provenance["requestAttempted"] = True
+                metrics['httpRequestState'] = 'attempted-unconfirmed'
+                payload = await _http_json(client, "POST", validate_deepseek_url(config.api_url),
+                            headers={"Authorization": "Bearer " + config.api_key, "Content-Type": "application/json"},
+                            payload={"model": config.model_name, "messages": messages, "stream": False,
+                                     "temperature": 0, "response_format": {"type": "json_object"}}, metrics=metrics, usage_provider='deepseek')
+            returned_model = payload.get("model")
+            if (isinstance(returned_model, str) and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._/-]{0,199}", returned_model)
+                and config.api_key not in returned_model):
+                provenance["returnedModel"] = returned_model
+            _report_usage(payload, "deepseek", metrics)
+            choices = payload.get("choices")
+            if not isinstance(choices, list) or not choices:
+                raise CompareAdapterError("DEEPSEEK_REPORT_EMPTY", "DeepSeek 未返回报告选项；真实计量保留。")
+            choice = choices[0]
+            if not isinstance(choice, dict):
+                raise CompareAdapterError("DEEPSEEK_INVALID_REPORT", "DeepSeek 报告选项格式无效。")
+            finish, message = choice.get("finish_reason"), choice.get("message")
+            if finish == "length":
+                raise CompareAdapterError("DEEPSEEK_REPORT_TRUNCATED", "DeepSeek 达到输出上限；没有发布截断报告。")
+            if finish == "content_filter" or isinstance(message, dict) and message.get("refusal"):
+                raise CompareAdapterError("DEEPSEEK_REPORT_REFUSED", "DeepSeek 拒绝生成该报告；未发布拒绝原文。")
+            if (not isinstance(message, dict) or message.get("content") is None
+                or isinstance(message.get("content"), str) and not message["content"].strip()):
+                raise CompareAdapterError("DEEPSEEK_REPORT_EMPTY", "DeepSeek 报告内容缺失；真实计量保留。")
+            if (finish != "stop" or message.get("role") != "assistant" or not isinstance(message.get("content"), str)
+                or message.get("tool_calls") or message.get("function_call")):
+                raise CompareAdapterError("DEEPSEEK_INVALID_REPORT", "DeepSeek 未返回完整的报告 JSON；不执行生成的工具参数。")
             report = _json(message["content"], "DEEPSEEK_INVALID_REPORT")
-        except (KeyError, IndexError, TypeError, ValueError):
-            raise CompareAdapterError("DEEPSEEK_INVALID_REPORT", "DeepSeek 未返回完整结构化报告。") from None
-        usage = payload.get("usage") if isinstance(payload.get("usage"), dict) else {}
-        return {"status": "completed", "data": {"rawReport": report},
-                "provenance": {"modelId": config.model_name, "revision": config.model_version,
-                               "returnedModel": payload.get("model") if isinstance(payload.get("model"), str) else None,
-                               "revisionSource": "server-configured", "runtime": "external-api", "reportOnly": True,
-                               "snapshotSha256": checksum, "independentReport": True,
-                               "cloudTransferAuthorized": True, "requestAttempted": True, "transferredCategories": list(CLOUD_CATEGORIES),
-                               "rawExperimentalRowsTransferred": False, "localPathsTransferred": False},
-                "metrics": {"wallSeconds": perf_counter() - started, "promptTokens": _count(usage.get("prompt_tokens")),
-                            "completionTokens": _count(usage.get("completion_tokens")), "totalTokens": _count(usage.get("total_tokens")),
-                            "tokensPerSecond": None, "cost": None, "costStatus": "provider-billing-not-returned",
-                            "gpu": {"measured": False, "peakAllocatedBytes": None, "peakReservedBytes": None}}}
+            metrics["wallSeconds"] = perf_counter() - started
+            return {"status": "completed", "data": {"rawReport": report}, "provenance": provenance, "metrics": metrics}
+        except BaseException as error:
+            metrics["wallSeconds"] = perf_counter() - started
+            _error_evidence(error, metrics, provenance)
+            raise
 
 
 class UnavailableAdapter:

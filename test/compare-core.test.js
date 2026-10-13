@@ -134,7 +134,7 @@ test("presets remove molecule, free question, credentials and cloud permission",
   const settings = Core.presetSettings({ ...request({ comparisonEnabled: true, allowCloudTransfer: true, specialistTask: "tdc-bbb-martins", ollamaModel: "qwen3.5:4b" }), apiKey: "secret" });
   assert.equal(settings.specialistTask, "tdc-bbb-martins");
   assert.equal(settings.ollamaModel, "qwen3.5:4b");
-  for (const key of ["smiles", "question", "apiKey", "allowCloudTransfer"]) assert.equal(key in settings, false);
+  for (const key of ["smiles", "question", "apiKey", "allowCloudTransfer", "persistSensitiveContent"]) assert.equal(key in settings, false);
 });
 
 test("JSON export keeps measured tokens, facts and scores while redacting credential/cache fields", () => {
@@ -188,4 +188,96 @@ test("TxGemma actual tasks envelope retains categories and never becomes four-en
   assert.equal(tasks[0].classLabel, "crosses the BBB");
   assert.deepEqual(Core.endpointRows(result).map((item) => item.score), [null, null, null, null]);
   assert.deepEqual(Core.specialistTasks(run({ models: { "txgemma-2b-predict": { status: "failed", data: { tasks: tasks } } } })), []);
+});
+
+test("experiment evidence and neural attribution have independent controls and endpoints", () => {
+  const evidence = request({ includeEvidence: true, evidenceEndpoint: "dili", includeAttribution: false, explainEndpoint: "herg" });
+  assert.equal(evidence.includeEvidence, true);
+  assert.equal(evidence.evidenceEndpoint, "dili");
+  assert.equal(evidence.includeAttribution, false);
+  assert.equal(evidence.explainEndpoint, "herg", "the saved attribution selection does not enable the disabled stage");
+  const attribution = request({ includeAttribution: true, includeEvidence: false, evidenceEndpoint: "ames", explainEndpoint: "clintox" });
+  assert.equal(attribution.includeAttribution, true);
+  assert.equal(attribution.includeEvidence, false);
+  assert.equal(attribution.explainEndpoint, "clintox");
+  assert.equal(attribution.evidenceEndpoint, "ames");
+  assert.throws(() => request({ evidenceEndpoint: "unregistered" }), /实验检索端点/);
+});
+
+test("legacy attribution inference remains explicit while sensitive persistence is off by default", () => {
+  assert.equal(request({ explainEndpoint: "ames" }).includeAttribution, true);
+  assert.equal(request({ includeAttribution: true }).explainEndpoint, "herg");
+  assert.equal(request().persistSensitiveContent, false);
+  assert.equal(request({ persistSensitiveContent: "true" }).persistSensitiveContent, false);
+  assert.equal(request({ persistSensitiveContent: true }).persistSensitiveContent, true);
+});
+
+test("restoring old settings never reuses cloud or sensitive-content consent", () => {
+  const fields = Core.restoredFields({ ...request({ comparisonEnabled: true, allowCloudTransfer: true, persistSensitiveContent: true, explainEndpoint: "dili" }), comparisonEnabled: true });
+  assert.equal(fields.smiles, "CCO");
+  assert.equal(fields.includeAttribution, true);
+  assert.equal(fields.comparisonEnabled, false);
+  assert.equal(fields.allowCloudTransfer, false);
+  assert.equal(fields.persistSensitiveContent, false);
+  const minimal = Core.restoredFields({ mode: "compare", includeEvidence: true, evidenceEndpoint: "ames" });
+  assert.equal(minimal.smiles, "");
+  assert.equal(minimal.question, "");
+  assert.equal(minimal.includeEvidence, true);
+  assert.equal(Core.summaryOnly({ contentSaved: false, recovery: { contentAvailable: true } }), false, "current-process complete content may exist although it was not persisted");
+  assert.equal(Core.summaryOnly({ contentSaved: false, restored: true, recovery: { contentAvailable: false } }), true);
+});
+
+test("history restore changes read state without creating a new execution request", () => {
+  const loading = Core.reduce(complete(), { type: "RESTORE_REQUEST", runId: "saved-1" });
+  assert.equal(loading.viewingHistory, true);
+  assert.equal(loading.restoring, true);
+  assert.equal(loading.inFlight, false);
+  assert.equal(loading.fingerprint, null);
+  const summary = run({ runId: "saved-1", recovery: { contentAvailable: false }, contentSaved: false });
+  const restored = Core.reduce(loading, { type: "RESTORED", generation: loading.generation, runId: "saved-1", run: summary });
+  assert.equal(restored.restoring, false);
+  assert.equal(restored.inFlight, false);
+  assert.equal(Core.exportRun(restored).runId, "saved-1");
+  const edited = Core.reduce(loading, { type: "EDIT" });
+  assert.equal(edited.restoring, false, "editing while the read request is in flight cannot leave the page permanently loading");
+  assert.equal(Core.reduce(edited, { type: "RESTORED", generation: loading.generation, runId: "saved-1", run: summary }), edited);
+});
+
+test("history pagination and stored run IDs reject malformed or unsafe responses", () => {
+  const value = { contractVersion: Core.CONTRACT, runs: [run()], total: 21, limit: 10, offset: 10, hasMore: true };
+  assert.equal(Core.validateHistory(value).offset, 10);
+  assert.throws(() => Core.validateHistory({ ...value, offset: -1 }), /历史接口/);
+  assert.throws(() => Core.validateHistory({ ...value, runs: [{ runId: "../../config", status: "completed" }] }), /历史接口/);
+  assert.throws(() => Core.validateHistory({ ...value, runs: [{ runId: "safe", status: "invented" }] }), /历史接口/);
+  assert.equal(Core.validRunId("a_123-456"), true);
+  for (const id of [null, "", "http://example.com", "..", "a".repeat(81), "a\n"]) assert.equal(Core.validRunId(id), false);
+});
+
+test("actual selected Ollama IDs and digests determine readiness separately from default model", () => {
+  const registry = { models: [{ id: "ollama-qwen-local", configured: true, available: false, requestedModelId: "qwen3.5:4b", errorCode: "OLLAMA_MODEL_NOT_INSTALLED", installedModels: [{ name: "qwen3:4b", digest: "actual-digest" }] }, { id: "deepseek-api", configured: true, available: false, actualModelId: "account-model", accessVerified: false }] };
+  const selected = Core.selectedModelReadiness(registry, "ollama-qwen-local", "qwen3:4b");
+  assert.equal(selected.status, "installed");
+  assert.equal(selected.modelId, "qwen3:4b");
+  assert.equal(selected.revision, "actual-digest");
+  assert.equal(Core.selectedModelReadiness(registry, "ollama-qwen-local", "qwen3.5:4b").status, "not-installed");
+  assert.equal(Core.selectedModelReadiness(registry, "deepseek-api").status, "configured-unverified");
+  const offline = { models: [{ id: "ollama-qwen-local", configured: true, available: false, errorCode: "OLLAMA_UNAVAILABLE", installedModels: [] }] };
+  assert.equal(Core.selectedModelReadiness(offline, "ollama-qwen-local").status, "unreachable");
+});
+
+test("persisted Mock provenance remains Mock even under a real current model registry", () => {
+  const historical = run({ models: { "ollama-qwen-local": { status: "completed", provenance: { testFixture: true } } } });
+  assert.equal(Core.fixtureRun(historical), true);
+  assert.equal(Core.fixtureResult(historical.models["ollama-qwen-local"]), true);
+  assert.equal(Core.fixtureRun(run()), false);
+  assert.equal(Core.fixtureRun(run({ models: { "toxnet-v3-b16": { status: "completed", data: { prediction: { provenance: { testFixture: true } } } } } })), true);
+});
+
+test("fixture registry readiness does not claim real installation, access or digest verification", () => {
+  const registry = { testFixture: true, models: [{ id: "ollama-qwen-local", available: true, configured: true, actualModelId: "qwen-unit:4b", installedModels: [{ name: "qwen-unit:4b", digest: "fixture-digest" }] }, { id: "toxnet-v3-b16", available: true, actualModelId: "fixture-b16" }] };
+  const qwen = Core.selectedModelReadiness(registry, "ollama-qwen-local", "qwen-unit:4b");
+  assert.equal(qwen.status, "mock-ready");
+  assert.equal(qwen.modelId, "qwen-unit:4b");
+  assert.match(qwen.reason, /未验证真实安装/);
+  assert.equal(Core.selectedModelReadiness(registry, "toxnet-v3-b16").status, "mock-ready");
 });

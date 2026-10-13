@@ -142,6 +142,7 @@ def create_app(registry: dict | None = None, default_provider: str | None = None
 
     @asynccontextmanager
     async def lifespan(application):
+        await compare.start()
         try:
             yield
         finally:
@@ -153,15 +154,24 @@ def create_app(registry: dict | None = None, default_provider: str | None = None
     @application.middleware("http")
     async def security_headers(request: Request, call_next):
         request.state.request_id = uuid4().hex
-        if request.method in ("POST", "DELETE"):
+        if request.method in ("POST", "PATCH", "DELETE"):
             origin = request.headers.get("origin")
             if origin and origin != f"{request.url.scheme}://{request.url.netloc}":
                 return JSONResponse({"error": {"code": "CROSS_ORIGIN_REQUEST", "message": "仅允许来自本工作台的请求。", "requestId": request.state.request_id}}, status_code=403)
             size = request.headers.get("content-length", "0")
             if not size.isdigit() or int(size) > 16384:
                 return JSONResponse({"error": {"code": "REQUEST_TOO_LARGE", "message": "请求内容过大。", "requestId": request.state.request_id}}, status_code=413)
+            # Bound actual bytes too, including chunked bodies with no declared
+            # length. Starlette's cached body is replayed for JSON validation.
+            chunks, received = [], 0
+            async for chunk in request.stream():
+                received += len(chunk)
+                if received > 16384:
+                    return JSONResponse({"error": {"code": "REQUEST_TOO_LARGE", "message": "请求内容过大。", "requestId": request.state.request_id}}, status_code=413)
+                chunks.append(chunk)
+            request._body = b''.join(chunks)
             json_required = (request.url.path.startswith("/api/providers/") and request.url.path.endswith("/config")) or request.url.path.startswith("/api/research/compare/")
-            if request.method == "POST" and json_required and request.headers.get("content-type", "").split(";", 1)[0].strip().lower() != "application/json":
+            if request.method in ("POST", "PATCH") and json_required and request.headers.get("content-type", "").split(";", 1)[0].strip().lower() != "application/json":
                 return JSONResponse({"error": {"code": "JSON_CONTENT_TYPE_REQUIRED", "message": "API 配置必须使用 JSON 请求。", "requestId": request.state.request_id}}, status_code=415)
         response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id

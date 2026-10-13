@@ -1,0 +1,48 @@
+{
+  "schema": "aidd.compare.stability-browser-verification.v1",
+  "generatedAt": "2026-10-13T17:45:47.502963+00:00",
+  "browser": "Codex in-app browser using cua_repl",
+  "mockSuite": {
+    "testFixture": true,
+    "actualModelsExecuted": false,
+    "detailsOpenPreserved": true,
+    "focusPreserved": true,
+    "scrollYPreserved": true,
+    "refreshDuringRun": "GET restoration; both consents false; server run preserved",
+    "backendRestart": {
+      "fullReportAndSnapshotRestored": true,
+      "minimalSummaryNotice": true,
+      "missingSmilesNotReconstructed": true,
+      "predictionSummaryRetained": true,
+      "modelCallsAfterRestore": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "pagination": {
+      "total": 12,
+      "firstPage": 10,
+      "secondPage": 2
+    },
+    "presets": "create 201, duplicate 409, rename PATCH 200 observed in browser and server logs",
+    "dialogDismissalAndBfCache": "covered by actual application VM tests; not claimed as native dialog QA",
+    "evidenceEndpoint": "herg",
+    "attributionEndpoint": "dili",
+    "attributionDisabledIndependentOfEvidence": true,
+    "modifiedConfigurationInvalidatesExport": true,
+    "failureAndCancelKeepCompletedPrediction": true,
+    "actualJsonDownload": true,
+    "downloadContract": "aidd.multimodel.compare.v1",
+    "downloadCredentialFieldsFound": false
+  },
+  "realB16HttpReceipt": "runtime-verification.json",
+  "qwenGenerationCompleted": false,
+  "txgemmaGenerationCompleted": false,
+  "deepseekRealCallCompleted": false,
+  "scienceMetricsInvented": false,
+  "queryRowsIncluded": false,
+  "localDatabaseIncluded": false,
+  "keysIncluded": false
+}

@@ -15,6 +15,7 @@ import time
 
 from backend.compare_tasks import (BBB_TEMPLATE, TXGEMMA_MODEL_ID, TXGEMMA_REVISION,
                                   get_task, normalized_template, parse_task_output, task_registry)
+from backend.compare_adapters import CompareAdapterError, _CleanupLifecycle
 
 SNAPSHOT_SCHEMA = "aidd.txgemma.local-snapshot-audit.v1"
 TERMS_URL = "https://developers.google.com/health-ai-developer-foundations/terms"
@@ -39,10 +40,8 @@ OFFICIAL_FILES = {
 }
 
 
-class TxGemmaAdapterError(Exception):
-    def __init__(self, code, public_message):
-        super().__init__(public_message)
-        self.code, self.public_message = code, public_message
+class TxGemmaAdapterError(CompareAdapterError):
+    pass
 
 
 def file_sha256(path):
@@ -177,7 +176,7 @@ def verify_snapshot_receipt(snapshot_dir, receipt_path):
     return receipt
 
 
-class TxGemmaPredictAdapter:
+class TxGemmaPredictAdapter(_CleanupLifecycle):
     id = "txgemma-2b-predict"
 
     def __init__(self, env=None):
@@ -196,6 +195,8 @@ class TxGemmaPredictAdapter:
         self._receipt = None
         self._signature = None
         self._last_metrics = None
+        self._initialize_cleanup()
+        self._spawning_task = None
 
     def _config_error(self):
         if not self.enabled:
@@ -231,6 +232,9 @@ class TxGemmaPredictAdapter:
 
     async def status(self):
         available, error = False, self._config_error()
+        if self._cleanup_state == "quarantined" or self._closed:
+            error = ("COMPARE_RESOURCE_QUARANTINED" if not self._closed else "COMPARE_RESOURCE_CLOSED",
+                     "本地 TxGemma 清理未确认或适配器已关闭；需要检查并重启服务。")
         versions = {}
         if error is None:
             try:
@@ -262,6 +266,7 @@ class TxGemmaPredictAdapter:
                 "errorCode": error[0] if error else None, "specialistTasks": task_registry(),
                 "capacityValidation": "measured-single-successful-run" if self._last_metrics else "not-measured",
                 "lastMeasuredMetrics": copy.deepcopy(self._last_metrics), "dependencyVersions": versions,
+                "cleanup": self.cleanup_status(),
                 "reviewedTransformersVersion": REVIEWED_TRANSFORMERS_VERSION, "parameterCount": 2614341888,
                 "publishedWeightBytes": 10457400944}
 
@@ -278,30 +283,19 @@ class TxGemmaPredictAdapter:
         except ValueError:
             raise TxGemmaAdapterError("TXGEMMA_TASK_UNSUPPORTED", "所选 TxGemma 任务的官方合同尚未通过审核。") from None
         started = time.perf_counter()
-        spawning = asyncio.create_task(asyncio.create_subprocess_exec(
-            sys.executable, "-m", "backend.txgemma_worker", stdin=asyncio.subprocess.PIPE,
-            stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL,
-            cwd=str(Path(__file__).resolve().parents[1]),
-            **({"creationflags": 0x08000000} if os.name == "nt" else {})))
-        try:
-            # A cancellation during process creation must still obtain the child
-            # handle and kill it; otherwise a GPU worker can become orphaned.
-            process = await asyncio.shield(spawning)
-        except asyncio.CancelledError:
-            process = await spawning
-            if process.returncode is None:
-                try:
-                    process.kill()
-                except ProcessLookupError:
-                    pass
-            await process.wait()
-            raise
-        except (OSError, NotImplementedError):
-            raise TxGemmaAdapterError("TXGEMMA_WORKER_FAILED", "无法创建本地 TxGemma 独立进程。") from None
+        self._begin_execution()
+        spawning = None
         payload = {"snapshotDir": self.snapshot_dir, "receiptPath": self.receipt_path,
                    "revision": self.revision, "device": self.device, "dtype": self.dtype,
                    "taskId": task.id, "canonicalSmiles": context["canonicalSmiles"]}
         try:
+            spawning = asyncio.create_task(asyncio.create_subprocess_exec(
+                sys.executable, "-m", "backend.txgemma_worker", stdin=asyncio.subprocess.PIPE,
+                stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL,
+                cwd=str(Path(__file__).resolve().parents[1]),
+                **({"creationflags": 0x08000000} if os.name == "nt" else {})))
+            self._spawning_task = spawning
+            process = await asyncio.shield(spawning)
             stdout, _ = await asyncio.wait_for(process.communicate(json.dumps(payload).encode()), self.timeout)
             if len(stdout) > 128 * 1024:
                 raise TxGemmaAdapterError("TXGEMMA_INVALID_OUTPUT", "TxGemma worker 输出超过限制。")
@@ -327,13 +321,32 @@ class TxGemmaPredictAdapter:
                                    "snapshotAuditSha256": file_sha256(self.receipt_path),
                                    "device": self.device, "dtype": self.dtype, "formalAvailability": False}}
         except asyncio.TimeoutError:
-            raise TxGemmaAdapterError("TXGEMMA_TIMEOUT", "TxGemma 超时；已终止独立进程并释放资源。") from None
+            raise TxGemmaAdapterError("TXGEMMA_TIMEOUT", "TxGemma 超时；已请求停止独立进程，请核对清理确认状态。") from None
+        except (OSError, NotImplementedError):
+            raise TxGemmaAdapterError("TXGEMMA_WORKER_FAILED", "无法创建或连接本地 TxGemma 独立进程。") from None
         except (UnicodeError, ValueError, KeyError, TypeError):
             raise TxGemmaAdapterError("TXGEMMA_INVALID_OUTPUT", "TxGemma worker 未返回合法的受控任务输出。") from None
         finally:
-            if process.returncode is None:
-                try:
-                    process.kill()
-                except ProcessLookupError:
-                    pass
-                await process.wait()
+            self._start_cleanup(lambda: self._release_worker(spawning))
+            await self.wait_cleanup()
+
+    async def _release_worker(self, spawning):
+        if spawning is None:
+            return True
+        try:
+            process = await asyncio.shield(spawning)
+        except (OSError, NotImplementedError):
+            return True
+        if process.returncode is None:
+            try:
+                process.kill()
+            except ProcessLookupError:
+                pass
+            await process.wait()
+        return process.returncode is not None
+
+    async def close(self):
+        self._closed = True
+        if self._cleanup_state == "running":
+            self._start_cleanup(lambda: self._release_worker(self._spawning_task))
+        await self.wait_cleanup()

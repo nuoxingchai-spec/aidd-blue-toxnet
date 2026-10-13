@@ -33,9 +33,17 @@
 .compare-preset-box { margin-top: 20px; padding-top: 14px; border-top: 1px solid #cadaef; }
 .compare-preset-box > label { display: block; margin: 13px 0 5px; }
 .compare-preset-box button { margin-top: 10px; width: 100%; justify-content: center; font-size: 11px; }
+.compare-preset-box .compare-inline-actions { margin-top: 7px; }
+.compare-preset-box .compare-inline-actions button { padding: 8px 3px; }
+.compare-history-panel .secondary-button { padding: 8px 11px; font-size: 11px; }
+.compare-history-pages { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 18px; }
+.compare-history-pages span { font-size: 11px; color: #7b90ae; }
+.compare-history-models { font-size: 10px; white-space: pre-line; }
+.compare-recovery-notice { padding: 12px 15px; margin: 14px 0; color: #607b9f; background: #eff5ff; border: 1px solid #d3e1f8; border-radius: 9px; font-size: 12px; line-height: 1.8; }
+.compare-history-panel td:nth-child(2) { max-width: 260px; overflow-wrap: anywhere; }
 .compare-back-link { display: block; margin-top: 30px; font-size: 11px; color: #5e79a0; text-decoration: none; }
 .compare-workspace { padding: 34px 38px 20px; min-width: 0; max-width: 1700px; width: 100%; margin: 0 auto; }
-.compare-topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 23px; }
+.compare-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 23px; }
 .compare-topbar h1 { margin: 4px 0 5px; font-size: 27px; letter-spacing: -.03em; }
 .compare-topbar p:last-child { margin: 0; font-size: 12px; color: #7b8ca5; }
 .compare-topbar .eyebrow { color: #7890b5; font-size: 9px; }
@@ -60,6 +68,7 @@
 .compare-state { display: inline-flex; align-items: center; gap: 5px; margin: 13px 0 3px; font-size: 10px; color: #8092ab; }
 .compare-state::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 .compare-state[data-state="completed"], .compare-state[data-state="available"] { color: #346dbd; }
+.compare-state[data-state="installed"], .compare-state[data-state="configured-unverified"], .compare-state[data-state="configured"] { color: #797ca7; }
 .compare-state[data-state="running"], .compare-state[data-state="pending"] { color: #567dc5; }
 .compare-state[data-state="running"]::before { animation: compare-pulse 1.6s ease-in-out infinite; }
 .compare-state[data-state="partial"] { color: #a27938; }

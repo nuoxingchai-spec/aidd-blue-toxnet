@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Literal
 import re
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator, model_validator
 from backend.chemistry import canonicalize_smiles
 
 CONTRACT_VERSION = 'aidd.multimodel.compare.v1'
@@ -21,8 +21,22 @@ class CompareSettings(BaseModel):
     comparisonReporter: Literal['deepseek-api'] | None = 'deepseek-api'
     includeTox21: StrictBool = True
     includeEvidence: StrictBool = False
+    evidenceEndpoint: Literal['herg', 'dili', 'ames', 'clintox'] | None = None
+    includeAttribution: StrictBool | None = None
     explainEndpoint: Literal['herg', 'dili', 'ames', 'clintox'] | None = None
     ollamaModel: StrictStr | None = Field(default=None, min_length=1, max_length=200)
+
+    @model_validator(mode='after')
+    def compatible_research_steps(self):
+        if self.includeAttribution is None:
+            self.includeAttribution = self.explainEndpoint is not None
+        if self.includeAttribution and self.explainEndpoint is None:
+            raise ValueError('Attribution requires one explicit endpoint')
+        # Historical v1 clients used explainEndpoint for both options. New
+        # clients explicitly send evidenceEndpoint, including null for all.
+        if 'evidenceEndpoint' not in self.model_fields_set:
+            self.evidenceEndpoint = self.explainEndpoint
+        return self
 
     @field_validator('specialistTask')
     @classmethod
@@ -43,6 +57,7 @@ class CompareRequest(CompareSettings):
     smiles: StrictStr = Field(min_length=1, max_length=4096)
     question: StrictStr = Field(default='', max_length=1000)
     allowCloudTransfer: StrictBool = False
+    persistSensitiveContent: StrictBool = False
 
     @field_validator('smiles')
     @classmethod

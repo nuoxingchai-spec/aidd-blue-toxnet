@@ -5,7 +5,7 @@
   const NAMES = { "toxnet-v3-b16": "ToxNet v3 B16", "txgemma-2b-predict": "TxGemma 2B", "ollama-qwen-local": "Qwen · Ollama", "deepseek-api": "DeepSeek API" };
   const ROLES = { "toxnet-v3-b16": "主要预测 · 16 任务", "txgemma-2b-predict": "专项预测 · 官方 TDC 合同", "ollama-qwen-local": "主报告 · 本机独立生成", "deepseek-api": "对照报告 · 授权外传" };
   const MARKS = { "toxnet-v3-b16": "B16", "txgemma-2b-predict": "Tx", "ollama-qwen-local": "Q", "deepseek-api": "D" };
-  const STATUS = { available: "实际可用", unavailable: "不可用", configured: "已配置 · 待核验", unknown: "尚未检查", pending: "排队中", running: "正在运行", completed: "已完成", partial: "部分完成", failed: "失败", skipped: "已跳过", unsupported: "任务未支持", cancelled: "已取消" };
+  const STATUS = { "mock-ready": "Mock 软件测试入口", available: "实际可用", installed: "当前模型已安装 · 待生成验收", "configured-unverified": "账户已配置 · 访问待核验", "not-installed": "所选模型未安装", unreachable: "本机服务不可达", unavailable: "不可用", configured: "已配置 · 待核验", unknown: "尚未检查", pending: "排队中", running: "正在运行", completed: "已完成", partial: "部分完成", failed: "失败", skipped: "已跳过", unsupported: "任务未支持", cancelled: "已取消" };
   const POSITIVE = { herg: "来源标签：hERG 通道抑制", dili: "来源标签：药物性肝损伤", ames: "Ames 致突变试验阳性", clintox: "临床毒性标签；区别于批准状态" };
   let state = Core.initialState();
   let registry = null;
@@ -13,6 +13,16 @@
   let registryGeneration = 0;
   let controller = null;
   let pollTimer = null;
+  let historyGeneration = 0;
+  let historyOffset = 0;
+  let historyPaging = { previousDisabled: true, nextDisabled: true };
+  const historyLimit = 10;
+  const runIdStorageKey = "aidd.compare.lastRunId";
+  const renderRegion = Core.createRegionRenderer();
+
+  function setText(element, value) { const text = String(value === undefined || value === null ? "" : value); if (element.textContent !== text) element.textContent = text; }
+  function rememberedRunId() { try { const value = localStorage.getItem(runIdStorageKey); return Core.validRunId(value) ? value : null; } catch (_) { return null; } }
+  function rememberRunId(value) { try { if (Core.validRunId(value)) localStorage.setItem(runIdStorageKey, value); else localStorage.removeItem(runIdStorageKey); } catch (_) {} }
 
   function node(tag, text, className) {
     const element = document.createElement(tag);
@@ -28,7 +38,10 @@
   function appendDetails(container, title, value) {
     if (value === null || value === undefined) return;
     const details = node("details", null, "compare-detail");
-    details.append(node("summary", title), node("pre", objectText(value)));
+    details.dataset.viewKey = title;
+    details.dataset.readingKey = `detail:${container.id || "section"}:${title}`;
+    const summary = node("summary", title); summary.dataset.focusKey = `detail:${title}`;
+    details.append(summary, node("pre", objectText(value)));
     container.append(details);
   }
   function fields() {
@@ -36,7 +49,8 @@
       smiles: $("compareSmiles").value, question: $("compareQuestion").value,
       specialistTask: $("compareSpecialistTask").value, ollamaModel: $("compareOllamaModel").value,
       includeTox21: $("compareIncludeTox21").checked, includeEvidence: $("compareIncludeEvidence").checked,
-      explainEndpoint: $("compareExplainEndpoint").value,
+      evidenceEndpoint: $("compareEvidenceEndpoint").value, includeAttribution: $("compareIncludeAttribution").checked,
+      explainEndpoint: $("compareExplainEndpoint").value, persistSensitiveContent: $("comparePersistSensitive").checked,
       comparisonEnabled: $("compareEnableDeepSeek").checked, allowCloudTransfer: $("compareAllowCloud").checked,
     };
   }
@@ -51,6 +65,7 @@
       if (!response.ok) {
         const error = new Error(value.error && value.error.message || value.detail && typeof value.detail === "string" && value.detail || `请求失败（HTTP ${response.status}）`);
         error.code = value.error && value.error.code;
+        error.status = response.status;
         throw error;
       }
       return value;
@@ -76,7 +91,7 @@
     dispatch({ type: "EDIT" });
     if (wasRunning && runId) quietlyCancel(runId);
     if (state.stale) $("compareRunStatus").textContent = `${reason || "输入或配置已修改"}，旧结果已失效。请重新运行。`;
-    updateTaskHint();
+    updateTaskHint(); updateOptionalControls();
   }
   function metadataFingerprint(value) {
     return JSON.stringify({ testFixture: value.testFixture === true, models: value.models.map((model) => ({ id: model.id, actualModelId: model.actualModelId, revision: model.revision, configured: model.configured, available: model.available, device: model.device, installedModels: model.installedModels || model.metadata && model.metadata.installedModels, selectedDefaultModel: model.selectedDefaultModel || model.metadata && model.metadata.selectedDefaultModel, weightsSha256: model.weightsSha256 || model.metadata && model.metadata.weightsSha256 })) });
@@ -107,11 +122,20 @@
       }
       $("compareOllamaModel").value = installed.some((item) => item.name === oldModel) ? oldModel : installed.some((item) => item.name === defaultModel) ? defaultModel : "";
     }
-    $("compareOllamaHint").textContent = qwen.available ? `已发现 ${installed.length} 个可选模型，实际 ID 与 digest 记录在状态卡。` : qwen.reason || "Ollama 不可用；先启动本机服务并安装有许可的 Qwen 模型，再刷新状态。";
+    const readiness = Core.selectedModelReadiness(registry, "ollama-qwen-local", $("compareOllamaModel").value);
+    $("compareOllamaHint").textContent = readiness.status === "installed" ? `当前选择 ${readiness.modelId}，已核验 digest；尚需本次真实报告生成验收。` : readiness.reason || "Ollama 不可用；先启动本机服务并安装有许可的 Qwen 模型，再刷新状态。";
     const deepseek = registry.models.find((item) => item.id === "deepseek-api");
     const cloudOption = node("option", deepseek.actualModelId || "未配置 DeepSeek 账户模型"); cloudOption.value = deepseek.actualModelId || "";
     replace($("compareDeepSeekModel"), cloudOption);
-    updateTaskHint();
+    updateTaskHint(); updateOptionalControls();
+  }
+  function updateOptionalControls() {
+    $("compareEvidenceEndpoint").disabled = !$("compareIncludeEvidence").checked;
+    $("compareExplainEndpoint").disabled = !$("compareIncludeAttribution").checked;
+    if (registry) {
+      const readiness = Core.selectedModelReadiness(registry, "ollama-qwen-local", $("compareOllamaModel").value);
+      setText($("compareOllamaHint"), readiness.reason || "当前本机模型尚未通过真实生成验收。");
+    }
   }
   function updateTaskHint() {
     const taskId = $("compareSpecialistTask").value;
@@ -131,6 +155,13 @@
       $("compareFixtureBanner").textContent = next.testFixture === true ? "Mock 测试夹具：所有输出仅验证软件交互，不是真实模型推理。" : "";
       updateRegistryControls();
       if (changed) edited("模型实际配置或修订已变化");
+      else if (state.viewingHistory && !state.stale && !state.restoring && state.run && state.run.request) {
+        // History can load before the slower GPU/model registry check. Once
+        // real choices arrive, restore settings without treating that initial
+        // population as a user edit or restoring either per-run permission.
+        applyFormSettings(state.run.request, true);
+        state = { ...state, fingerprint: $("compareSmiles").value ? Core.fingerprint(Core.buildRequest(fields())) : null };
+      }
       $("compareRegistryStatus").textContent = "已检查 · 配置状态不等同于执行成功";
       const concurrency = registry.resourcePolicy && registry.resourcePolicy.localModelConcurrency;
       const ttl = registry.runPolicy && registry.runPolicy.terminalRecordTtlSeconds;
@@ -144,7 +175,8 @@
   }
   async function submit(event) {
     if (event) event.preventDefault();
-    if (state.inFlight || state.cancelling) return;
+    if (state.inFlight || state.cancelling || state.restoring) return;
+    if (!registry) { setText($("compareError"), "请先完成真实模型状态检查；检查失败时可使用“刷新模型”重试。"); $("compareError").hidden = false; return; }
     let request;
     try {
       request = Core.buildRequest(fields());
@@ -153,6 +185,11 @@
     } catch (error) { $("compareError").textContent = error.message; $("compareError").hidden = false; return; }
     stopPolling();
     dispatch({ type: "START", request });
+    // Consume both explicit permissions for this submission immediately.
+    // Waiting for the ACK would allow an edit/retry to inherit permission while
+    // an earlier POST is still pending, or let its late ACK clear newer consent.
+    $("compareAllowCloud").checked = false;
+    $("comparePersistSensitive").checked = false;
     const generation = state.generation;
     controller = new AbortController();
     try {
@@ -160,8 +197,8 @@
       // a server run that was accepted just before the UI changed.
       const accepted = await api("/api/research/compare/runs", { method: "POST", body: JSON.stringify(request) });
       if (!accepted || accepted.contractVersion !== Core.CONTRACT || typeof accepted.runId !== "string") throw new Error("创建运行响应格式不兼容。");
-      $("compareAllowCloud").checked = false;
       if (generation !== state.generation) { quietlyCancel(accepted.runId); return; }
+      rememberRunId(accepted.runId);
       dispatch({ type: "ACK", generation, runId: accepted.runId });
       poll(generation, accepted.runId);
     } catch (error) {
@@ -175,6 +212,7 @@
       const run = Core.validateRun(await api(`/api/research/compare/runs/${encodeURIComponent(runId)}`, { signal: controller.signal }));
       dispatch({ type: "POLL", generation, runId, run });
       if (generation === state.generation && state.inFlight) pollTimer = setTimeout(() => poll(generation, runId), 1000);
+      else if (generation === state.generation && !$("compareHistoryPanel").hidden) refreshHistory();
     } catch (error) {
       if (generation === state.generation && error.name !== "AbortError") {
         // Preserve the run ID and successful outputs if the status request fails.
@@ -200,6 +238,8 @@
     stopPolling();
     $("compareForm").reset();
     $("compareAllowCloud").checked = false;
+    $("comparePersistSensitive").checked = false;
+    rememberRunId(null);
     dispatch({ type: "RESET" });
     if (wasRunning) quietlyCancel(runId);
     updateRegistryControlsIfReady();
@@ -207,36 +247,43 @@
   function updateRegistryControlsIfReady() { if (registry) updateRegistryControls(); }
   function modelResult(id) { return state.run && state.run.models && state.run.models[id]; }
   function renderCards() {
-    const open = new Set(Array.from($("compareModelCards").querySelectorAll("details[open]")).map((item) => item.dataset.modelId));
-    const cards = Core.MODEL_IDS.map((id) => {
+    for (const id of Core.MODEL_IDS) {
       const entry = registry && registry.models.find((item) => item.id === id);
       const result = modelResult(id);
-      const status = result ? result.status : entry ? entry.available ? "available" : "unavailable" : "unknown";
-      const card = node("article", null, "compare-model-card"); card.dataset.state = status;
+      const readiness = Core.selectedModelReadiness(registry, id, $("compareOllamaModel").value);
+      const status = result ? result.status : readiness.status;
+      let card = Array.from($("compareModelCards").children).find((item) => item.dataset.modelId === id);
+      if (!card) { card = node("article", null, "compare-model-card"); card.dataset.modelId = id; $("compareModelCards").append(card); }
+      const provenance = result && result.provenance || result && result.data && result.data.provenance || {};
+      const fixture = registry && registry.testFixture === true || Core.fixtureResult(result);
+      renderRegion(card, { readiness, entry, status, error: result && result.error, provenance, stale: state.stale, summaryOnly: Core.summaryOnly(state.run), fixture }, () => {
+      replace(card); card.dataset.state = status;
       const title = node("div", null, "compare-model-card-title");
       const copy = node("div"); copy.append(node("h3", NAMES[id]), node("p", ROLES[id], "compare-model-role"));
       title.append(node("span", MARKS[id], "compare-model-monogram"), copy);
-      const badge = node("span", STATUS[status] || status, "compare-state"); badge.dataset.state = status;
-      const reason = result && result.error ? result.error.message : result && result.status === "completed" ? "输出已完成，来源和性能记录见下方。" : result && result.status === "skipped" ? "本次未选择或未授权该调用。" : entry && entry.reason || (entry && entry.available ? "通过当前配置与本机检查，执行仍需单独验收。" : "尚未核验，注册项不代表模型已安装。");
-      const details = node("details", null, "compare-model-details"); details.dataset.modelId = id; details.open = open.has(id);
+      const generated = result && result.status === "completed" && ["ollama-qwen-local", "deepseek-api"].includes(id);
+      const badgeText = generated ? fixture ? "已完成 Mock 软件验证" : "已完成真实报告生成" : fixture && status === "completed" ? "已完成 Mock 软件验证" : STATUS[status] || status;
+      const badge = node("span", `${badgeText}${state.stale ? " · 旧记录" : ""}`, "compare-state"); badge.dataset.state = status;
+      const reason = fixture && result ? "Mock 测试夹具输出，仅验证软件流程，不是真实模型推理。" : Core.summaryOnly(state.run) && result ? "已恢复历史执行摘要，正文没有保存；没有重新调用模型。" : result && result.error ? result.error.message : result && result.status === "completed" ? "输出已完成，来源和性能记录见下方。" : result && result.status === "skipped" ? "本次未选择或未授权该调用。" : readiness.reason || "尚未核验，注册项不代表模型已安装。";
+      const details = node("details", null, "compare-model-details"); details.dataset.viewKey = `model:${id}`;
       const list = node("dl");
-      const provenance = result && result.provenance || result && result.data && result.data.provenance || {};
       const records = [
-        ["实际模型 ID", provenance.returnedModel || provenance.actualModelId || provenance.modelId || entry && entry.actualModelId],
-        ["revision / digest", provenance.revision || provenance.modelVersion || entry && entry.revision],
+        [fixture ? "Mock 模型 ID" : "实际执行 / 当前模型 ID", provenance.returnedModel || provenance.actualModelId || provenance.modelId || provenance.modelVersion || readiness.modelId],
+        [fixture ? "夹具 revision / digest" : "revision / digest", provenance.revision || provenance.manifestSha256 || provenance.artifactSha256 || provenance.modelVersion || readiness.revision],
+        ["当前配置选择", readiness.modelId],
         ["运行方式", entry && entry.runtime], ["执行设备", provenance.device || entry && entry.device],
         ["配置状态", entry ? entry.configured === true ? "已配置" : "未配置" : "尚未检查"],
         ["任务语义", entry && entry.semantics],
-        ["许可状态", entry && entry.licenseStatus], ["任务能力", entry && entry.capabilities],
+        ["许可状态", provenance.licenseStatus || entry && entry.licenseStatus], ["任务能力", entry && entry.capabilities],
         ["来源", provenance.source || entry && (entry.source || entry.sourceUrl)],
         ["研究限制", entry && entry.researchOnly ? "researchOnly=true · formalAvailability=false" : "语言整理不构成实验验证"],
       ];
       for (const [label, value] of records) list.append(node("dt", label), node("dd", objectText(value)));
-      details.append(node("summary", "ID、许可与执行信息"), list);
+      const summary = node("summary", "ID、许可与执行信息"); summary.dataset.focusKey = `model:${id}:summary`;
+      details.append(summary, list);
       card.append(title, badge, node("p", reason, "compare-model-reason"), details);
-      return card;
-    });
-    replace($("compareModelCards"), ...cards);
+      });
+    }
   }
   function tableRow(values) { const row = node("tr"); for (const value of values) row.append(typeof value === "object" && value instanceof Node ? value : node("td", value)); return row; }
   function scoreCell(score) {
@@ -246,9 +293,14 @@
     return cell;
   }
   function renderPrediction(run) {
-    replace($("compareEndpointRows"), ...Core.endpointRows(run).map((item) => tableRow([item.name, scoreCell(item.score), item.positiveClass || POSITIVE[item.id], "未建立同标签直接对照"]))) ;
+    const rows = Core.endpointRows(run);
+    renderRegion($("compareEndpointRows"), rows, () => replace($("compareEndpointRows"), ...rows.map((item) => tableRow([item.name, scoreCell(item.score), item.positiveClass || POSITIVE[item.id], "未建立同标签直接对照"])))) ;
     $("comparePathwayPanel").hidden = run.request && run.request.includeTox21 === false;
-    replace($("comparePathwayRows"), ...Core.pathwayRows(run).map((item) => tableRow([item.name, scoreCell(item.score), item.positiveClass])));
+    const pathways = Core.pathwayRows(run);
+    renderRegion($("comparePathwayRows"), pathways, () => replace($("comparePathwayRows"), ...pathways.map((item) => tableRow([item.name, scoreCell(item.score), item.positiveClass]))));
+    renderRegion($("compareSpecialistResult"), { result: run.models && run.models["txgemma-2b-predict"], contracts: registry && registry.specialistTasks }, () => renderSpecialist(run));
+  }
+  function renderSpecialist(run) {
     const tx = run.models && run.models["txgemma-2b-predict"];
     const container = $("compareSpecialistResult"); replace(container);
     const tasks = Core.specialistTasks(run);
@@ -266,6 +318,7 @@
     replace(target);
     const result = run.models && run.models[id];
     const report = run.reports && run.reports[id] || result && result.data && (result.data.report || result.data);
+    if (Core.summaryOnly(run)) { target.append(node("p", "原运行报告正文未保存。本次只恢复执行摘要，不重新调用语言模型；没有可重新展开的原报告。", "compare-hint")); return; }
     if (!report || !Array.isArray(report.sections)) {
       target.append(node("p", result && result.error && result.error.message || (result && result.status === "skipped" ? "本次未选择或未授权。" : "尚未生成可核验的结构化研究报告。"), "compare-hint"));
       return;
@@ -274,6 +327,7 @@
     target.append(node("p", `事实快照：${report.snapshotSha256 || "未提供"}`, "compare-source-meta"));
     for (const section of report.sections) {
       const block = node("section", null, "compare-report-block");
+      block.dataset.readingKey = `report:${id}:${section.id}`;
       block.append(node("h4", section.title || section.id || "研究说明"));
       const known = (section.claimIds || []).every((claim) => snapshotFacts.has(claim));
       if (section.text) block.append(node("p", section.text));
@@ -285,7 +339,7 @@
     if (report.unverifiedAdditions && report.unverifiedAdditions.length) target.append(node("p", `${report.unverifiedAdditions.length} 条新增语言推理均为 unverified，不属于已确认的实验事实。`, "compare-source-meta"));
     appendDetails(target, "报告来源核验记录", report.sourceVerification || { status: report.status, verifiedFactIds: report.verifiedFactIds });
   }
-  function renderAudit(run) {
+  function renderFactAudit(run) {
     const facts = run.snapshot && run.snapshot.facts || [];
     const list = node("ul", null, "compare-audit-list");
     for (const fact of facts) {
@@ -293,7 +347,10 @@
     }
     replace($("compareFactAudit"));
     $("compareFactAudit").append(facts.length ? list : node("p", "尚无已核验事实快照。", "compare-hint"));
+    if (Core.summaryOnly(run)) $("compareFactAudit").append(node("p", "原事实快照全文没有保存；保留的预测摘要属于原运行记录，不是本次新推理。", "compare-hint"));
     appendDetails($("compareFactAudit"), "快照来源及核验状态", run.snapshot && { schema: run.snapshot.schema, snapshotSha256: run.snapshot.snapshotSha256, sources: run.snapshot.sources });
+  }
+  function renderDifferences(run) {
     replace($("compareDifferences"));
     appendDetails($("compareDifferences"), "独立输出差异与报告核验汇总", run.comparison);
     $("compareDifferences").append(node("p", "输出差异和延迟不等同于科学准确率；没有新的合法独立标签时不作准确率排名。", "compare-hint"));
@@ -302,7 +359,9 @@
     const prediction = run.models && run.models["toxnet-v3-b16"];
     const data = prediction && prediction.data || {};
     const container = $("compareEvidenceContent"); replace(container);
-    $("compareEvidencePanel").hidden = !(run.request && (run.request.includeEvidence || run.request.explainEndpoint));
+    const includeAttribution = run.request && (Object.hasOwn(run.request, "includeAttribution") ? run.request.includeAttribution === true : Boolean(run.request.explainEndpoint));
+    $("compareEvidencePanel").hidden = !(run.request && (run.request.includeEvidence || includeAttribution));
+    if (Core.summaryOnly(run)) { container.append(node("p", "检索到的实验记录和归因全文未保存，本次只恢复运行摘要。", "compare-hint")); return; }
     if (data.evidence) appendDetails(container, "本机实验检索与来源定义", data.evidence);
     if (data.attribution) {
       const image = data.attribution.visualization && data.attribution.visualization.imageDataUrl || data.attribution.imageDataUrl || data.attribution.image;
@@ -322,33 +381,68 @@
       return tableRow([NAMES[id], Core.formatMetric(m.durationMs, "ms"), `${Core.formatMetric(m.promptTokens, "", 0)} / ${Core.formatMetric(m.completionTokens, "", 0)}`, Core.formatMetric(m.tokensPerSecond, "token/s"), cost, memory]);
     }); replace($("compareMetricsRows"), ...rows);
   }
+  function captureReadingPosition() {
+    if (!window.scrollY || typeof document.elementFromPoint !== "function") return null;
+    const visible = document.elementFromPoint(Math.round(window.innerWidth * .7), Math.min(180, Math.round(window.innerHeight / 3)));
+    const anchor = visible && visible.closest("[data-reading-key], [id]");
+    return anchor ? { anchor, id: anchor.id, key: anchor.dataset.readingKey, top: anchor.getBoundingClientRect().top, x: window.scrollX, y: window.scrollY } : null;
+  }
+  function restoreReadingPosition(position) {
+    if (!position) return;
+    const anchor = position.anchor.isConnected ? position.anchor : position.id ? document.getElementById(position.id) : Array.from(document.querySelectorAll("[data-reading-key]")).find((item) => item.dataset.readingKey === position.key);
+    if (!anchor) return;
+    if (typeof anchor.getClientRects === "function" && !anchor.getClientRects().length) return;
+    const delta = anchor.getBoundingClientRect().top - position.top;
+    if (Number.isFinite(delta) && Math.abs(delta) >= 1) window.scrollTo({ left: position.x, top: Math.max(0, position.y + delta), behavior: "instant" });
+  }
   function render() {
+    const position = captureReadingPosition();
+    try { renderContents(); } finally { restoreReadingPosition(position); }
+  }
+  function renderContents() {
+    const fixture = registry && registry.testFixture === true || Core.fixtureRun(state.run);
+    $("compareFixtureBanner").hidden = !fixture;
+    setText($("compareFixtureBanner"), registry && registry.testFixture === true ? "Mock 测试夹具：所有输出仅验证软件交互，不是真实模型推理。" : fixture ? "当前历史运行包含 Mock 测试夹具输出：只用于软件交互验证，不可视为真实模型推理或科研结果。" : "");
     renderCards();
-    $("compareRunButton").disabled = state.inFlight || state.cancelling;
-    $("compareCancelButton").disabled = !state.run || Core.TERMINAL.has(state.run.status) || state.stale || state.cancelling;
-    $("compareRunButton").textContent = state.inFlight ? "正在执行独立对照…" : "↗ 运行 Compare";
+    $("compareRunButton").disabled = !registry || state.inFlight || state.cancelling || state.restoring;
+    $("compareCancelButton").disabled = !state.run || Core.TERMINAL.has(state.run.status) || state.stale || state.cancelling || state.restoring;
+    setText($("compareRunButton"), state.restoring ? "正在读取历史记录…" : state.inFlight ? "正在执行独立对照…" : !registry ? "等待模型状态检查…" : "↗ 运行 Compare");
     $("compareStaleBanner").hidden = !state.stale;
     $("compareError").hidden = !state.error;
     if (state.error) $("compareError").textContent = state.error;
     $("compareExportButton").disabled = !state.run || state.stale || !Core.TERMINAL.has(state.run.status);
     const run = state.run;
+    const summary = Core.summaryOnly(run);
+    setText($("compareExportButton"), summary ? "导出摘要 JSON" : "导出 JSON");
     $("compareEmptyState").hidden = Boolean(run || state.inFlight);
     $("compareResults").hidden = !run;
     if (!run) {
-      $("compareRunStatus").textContent = state.inFlight ? "正在提交研究运行；模型在服务端依次执行。" : "准备输入一个分子，开始可追溯的研究对照。";
+      setText($("compareRunStatus"), state.inFlight ? "正在提交研究运行；模型在服务端依次执行。" : "准备输入一个分子，开始可追溯的研究对照。");
+      $("compareRecoveryNotice").hidden = true;
       return;
     }
-    $("compareRunStatus").textContent = state.cancelling ? "正在取消后续执行；已经成功的输出会保留。" : `${STATUS[run.status] || run.status} · ${run.runId}${state.stale ? " · 输入或配置已修改" : ""}`;
-    $("compareCanonical").textContent = run.structure && run.structure.canonicalSmiles || "结构验证中或未完成";
-    $("compareStructureId").textContent = run.structure && run.structure.structureId || "未提供";
-    $("compareRunId").textContent = run.runId;
-    $("compareSnapshotHash").textContent = run.snapshot && run.snapshot.snapshotSha256 || "事实快照尚未完成";
+    setText($("compareRunStatus"), state.restoring ? `正在只读恢复运行 ${run.runId}…` : state.cancelling ? "正在取消后续执行；已经成功的输出会保留。" : `${STATUS[run.status] || run.status} · ${run.runId}${state.viewingHistory ? " · 历史查询（未重新调用模型）" : ""}${state.stale ? " · 输入或配置已修改" : ""}`);
+    const recoveryText = summary ? "完整敏感内容未保存：仅恢复结构标识、真实执行状态及已记录的预测摘要；SMILES、研究问题、实验记录和报告正文无法恢复。本次没有重新调用模型，也没有复用云端授权。"
+      : state.viewingHistory ? "已只读恢复本机运行记录。查看历史不会再次运行模型，云端及敏感内容保存授权均保持关闭。"
+      : run.contentSaved === false ? "当前全文仍可在当次运行内存中查看，但默认只持久化摘要。后台重启后全文无法恢复，请及时导出需要保留的 JSON。" : "";
+    $("compareRecoveryNotice").hidden = !recoveryText; setText($("compareRecoveryNotice"), recoveryText);
+    setText($("compareCanonical"), run.structure && run.structure.canonicalSmiles || (summary ? "查询分子全文未保存" : "结构验证中或未完成"));
+    setText($("compareStructureId"), run.structure && run.structure.structureId || "未提供");
+    setText($("compareRunId"), run.runId);
+    setText($("compareSnapshotHash"), run.snapshot && run.snapshot.snapshotSha256 || run.snapshotSha256 || (summary ? "事实快照全文未保存" : "事实快照尚未完成"));
     renderPrediction(run);
-    renderReport(run, "ollama-qwen-local", $("compareQwenContent"));
-    renderReport(run, "deepseek-api", $("compareDeepSeekContent"));
-    renderAudit(run); renderOptional(run); renderMetrics(run);
+    for (const [id, targetId] of [["ollama-qwen-local", "compareQwenContent"], ["deepseek-api", "compareDeepSeekContent"]]) {
+      const result = run.models && run.models[id];
+      const report = run.reports && run.reports[id] || result && result.data && (result.data.report || result.data);
+      renderRegion($(targetId), { report, status: result && result.status, error: result && result.error, facts: run.snapshot && run.snapshot.facts, summary }, () => renderReport(run, id, $(targetId)));
+    }
+    renderRegion($("compareFactAudit"), { snapshot: run.snapshot, summary }, () => renderFactAudit(run));
+    renderRegion($("compareDifferences"), run.comparison, () => renderDifferences(run));
+    const primary = run.models && run.models["toxnet-v3-b16"];
+    renderRegion($("compareEvidenceContent"), { evidence: primary && primary.data && primary.data.evidence, attribution: primary && primary.data && primary.data.attribution, request: run.request && { includeEvidence: run.request.includeEvidence, includeAttribution: run.request.includeAttribution, explainEndpoint: run.request.explainEndpoint }, summary }, () => renderOptional(run));
+    renderRegion($("compareMetricsRows"), Core.MODEL_IDS.map((id) => run.models && run.models[id] && run.models[id].metrics), () => renderMetrics(run));
     const limitations = [...new Set([...(run.limitations || []), "研究原型，不构成临床诊断或人体风险概率。", "B16 未独立校准，适用域未完成验证。ClinTox 少样本，可能发生负迁移。", "旧 test 和历史 hERG_Karim 属于已曝光参考，不用于本轮模型选择。", "归因不等于因果机制；自然语言推理不等于科学机制验证。"])] ;
-    replace($("compareLimitations"), ...limitations.map((text) => node("li", objectText(text))));
+    renderRegion($("compareLimitations"), limitations, () => replace($("compareLimitations"), ...limitations.map((text) => node("li", objectText(text)))));
   }
   function exportJson() {
     try {
@@ -358,6 +452,7 @@
         // Consent is consumed after acceptance. All other current form values
         // must still match, including programmatic edits with no input event.
         current.allowCloudTransfer = submitted.allowCloudTransfer;
+        current.persistSensitiveContent = submitted.persistSensitiveContent;
         if (Core.fingerprint(current) !== state.fingerprint) {
           edited("当前输入或配置已变化");
           throw new Error("当前输入或配置已变化；请重新运行后导出。");
@@ -368,12 +463,103 @@
       const url = URL.createObjectURL(blob); const link = node("a"); link.href = url; link.download = `aidd-compare-${state.run.runId}.json`; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch (error) { $("compareError").textContent = error.message; $("compareError").hidden = false; }
   }
+  function applyFormSettings(config, restore = false) {
+    const values = restore ? Core.restoredFields(config) : config || {};
+    if (restore) { $("compareSmiles").value = values.smiles; $("compareQuestion").value = values.question; }
+    const taskAllowed = registry && (registry.specialistTasks || []).some((task) => task.id === values.specialistTask && task.supported === true);
+    $("compareSpecialistTask").value = taskAllowed ? values.specialistTask : "";
+    $("compareOllamaModel").value = Core.installedOllamaModels(registry).some((model) => model.name === values.ollamaModel) ? values.ollamaModel : "";
+    $("compareIncludeTox21").checked = values.includeTox21 !== false;
+    $("compareIncludeEvidence").checked = values.includeEvidence === true;
+    $("compareEvidenceEndpoint").value = Core.ENDPOINT_IDS.includes(values.evidenceEndpoint) ? values.evidenceEndpoint : "";
+    $("compareIncludeAttribution").checked = Object.hasOwn(values, "includeAttribution") ? values.includeAttribution === true : Boolean(values.explainEndpoint);
+    $("compareExplainEndpoint").value = Core.ENDPOINT_IDS.includes(values.explainEndpoint) ? values.explainEndpoint : "herg";
+    $("compareEnableDeepSeek").checked = restore ? false : values.comparisonReporter === "deepseek-api";
+    $("compareAllowCloud").checked = false;
+    $("comparePersistSensitive").checked = false;
+    updateOptionalControls(); updateTaskHint();
+  }
+  async function restoreRun(runId) {
+    if (!Core.validRunId(runId)) return;
+    stopPolling();
+    dispatch({ type: "RESTORE_REQUEST", runId });
+    const generation = state.generation;
+    controller = new AbortController();
+    try {
+      const run = Core.validateRun(await api(`/api/research/compare/runs/${encodeURIComponent(runId)}`, { signal: controller.signal }));
+      if (generation !== state.generation) return;
+      applyFormSettings(run.request, true);
+      let request = null;
+      if ($("compareSmiles").value) request = Core.buildRequest(fields());
+      rememberRunId(runId);
+      dispatch({ type: "RESTORED", generation, runId, run, request });
+      if (state.inFlight) poll(generation, runId);
+    } catch (error) {
+      if (generation !== state.generation || error.name === "AbortError") return;
+      if (error.status === 404) rememberRunId(null);
+      dispatch({ type: "ERROR", generation, message: `无法恢复历史记录：${error.message}。只执行了查询，没有重新运行模型。` });
+    }
+  }
+  async function refreshHistory(offset = historyOffset) {
+    const generation = ++historyGeneration;
+    const requestedOffset = Math.max(0, offset);
+    $("compareHistoryRefresh").disabled = true;
+    $("compareHistoryPrevious").disabled = true;
+    $("compareHistoryNext").disabled = true;
+    setText($("compareHistoryStatus"), "正在读取本机运行摘要…");
+    try {
+      const history = Core.validateHistory(await api(`/api/research/compare/runs?limit=${historyLimit}&offset=${requestedOffset}`));
+      if (generation !== historyGeneration) return;
+      historyOffset = history.offset;
+      renderRegion($("compareHistoryRows"), history.runs, () => {
+        const rows = history.runs.map((item) => {
+          const open = node("button", "只读打开", "secondary-button"); open.type = "button"; open.dataset.focusKey = `history:${item.runId}:open`;
+          open.addEventListener("click", () => restoreRun(item.runId));
+          const action = node("td"); action.append(open);
+          const identity = node("td"); identity.append(node("div", STATUS[item.status] || item.status), node("code", item.structureId || item.structure && item.structure.structureId || "结构标识未记录", "compare-source-meta"));
+          const models = Core.MODEL_IDS.map((id) => { const model = item.models && item.models[id]; const status = typeof model === "string" ? model : model && model.status; return `${NAMES[id]}：${STATUS[status] || status || "未记录"}`; }).join("\n");
+          const modelCell = node("td", models, "compare-history-models");
+          const timestamp = item.createdAt && !Number.isNaN(Date.parse(item.createdAt)) ? new Date(item.createdAt).toLocaleString("zh-CN") : "未提供";
+          return tableRow([timestamp, identity, modelCell, item.contentSaved === true ? "已显式保存完整内容" : "仅持久化摘要 · 全文未保存", action]);
+        });
+        if (!rows.length) { const row = node("tr"); const cell = node("td", "暂无可恢复的本机运行记录。"); cell.colSpan = 5; row.append(cell); rows.push(row); }
+        replace($("compareHistoryRows"), ...rows);
+      });
+      $("compareHistoryPrevious").disabled = history.offset === 0;
+      $("compareHistoryNext").disabled = !history.hasMore;
+      historyPaging = { previousDisabled: history.offset === 0, nextDisabled: !history.hasMore };
+      setText($("compareHistoryPage"), `第 ${Math.floor(history.offset / history.limit) + 1} 页 · 共 ${history.total} 条`);
+      setText($("compareHistoryStatus"), "历史查询完成；不会重新调用四模型。");
+    } catch (error) {
+      if (generation === historyGeneration) {
+        $("compareHistoryPrevious").disabled = historyPaging.previousDisabled;
+        $("compareHistoryNext").disabled = historyPaging.nextDisabled;
+        setText($("compareHistoryStatus"), `读取历史失败：${error.message}`);
+      }
+    }
+    finally { if (generation === historyGeneration) $("compareHistoryRefresh").disabled = false; }
+  }
+  function toggleHistory() {
+    const open = $("compareHistoryPanel").hidden;
+    $("compareHistoryPanel").hidden = !open;
+    $("compareHistoryButton").setAttribute("aria-expanded", String(open));
+    if (open) refreshHistory();
+  }
+  function updatePresetActions() {
+    const selected = presets.find((item) => item.id === $("comparePresetSelect").value);
+    $("compareUpdatePreset").disabled = !selected;
+    $("compareDeletePreset").disabled = !selected;
+    setText($("comparePresetUpdated"), selected ? `更新时间：${selected.updatedAt || selected.createdAt || "原配置未记录时间"}` : "");
+  }
   async function refreshPresets() {
     try {
       const value = await api("/api/research/compare/presets");
       presets = Array.isArray(value.presets) ? value.presets : [];
+      const selectedId = $("comparePresetSelect").value;
       const blank = node("option", "选择预设…"); blank.value = ""; replace($("comparePresetSelect"), blank);
       for (const preset of presets) { const option = node("option", preset.name); option.value = preset.id; $("comparePresetSelect").append(option); }
+      if (presets.some((item) => item.id === selectedId)) $("comparePresetSelect").value = selectedId;
+      updatePresetActions();
     } catch (error) { $("comparePresetStatus").textContent = `无法读取配置：${error.message}`; }
   }
   async function savePreset() {
@@ -383,29 +569,49 @@
       if (!name) throw new Error("请先填写配置名称。");
       request = Core.buildRequest({ ...fields(), smiles: "C", question: "", allowCloudTransfer: false });
       $("compareSavePreset").disabled = true;
-      await api("/api/research/compare/presets", { method: "POST", body: JSON.stringify({ name, settings: Core.presetSettings(request) }) });
-      $("comparePresetStatus").textContent = "配置已保存；不包含分子、问题、密钥或云端授权。";
+      const created = await api("/api/research/compare/presets", { method: "POST", body: JSON.stringify({ name, settings: Core.presetSettings(request) }) });
+      $("comparePresetStatus").textContent = "配置已保存；不包含分子、问题、密钥、云端授权或敏感内容保存授权。";
       await refreshPresets();
+      if (created && presets.some((item) => item.id === created.id)) { $("comparePresetSelect").value = created.id; updatePresetActions(); }
     } catch (error) { $("comparePresetStatus").textContent = error.message; }
     finally { $("compareSavePreset").disabled = false; }
   }
-  function applyPreset() {
+  async function updatePreset() {
     const preset = presets.find((item) => item.id === $("comparePresetSelect").value); if (!preset) return;
-    const config = preset.settings || {};
-    const taskAllowed = registry && (registry.specialistTasks || []).some((task) => task.id === config.specialistTask && task.supported === true);
-    $("compareSpecialistTask").value = taskAllowed ? config.specialistTask : "";
-    $("compareOllamaModel").value = Core.installedOllamaModels(registry).some((model) => model.name === config.ollamaModel) ? config.ollamaModel : "";
-    $("compareIncludeTox21").checked = config.includeTox21 !== false;
-    $("compareIncludeEvidence").checked = config.includeEvidence === true;
-    $("compareExplainEndpoint").value = Core.ENDPOINT_IDS.includes(config.explainEndpoint) ? config.explainEndpoint : "";
-    $("compareEnableDeepSeek").checked = config.comparisonReporter === "deepseek-api";
-    $("compareAllowCloud").checked = false;
+    const name = $("comparePresetName").value.trim();
+    if (!name) { setText($("comparePresetStatus"), "请先填写新配置名称。"); return; }
+    if (!window.confirm(`确认将“${preset.name}”更新为“${name}”，并用当前设置覆盖原配置？云端及敏感内容授权不会保存。`)) return;
+    $("compareUpdatePreset").disabled = true;
+    try {
+      const request = Core.buildRequest({ ...fields(), smiles: "C", question: "", allowCloudTransfer: false, persistSensitiveContent: false });
+      await api(`/api/research/compare/presets/${encodeURIComponent(preset.id)}`, { method: "PATCH", body: JSON.stringify({ name, settings: Core.presetSettings(request) }) });
+      await refreshPresets();
+      setText($("comparePresetStatus"), "配置已更新；同名冲突由服务端明确拒绝，不覆盖其他预设。");
+    } catch (error) { setText($("comparePresetStatus"), error.message); }
+    finally { updatePresetActions(); }
+  }
+  async function deletePreset() {
+    const preset = presets.find((item) => item.id === $("comparePresetSelect").value); if (!preset) return;
+    if (!window.confirm(`确认删除本机配置“${preset.name}”？这不会删除模型、实验记录或当前结果。`)) return;
+    $("compareDeletePreset").disabled = true;
+    try {
+      await api(`/api/research/compare/presets/${encodeURIComponent(preset.id)}`, { method: "DELETE" });
+      await refreshPresets();
+      setText($("comparePresetStatus"), "已删除选中配置。");
+    } catch (error) { setText($("comparePresetStatus"), error.message); }
+    finally { updatePresetActions(); }
+  }
+  function applyPreset() {
+    updatePresetActions();
+    const preset = presets.find((item) => item.id === $("comparePresetSelect").value); if (!preset) return;
+    $("comparePresetName").value = preset.name;
+    applyFormSettings(preset.settings, false);
     edited("研究配置已切换");
-    $("comparePresetStatus").textContent = "已加载配置；本次云端外传仍需单独授权。";
+    $("comparePresetStatus").textContent = "已加载配置；本次云端外传及敏感内容保存均需单独授权。";
   }
   $("compareForm").addEventListener("submit", submit);
   for (const id of ["compareSmiles", "compareQuestion"]) $(id).addEventListener("input", () => edited("分子或研究问题已修改"));
-  for (const id of ["compareSpecialistTask", "compareOllamaModel", "compareIncludeTox21", "compareIncludeEvidence", "compareExplainEndpoint", "compareEnableDeepSeek", "compareAllowCloud"]) $(id).addEventListener("change", () => edited("任务或模型设置已修改"));
+  for (const id of ["compareSpecialistTask", "compareOllamaModel", "compareIncludeTox21", "compareIncludeEvidence", "compareEvidenceEndpoint", "compareIncludeAttribution", "compareExplainEndpoint", "compareEnableDeepSeek", "compareAllowCloud", "comparePersistSensitive"]) $(id).addEventListener("change", () => edited("任务或模型设置已修改"));
   $("compareForm").addEventListener("keydown", (event) => { if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) { event.preventDefault(); submit(); } });
   $("compareCancelButton").addEventListener("click", cancel);
   $("compareResetButton").addEventListener("click", reset);
@@ -415,7 +621,27 @@
     if (state.run && state.error && !state.stale && !Core.TERMINAL.has(state.run.status)) { state = { ...state, inFlight: true, error: null }; render(); poll(state.generation, state.run.runId); }
   });
   $("compareSavePreset").addEventListener("click", savePreset);
+  $("compareUpdatePreset").addEventListener("click", updatePreset);
+  $("compareDeletePreset").addEventListener("click", deletePreset);
   $("comparePresetSelect").addEventListener("change", applyPreset);
+  $("compareHistoryButton").addEventListener("click", toggleHistory);
+  $("compareHistoryRefresh").addEventListener("click", () => refreshHistory());
+  $("compareHistoryPrevious").addEventListener("click", () => refreshHistory(historyOffset - historyLimit));
+  $("compareHistoryNext").addEventListener("click", () => refreshHistory(historyOffset + historyLimit));
   window.addEventListener("pagehide", stopPolling);
-  render(); refreshRegistry(); refreshPresets();
+  window.addEventListener("pageshow", (event) => {
+    if (!event.persisted) return;
+    // A browser back/forward cache restores the old JS context without running
+    // bootstrap again. Resume reads of an active run; never repeat its POST.
+    $("compareAllowCloud").checked = false;
+    $("comparePersistSensitive").checked = false;
+    refreshRegistry();
+    if (state.run && !state.stale && !Core.TERMINAL.has(state.run.status)) {
+      if (state.restoring) restoreRun(state.run.runId);
+      else { state = { ...state, inFlight: true, cancelling: false, error: null }; render(); poll(state.generation, state.run.runId); }
+    }
+  });
+  updateOptionalControls(); render(); refreshRegistry(); refreshPresets();
+  const lastRunId = rememberedRunId();
+  if (lastRunId) restoreRun(lastRunId);
 })();

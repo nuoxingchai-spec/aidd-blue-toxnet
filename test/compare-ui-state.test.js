@@ -1,0 +1,358 @@
+"use strict";
+
+// Software interaction fixtures only. Every fetch, model result, and performance
+// field below is stubbed; these tests do not demonstrate real model deployment.
+const assert = require("node:assert/strict");
+const test = require("node:test");
+const fs = require("node:fs");
+const path = require("node:path");
+const vm = require("node:vm");
+const Core = require("../compare-core.js");
+const source = fs.readFileSync(path.join(__dirname, "..", "compare-app.js"), "utf8");
+const html = fs.readFileSync(path.join(__dirname, "..", "compare.html"), "utf8");
+const contractVersion = Core.CONTRACT;
+
+function deferred() {
+  let resolve, reject;
+  const promise = new Promise((accept, fail) => { resolve = accept; reject = fail; });
+  return { promise, resolve, reject };
+}
+const flush = () => new Promise((resolve) => setImmediate(resolve));
+
+class Element {
+  constructor(tag = "div", ownerDocument = null) {
+    this.tagName = tag.toUpperCase(); this.ownerDocument = ownerDocument;
+    this.children = []; this.parentElement = null; this.dataset = {}; this.events = {};
+    this.attributesMap = {}; this.style = {}; this.id = ""; this.hidden = false;
+    this.disabled = false; this.checked = false; this.open = false; this.className = "";
+    this._value = ""; this._text = ""; this.replaceWrites = 0;
+  }
+  get value() { return this._value; }
+  set value(value) {
+    const text = String(value);
+    this._value = this.tagName === "SELECT" && !this.children.some((child) => child.value === text) ? "" : text;
+  }
+  get firstChild() { return this.children[0] || null; }
+  get textContent() { return this._text + this.children.map((child) => child.textContent).join(""); }
+  set textContent(value) { this._text = String(value); this.children.forEach((child) => { child.parentElement = null; }); this.children = []; }
+  get isConnected() { return Boolean(this.ownerDocument && this.ownerDocument.body.contains(this)); }
+  append(...children) {
+    for (const child of children) {
+      if (child.parentElement) child.remove();
+      const firstOption = this.tagName === "SELECT" && !this.children.length;
+      this.children.push(child); child.parentElement = this;
+      if (firstOption) this._value = child.value;
+    }
+  }
+  replaceChildren(...children) {
+    this.replaceWrites += 1; this._text = "";
+    this.children.forEach((child) => { child.parentElement = null; }); this.children = [];
+    if (this.tagName === "SELECT") this._value = "";
+    this.append(...children);
+  }
+  remove() {
+    if (this.parentElement) this.parentElement.children = this.parentElement.children.filter((child) => child !== this);
+    this.parentElement = null;
+  }
+  contains(child) { return this === child || this.children.some((node) => node.contains(child)); }
+  setAttribute(name, value) { this.attributesMap[name] = String(value); }
+  addEventListener(name, callback) { (this.events[name] ||= []).push(callback); }
+  fire(name, event = {}) {
+    const results = (this.events[name] || []).map((callback) => callback({ preventDefault() {}, target: this, ...event }));
+    return Promise.all(results);
+  }
+  click() { return this.fire("click"); }
+  focus() { if (this.ownerDocument) this.ownerDocument.activeElement = this; }
+  reset() { if (this.ownerDocument && this.ownerDocument.resetFields) this.ownerDocument.resetFields(); }
+  querySelectorAll(selector) {
+    const matches = (element) => selector.split(",").some((piece) => {
+      const part = piece.trim();
+      if (part === "details[data-view-key]") return element.tagName === "DETAILS" && Object.hasOwn(element.dataset, "viewKey");
+      if (part === "[data-focus-key]") return Object.hasOwn(element.dataset, "focusKey");
+      if (part === "[data-reading-key]") return Object.hasOwn(element.dataset, "readingKey");
+      if (part === "[id]") return Boolean(element.id);
+      return element.tagName === part.toUpperCase();
+    });
+    const results = [];
+    const visit = (node) => { for (const child of node.children) { if (matches(child)) results.push(child); visit(child); } };
+    visit(this); return results;
+  }
+}
+
+function registry() {
+  return { contractVersion, testFixture: false,
+    models: Core.MODEL_IDS.map((id) => ({ id, configured: id !== "txgemma-2b-predict", available: id === "toxnet-v3-b16",
+      runtime: id === "ollama-qwen-local" ? "ollama" : "software-fixture", actualModelId: `${id}-fixture`, revision: "software-fixture-only",
+      ...(id === "ollama-qwen-local" ? { installedModels: [{ name: "qwen-test-only:4b", digest: "software-fixture-digest" }], selectedDefaultModel: "qwen-test-only:4b" } : {}) })),
+    specialistTasks: [{ id: "tdc-fixture-task", name: "Software fixture task", supported: true, directComparable: false }] };
+}
+function report() {
+  return { snapshotSha256: "fixture-snapshot", sections: [{ id: "fixture-section", title: "软件交互测试报告", text: "此处仅为软件验证文字。", claimIds: ["fixture-score"] }],
+    sourceVerification: { status: "software-fixture-only" }, verifiedFactIds: ["fixture-score"] };
+}
+function run(overrides = {}) {
+  const request = Core.buildRequest({ smiles: "CCO", question: "软件夹具问题", includeEvidence: true, evidenceEndpoint: "ames",
+    includeAttribution: false, ollamaModel: "qwen-test-only:4b" });
+  return { contractVersion, runId: "fixture-run-1", status: "completed", request, contentSaved: true,
+    structure: { canonicalSmiles: "CCO", structureId: "fixture-structure-only" },
+    snapshot: { snapshotSha256: "fixture-snapshot", facts: [{ id: "fixture-score", sourceKind: "software-fixture", text: "软件验证分数，不是真实预测。", sourceIds: ["fixture-source"] }] },
+    models: {
+      "toxnet-v3-b16": { status: "completed", provenance: { testFixture: true }, data: {
+        prediction: { endpoints: [{ id: "ames", score: 0.25, positiveClass: "软件夹具标签" }] },
+        evidence: { status: "insufficient-evidence", results: [], limitations: ["软件夹具，没有实验数据"] } } },
+      "txgemma-2b-predict": { status: "skipped" },
+      "ollama-qwen-local": { status: "completed", provenance: { testFixture: true }, data: { report: report() } },
+      "deepseek-api": { status: "skipped" },
+    }, ...overrides };
+}
+function response(value, status = 200) { return { ok: status >= 200 && status < 300, status, async json() { return value; } }; }
+
+async function setup(options = {}) {
+  const elements = {}, requests = [], blobs = [], confirms = [], timers = new Map(), storageWrites = [];
+  const storage = new Map(Object.entries(options.storage || {}));
+  const document = { activeElement: null,
+    getElementById(id) { assert.ok(elements[id], `Missing Compare HTML element: ${id}`); return elements[id]; },
+    createElement(tag) { return new Element(tag, document); },
+    querySelectorAll(selector) { return document.body.querySelectorAll(selector); },
+  };
+  document.body = new Element("body", document);
+  for (const match of html.matchAll(/<([\w-]+)\b([^>]*\bid="([^"]+)"[^>]*)>/g)) {
+    const [, tag, attrs, id] = match;
+    const element = new Element(tag, document); element.id = id;
+    element.hidden = /\bhidden(?:\s|$)/.test(attrs); element.disabled = /\bdisabled(?:\s|$)/.test(attrs); element.checked = /\bchecked(?:\s|$)/.test(attrs);
+    if (tag === "select") {
+      const start = match.index + match[0].length;
+      const markup = html.slice(start, html.indexOf("</select>", start));
+      for (const item of markup.matchAll(/<option\b[^>]*value="([^"]*)"[^>]*>([^<]*)<\/option>/g)) {
+        const option = new Element("option", document); option.value = item[1]; option.textContent = item[2]; element.append(option);
+      }
+    }
+    elements[id] = element; document.body.append(element);
+  }
+  let timerId = 0;
+  const windowEvents = {};
+  const window = { CompareCore: Core, scrollY: 0, scrollX: 0, innerWidth: 1200, innerHeight: 900,
+    addEventListener(name, callback) { (windowEvents[name] ||= []).push(callback); },
+    fire(name, event = {}) { return Promise.all((windowEvents[name] || []).map((callback) => callback(event))); },
+    scrollTo() {}, confirm(message) { confirms.push(message); return options.confirm ? options.confirm(message) : true; } };
+  const context = { window, document, Node: Element, AbortController, AbortSignal, Blob, Intl, Date,
+    location: { protocol: "http:" },
+    localStorage: { getItem(key) { return storage.get(key) ?? null; }, setItem(key, value) { storageWrites.push([key, value]); storage.set(key, value); }, removeItem(key) { storage.delete(key); } },
+    setTimeout(callback, delay) { const id = ++timerId; timers.set(id, { callback, delay }); return id; }, clearTimeout(id) { timers.delete(id); },
+    URL: { createObjectURL(blob) { blobs.push(blob); return "blob:software-fixture"; }, revokeObjectURL() {} },
+    async fetch(url, options_ = {}) {
+      const request = { url, method: options_.method || "GET", body: options_.body ? JSON.parse(options_.body) : null, signal: options_.signal };
+      requests.push(request);
+      if (options.fetch) {
+        const custom = await options.fetch(request);
+        if (custom !== undefined) return custom;
+      }
+      if (url === "/api/research/models") return response(registry());
+      if (url === "/api/research/compare/presets" && request.method === "GET") return response({ contractVersion, presets: options.presets || [] });
+      if (url === "/api/research/compare/runs" && request.method === "POST") return response({ contractVersion, runId: "fixture-run-1" }, 202);
+      if (url === "/api/research/compare/runs/fixture-run-1") return response(run({ status: request.method === "DELETE" ? "cancelled" : "completed" }));
+      throw new Error(`Unstubbed software fixture request ${request.method} ${url}`);
+    },
+  };
+  vm.runInNewContext(source, context, { filename: "compare-app.js" });
+  await flush();
+  return { elements, requests, document, window, timers, storage, storageWrites, blobs, confirms,
+    async pollOnce() { const timer = [...timers.entries()].find(([, item]) => item.delay === 1000); assert.ok(timer, "Expected scheduled status poll"); timers.delete(timer[0]); await timer[1].callback(); await flush(); } };
+}
+
+test("software fixture: remembered run is read-only, resets both permissions, and keeps old Mock provenance visible", async () => {
+  const delayedRegistry = deferred();
+  const historical = run(); historical.request.allowCloudTransfer = true; historical.request.persistSensitiveContent = true; historical.request.comparisonReporter = "deepseek-api";
+  const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+    if (request.url === "/api/research/models") return delayedRegistry.promise;
+    if (request.url === "/api/research/compare/runs/fixture-run-1") return response(historical);
+  } });
+  assert.equal(ui.elements.compareRunButton.disabled, true);
+  delayedRegistry.resolve(response(registry())); await flush();
+  assert.ok(ui.requests.some((request) => request.url.endsWith("/fixture-run-1")));
+  assert.ok(ui.requests.every((request) => request.method === "GET"), "Recovery must never create or cancel a model run");
+  assert.equal(ui.elements.compareAllowCloud.checked, false);
+  assert.equal(ui.elements.comparePersistSensitive.checked, false);
+  assert.equal(ui.elements.compareEnableDeepSeek.checked, false);
+  assert.equal(ui.elements.compareSmiles.value, "CCO");
+  assert.equal(ui.elements.compareOllamaModel.value, "qwen-test-only:4b", "Late registry population must restore the selected installed model without replaying permissions");
+  assert.equal(ui.elements.compareStaleBanner.hidden, true);
+  assert.equal(ui.elements.compareFixtureBanner.hidden, false);
+  assert.match(ui.elements.compareFixtureBanner.textContent, /历史运行.*Mock/);
+  assert.match(ui.elements.compareModelCards.textContent, /已完成 Mock 软件验证/);
+  assert.doesNotMatch(ui.elements.compareModelCards.textContent, /已完成真实报告生成/);
+  assert.match(ui.elements.compareRecoveryNotice.textContent, /只读恢复.*授权均保持关闭/);
+});
+
+test("software fixture: Run and keyboard shortcut cannot POST before model registry completes", async () => {
+  const pending = deferred();
+  const ui = await setup({ fetch(request) { if (request.url === "/api/research/models") return pending.promise; } });
+  ui.elements.compareSmiles.value = "CCO";
+  assert.equal(ui.elements.compareRunButton.disabled, true);
+  await ui.elements.compareForm.fire("submit");
+  await ui.elements.compareForm.fire("keydown", { key: "Enter", ctrlKey: true });
+  await flush();
+  assert.equal(ui.requests.filter((request) => request.method === "POST").length, 0);
+  assert.match(ui.elements.compareError.textContent, /先完成真实模型状态检查/);
+  pending.resolve(response(registry())); await flush();
+  assert.equal(ui.elements.compareRunButton.disabled, false);
+  assert.equal(ui.requests.filter((request) => request.method === "POST").length, 0, "Registry arrival must not silently retry submission");
+});
+
+test("software fixture: per-run permissions are consumed before ACK and late ACK preserves newly granted permissions", async () => {
+  const accepted = deferred();
+  const ui = await setup({ fetch(request) { if (request.method === "POST" && request.url.endsWith("/runs")) return accepted.promise; } });
+  ui.elements.compareSmiles.value = "CCO";
+  ui.elements.compareEnableDeepSeek.checked = true; ui.elements.compareAllowCloud.checked = true; ui.elements.comparePersistSensitive.checked = true;
+  const submitted = ui.elements.compareForm.fire("submit");
+  const create = ui.requests.find((request) => request.method === "POST");
+  assert.equal(create.body.allowCloudTransfer, true); assert.equal(create.body.persistSensitiveContent, true);
+  assert.equal(ui.elements.compareAllowCloud.checked, false); assert.equal(ui.elements.comparePersistSensitive.checked, false);
+  ui.elements.compareSmiles.value = "CCN"; await ui.elements.compareSmiles.fire("input");
+  ui.elements.compareAllowCloud.checked = true; await ui.elements.compareAllowCloud.fire("change");
+  ui.elements.comparePersistSensitive.checked = true; await ui.elements.comparePersistSensitive.fire("change");
+  accepted.resolve(response({ contractVersion, runId: "fixture-run-1" }, 202)); await submitted; await flush();
+  assert.equal(ui.elements.compareAllowCloud.checked, true); assert.equal(ui.elements.comparePersistSensitive.checked, true);
+  assert.ok(ui.requests.some((request) => request.method === "DELETE" && request.url.endsWith("/fixture-run-1")), "Accepted stale run must be cancelled");
+  assert.equal(ui.storage.get("aidd.compare.lastRunId"), undefined, "A stale acceptance cannot become the remembered current run");
+  assert.equal(ui.elements.compareExportButton.disabled, true);
+});
+
+test("software fixture: evidence filtering and attribution use independent request switches and endpoints", async () => {
+  for (const includeAttribution of [false, true]) {
+    const ui = await setup();
+    ui.elements.compareSmiles.value = "CCO";
+    ui.elements.compareIncludeEvidence.checked = true; ui.elements.compareEvidenceEndpoint.value = "ames";
+    ui.elements.compareIncludeAttribution.checked = includeAttribution; ui.elements.compareExplainEndpoint.value = "dili";
+    await ui.elements.compareIncludeAttribution.fire("change"); await ui.elements.compareIncludeEvidence.fire("change");
+    assert.equal(ui.elements.compareExplainEndpoint.disabled, !includeAttribution);
+    assert.equal(ui.elements.compareEvidenceEndpoint.disabled, false);
+    await ui.elements.compareForm.fire("submit"); await flush();
+    const payload = ui.requests.find((request) => request.method === "POST").body;
+    assert.equal(payload.includeEvidence, true); assert.equal(payload.evidenceEndpoint, "ames");
+    assert.equal(payload.includeAttribution, includeAttribution); assert.equal(payload.explainEndpoint, "dili");
+    assert.equal(payload.allowCloudTransfer, false); assert.equal(payload.persistSensitiveContent, false);
+  }
+});
+
+test("software fixture: failed history pagination restores buttons and retains the last successful page", async () => {
+  let count = 0;
+  const ui = await setup({ fetch(request) {
+    if (request.url.startsWith("/api/research/compare/runs?")) {
+      if (++count === 1) return response({ contractVersion, runs: [{ runId: "history-only", status: "partial", structureId: "fixture-structure" }], offset: 0, limit: 10, total: 12, hasMore: true });
+      throw new Error("software fixture network failure");
+    }
+  } });
+  await ui.elements.compareHistoryButton.fire("click"); await flush();
+  assert.equal(ui.elements.compareHistoryNext.disabled, false); assert.equal(ui.elements.compareHistoryPrevious.disabled, true);
+  const rows = ui.elements.compareHistoryRows.children.slice();
+  await ui.elements.compareHistoryNext.fire("click"); await flush();
+  assert.equal(ui.elements.compareHistoryRefresh.disabled, false);
+  assert.equal(ui.elements.compareHistoryNext.disabled, false); assert.equal(ui.elements.compareHistoryPrevious.disabled, true);
+  assert.equal(ui.elements.compareHistoryRows.children[0], rows[0]);
+  assert.match(ui.elements.compareHistoryPage.textContent, /第 1 页/);
+  assert.match(ui.elements.compareHistoryStatus.textContent, /读取历史失败.*network failure/);
+  assert.equal(ui.requests.filter((request) => request.method !== "GET").length, 0);
+});
+
+test("software fixture: preset update/delete require confirmation, surface 409, and never save sensitive authorizations", async () => {
+  let allow = false;
+  const ui = await setup({ presets: [{ id: "preset-fixture", name: "Fixture preset", settings: {}, updatedAt: "fixture-date" }],
+    confirm() { return allow; }, fetch(request) {
+      if (request.url === "/api/research/compare/presets/preset-fixture") return response({ error: { code: "PRESET_NAME_CONFLICT", message: "配置名称已存在（409 软件夹具）" } }, 409);
+    } });
+  ui.elements.comparePresetSelect.value = "preset-fixture"; await ui.elements.comparePresetSelect.fire("change");
+  ui.elements.comparePresetName.value = "New fixture name";
+  await ui.elements.compareUpdatePreset.fire("click"); await ui.elements.compareDeletePreset.fire("click");
+  assert.equal(ui.confirms.length, 2);
+  assert.equal(ui.requests.filter((request) => ["PATCH", "DELETE"].includes(request.method)).length, 0);
+  allow = true; ui.elements.compareAllowCloud.checked = true; ui.elements.comparePersistSensitive.checked = true;
+  await ui.elements.compareUpdatePreset.fire("click");
+  const update = ui.requests.find((request) => request.method === "PATCH");
+  assert.ok(update); assert.equal(update.body.name, "New fixture name");
+  for (const key of ["allowCloudTransfer", "persistSensitiveContent", "smiles", "question", "apiKey"]) assert.equal(Object.hasOwn(update.body.settings, key), false, `Preset must exclude ${key}`);
+  assert.match(ui.elements.comparePresetStatus.textContent, /名称已存在.*409/);
+  assert.equal(ui.elements.compareUpdatePreset.disabled, false);
+  await ui.elements.compareDeletePreset.fire("click");
+  assert.ok(ui.requests.some((request) => request.method === "DELETE"));
+  assert.match(ui.elements.comparePresetStatus.textContent, /名称已存在.*409/);
+  assert.equal(ui.elements.compareDeletePreset.disabled, false);
+});
+
+test("software fixture: unchanged polling preserves report/evidence details objects, expansion, and focus", async () => {
+  function reverseObjectKeys(value) {
+    if (Array.isArray(value)) return value.map(reverseObjectKeys);
+    if (value && typeof value === "object") return Object.fromEntries(Object.keys(value).reverse().map((key) => [key, reverseObjectKeys(value[key])]));
+    return value;
+  }
+  let reads = 0;
+  const base = run({ status: "running" }); base.models["deepseek-api"] = { status: "running" };
+  const ui = await setup({ fetch(request) {
+    if (request.method === "GET" && request.url === "/api/research/compare/runs/fixture-run-1") {
+      reads += 1; const updated = JSON.parse(JSON.stringify(base));
+      updated.models["deepseek-api"].metrics = { durationMs: reads * 100 };
+      // JSON object key order is not a report/evidence change. A later status
+      // response may serialize equivalent facts in a different order.
+      return response(reads > 1 ? reverseObjectKeys(updated) : updated);
+    }
+  } });
+  ui.elements.compareSmiles.value = "CCO"; await ui.elements.compareForm.fire("submit"); await flush();
+  const target = ui.elements.compareQwenContent, evidence = ui.elements.compareEvidenceContent;
+  const reportDetails = target.querySelectorAll("details[data-view-key]")[0];
+  const evidenceDetails = evidence.querySelectorAll("details[data-view-key]")[0];
+  assert.ok(reportDetails); assert.ok(evidenceDetails);
+  reportDetails.open = true; evidenceDetails.open = true;
+  const summary = reportDetails.querySelectorAll("summary")[0]; summary.focus();
+  const reportWrites = target.replaceWrites, evidenceWrites = evidence.replaceWrites;
+  await ui.pollOnce();
+  assert.equal(reads, 2);
+  assert.equal(target.querySelectorAll("details[data-view-key]")[0], reportDetails);
+  assert.equal(evidence.querySelectorAll("details[data-view-key]")[0], evidenceDetails);
+  assert.equal(reportDetails.open, true); assert.equal(evidenceDetails.open, true);
+  assert.equal(ui.document.activeElement, summary); assert.equal(target.contains(summary), true);
+  assert.equal(target.replaceWrites, reportWrites); assert.equal(evidence.replaceWrites, evidenceWrites);
+});
+
+test("software fixture: summary-only history exports a summary and input edits invalidate that export", async () => {
+  const historical = run({ request: undefined, contentSaved: false, recovery: { contentAvailable: false } });
+  delete historical.snapshot;
+  historical.structure = { structureId: "fixture-structure-only" };
+  delete historical.models["toxnet-v3-b16"].data.evidence;
+  delete historical.models["ollama-qwen-local"].data;
+  const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+    if (request.url.endsWith("/fixture-run-1")) return response(historical);
+  } });
+  assert.equal(ui.elements.compareSmiles.value, "");
+  assert.match(ui.elements.compareRecoveryNotice.textContent, /内容未保存.*报告正文无法恢复/);
+  assert.match(ui.elements.compareQwenContent.textContent, /报告正文未保存/);
+  assert.equal(ui.elements.compareExportButton.textContent, "导出摘要 JSON");
+  await ui.elements.compareExportButton.fire("click");
+  assert.equal(ui.blobs.length, 1); const exported = JSON.parse(await ui.blobs[0].text());
+  assert.equal(exported.recovery.contentAvailable, false);
+  assert.equal(Object.hasOwn(exported, "request"), false);
+  assert.equal(Object.hasOwn(exported.structure, "canonicalSmiles"), false);
+  ui.elements.compareSmiles.value = "CCN"; await ui.elements.compareSmiles.fire("input");
+  assert.equal(ui.elements.compareExportButton.disabled, true);
+  await ui.elements.compareExportButton.fire("click"); assert.equal(ui.blobs.length, 1);
+  assert.equal(ui.requests.filter((request) => request.method !== "GET").length, 0);
+});
+
+test("software fixture: back-forward cache resumes GET polling without resubmission or inherited permissions", async () => {
+  const pendingRun = run({ status: "running" });
+  const ui = await setup({ fetch(request) {
+    if (request.url === "/api/research/compare/runs/fixture-run-1") return response(pendingRun);
+  } });
+  ui.elements.compareSmiles.value = "CCO";
+  await ui.elements.compareForm.fire("submit"); await flush();
+  const oldPoll = ui.requests.find((request) => request.url.endsWith("/fixture-run-1"));
+  const oldGets = ui.requests.filter((request) => request.method === "GET" && request.url.endsWith("/fixture-run-1")).length;
+  await ui.window.fire("pagehide", { persisted: true });
+  assert.equal(oldPoll.signal.aborted, true);
+  assert.equal(ui.requests.filter((request) => request.method === "DELETE").length, 0, "Leaving a retained page must not cancel the accepted server run");
+  ui.elements.compareAllowCloud.checked = true; ui.elements.comparePersistSensitive.checked = true;
+  await ui.window.fire("pageshow", { persisted: true }); await flush();
+  assert.equal(ui.elements.compareAllowCloud.checked, false); assert.equal(ui.elements.comparePersistSensitive.checked, false);
+  assert.equal(ui.requests.filter((request) => request.method === "POST").length, 1, "Returning to a retained page must not create a second run");
+  assert.equal(ui.requests.filter((request) => request.method === "DELETE").length, 0);
+  assert.ok(ui.requests.filter((request) => request.method === "GET" && request.url.endsWith("/fixture-run-1")).length > oldGets);
+});
