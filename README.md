@@ -183,3 +183,7 @@ node --test test/*.test.js
 ## 三轮整合与 CUDA 验收
 
 三轮代码在独立 `codex/toxnet-integration-cuda` 分支审查，正式 v2 工件与历史评价保持原字节。新增真实运行验收和 CUDA 工具，加固 v3 禁入来源重建、化学引擎/评价合同与历史源码核验，并区分 GPU 特征提取和 CPU 逻辑回归训练。Windows 安装、实际显存与实验记录见 [CUDA_VALIDATION.md](CUDA_VALIDATION.md)，PR 顺序、squash 注意事项、接口兼容及科学边界见 [TOXNET_V3_INTEGRATION.md](TOXNET_V3_INTEGRATION.md)。代码整合不自动合并 main 或发布 v3。
+
+## 四轮正式代码整合
+
+2026-10-13 获得用户明确授权后，PR #1–#4 已依次通过普通 merge commit 合入 main，原分支和历史训练源码保留。main 源码重新通过 CPU/CUDA 环境各 326 项 Python 测试、52 项 JavaScript 测试及真实模型接口验收；v2 正式工件保持不变，v3 仍为研究模型。实际合并 SHA、验收证据、新电脑运行条件及后续边界见 [MAIN_INTEGRATION_ACCEPTANCE.md](MAIN_INTEGRATION_ACCEPTANCE.md)。没有 GitHub Actions 成功记录，不把本机测试写成 CI 通过。

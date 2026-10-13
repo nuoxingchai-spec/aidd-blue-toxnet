@@ -43,10 +43,14 @@ $taskCudaPy = '.\.venv-v3-cuda\Scripts\python.exe'
 & $taskCudaPy scripts\prepare_toxicity_data.py
 & $taskCudaPy scripts\prepare_candidate_data.py
 & $taskCudaPy scripts\prepare_v3_data.py --output data\v3-development-new
-& $taskCudaPy scripts\prepare_multitask_data.py --previous-development-dir data\v3-development-new --output data\v3-multitask-new
+$toxnetAbsentPriorDevelopment = 'data\historical-v3-development-not-distributed'
+if (Test-Path -LiteralPath $toxnetAbsentPriorDevelopment) { throw '请使用不存在的历史参考路径，或提供 SHA 匹配的真实历史缓存。' }
+& $taskCudaPy scripts\prepare_multitask_data.py --previous-development-dir $toxnetAbsentPriorDevelopment --output data\v3-multitask-new
 ```
 
 原始缓存已合法获取时准备下载脚本可加 `--offline`。固定预训练离线导入参数见 [TOXNET_V3_TRAINING.md](TOXNET_V3_TRAINING.md)。下载失败、来源缺失、哈希不符或未完成数据审核都会报错，不产生替代分子或标签。本机历史真实数据为 `data/v3-development` 与 `data/v3-multitask-audited`；新 clone 根据自己的新 output 修改以下参数，不把新数据冒充历史版本。
+
+刚生成的四任务目录不能作为固定历史参考。历史 v3 缓存未分发时，不存在的参考路径会如实记录 `unknownStructureReuse=true` 及不可评估的历史结构交集；它不取消 v2 heldout/Karim 隔离。该行为已有 CPU 回归覆盖，不构造假的历史数据。
 
 ## 4. 真实 CUDA 工具
 

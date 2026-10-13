@@ -63,6 +63,14 @@ artifacts/integration/multitask-cuda-20261013/*
 !artifacts/integration/historical-fourtask-verification-bound.json
 !artifacts/integration/training-source-audit-20261013.json
 !artifacts/integration/validation-tests-20261013.json
+!artifacts/main-merge/
+artifacts/main-merge/*
+!artifacts/main-merge/main-acceptance-20261013.json
+!artifacts/main-merge/premerge-snapshot.json
+!artifacts/main-merge/premerge-security-audit.json
+!artifacts/main-merge/premerge-live-api.json
+!artifacts/main-merge/post-main-runtime.json
+!artifacts/main-merge/post-main-artifact-audit.json
 data/raw/
 data/processed/
 data/candidates/

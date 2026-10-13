@@ -99,10 +99,14 @@ $toxnetIntegrationPython = '.\.venv-v3\Scripts\python.exe'
 # & $toxnetIntegrationPython scripts\fetch_pretrained_encoder.py --output models\pretrained\molformer --offline --local-weight 'D:\verified-downloads\model.safetensors'
 
 & $toxnetIntegrationPython scripts\prepare_v3_data.py --data-dir data --candidate-dir data\candidates --output data\v3-development-integration-new --seed 42 --validation-fraction 0.2 --encoder-compatible molformer
-& $toxnetIntegrationPython scripts\prepare_multitask_data.py --data-dir data --candidate-dir data\candidates --previous-development-dir data\v3-development-integration-new --output data\v3-multitask-integration-new --seed 42 --validation-fraction 0.2 --encoder-compatible molformer
+$toxnetAbsentPriorDevelopment = 'data\historical-v3-development-not-distributed'
+if (Test-Path -LiteralPath $toxnetAbsentPriorDevelopment) { throw '请使用不存在的历史参考路径，或提供 SHA 匹配的真实历史缓存。' }
+& $toxnetIntegrationPython scripts\prepare_multitask_data.py --data-dir data --candidate-dir data\candidates --previous-development-dir $toxnetAbsentPriorDevelopment --output data\v3-multitask-integration-new --seed 42 --validation-fraction 0.2 --encoder-compatible molformer
 ```
 
 准备脚本是离线审核流程，依赖原四端点真实 raw/processed 数据、审核过的 Tox21/Karim 来源和固定历史分割。缺少这些文件会明确拒绝，无假数据回退。合法获取原始来源的步骤见 [TOXNET_V3_TRAINING.md](TOXNET_V3_TRAINING.md) 与 [TOXNET_V3_MULTITASK.md](TOXNET_V3_MULTITASK.md)。本轮未分发未经许可的实验数据库。
+
+`--previous-development-dir` 指固定的已曝光 v3 历史参考，不是刚生成的四任务目录。新 clone 没有该历史缓存时使用上述不存在的路径，协议记录 `unknownStructureReuse=true`、历史交集不可评估；不能据此宣称零交集或新盲测。v2 heldout 和 Karim 的严格禁入审核仍执行。已有本机固定缓存时可提供匹配历史 SHA 的实际目录，不改写历史清单。
 
 ### 测试和历史工件验收
 

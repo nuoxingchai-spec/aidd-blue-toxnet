@@ -1,0 +1,58 @@
+{
+  "schema": "aidd.main-merge-preflight.v1",
+  "mainBefore": "51f683e8aba729a2af6221a6b92f8fb5ab4d4ef8",
+  "integrationHead": "3780e7e111c8f816d19cc63b5a3df477308b68c7",
+  "prs": [
+    {
+      "baseRefName": "codex/toxnet-explainable-reports",
+      "headRefName": "codex/toxnet-integration-cuda",
+      "headRefOid": "3780e7e111c8f816d19cc63b5a3df477308b68c7",
+      "isDraft": true,
+      "mergeStateStatus": "CLEAN",
+      "mergeable": "MERGEABLE",
+      "number": 4,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/pull/4"
+    },
+    {
+      "baseRefName": "codex/toxnet-v3-multitask",
+      "headRefName": "codex/toxnet-explainable-reports",
+      "headRefOid": "c997ae774d40190002f3ec20b807d1c981f1fb4b",
+      "isDraft": true,
+      "mergeStateStatus": "CLEAN",
+      "mergeable": "MERGEABLE",
+      "number": 3,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/pull/3"
+    },
+    {
+      "baseRefName": "feat/toxnet-v3-pretraining",
+      "headRefName": "codex/toxnet-v3-multitask",
+      "headRefOid": "bb35137fe805ac69aa1343c119386f3a9567ea43",
+      "isDraft": true,
+      "mergeStateStatus": "CLEAN",
+      "mergeable": "MERGEABLE",
+      "number": 2,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/pull/2"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/toxnet-v3-pretraining",
+      "headRefOid": "ebfa7e44f5c7c737f51b907f7f1af5ea766d1613",
+      "isDraft": true,
+      "mergeStateStatus": "CLEAN",
+      "mergeable": "MERGEABLE",
+      "number": 1,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/pull/1"
+    }
+  ],
+  "mergeStrategy": "ordinary merge commit; preserve all branches; no force/rebase/squash",
+  "requiredCIConfigured": false,
+  "requiredReviewsConfigured": false
+}

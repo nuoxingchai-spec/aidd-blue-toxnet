@@ -1,0 +1,189 @@
+{
+  "schema": "aidd.toxnet.integration-runtime-verification.v1",
+  "status": "passed",
+  "generatedAt": "2026-10-13T09:09:45.375550+00:00",
+  "durationSeconds": 219.413,
+  "runtime": {
+    "device": "cuda",
+    "dependencies": {
+      "torch": "2.14.1+cu126",
+      "numpy": "2.5.4",
+      "rdkit": "2026.9.1",
+      "transformers": "4.57.6",
+      "fastapi": "0.143.0"
+    },
+    "pythonVersion": "3.13.2",
+    "v2InferenceDevice": "cpu",
+    "cudaAvailable": true
+  },
+  "v2": {
+    "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+    "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+    "parameterCount": 2374390,
+    "httpFourEndpointsPassed": true,
+    "parameterTensorsUnchanged": true,
+    "parameterGradientsUnmodified": true
+  },
+  "data": {
+    "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+    "manifestSha256": "ff4837c1bcb0e568c506e503cab9321f23be328f5c432d495be3606f15d7ceae",
+    "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+    "sampleCounts": {
+      "train": 4804,
+      "validation": 1462
+    },
+    "actualSampleCount": 6266,
+    "sourceMembershipAndLeakageChecksPassed": true,
+    "newBlindTestClaimed": false
+  },
+  "experimentalIndex": {
+    "datasetVersion": "aidd-evidence-2c9dbc78fc913daa",
+    "sha256": "2c9dbc78fc913daa646dcd57d9815d60634a754f909df4ee879ba03831669723",
+    "observationCount": 97645,
+    "uniqueStructureCount": 24847,
+    "sourceLedgerAndMembershipVerified": true,
+    "actualExactMatchVerified": true,
+    "similarityIsConfidence": false,
+    "optimizationUse": false
+  },
+  "explanation": {
+    "scoresUnchanged": true,
+    "sourceKinds": [
+      "human-rule",
+      "insufficient-evidence",
+      "limitation",
+      "mechanism-hypothesis",
+      "model-computation",
+      "model-metadata",
+      "neural-attribution"
+    ],
+    "localChineseReport": true,
+    "mechanismUncertain": true,
+    "languageUnavailableLocalReportPreserved": true,
+    "attributionStatus": "available",
+    "attributionMethod": "joint-embedding-morgan-integrated-gradients",
+    "atomCount": 3,
+    "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+    "attributionDiagnostics": {
+      "steps": 64,
+      "quadrature": "Gauss-Legendre",
+      "targetValue": 0.46769624948501587,
+      "baselineValue": 0.28398799896240234,
+      "targetDifference": 0.18370825052261353,
+      "contributionSum": 0.18184858875184642,
+      "completenessResidual": 0.0018596617707671015,
+      "requestedSteps": 32,
+      "comparedSteps": [
+        32,
+        64
+      ],
+      "convergenceL1RelativeChange": 0.017504490479725233,
+      "convergenceTested": true,
+      "completenessTolerance": 0.03,
+      "completenessPassed": true,
+      "convergencePassed": true,
+      "originalForwardMaximumAbsoluteDifference": 0.0
+    }
+  },
+  "b16": {
+    "taskCount": 16,
+    "pathwayCount": 12,
+    "routeScoresUnchanged": true,
+    "formalAvailability": false,
+    "researchOnly": true,
+    "calibrationStatus": "not-fitted",
+    "applicabilityValidated": false,
+    "clinicalAggregateProvided": false,
+    "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+    "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+    "encoderRevision": "7b12d946c181a37f6012b9dc3b002275de070314",
+    "encoderWeightsSha256": "0795977fe7192c4acdaf052f0e8464af57bc4bb59211271c5e61aaba2637b9c6",
+    "embeddingDimension": 768,
+    "headParameterCount": 100496
+  },
+  "negativeCases": {
+    "invalidSmiles422AllRoutes": true,
+    "wrongExplanationSha409": true,
+    "missingEncoder503NoFakeOutput": true,
+    "corruptedCopySha503NoFakeOutput": true,
+    "unconfiguredProviderRejected": true
+  },
+  "protectedV2AndHistory": [
+    {
+      "file": "models/aidd-toxnet/evaluation.json",
+      "sha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "models/aidd-toxnet/manifest.json",
+      "sha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "models/aidd-toxnet/split.json",
+      "sha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "models/aidd-toxnet/test-predictions.json",
+      "sha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "models/aidd-toxnet/training-history.json",
+      "sha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "models/aidd-toxnet/training-progress.json",
+      "sha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": null,
+      "originMainComparison": "not-distributed; protected-snapshot-only"
+    },
+    {
+      "file": "models/aidd-toxnet/training-references.json",
+      "sha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "models/aidd-toxnet/weights.pt",
+      "sha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation-predictions.json",
+      "sha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89",
+      "originMainComparison": "identical"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation.json",
+      "sha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+      "matchesProtectedSnapshot": true,
+      "originMainSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+      "originMainComparison": "identical"
+    }
+  ],
+  "externalProvidersInvoked": false,
+  "userDotenvRead": false,
+  "trainingPerformed": false,
+  "scientificMechanismValidated": false,
+  "clinicalUseCertified": false,
+  "exportContainsExperimentalRows": false
+}
