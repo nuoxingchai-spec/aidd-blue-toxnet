@@ -92,3 +92,12 @@ models/aidd-toxnet/*
 models/pilot-isotope-unaware/
 .pytest_cache/
 *.log
+data/compare-presets.json
+data/.compare-presets-*
+models/txgemma*/
+!artifacts/compare/
+artifacts/compare/*
+!artifacts/compare/runtime-verification.json
+!artifacts/compare/validation.json
+!artifacts/compare/browser-verification.json
+!artifacts/compare/artifact-preservation.json

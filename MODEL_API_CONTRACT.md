@@ -150,3 +150,27 @@ v2 `attribution.method=joint-embedding-morgan-integrated-gradients`，单位为�
 | 503 | 模型未配置、工件/依赖不可用或解释基础设施异常；返回明确不可用，不提供模拟预测 |
 
 业务错误包含顶层 `status` 和 `error.code`、`error.message`、`error.requestId`。同源、请求大小限制及安全响应头沿用现有后台。模型密钥和上游响应原文不返回浏览器。JSON 导出是用户主动下载的本机研究报告，可能含本机检索的来源观察，应遵守底层数据许可，不将导出当作允许公开数据库的授权。方法、验证和启动流程见 [EXPLANATION_REPORTS.md](EXPLANATION_REPORTS.md)。
+## 独立四模型 Compare（aidd.multimodel.compare.v1）
+
+原 `toxilens.api.v2` 与研究 Tox21/解释 API 保持原语义。新增工作台 `/compare`，详细操作见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md)。
+
+| 方法 / 路径 | 含义 |
+|---|---|
+| `GET /api/research/models` | 四注册项的实际状态、ID、revision、许可、设备、任务合同和资源限制；配置不是可用证明 |
+| `POST /api/research/compare/runs` | 严格请求，返回 HTTP 202 与 `runId` / `pollUrl`；不等待大模型结束 |
+| `GET /api/research/compare/runs/{runId}` | 进程内运行状态、规范结构、四模型独立结果、共同事实、已核验报告、限制和真实性能 |
+| `DELETE /api/research/compare/runs/{runId}` | 取消等待清理；已终态结果保留到 TTL；不存在或过期 404 |
+| `GET /api/research/compare/presets` | 仅研究配置，不包括密钥/分子/问题/授权 |
+| `POST /api/research/compare/presets` | `{name,settings}` 原子保存，201；未知字段拒绝 |
+
+请求字段：`smiles`（合法，1–4096字符）、`question`（最多1000字符）、`mode="compare"`、固定 `primaryPredictor="toxnet-v3-b16"` / `specialistPredictor="txgemma-2b-predict"` / `primaryReporter="ollama-qwen-local"`、`specialistTask`（注册ID或null）、`comparisonReporter`（`deepseek-api`或null）、`ollamaModel`（真实本机Qwen ID或null）、严格布尔 `includeTox21` / `includeEvidence` / `allowCloudTransfer`、`explainEndpoint`（原四端点ID或null）。额外字段、凭据、URL和类型强制转换均拒绝。POST必须JSON，同源检查覆盖POST/DELETE。
+
+运行状态：`pending/running/completed/partial/failed/cancelled`；模型还可 `unavailable/unsupported/skipped`。单模型结果有 `status/data/metrics/provenance/error`，失败不清除其它成功结果。B16始终返回实际16任务，`includeTox21`只控制报告/界面展示。TxGemma只返回审核的类别结果，`probability=null`，不与毒性标签直接比较。未核验报告 `data=null`；已取得的实测metrics/provenance可保留。
+
+`snapshot` 为 `aidd.compare.facts.v1`，带canonicalJSON SHA256与事实ID/来源/章节；`reports` 为确定性核验后的 `aidd.compare.report.v1` 结果。报告器精确复制分数与来源，只能排序已有章节内结论。所有自由commentary标记unverified，不能当作实验事实。两个报告独立收到相同快照，不读取对方结果。
+
+`cloudTransfer.allowed` 是本次授权；`requestAttempted` 表示曾尝试HTTP，不证明供应商收到/计费；`executed` 表示报告通过确定性核验。允许的类别为查询canonical结构、核验模型分数、任务语义、规则/归因摘要、证据状态聚合和研究限制。原始实验行、样本标签/结构、受限数据库、密钥、私有路径和自由问题不外发。无授权时DeepSeek不执行；预设不会持久化授权。
+
+`metrics` 仅填真实测量：duration/queue/wall、实际返回tokens/token/s、PyTorch子进程峰值或null。`cost=null`表示未获真实账单，不是零费用。所有v3结果 `formalAvailability=false`；没有临床综合概率、模型投票或准确率排名。
+
+默认本机阶段串行、运行并发1、队列32、阶段240秒、总计900秒、终态TTL1800秒（按请求清理）。运行与报告仅在内存，重启丢失；JSON导出含完整当前结果。取消后未确认Ollama清理则隔离后续本机阶段；原v2推理路径不替换。

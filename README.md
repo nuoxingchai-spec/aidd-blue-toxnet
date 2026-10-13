@@ -187,3 +187,8 @@ node --test test/*.test.js
 ## 四轮正式代码整合
 
 2026-10-13 获得用户明确授权后，PR #1–#4 已依次通过普通 merge commit 合入 main，原分支和历史训练源码保留。main 源码重新通过 CPU/CUDA 环境各 326 项 Python 测试、52 项 JavaScript 测试及真实模型接口验收；v2 正式工件保持不变，v3 仍为研究模型。实际合并 SHA、验收证据、新电脑运行条件及后续边界见 [MAIN_INTEGRATION_ACCEPTANCE.md](MAIN_INTEGRATION_ACCEPTANCE.md)。没有 GitHub Actions 成功记录，不把本机测试写成 CI 通过。
+## 四模型研究 Compare 工作台
+
+新增 `/compare`：真实 ToxNet v3 B16 主预测、审核合同下的 TxGemma 专项预测、本机 Ollama Qwen 主报告，以及逐次授权的 DeepSeek 独立报告。浅蓝色独立页面连接异步 FastAPI，支持四卡状态、4+12任务表、双栏报告、来源核验、真实性能、取消、预设与JSON导出；输入或配置变化使旧结果失效。
+
+真实 CUDA B16 16任务及旧v2 HTTP已验证。Ollama当前不可达；TxGemma尚未授权/下载，DeepSeek未执行收费调用。这三项适配器的软件测试不能称为真实部署。模型不投票、不平均、不排名，v3始终 `formalAvailability=false`。启动、配置、实际验收、科学限制与重现命令见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md)。

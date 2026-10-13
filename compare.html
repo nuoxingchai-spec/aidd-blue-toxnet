@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="蓝研 AIDD：同一分子的四模型研究对照、独立报告与事实审计。" />
+    <title>AIDD 蓝研 | 多模型对照实验室</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="compare.css" />
+  </head>
+  <body class="compare-page">
+    <div class="compare-shell">
+      <aside class="compare-sidebar" aria-label="研究对照设置">
+        <a class="compare-brand" href="/" aria-label="返回原分子毒性工作台">
+          <span class="compare-brand-icon" aria-hidden="true">蓝</span>
+          <span><strong>AIDD 蓝研</strong><small>分子研究 · 独立模型对照</small></span>
+        </a>
+        <div class="compare-sidebar-intro"><span class="compare-chip">COMPARE</span><h2>一个分子，四个视角</h2><p>真实预测与研究报告分别运行，所有结论保留来源。</p></div>
+        <form id="compareForm" class="compare-form">
+          <label for="compareSmiles">分子 SMILES <span aria-hidden="true">*</span></label>
+          <textarea id="compareSmiles" rows="3" required maxlength="4096" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="例如 CCO" aria-describedby="compareSmilesHint"></textarea>
+          <p class="compare-hint" id="compareSmilesHint">由 RDKit 验证结构。Ctrl / ⌘ + Enter 运行。</p>
+          <label for="compareQuestion">研究问题 <span class="compare-optional">可选</span></label>
+          <textarea id="compareQuestion" rows="2" maxlength="1000" placeholder="希望重点讨论的研究问题"></textarea>
+          <p class="compare-hint">自由问题仅在本机使用，不会发送至 DeepSeek。</p>
+          <div class="compare-field-block">
+            <label for="comparePredictor">主要预测</label>
+            <select id="comparePredictor" disabled><option value="toxnet-v3-b16">ToxNet v3 B16 · 本机研究模型</option></select>
+            <label class="compare-check"><input id="compareIncludeTox21" type="checkbox" checked /><span>展示十二个 Tox21 通路</span></label>
+            <label class="compare-check"><input id="compareIncludeEvidence" type="checkbox" /><span>检索已审计的本机实验依据</span></label>
+            <label for="compareExplainEndpoint">可选模型归因</label>
+            <select id="compareExplainEndpoint"><option value="">关闭</option><option value="herg">hERG</option><option value="dili">DILI</option><option value="ames">Ames</option><option value="clintox">ClinTox</option></select>
+            <p class="compare-hint">只解释实际加载的模型。归因不代表因果机制。</p>
+          </div>
+          <div class="compare-field-block">
+            <label for="compareSpecialistTask">TxGemma · 专项 TDC 任务</label>
+            <select id="compareSpecialistTask"><option value="">跳过专项预测</option></select>
+            <p class="compare-hint" id="compareTaskHint">只提供已审核的官方任务合同；分类文本不转换成概率。</p>
+          </div>
+          <div class="compare-field-block">
+            <label for="compareOllamaModel">主报告 · 本地 Ollama Qwen</label>
+            <select id="compareOllamaModel"><option value="">正在检查本机模型…</option></select>
+            <p class="compare-hint" id="compareOllamaHint">独立于原工作台的 Qwen 云端 API。</p>
+            <details class="compare-config-help"><summary>本机 Qwen 设置</summary><p>先安装 Ollama，在 PowerShell 执行 <code>ollama serve</code> 与 <code>ollama list</code>，然后刷新模型状态。这里仅选择实际安装的模型；页面不下载权重。</p><p>连接地址和默认模型在服务端配置。Ollama 仅允许 loopback 访问。</p></details>
+          </div>
+          <div class="compare-field-block compare-cloud-block">
+            <label class="compare-check"><input id="compareEnableDeepSeek" type="checkbox" /><span>启用 DeepSeek 独立报告对照</span></label>
+            <label for="compareDeepSeekModel">DeepSeek 账户模型</label>
+            <select id="compareDeepSeekModel" disabled><option value="">未配置</option></select>
+            <a href="/" class="compare-text-link">在原工作台配置服务端 API</a>
+            <label class="compare-check compare-cloud-consent"><input id="compareAllowCloud" type="checkbox" /><span>本次允许向 DeepSeek 发送规范 SMILES、未校准预测、任务定义、规则及已审计证据摘要。调用可能产生费用。</span></label>
+            <p class="compare-hint">不外发原始实验行、受限数据库、私有数据、自由问题或完整本机路径。每次新运行均需确认。</p>
+          </div>
+          <button class="primary-button compare-run" id="compareRunButton" type="submit"><span aria-hidden="true">↗</span> 运行 Compare</button>
+          <div class="compare-inline-actions"><button class="secondary-button" id="compareCancelButton" type="button" disabled>取消运行</button><button class="secondary-button" id="compareResetButton" type="button">清空</button></div>
+        </form>
+        <details class="compare-config-help compare-preset-box"><summary>保存研究配置</summary><label for="comparePresetSelect">已有配置</label><select id="comparePresetSelect"><option value="">选择预设…</option></select><label for="comparePresetName">配置名称</label><input id="comparePresetName" type="text" maxlength="80" placeholder="例如 十二通路研究" /><button class="secondary-button" id="compareSavePreset" type="button">保存当前配置</button><p class="compare-hint">不保存分子、自由问题、密钥或云端授权。</p><p id="comparePresetStatus" role="status" aria-live="polite"></p></details>
+        <a class="compare-back-link" href="/">← 返回原分子毒性工作台</a>
+      </aside>
+      <main class="compare-workspace">
+        <header class="compare-topbar"><div><p class="eyebrow">Independent research comparison</p><h1>多模型对照实验室</h1><p>独立运行 · 共同事实 · 透明差异</p></div><div class="compare-header-actions"><button class="secondary-button" id="compareRefreshModels" type="button">刷新模型</button><button class="secondary-button" id="compareExportButton" type="button" disabled>导出 JSON</button></div></header>
+        <div id="compareFixtureBanner" class="compare-fixture-banner" role="note" hidden></div>
+        <div class="compare-research-note" role="note"><strong>研究原型</strong><p>未校准分数与通路活性均不构成人体风险概率。独立对照不做模型投票或分数平均；没有新独立标注数据时，不给出科学准确率排名。ClinTox 样本少，B16 可能存在负迁移。</p></div>
+        <section class="compare-model-section" aria-labelledby="compareModelsTitle"><div class="compare-section-head"><div><p class="eyebrow">Model readiness</p><h2 id="compareModelsTitle">四模型 · 实际运行能力</h2></div><span class="compare-small-note" id="compareRegistryStatus" role="status" aria-live="polite">正在读取服务端注册信息…</span></div><div id="compareModelCards" class="compare-model-grid"></div><p class="compare-hint" id="compareResourcePolicy"></p></section>
+        <div id="compareRunStatus" class="compare-run-status" role="status" aria-live="polite">准备输入一个分子，开始可追溯的研究对照。</div>
+        <div id="compareError" class="compare-error" role="alert" hidden></div>
+        <div id="compareStaleBanner" class="compare-stale-banner" role="status" hidden>输入或配置已修改。下面显示的是旧运行记录，请重新运行后导出。</div>
+        <section id="compareEmptyState" class="compare-empty-state"><div class="compare-empty-orbit" aria-hidden="true"><span>B16</span><span>Tx</span><span>Q</span><span>D</span></div><h2>让每个模型说清楚自己的依据</h2><p>同一结构输入，真实预测与独立报告各自留痕。缺少模型时会明确显示不可用，已完成的结果仍会保留。</p><div><span>01 验证分子</span><span>02 独立执行</span><span>03 核验来源</span></div></section>
+        <div id="compareResults" hidden>
+          <section class="compare-panel compare-identity" aria-labelledby="compareStructureTitle"><div><p class="eyebrow">Shared molecular identity</p><h2 id="compareStructureTitle">当前研究分子</h2><code id="compareCanonical"></code></div><dl><dt>结构标识</dt><dd id="compareStructureId"></dd><dt>运行 ID</dt><dd id="compareRunId"></dd><dt>事实快照 SHA256</dt><dd id="compareSnapshotHash"></dd></dl></section>
+          <section class="compare-panel"><div class="compare-section-head"><div><p class="eyebrow">Four toxicity endpoints</p><h2>四端点预测</h2></div><span class="compare-chip">B16 · 未校准</span></div><p class="compare-hint">TxGemma 只有任务定义、正类及评测标签合同完全一致时才具有直接可比性。报告模型不产生毒性预测分数。</p><div class="compare-table-wrap"><table><thead><tr><th scope="col">端点</th><th scope="col">B16 分数 [0,1]</th><th scope="col">输出语义</th><th scope="col">TxGemma 合法直接对照</th></tr></thead><tbody id="compareEndpointRows"></tbody></table></div></section>
+          <section class="compare-panel" id="comparePathwayPanel"><div class="compare-section-head"><div><p class="eyebrow">Tox21 pathway assays</p><h2>十二通路 · 独立活性</h2></div><span class="compare-small-note">不合并为临床毒性概率</span></div><div class="compare-table-wrap"><table><thead><tr><th scope="col">通路</th><th scope="col">B16 分数 [0,1]</th><th scope="col">正类</th></tr></thead><tbody id="comparePathwayRows"></tbody></table></div></section>
+          <section class="compare-panel"><div class="compare-section-head"><div><p class="eyebrow">Specialist task contract</p><h2>TxGemma · 专项结果</h2></div></div><div id="compareSpecialistResult"></div></section>
+          <section class="compare-report-section"><div class="compare-section-head"><div><p class="eyebrow">Independent narrative reports</p><h2>同一事实快照 · 双栏研究报告</h2></div><span class="compare-small-note">DeepSeek 不读取 Qwen 报告</span></div><div class="compare-report-grid"><article class="compare-panel" id="compareQwenReport"><h3>Qwen · 本地主报告</h3><div id="compareQwenContent"></div></article><article class="compare-panel" id="compareDeepSeekReport"><h3>DeepSeek · 独立对照报告</h3><div id="compareDeepSeekContent"></div></article></div></section>
+          <section class="compare-panel"><div class="compare-section-head"><div><p class="eyebrow">Fact and source audit</p><h2>事实核验与差异</h2></div></div><div id="compareFactAudit"></div><div id="compareDifferences"></div></section>
+          <section class="compare-panel" id="compareEvidencePanel"><div class="compare-section-head"><div><p class="eyebrow">Optional research evidence</p><h2>本机证据与模型归因</h2></div></div><div id="compareEvidenceContent"></div></section>
+          <section class="compare-panel"><div class="compare-section-head"><div><p class="eyebrow">Measured engineering performance</p><h2>真实执行记录</h2></div></div><div class="compare-table-wrap"><table><thead><tr><th scope="col">模型</th><th scope="col">耗时</th><th scope="col">输入 / 输出 Token</th><th scope="col">Token/s</th><th scope="col">费用</th><th scope="col">GPU 峰值</th></tr></thead><tbody id="compareMetricsRows"></tbody></table></div><p class="compare-hint">未测量和供应商未返回的字段显示为“未测量”，不使用估算值。PyTorch 显存不代表整板占用。</p></section>
+          <section class="compare-panel compare-limitations"><h2>科学与运行限制</h2><ul id="compareLimitations"></ul></section>
+        </div>
+        <footer class="compare-footer">aidd.multimodel.compare.v1 · 原正式 v2 保留 · v3 formalAvailability=false</footer>
+      </main>
+    </div>
+    <script src="compare-core.js"></script>
+    <script src="compare-app.js"></script>
+  </body>
+</html>
