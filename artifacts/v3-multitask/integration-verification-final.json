@@ -1,0 +1,214 @@
+{
+  "schema": "aidd.toxnet.multitask-run-verification.v1",
+  "status": "verified",
+  "verificationCodeSha256": "01906b586b2882322a5ea547572650512528be5a6a8c97e61e666561922ebce8",
+  "experimentSha256": "2363fef3d0cda147b8a230cbee036ba62355de7a5edcc5b8150d493218a0858d",
+  "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+  "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+  "runs": [
+    {
+      "model": "A4",
+      "seed": 42,
+      "manifestSha256": "6c29a0115a6f9cc9db4c6fda5ed45607d1ad7e522bded02ee0f4f4fa4d9e34ac",
+      "weightsSha256": "e00ceb7637242caf0d87e89c8ee4973ba167574b9c68c7517eb13c5f9b8f8826",
+      "parameterCount": 98948,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 852,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 1.4142701398878188e-07
+    },
+    {
+      "model": "A4",
+      "seed": 43,
+      "manifestSha256": "81ad0e94026575e4912a366feb37728e3753ba128814752632f0106337222571",
+      "weightsSha256": "d45c12e5f27e48e7826b6b506a10b8a532d190fe66e1ee7771c652ddcf6344d5",
+      "parameterCount": 98948,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 852,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 1.4090825795065598e-07
+    },
+    {
+      "model": "A4",
+      "seed": 44,
+      "manifestSha256": "33ec996813879020efabd57d023756252281ef3c8b39158b2cda339f5431f39e",
+      "weightsSha256": "bc79608df4ec58c603f8ace299a2f2648f65990c6015353c209f24c9abeb4e9e",
+      "parameterCount": 98948,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 852,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 8.128994932743439e-08
+    },
+    {
+      "model": "B16",
+      "seed": 42,
+      "manifestSha256": "98638c37077043dd0e956f0960e63e6fd990389e7271e85503a806f5b89bba0e",
+      "weightsSha256": "867b8b11413d30647d026b945efda16643f432af3d4487995f0473c30789fd06",
+      "parameterCount": 100496,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 1.1455151649464312e-07
+    },
+    {
+      "model": "B16",
+      "seed": 43,
+      "manifestSha256": "757c8da539a0318d5f6701445b6dc65bd8b8371c412a6f8c5c5979bde7f0d162",
+      "weightsSha256": "f2c5f23f0b3740b43ab7c7e72db434ba5b59dd99a176842d01f39f7e5558c57d",
+      "parameterCount": 100496,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 8.916093147126603e-08
+    },
+    {
+      "model": "B16",
+      "seed": 44,
+      "manifestSha256": "5c02d342ac0bbaedf992e5ed739c5959013b8d5751add87fa37b9054a2584713",
+      "weightsSha256": "2452cbb16ded0df35ffbf94a12056ad9655eb71ad78dcf2dd18c1cef177640fc",
+      "parameterCount": 100496,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 6.96891490625795e-08
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 42,
+      "manifestSha256": "3d86ce382d10dbb08190acd019bae2e6d226177f721b3f30f08f4b3b6c158b21",
+      "weightsSha256": "2436ae9fc478add0549feefb80aa23c31d3846551a2da1702bc558b6e0bd55f0",
+      "parameterCount": 32784,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 43,
+      "manifestSha256": "58c5cd1ad6fdd767a2a36fcd285cb398b662ab3b43be07ec02f5bcaa7e6cb370",
+      "weightsSha256": "2436ae9fc478add0549feefb80aa23c31d3846551a2da1702bc558b6e0bd55f0",
+      "parameterCount": 32784,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 44,
+      "manifestSha256": "9d7acbc06b4da8c457931fe935384a3bd0da0b29bf88ec53bf56b7738a9e01e3",
+      "weightsSha256": "2436ae9fc478add0549feefb80aa23c31d3846551a2da1702bc558b6e0bd55f0",
+      "parameterCount": 32784,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 42,
+      "manifestSha256": "0dcc303a035a28a5c3a911902565959097f9d768cb076231560d023642c8650f",
+      "weightsSha256": "7d6763909c746ace705c2d9bb3066cbb1baa7b37c90dac859aecf71b00eed7ca",
+      "parameterCount": 100496,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 1.3956613187371403e-07
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 43,
+      "manifestSha256": "9943216b665bc9eddd8611f599861d07a5949eaeabcb86b743fc1daadd0d7588",
+      "weightsSha256": "a6f68338e4175c04aeec6feb31c3afca749965e42e675872b7ed51f25c3237cf",
+      "parameterCount": 100496,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 1.4090825795065598e-07
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 44,
+      "manifestSha256": "2eb9ca49c0bdd0e93f0b1d5e8596952399ab7dc1b510db799464a9090722ef20",
+      "weightsSha256": "955f3ba5b2c392a3f87c5997fa9e9a1bed93f0990bf73ee681d259dafc9595dd",
+      "parameterCount": 100496,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "loadedInferenceMaximumAbsoluteDifference": 6.236341915100141e-08
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "independentTest": false,
+  "legacyHeldoutAndKarimLabelsUsed": false,
+  "protectedV2Files": [
+    {
+      "file": "models/aidd-toxnet/evaluation.json",
+      "beforeSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+      "afterSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+    },
+    {
+      "file": "models/aidd-toxnet/manifest.json",
+      "beforeSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "afterSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850"
+    },
+    {
+      "file": "models/aidd-toxnet/split.json",
+      "beforeSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+      "afterSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+    },
+    {
+      "file": "models/aidd-toxnet/test-predictions.json",
+      "beforeSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae",
+      "afterSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae"
+    },
+    {
+      "file": "models/aidd-toxnet/training-history.json",
+      "beforeSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340",
+      "afterSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340"
+    },
+    {
+      "file": "models/aidd-toxnet/training-progress.json",
+      "beforeSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398",
+      "afterSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398"
+    },
+    {
+      "file": "models/aidd-toxnet/training-references.json",
+      "beforeSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+      "afterSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6"
+    },
+    {
+      "file": "models/aidd-toxnet/weights.pt",
+      "beforeSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "afterSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation-predictions.json",
+      "beforeSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89",
+      "afterSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation.json",
+      "beforeSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+      "afterSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476"
+    }
+  ],
+  "purpose": "Membership, metric and inference checks; no new performance selection"
+}

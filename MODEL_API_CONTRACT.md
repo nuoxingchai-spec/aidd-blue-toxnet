@@ -82,3 +82,14 @@ ChatGPT / OpenAI、DeepSeek、千问、GLM 使用各供应商的 OpenAI-compatib
 审计报告记录规范结构、API 契约版本、RDKit/规则版本、模型名称、配置版本、供应商返回的模型标识、请求标识、提示词版本、是否含图片、分数类型及验证状态。配置版本与供应商实际返回版本的来源会分别记录。对话模型的 `returnedModel` 可能仍是可变别名，调用方应使用版本化模型并保存实际修订信息。
 
 超时、HTTP 错误、网络错误、非 JSON 响应和契约不符均返回可理解错误，不回显密钥或上游响应原文。客户端禁止重定向以避免将认证头转发到其他站点；仅允许 HTTPS 或本机 HTTP 推理服务。浏览器不会直接请求供应商，也不会接收模型密钥。
+
+## 独立 Tox21 研究接口 v1
+
+原 `/api/analyze` 的四端点语义保持不变。新增 `aidd.research.tox21.api.v1` 使用独立的 `aidd.toxnet.multitask.artifact.v1` 工件，不加入工作台供应商下拉框，不自动部署。
+
+- `GET /api/research/tox21/status`：200 返回 `configured`、`status`、`formalAvailability=false`、`researchOnly=true`、十二个 `tasks` 和语义。不可用时包含 `errorCode`、`message`，无虚构预测。
+- `POST /api/research/tox21`：JSON 仅允许严格字符串字段 `smiles`，长度 1..4096；不允许其它字段。成功返回规范结构及 SHA256 `structureId`、十二条 `pathways`（`id`、`assay`、`score`、`positiveClass=assay active`）、`semantics`、`calibration`、`applicability`、`provenance` 和 `requestId`。
+- `pathways` 顺序固定为 NR-AR、NR-AR-LBD、NR-AhR、NR-Aromatase、NR-ER、NR-ER-LBD、NR-PPAR-gamma、SR-ARE、SR-ATAD5、SR-HSE、SR-MMP、SR-p53，对应 `candidate_data.TOX21_ENDPOINTS`。分数是未校准的各通路活动模型输出；无 `overall`，不把通路阳性混成临床毒性概率。
+- 非法 SMILES / 不受支持的 tokenizer 输入返回 422；未启用研究、缺工件、训练未完成、校验失败、CUDA 不可用返回 503。错误包含 `error.code`、`error.message`、`error.requestId`；没有模型回退或模拟值。
+
+只有显式 `TOXNET_MULTITASK_ENABLE=true`、模型目录与完整所需工件核验成功，且十二通路全部完成监督训练后才可调用。A4 或零通路损失消融工件可离线审计，但不能充当 Tox21 服务。共享原同源/请求大小/安全响应头约束。部署及复现步骤见 [TOXNET_V3_MULTITASK.md](TOXNET_V3_MULTITASK.md)。

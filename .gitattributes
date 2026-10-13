@@ -9,3 +9,4 @@ artifacts/*.json -text whitespace=cr-at-eol
 *.png -text
 sources/molformer/** -text
 artifacts/v3/** -text whitespace=cr-at-eol
+artifacts/v3-multitask/** -text whitespace=cr-at-eol

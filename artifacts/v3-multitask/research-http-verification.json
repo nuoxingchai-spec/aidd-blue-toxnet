@@ -1,0 +1,18 @@
+{
+  "schema": "aidd.research.tox21.http-verification.v1",
+  "status": "passed",
+  "transport": "FastAPI TestClient against actual app and trained B16 CPU weights; no live deployment",
+  "contractVersion": "aidd.research.tox21.api.v1",
+  "modelVersion": "aidd-toxnet-multitask-b16-42-867b8b11413d",
+  "manifestSha256": "98638c37077043dd0e956f0960e63e6fd990389e7271e85503a806f5b89bba0e",
+  "weightsSha256": "867b8b11413d30647d026b945efda16643f432af3d4487995f0473c30789fd06",
+  "returnedPathways": 12,
+  "equivalentRepresentationPair": "passed",
+  "loadedDirectPredictionEquality": "passed",
+  "invalidInput422": "passed",
+  "strictRequestFields422": "passed",
+  "crossOrigin403": "passed",
+  "defaultUnavailable503": "passed",
+  "clinicalCompositePresent": false,
+  "formalAvailability": false
+}
