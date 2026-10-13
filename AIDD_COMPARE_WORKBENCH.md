@@ -158,7 +158,7 @@ P0诊断日志仅允许关联requestId/runId/modelId、阶段、errorCode、合�
 
 `.github/workflows/compare-cpu.yml` 设计为Ubuntu/Python3.13/Node22的软件回归：显式安装CPU Torch，设置HF离线及关闭研究/TxGemma授权，不下载MoLFormer、TxGemma或Ollama权重，不访问收费API。仓库原有v2小权重可用于相应真实加载合同；大编码器与外部模型场景使用显式软件夹具和临时测试工件。Windows ACL/OneDrive专属测试在Linux跳过，POSIX权限检查适用Linux；CPU CI不能证明RTX4060、真实Ollama、TxGemma或云模型已部署。
 
-本次P0/P1最终测试数量、CI实际状态和真实浏览器/模型复验由独立验收记录补齐，当前不提前填写完成证明。
+本次P0/P1最终测试数量、实际通过的Linux CI与真实浏览器/模型复验见 [AIDD_COMPARE_V1_ACCEPTANCE.md](AIDD_COMPARE_V1_ACCEPTANCE.md)。初版历史证明与本轮新增证明分别保留；安装状态不等于真实生成验收。
 
 ## 初版 Compare 已执行验证与重现（历史记录）
 

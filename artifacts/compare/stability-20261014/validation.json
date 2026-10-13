@@ -81,10 +81,30 @@
   "scientificAccuracyMeasured": false,
   "githubActions": {
     "configured": true,
-    "localScope": "CPU software only",
-    "statusAtReceipt": "awaiting push; inspect PR checks"
+    "status": "success",
+    "verifiedCommit": "8b85370d017938dd3d01565c6a08710340065587",
+    "runId": 38441502963,
+    "jobId": 115448961099,
+    "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/actions/runs/38441502963",
+    "python": {
+      "run": 504,
+      "passed": 501,
+      "skipped": 3,
+      "failed": 0,
+      "skip": "Two Windows OneDrive tests and one Windows protected ACL test"
+    },
+    "javascript": {
+      "run": 92,
+      "passed": 92,
+      "failed": 0
+    },
+    "dependencyChecks": "passed",
+    "syntax": "passed",
+    "postTestArtifactPreservation": "passed",
+    "scope": "Ubuntu CPU software regression; no large pretrained weights or paid API"
   },
   "rawExperimentalRowsIncluded": false,
   "credentialsIncluded": false,
-  "privateLocalPathsIncluded": false
+  "privateLocalPathsIncluded": false,
+  "sourceCodeVerificationCommit": "8b85370d017938dd3d01565c6a08710340065587"
 }

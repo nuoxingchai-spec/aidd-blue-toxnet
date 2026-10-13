@@ -46,9 +46,11 @@ DeepSeek 的 HTTP 响应、usage、报告 JSON、事实核验分别记录。测�
 | B16 本机工件 | 真实复验前后所有该模型目录文件 hash 未变 |
 | 浏览器 Mock | 报告等待期间展开/焦点/scrollY 保持；刷新仅恢复 GET、授权关闭；服务重启后全文/摘要分别恢复且模型调用数为 0；历史第 1/2 页；预设创建/409/重命名；独立检索/归因、旧结果失效、失败/取消保留预测、实际 JSON 下载 |
 | 确认取消预设操作/BFCache/迟到响应 | 实际应用脚本+VM 软件测试；不冒充人工浏览器弹窗行为或真实模型验证 |
-| GitHub Actions | 已配置 CPU 回归；远端运行状态以 PR checks 为准，提交前尚未执行，不提前标绿 |
+| GitHub Actions | 代码提交 `8b85370` 的 Ubuntu CPU [运行 38441502963](https://github.com/nuoxingchai-spec/aidd-blue-toxnet/actions/runs/38441502963) 实际成功；Python 504 项运行、501 通过、3 项 Windows 专属测试跳过；JS 92/92、依赖/语法/历史工件复核均通过 |
 
 完整聚合记录：`artifacts/compare/stability-20261014/{validation,runtime-verification,browser-verification,artifact-preservation}.json`。原 `artifacts/compare/*.json` 保留。
+
+真实浏览器也通过已更新的 4185 工作台完成 B16，四端点与十二通路实际显示；Qwen 明确不可用，未授权的 DeepSeek 和未选择的 TxGemma 被跳过。该次 B16 阶段约 7.746 秒（含加载），实测显存范围与 HTTP 探针一致。截图仅保存为本机验收附件，不提交分子导出或截图至 GitHub。安全恢复脚本实际只读核验成功，`quarantineCleared=false`，没有执行真实解锁。
 
 真实 B16 复验模型为 `aidd-toxnet-multitask-b16-42-2229faa18f2d`，weights SHA256 为 `2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3`。本次两次探针预测约 0.286–0.515 秒，含 worker 启动及模型加载约 9.75–11.29 秒。PyTorch peak allocated/reserved 为 187,969,024 / 213,909,504 bytes，限于本次 B16 进程；不是整板显存、吞吐基准、归因峰值或其他模型容量证明。
 

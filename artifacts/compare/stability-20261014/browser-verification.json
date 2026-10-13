@@ -44,5 +44,21 @@
   "scienceMetricsInvented": false,
   "queryRowsIncluded": false,
   "localDatabaseIncluded": false,
-  "keysIncluded": false
+  "keysIncluded": false,
+  "actualWorkbench": {
+    "realB16Stage": "completed",
+    "runStatus": "partial",
+    "toxicityRows": 4,
+    "tox21Rows": 12,
+    "durationMs": 7746.09,
+    "gpuAllocatedMiB": 179.26,
+    "gpuReservedMiB": 204.0,
+    "gpuScope": "B16 isolated PyTorch process, not whole board",
+    "qwen": "unavailable-model-not-installed",
+    "txgemma": "skipped",
+    "deepseek": "skipped-no-cloud-consent",
+    "persistSensitiveContent": false,
+    "actualScreenshotCapturedLocally": true,
+    "screenshotUploaded": false
+  }
 }
