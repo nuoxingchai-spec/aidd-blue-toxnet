@@ -1,0 +1,22 @@
+{
+  "schema": "aidd.integration-browser-verification.v1",
+  "status": "passed",
+  "method": "real in-app browser; isolated real-weight backend on loopback 4187",
+  "original4173ServiceModified": false,
+  "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+  "checks": {
+    "realFourEndpointPredictionDisplayed": true,
+    "actualModelAttributionPngAndConvergenceDisplayed": true,
+    "ChineseReportMechanismUncertaintyExpanded": true,
+    "unmatchedEvidenceRemainsInsufficient": true,
+    "jsonDownloadInspectedForRealModelHashAndNoCredentialFields": true,
+    "modifiedInputDisablesBothExports": true,
+    "resetReturnsEmptyState": true
+  },
+  "externalProviderInvoked": false,
+  "experimentalRowsRedistributed": false,
+  "screenshot": "local-only ignored browser-acceptance.jpg; no retrieved experimental rows",
+  "v3ApiAndMatchedEvidenceVerification": "runtime-cpu-20261013.json and runtime-cuda-20261013.json; independent real HTTP/model checks",
+  "clinicalOrMechanisticCertification": false
+}

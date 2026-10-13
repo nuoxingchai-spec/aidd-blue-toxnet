@@ -1,0 +1,9 @@
+{
+  "status": "sha256-verified",
+  "officialIndex": "https://download.pytorch.org/whl/cu126",
+  "url": "https://download.pytorch.org/whl/cu126/torch-2.14.1%2Bcu126-cp313-cp313-win_amd64.whl",
+  "sha256": "92d0ae66f10ae9dfaaf85d684d6794a3d6ca4ed938dcfaa25e94c54cff3764eb",
+  "bytes": 2602769784,
+  "downloadSeconds": 6.579,
+  "method": "official HTTPS range download; pinned registry SHA256; no third-party mirror"
+}

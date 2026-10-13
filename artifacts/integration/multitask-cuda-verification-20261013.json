@@ -1,0 +1,874 @@
+{
+  "schema": "aidd.toxnet.multitask-run-verification.v1",
+  "status": "verified",
+  "verificationCodeSha256": "9ab5c3a54434f35ab36ed7d9cfd9f321e95c86adbde2dcfcf7ae7cc804189a11",
+  "experimentSha256": "643ed09fb99e513952e5cf48daeba4825716a5dd17559907fbd88c30fd3b2fd0",
+  "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+  "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+  "runs": [
+    {
+      "model": "A4",
+      "seed": 42,
+      "manifestSha256": "39d5533c982eb0be66170fd33fb999e5a8610650aab39541c2a9475d01889254",
+      "weightsSha256": "c6396f9226f615faa8591eba7b2edf959e49c9178e410cf2a0fe60be8d5d35e2",
+      "parameterCount": 98948,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 852,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 5.7325733604507434e-08
+    },
+    {
+      "model": "A4",
+      "seed": 43,
+      "manifestSha256": "c5c1b471e52dcadeff0c4f6fb38bf3e317e539acf3e4787decc9cedb24b788a4",
+      "weightsSha256": "50ff9eae6867ec5915abe0d196ef01e9ccc7ad117209250dbb885b5673b1105b",
+      "parameterCount": 98948,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 852,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 8.971397347234955e-08
+    },
+    {
+      "model": "A4",
+      "seed": 44,
+      "manifestSha256": "d69948647be739451be9f441870d047288eadcd711a44d225de54c962c17d8cd",
+      "weightsSha256": "2487b6ee664f9fc34581075217becf1d03f4c9a97c29f9673d8186fa7515e0d3",
+      "parameterCount": 98948,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 852,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 2.4362575268277453e-07
+    },
+    {
+      "model": "B16",
+      "seed": 42,
+      "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "parameterCount": 100496,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 6.876435354463695e-08
+    },
+    {
+      "model": "B16",
+      "seed": 43,
+      "manifestSha256": "8636f3ac3ad33ee4e14782bd225ed9fa4a27bd7b0179c1cdec14f73dcef00c2c",
+      "weightsSha256": "e5602288665b0af2a01e07abca66bd01b33a88396aa7d2d184f37081b6d28ebb",
+      "parameterCount": 100496,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 7.625596021298975e-08
+    },
+    {
+      "model": "B16",
+      "seed": 44,
+      "manifestSha256": "2b78b604a83ae38bc1ee77ed25b78780b41ac5f31a705f5df5c9d640f0b7745e",
+      "weightsSha256": "02d962c7f8a0679289637091803fb066fe1b969f374c7624c8c098f18e24e014",
+      "parameterCount": 100496,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 2.992979259985873e-07
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 42,
+      "manifestSha256": "9f16f65f60f623f40aab5b0f7e92f902256636dec8d4b024c0c1a1c512203d81",
+      "weightsSha256": "2436ae9fc478add0549feefb80aa23c31d3846551a2da1702bc558b6e0bd55f0",
+      "parameterCount": 32784,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 43,
+      "manifestSha256": "3100904a3c0ba15e9344b0f4ae97565ef7fc419006d337ac85de6437ee7b7c2e",
+      "weightsSha256": "2436ae9fc478add0549feefb80aa23c31d3846551a2da1702bc558b6e0bd55f0",
+      "parameterCount": 32784,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 44,
+      "manifestSha256": "3a2226d8f3a40224cb8435b5a565e993bcfd72f261b9ab3888e974d45aaa0f91",
+      "weightsSha256": "2436ae9fc478add0549feefb80aa23c31d3846551a2da1702bc558b6e0bd55f0",
+      "parameterCount": 32784,
+      "trainedTasks": 16,
+      "observedValidationPredictions": 6634,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 0.0
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 42,
+      "manifestSha256": "44c119d3bf5b8111b222546c9b2a70ce7c5190c948915cadee15772c095eca98",
+      "weightsSha256": "3679654534af62555c61ee3fd2c9ddb2a40e8e24fa029d570aac15655f5b9a31",
+      "parameterCount": 100496,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 5.7325733604507434e-08
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 43,
+      "manifestSha256": "abbfd7e4cabdade3a88be3b5f092f37115dd9c026704123632ce0c47876756ea",
+      "weightsSha256": "c3c55fb2482ebd27400935e7293cf67708d5b075de41aff5cb3fbfbc04b7b865",
+      "parameterCount": 100496,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 8.971397347234955e-08
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 44,
+      "manifestSha256": "bc2d41f9e28d48f8287c22604bf9f7581ec251759e0c475ceb4b580de0362f8f",
+      "weightsSha256": "d1eedb7a223c66acc7c07d0b4f16a6a6deace1378310a61892b73f21478512a3",
+      "parameterCount": 100496,
+      "trainedTasks": 4,
+      "observedValidationPredictions": 852,
+      "recordedValidationCells": 6634,
+      "metricRecomputation": "passed",
+      "trainingSourceVerification": {
+        "mode": "current-checkout-bytes",
+        "commit": null,
+        "historicalCodeExecuted": false,
+        "files": [
+          {
+            "file": "backend/multitask_experiments.py",
+            "trainingSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeSha256": "03f75c4e0225c3e87db12b55e0eddc15f2f3761da8ac25b59c3890d02702c86a",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "scripts/train_multitask.py",
+            "trainingSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeSha256": "4808de257daf2d69f436282df09591a24f220c3d6cc88ec5ddaf737e7c62bad1",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/multitask_data.py",
+            "trainingSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeSha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/pretrained_encoder.py",
+            "trainingSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeSha256": "3fa64784a3c48df3fbc061d3ff03c4db9c366a7867e081011c1bea1b5f6dc576",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_experiments.py",
+            "trainingSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeSha256": "1f2d907a8b623384a34484fb077e7f64025574bf3ea1da71ab57b510158466af",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/v3_data.py",
+            "trainingSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeSha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/chemistry.py",
+            "trainingSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeSha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+            "runtimeDiffersFromTraining": false
+          },
+          {
+            "file": "backend/candidate_data.py",
+            "trainingSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeSha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994",
+            "runtimeDiffersFromTraining": false
+          }
+        ]
+      },
+      "loadedInferenceMaximumAbsoluteDifference": 2.4362575268277453e-07
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "independentTest": false,
+  "legacyHeldoutAndKarimLabelsUsed": false,
+  "protectedV2Files": [
+    {
+      "file": "models/aidd-toxnet/evaluation.json",
+      "beforeSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+      "afterSha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+    },
+    {
+      "file": "models/aidd-toxnet/manifest.json",
+      "beforeSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "afterSha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850"
+    },
+    {
+      "file": "models/aidd-toxnet/split.json",
+      "beforeSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+      "afterSha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+    },
+    {
+      "file": "models/aidd-toxnet/test-predictions.json",
+      "beforeSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae",
+      "afterSha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae"
+    },
+    {
+      "file": "models/aidd-toxnet/training-history.json",
+      "beforeSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340",
+      "afterSha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340"
+    },
+    {
+      "file": "models/aidd-toxnet/training-progress.json",
+      "beforeSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398",
+      "afterSha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398"
+    },
+    {
+      "file": "models/aidd-toxnet/training-references.json",
+      "beforeSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+      "afterSha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6"
+    },
+    {
+      "file": "models/aidd-toxnet/weights.pt",
+      "beforeSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "afterSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation-predictions.json",
+      "beforeSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89",
+      "afterSha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation.json",
+      "beforeSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+      "afterSha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476"
+    }
+  ],
+  "purpose": "Membership, metric and inference checks; no new performance selection"
+}

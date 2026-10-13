@@ -21,6 +21,7 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 
 from backend.multitask_data import load_multitask_data
 from backend.multitask_model import MultitaskModelClient
+from backend.training_provenance import verify_training_sources
 
 
 def digest(path):
@@ -45,7 +46,7 @@ def observed_metrics(rows):
     return values
 
 
-def verify_run(experiment, data_dir, snapshot):
+def verify_run(experiment, data_dir, snapshot, *, training_source_ref=None):
     experiment, data_dir = Path(experiment).resolve(), Path(data_dir).resolve()
     summary = json.loads((experiment / 'experiment.json').read_text(encoding='utf-8'))
     data, samples = load_multitask_data(data_dir)
@@ -84,10 +85,7 @@ def verify_run(experiment, data_dir, snapshot):
                 or manifest['training'].get('fourTaskValidationMembershipSha256') != membership_hash
                 or run.get('fourTaskValidationMembershipSha256') != membership_hash):
             raise ValueError('Actual artifact model/seed or comparison membership differs from summary')
-        for source_path, checksum in manifest['training']['sourceHashes'].items():
-            target = (ROOT / source_path).resolve()
-            if not target.is_relative_to(ROOT) or digest(target) != checksum:
-                raise ValueError('Training source bytes differ from the recorded version')
+        training_sources = verify_training_sources(manifest['training']['sourceHashes'], ROOT, commit=training_source_ref)
         if manifest['dataset']['datasetVersion'] != data['datasetVersion'] or manifest['dataset']['splitSha256'] != data['splitSha256']:
             raise ValueError('Head and development split mismatch')
         trained = [task for task in manifest['tasks'] if manifest['training']['endpointStatus'][task] == 'trained']
@@ -144,6 +142,7 @@ def verify_run(experiment, data_dir, snapshot):
                          'weightsSha256': manifest['artifacts']['weights']['sha256'],
                          'parameterCount': manifest['parameterCount'], 'trainedTasks': len(trained),
                          'observedValidationPredictions': len(observed), 'recordedValidationCells': len(records), 'metricRecomputation': 'passed',
+                         'trainingSourceVerification': training_sources,
                          'loadedInferenceMaximumAbsoluteDifference': max(probe_errors)})
     protected = json.loads((ROOT / 'artifacts/v3/v2-preservation.json').read_text(encoding='utf-8'))
     preserved = []
@@ -166,12 +165,13 @@ def main():
     parser.add_argument('--data-dir', type=Path, default=ROOT / 'data/v3-multitask-audited')
     parser.add_argument('--snapshot', type=Path, default=ROOT / 'models/pretrained/molformer')
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--training-source-ref', help='Full immutable Git commit SHA for historical recorded training bytes; never executed')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Verification output exists; choose a new path and preserve history')
     torch.set_num_threads(6)
     try:
-        result = verify_run(args.experiment, args.data_dir, args.snapshot)
+        result = verify_run(args.experiment, args.data_dir, args.snapshot, training_source_ref=args.training_source_ref)
     except (ValueError, OSError, KeyError, RuntimeError) as error:
         parser.exit(1, f'Verification failed: {error}\n')
     args.output.parent.mkdir(parents=True, exist_ok=True)

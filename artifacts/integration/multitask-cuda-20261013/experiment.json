@@ -1,0 +1,4000 @@
+{
+  "schema": "aidd.toxnet.multitask-experiment.v1",
+  "status": "completed",
+  "createdAt": "2026-10-13T06:58:21.488379+00:00",
+  "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+  "dataManifestSha256": "ff4837c1bcb0e568c506e503cab9321f23be328f5c432d495be3606f15d7ceae",
+  "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+  "taskContractVersion": "aidd.toxnet.four-toxicity-twelve-assay-tasks.v1",
+  "tasks": [
+    "herg",
+    "dili",
+    "ames",
+    "clintox",
+    "tox21_nr_ar",
+    "tox21_nr_ar_lbd",
+    "tox21_nr_ahr",
+    "tox21_nr_aromatase",
+    "tox21_nr_er",
+    "tox21_nr_er_lbd",
+    "tox21_nr_ppar_gamma",
+    "tox21_sr_are",
+    "tox21_sr_atad5",
+    "tox21_sr_hse",
+    "tox21_sr_mmp",
+    "tox21_sr_p53"
+  ],
+  "models": [
+    "A4",
+    "B16",
+    "C_Morgan",
+    "B16_noTox21"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "selectionProtocol": {
+    "eligible": [
+      "herg",
+      "dili",
+      "ames"
+    ],
+    "excluded": {
+      "clintox": {
+        "positive": 4,
+        "negative": 77,
+        "reason": "minimum-10-per-class-not-met"
+      }
+    },
+    "minimumPerClass": 10,
+    "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+  },
+  "device": "cuda",
+  "dependencies": {
+    "python": "3.13.2",
+    "rdkit": "2026.09.1",
+    "torch": "2.14.1+cu126",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2",
+    "safetensors": "0.6.2",
+    "huggingface-hub": "0.36.2"
+  },
+  "featureExtractionSeconds": 21.103,
+  "fourTaskTrainMembershipSha256": "1f425f01671ae42bdd22d40c8f2e13b99cc22446cf729fe565121bde1812a43a",
+  "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+  "legacyHeldoutAndKarimUsedForSelection": false,
+  "priorV3DevelopmentReuseAllowed": true,
+  "developmentExposureDefinition": "Earlier v3 development train/validation may be reused; protected v2 heldout and exposed Karim labels remain excluded.",
+  "newBlindTestClaimed": false,
+  "runs": [
+    {
+      "model": "A4",
+      "seed": 42,
+      "directory": "A4-seed-42",
+      "status": "trained-completed",
+      "manifestSha256": "39d5533c982eb0be66170fd33fb999e5a8610650aab39541c2a9475d01889254",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7900919305413687,
+            "averagePrecision": 0.9089252618364793,
+            "brier": 0.1779460452845358,
+            "ece10Bins": 0.20986615391742489,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.9312500000000001,
+            "averagePrecision": 0.9676470588235294,
+            "brier": 0.11123752464698887,
+            "ece10Bins": 0.12845402902219424,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.795353247984827,
+            "averagePrecision": 0.8904248091232139,
+            "brier": 0.16257617918875691,
+            "ece10Bins": 0.07708124879058832,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.9253246753246754,
+            "averagePrecision": 0.5454545454545454,
+            "brier": 0.04162290567031448,
+            "ece10Bins": 0.06497895217849738,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "A4",
+        "seed": 42,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "A4",
+      "seed": 43,
+      "directory": "A4-seed-43",
+      "status": "trained-completed",
+      "manifestSha256": "c5c1b471e52dcadeff0c4f6fb38bf3e317e539acf3e4787decc9cedb24b788a4",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7834525025536261,
+            "averagePrecision": 0.9086314581535418,
+            "brier": 0.17392024798222872,
+            "ece10Bins": 0.2076843591979405,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.90625,
+            "averagePrecision": 0.9497897170231729,
+            "brier": 0.13766924131585645,
+            "ece10Bins": 0.14186658510022718,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.7934091986723566,
+            "averagePrecision": 0.8920419887772697,
+            "brier": 0.16983071307599543,
+            "ece10Bins": 0.09312671111554463,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8246753246753247,
+            "averagePrecision": 0.3904616724738676,
+            "brier": 0.05322389500744556,
+            "ece10Bins": 0.0781142926564639,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "A4",
+        "seed": 43,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "A4",
+      "seed": 44,
+      "directory": "A4-seed-44",
+      "status": "trained-completed",
+      "manifestSha256": "d69948647be739451be9f441870d047288eadcd711a44d225de54c962c17d8cd",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7420837589376915,
+            "averagePrecision": 0.9001966637177373,
+            "brier": 0.19400410837068024,
+            "ece10Bins": 0.19175406287628455,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.94375,
+            "averagePrecision": 0.9678702731092437,
+            "brier": 0.1090909444062808,
+            "ece10Bins": 0.15082835099431982,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.7825628259838786,
+            "averagePrecision": 0.8793280076231856,
+            "brier": 0.16936813928536965,
+            "ece10Bins": 0.08106869436257769,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8409090909090909,
+            "averagePrecision": 0.4788819875776398,
+            "brier": 0.052663425007261365,
+            "ece10Bins": 0.07864845108767102,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "A4",
+        "seed": 44,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "B16",
+      "seed": 42,
+      "directory": "B16-seed-42",
+      "status": "trained-completed",
+      "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.804902962206333,
+            "averagePrecision": 0.9076932866938068,
+            "brier": 0.17771400951731603,
+            "ece10Bins": 0.21853865290203167,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.9187500000000001,
+            "averagePrecision": 0.9554534007659008,
+            "brier": 0.11820203978765405,
+            "ece10Bins": 0.14113802531241418,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.7893314366998578,
+            "averagePrecision": 0.8852547890863278,
+            "brier": 0.165517587870609,
+            "ece10Bins": 0.0852936276884091,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8733766233766234,
+            "averagePrecision": 0.305316091954023,
+            "brier": 0.050638544776584936,
+            "ece10Bins": 0.059641947195455264,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "auroc": 0.6265619723066531,
+            "averagePrecision": 0.20267088704362593,
+            "brier": 0.054987780421097275,
+            "ece10Bins": 0.10635661809296015,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 585
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "auroc": 0.6490872210953347,
+            "averagePrecision": 0.1759324487383054,
+            "brier": 0.046727306714376124,
+            "ece10Bins": 0.06573143282419495,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 509
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "auroc": 0.8342386884819308,
+            "averagePrecision": 0.5204257054914374,
+            "brier": 0.12054368713474997,
+            "ece10Bins": 0.14854861892861682,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 504
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "auroc": 0.7298259759457099,
+            "averagePrecision": 0.2405911173405605,
+            "brier": 0.10866742858324545,
+            "ece10Bins": 0.11880806527233446,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 404
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "auroc": 0.7081654193053157,
+            "averagePrecision": 0.2994689023137985,
+            "brier": 0.11764047505220267,
+            "ece10Bins": 0.10202566266610377,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 440
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "auroc": 0.7078681552365763,
+            "averagePrecision": 0.3015792916088348,
+            "brier": 0.0639467397908357,
+            "ece10Bins": 0.10429082546202677,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 535
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "auroc": 0.6900000000000001,
+            "averagePrecision": 0.2425313693510435,
+            "brier": 0.05806754303113717,
+            "ece10Bins": 0.04425445158472809,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 453
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "auroc": 0.6802374010828821,
+            "averagePrecision": 0.43317606157860944,
+            "brier": 0.1774247770681729,
+            "ece10Bins": 0.07282246746876606,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 392
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "auroc": 0.7676408995720659,
+            "averagePrecision": 0.15235672759075994,
+            "brier": 0.05117023849163911,
+            "ece10Bins": 0.0997603066736254,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 544
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "auroc": 0.7078475336322869,
+            "averagePrecision": 0.1273526579982726,
+            "brier": 0.07881842719693267,
+            "ece10Bins": 0.11754614094908697,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 476
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "auroc": 0.8096198156682027,
+            "averagePrecision": 0.5545781228227586,
+            "brier": 0.14005518592449265,
+            "ece10Bins": 0.07483351140375274,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 429
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "auroc": 0.7151843817787418,
+            "averagePrecision": 0.24514486609318806,
+            "brier": 0.10068079389395326,
+            "ece10Bins": 0.1100392150917061,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 511
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "B16",
+        "seed": 42,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "B16",
+      "seed": 43,
+      "directory": "B16-seed-43",
+      "status": "trained-completed",
+      "manifestSha256": "8636f3ac3ad33ee4e14782bd225ed9fa4a27bd7b0179c1cdec14f73dcef00c2c",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7972420837589378,
+            "averagePrecision": 0.9173897519506297,
+            "brier": 0.13329257128398345,
+            "ece10Bins": 0.1197585738216351,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.9187500000000001,
+            "averagePrecision": 0.9563580060290586,
+            "brier": 0.13191769301049583,
+            "ece10Bins": 0.18627325039469114,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.7803342816500711,
+            "averagePrecision": 0.8811339810980602,
+            "brier": 0.17560117636764702,
+            "ece10Bins": 0.10701573946207879,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8214285714285714,
+            "averagePrecision": 0.2718253968253968,
+            "brier": 0.062407541533210785,
+            "ece10Bins": 0.08406621460783346,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "auroc": 0.6303613644039175,
+            "averagePrecision": 0.18658942915024657,
+            "brier": 0.05452311992220809,
+            "ece10Bins": 0.10742696087795106,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 585
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "auroc": 0.6697515212981744,
+            "averagePrecision": 0.16060651725700417,
+            "brier": 0.04817995001509336,
+            "ece10Bins": 0.08190264937881947,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 509
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "auroc": 0.8506326643463552,
+            "averagePrecision": 0.5649046985719819,
+            "brier": 0.11011852212225949,
+            "ece10Bins": 0.13292105804240584,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 504
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "auroc": 0.7014042867701404,
+            "averagePrecision": 0.21530159431781454,
+            "brier": 0.11632372619867233,
+            "ece10Bins": 0.13527751203644692,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 404
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "auroc": 0.7004893494530801,
+            "averagePrecision": 0.2857478249994549,
+            "brier": 0.122381340481108,
+            "ece10Bins": 0.12422262219863178,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 440
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "auroc": 0.7001594896331738,
+            "averagePrecision": 0.2825715035620874,
+            "brier": 0.06404657359188497,
+            "ece10Bins": 0.11447739661306812,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 535
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "auroc": 0.6660504201680673,
+            "averagePrecision": 0.2582977917703292,
+            "brier": 0.061926195808634024,
+            "ece10Bins": 0.061564900772868664,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 453
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "auroc": 0.6858253505483826,
+            "averagePrecision": 0.39952762317801355,
+            "brier": 0.17719291231656298,
+            "ece10Bins": 0.08708679741863137,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 392
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "auroc": 0.7472457434216517,
+            "averagePrecision": 0.1635125182664128,
+            "brier": 0.05986398371979771,
+            "ece10Bins": 0.1294393139170806,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 544
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "auroc": 0.6426008968609865,
+            "averagePrecision": 0.11555395158894266,
+            "brier": 0.08230848262418208,
+            "ece10Bins": 0.12244032194879707,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 476
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "auroc": 0.8147401433691757,
+            "averagePrecision": 0.5672405632488421,
+            "brier": 0.1404498081044936,
+            "ece10Bins": 0.09645186129811022,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 429
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "auroc": 0.7108026030368764,
+            "averagePrecision": 0.23935040935945578,
+            "brier": 0.11026669927618366,
+            "ece10Bins": 0.1418432475669169,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 511
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "B16",
+        "seed": 43,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "B16",
+      "seed": 44,
+      "directory": "B16-seed-44",
+      "status": "trained-completed",
+      "manifestSha256": "2b78b604a83ae38bc1ee77ed25b78780b41ac5f31a705f5df5c9d640f0b7745e",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7374872318692544,
+            "averagePrecision": 0.9035014815178367,
+            "brier": 0.17013534709719852,
+            "ece10Bins": 0.1494577228856245,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.9500000000000001,
+            "averagePrecision": 0.9748816287878788,
+            "brier": 0.09738491418550425,
+            "ece10Bins": 0.1137585942944638,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.8055476529160739,
+            "averagePrecision": 0.9002557672788822,
+            "brier": 0.15932742920870438,
+            "ece10Bins": 0.05909503338520651,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8961038961038961,
+            "averagePrecision": 0.35119047619047616,
+            "brier": 0.06670651655649798,
+            "ece10Bins": 0.10235972254628858,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "auroc": 0.6426882809861533,
+            "averagePrecision": 0.2505917975037058,
+            "brier": 0.055268414553242426,
+            "ece10Bins": 0.09845449666113093,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 585
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "auroc": 0.7067697768762677,
+            "averagePrecision": 0.22734430300318176,
+            "brier": 0.043604859912548324,
+            "ece10Bins": 0.053560390315247355,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 509
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "auroc": 0.8511205802947013,
+            "averagePrecision": 0.5465433860784726,
+            "brier": 0.10772285645593871,
+            "ece10Bins": 0.11202553296220022,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 504
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "auroc": 0.7093327958072969,
+            "averagePrecision": 0.2812197571894389,
+            "brier": 0.10330731891632261,
+            "ece10Bins": 0.08195793542658644,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 404
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "auroc": 0.6532335444252543,
+            "averagePrecision": 0.2778941879099131,
+            "brier": 0.12790108304076273,
+            "ece10Bins": 0.11985521715091783,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 440
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "auroc": 0.7046783625730993,
+            "averagePrecision": 0.28511009559138983,
+            "brier": 0.05504587523922119,
+            "ece10Bins": 0.07795736345454175,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 535
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "auroc": 0.7134453781512605,
+            "averagePrecision": 0.29976576938233684,
+            "brier": 0.057735750105321886,
+            "ece10Bins": 0.05160586134444317,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 453
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "auroc": 0.6950576148826878,
+            "averagePrecision": 0.48148341583856985,
+            "brier": 0.17041705181013536,
+            "ece10Bins": 0.0692229779139008,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 392
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "auroc": 0.7833014659018482,
+            "averagePrecision": 0.25756337661878675,
+            "brier": 0.056106291907667624,
+            "ece10Bins": 0.11335208245077151,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 544
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "auroc": 0.728101644245142,
+            "averagePrecision": 0.14943935775519307,
+            "brier": 0.0717845587929643,
+            "ece10Bins": 0.07828661508426411,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 476
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "auroc": 0.8336533538146441,
+            "averagePrecision": 0.6310577111927521,
+            "brier": 0.12823641656492438,
+            "ece10Bins": 0.059226611921393155,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 429
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "auroc": 0.7793926247288503,
+            "averagePrecision": 0.2977335775467968,
+            "brier": 0.09063042969259134,
+            "ece10Bins": 0.07584979597655445,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 511
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "B16",
+        "seed": 44,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 42,
+      "directory": "C_Morgan-seed-42",
+      "status": "trained-completed",
+      "manifestSha256": "9f16f65f60f623f40aab5b0f7e92f902256636dec8d4b024c0c1a1c512203d81",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7635342185903984,
+            "averagePrecision": 0.8953667024074586,
+            "brier": 0.14417916176114604,
+            "ece10Bins": 0.149219531238992,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.86875,
+            "averagePrecision": 0.9280605290915394,
+            "brier": 0.14711117434964455,
+            "ece10Bins": 0.07718911309441488,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.8034969179706022,
+            "averagePrecision": 0.898918417234793,
+            "brier": 0.18204880898837703,
+            "ece10Bins": 0.12058008136415714,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8441558441558441,
+            "averagePrecision": 0.22198275862068967,
+            "brier": 0.0460815144164713,
+            "ece10Bins": 0.03484802249660959,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "auroc": 0.5998817966903074,
+            "averagePrecision": 0.22950490631792936,
+            "brier": 0.03261148705496272,
+            "ece10Bins": 0.02494449811154287,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 585
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "auroc": 0.6533975659229209,
+            "averagePrecision": 0.23816002296833724,
+            "brier": 0.030420134022403043,
+            "ece10Bins": 0.02468419684464396,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 509
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "auroc": 0.7845688449403116,
+            "averagePrecision": 0.4195651582111125,
+            "brier": 0.11152034371302401,
+            "ece10Bins": 0.07627754101659494,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 504
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "auroc": 0.7012027145064839,
+            "averagePrecision": 0.2943112192417624,
+            "brier": 0.08535564053208297,
+            "ece10Bins": 0.05946746385667598,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 404
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "auroc": 0.6792602187679908,
+            "averagePrecision": 0.28272432969751626,
+            "brier": 0.11515196001597268,
+            "ece10Bins": 0.08531424737504936,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 440
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "auroc": 0.7158426368952685,
+            "averagePrecision": 0.21483320748165022,
+            "brier": 0.039446713597398736,
+            "ece10Bins": 0.034311313226319716,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 535
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "auroc": 0.7295798319327731,
+            "averagePrecision": 0.22518663476082995,
+            "brier": 0.05611947519461878,
+            "ece10Bins": 0.04341736543662632,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 453
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "auroc": 0.6567228932389283,
+            "averagePrecision": 0.39560659947387955,
+            "brier": 0.1998178798749425,
+            "ece10Bins": 0.14992916913651166,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 392
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "auroc": 0.7359555676955294,
+            "averagePrecision": 0.14588567873643452,
+            "brier": 0.03806010000219872,
+            "ece10Bins": 0.028401291205935774,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 544
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "auroc": 0.7754857997010464,
+            "averagePrecision": 0.19241805643997545,
+            "brier": 0.06040180739741666,
+            "ece10Bins": 0.05247983622572333,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 476
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "auroc": 0.7317588325652842,
+            "averagePrecision": 0.4827896748768358,
+            "brier": 0.16286252007486693,
+            "ece10Bins": 0.11988059259070125,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 429
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "auroc": 0.7106724511930587,
+            "averagePrecision": 0.2319343101607193,
+            "brier": 0.09158413880390975,
+            "ece10Bins": 0.06894354462284323,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 511
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "C_Morgan",
+        "seed": 42,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 43,
+      "directory": "C_Morgan-seed-43",
+      "status": "trained-completed",
+      "manifestSha256": "3100904a3c0ba15e9344b0f4ae97565ef7fc419006d337ac85de6437ee7b7c2e",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7635342185903984,
+            "averagePrecision": 0.8953667024074586,
+            "brier": 0.14417916176114604,
+            "ece10Bins": 0.149219531238992,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.86875,
+            "averagePrecision": 0.9280605290915394,
+            "brier": 0.14711117434964455,
+            "ece10Bins": 0.07718911309441488,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.8034969179706022,
+            "averagePrecision": 0.898918417234793,
+            "brier": 0.18204880898837703,
+            "ece10Bins": 0.12058008136415714,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8441558441558441,
+            "averagePrecision": 0.22198275862068967,
+            "brier": 0.0460815144164713,
+            "ece10Bins": 0.03484802249660959,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "auroc": 0.5998817966903074,
+            "averagePrecision": 0.22950490631792936,
+            "brier": 0.03261148705496272,
+            "ece10Bins": 0.02494449811154287,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 585
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "auroc": 0.6533975659229209,
+            "averagePrecision": 0.23816002296833724,
+            "brier": 0.030420134022403043,
+            "ece10Bins": 0.02468419684464396,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 509
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "auroc": 0.7845688449403116,
+            "averagePrecision": 0.4195651582111125,
+            "brier": 0.11152034371302401,
+            "ece10Bins": 0.07627754101659494,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 504
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "auroc": 0.7012027145064839,
+            "averagePrecision": 0.2943112192417624,
+            "brier": 0.08535564053208297,
+            "ece10Bins": 0.05946746385667598,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 404
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "auroc": 0.6792602187679908,
+            "averagePrecision": 0.28272432969751626,
+            "brier": 0.11515196001597268,
+            "ece10Bins": 0.08531424737504936,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 440
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "auroc": 0.7158426368952685,
+            "averagePrecision": 0.21483320748165022,
+            "brier": 0.039446713597398736,
+            "ece10Bins": 0.034311313226319716,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 535
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "auroc": 0.7295798319327731,
+            "averagePrecision": 0.22518663476082995,
+            "brier": 0.05611947519461878,
+            "ece10Bins": 0.04341736543662632,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 453
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "auroc": 0.6567228932389283,
+            "averagePrecision": 0.39560659947387955,
+            "brier": 0.1998178798749425,
+            "ece10Bins": 0.14992916913651166,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 392
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "auroc": 0.7359555676955294,
+            "averagePrecision": 0.14588567873643452,
+            "brier": 0.03806010000219872,
+            "ece10Bins": 0.028401291205935774,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 544
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "auroc": 0.7754857997010464,
+            "averagePrecision": 0.19241805643997545,
+            "brier": 0.06040180739741666,
+            "ece10Bins": 0.05247983622572333,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 476
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "auroc": 0.7317588325652842,
+            "averagePrecision": 0.4827896748768358,
+            "brier": 0.16286252007486693,
+            "ece10Bins": 0.11988059259070125,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 429
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "auroc": 0.7106724511930587,
+            "averagePrecision": 0.2319343101607193,
+            "brier": 0.09158413880390975,
+            "ece10Bins": 0.06894354462284323,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 511
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "C_Morgan",
+        "seed": 43,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "C_Morgan",
+      "seed": 44,
+      "directory": "C_Morgan-seed-44",
+      "status": "trained-completed",
+      "manifestSha256": "3a2226d8f3a40224cb8435b5a565e993bcfd72f261b9ab3888e974d45aaa0f91",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7635342185903984,
+            "averagePrecision": 0.8953667024074586,
+            "brier": 0.14417916176114604,
+            "ece10Bins": 0.149219531238992,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.86875,
+            "averagePrecision": 0.9280605290915394,
+            "brier": 0.14711117434964455,
+            "ece10Bins": 0.07718911309441488,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.8034969179706022,
+            "averagePrecision": 0.898918417234793,
+            "brier": 0.18204880898837703,
+            "ece10Bins": 0.12058008136415714,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8441558441558441,
+            "averagePrecision": 0.22198275862068967,
+            "brier": 0.0460815144164713,
+            "ece10Bins": 0.03484802249660959,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "auroc": 0.5998817966903074,
+            "averagePrecision": 0.22950490631792936,
+            "brier": 0.03261148705496272,
+            "ece10Bins": 0.02494449811154287,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 585
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "auroc": 0.6533975659229209,
+            "averagePrecision": 0.23816002296833724,
+            "brier": 0.030420134022403043,
+            "ece10Bins": 0.02468419684464396,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 509
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "auroc": 0.7845688449403116,
+            "averagePrecision": 0.4195651582111125,
+            "brier": 0.11152034371302401,
+            "ece10Bins": 0.07627754101659494,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 504
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "auroc": 0.7012027145064839,
+            "averagePrecision": 0.2943112192417624,
+            "brier": 0.08535564053208297,
+            "ece10Bins": 0.05946746385667598,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 404
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "auroc": 0.6792602187679908,
+            "averagePrecision": 0.28272432969751626,
+            "brier": 0.11515196001597268,
+            "ece10Bins": 0.08531424737504936,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 440
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "auroc": 0.7158426368952685,
+            "averagePrecision": 0.21483320748165022,
+            "brier": 0.039446713597398736,
+            "ece10Bins": 0.034311313226319716,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 535
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "auroc": 0.7295798319327731,
+            "averagePrecision": 0.22518663476082995,
+            "brier": 0.05611947519461878,
+            "ece10Bins": 0.04341736543662632,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 453
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "auroc": 0.6567228932389283,
+            "averagePrecision": 0.39560659947387955,
+            "brier": 0.1998178798749425,
+            "ece10Bins": 0.14992916913651166,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 392
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "auroc": 0.7359555676955294,
+            "averagePrecision": 0.14588567873643452,
+            "brier": 0.03806010000219872,
+            "ece10Bins": 0.028401291205935774,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 544
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "auroc": 0.7754857997010464,
+            "averagePrecision": 0.19241805643997545,
+            "brier": 0.06040180739741666,
+            "ece10Bins": 0.05247983622572333,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 476
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "auroc": 0.7317588325652842,
+            "averagePrecision": 0.4827896748768358,
+            "brier": 0.16286252007486693,
+            "ece10Bins": 0.11988059259070125,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 429
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "auroc": 0.7106724511930587,
+            "averagePrecision": 0.2319343101607193,
+            "brier": 0.09158413880390975,
+            "ece10Bins": 0.06894354462284323,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 511
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "C_Morgan",
+        "seed": 44,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 42,
+      "directory": "B16_noTox21-seed-42",
+      "status": "trained-ablation",
+      "manifestSha256": "44c119d3bf5b8111b222546c9b2a70ce7c5190c948915cadee15772c095eca98",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7900919305413687,
+            "averagePrecision": 0.9089252618364793,
+            "brier": 0.1779460452845358,
+            "ece10Bins": 0.20986615391742489,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.9312500000000001,
+            "averagePrecision": 0.9676470588235294,
+            "brier": 0.11123752464698887,
+            "ece10Bins": 0.12845402902219424,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.795353247984827,
+            "averagePrecision": 0.8904248091232139,
+            "brier": 0.16257617918875691,
+            "ece10Bins": 0.07708124879058832,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.9253246753246754,
+            "averagePrecision": 0.5454545454545454,
+            "brier": 0.04162290567031448,
+            "ece10Bins": 0.06497895217849738,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "B16_noTox21",
+        "seed": 42,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 43,
+      "directory": "B16_noTox21-seed-43",
+      "status": "trained-ablation",
+      "manifestSha256": "abbfd7e4cabdade3a88be3b5f092f37115dd9c026704123632ce0c47876756ea",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7834525025536261,
+            "averagePrecision": 0.9086314581535418,
+            "brier": 0.17392024798222872,
+            "ece10Bins": 0.2076843591979405,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.90625,
+            "averagePrecision": 0.9497897170231729,
+            "brier": 0.13766924131585645,
+            "ece10Bins": 0.14186658510022718,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.7934091986723566,
+            "averagePrecision": 0.8920419887772697,
+            "brier": 0.16983071307599543,
+            "ece10Bins": 0.09312671111554463,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8246753246753247,
+            "averagePrecision": 0.3904616724738676,
+            "brier": 0.05322389500744556,
+            "ece10Bins": 0.0781142926564639,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "B16_noTox21",
+        "seed": 43,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    },
+    {
+      "model": "B16_noTox21",
+      "seed": 44,
+      "directory": "B16_noTox21-seed-44",
+      "status": "trained-ablation",
+      "manifestSha256": "bc2d41f9e28d48f8287c22604bf9f7581ec251759e0c475ceb4b580de0362f8f",
+      "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+      "evaluation": {
+        "split": "validation",
+        "evaluationType": "development-validation-used-for-model-selection",
+        "independentTest": false,
+        "calibrationStatus": "not-fitted",
+        "probabilityInterpretation": "uncalibrated-label-prediction",
+        "endpoints": {
+          "herg": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "auroc": 0.7420837589376915,
+            "averagePrecision": 0.9001966637177373,
+            "brier": 0.19400410837068024,
+            "ece10Bins": 0.19175406287628455,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 111
+          },
+          "dili": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "auroc": 0.94375,
+            "averagePrecision": 0.9678702731092437,
+            "brier": 0.1090909444062808,
+            "ece10Bins": 0.15082835099431982,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 26
+          },
+          "ames": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "auroc": 0.7825628259838786,
+            "averagePrecision": 0.8793280076231856,
+            "brier": 0.16936813928536965,
+            "ece10Bins": 0.08106869436257769,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 634
+          },
+          "clintox": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "auroc": 0.8409090909090909,
+            "averagePrecision": 0.4788819875776398,
+            "brier": 0.052663425007261365,
+            "ece10Bins": 0.07864845108767102,
+            "status": "computed",
+            "rankingMetricReason": null,
+            "scoreCount": 81
+          },
+          "tox21_nr_ar": {
+            "count": 585,
+            "positives": 21,
+            "negatives": 564,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ar_lbd": {
+            "count": 509,
+            "positives": 16,
+            "negatives": 493,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ahr": {
+            "count": 504,
+            "positives": 71,
+            "negatives": 433,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_aromatase": {
+            "count": 404,
+            "positives": 41,
+            "negatives": 363,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_er": {
+            "count": 440,
+            "positives": 54,
+            "negatives": 386,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_er_lbd": {
+            "count": 535,
+            "positives": 22,
+            "negatives": 513,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_nr_ppar_gamma": {
+            "count": 453,
+            "positives": 28,
+            "negatives": 425,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_are": {
+            "count": 392,
+            "positives": 98,
+            "negatives": 294,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_atad5": {
+            "count": 544,
+            "positives": 21,
+            "negatives": 523,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_hse": {
+            "count": 476,
+            "positives": 30,
+            "negatives": 446,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_mmp": {
+            "count": 429,
+            "positives": 93,
+            "negatives": 336,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          },
+          "tox21_sr_p53": {
+            "count": 511,
+            "positives": 50,
+            "negatives": 461,
+            "scoreCount": 0,
+            "auroc": null,
+            "averagePrecision": null,
+            "brier": null,
+            "ece10Bins": null,
+            "status": "not-trained",
+            "rankingMetricReason": "disabled"
+          }
+        },
+        "schema": "aidd.toxnet.multitask-evaluation.v1",
+        "model": "B16_noTox21",
+        "seed": 44,
+        "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+        "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+        "fourTaskValidationMembershipSha256": "0f32acf2178414483697e3c49ff4c7abced81c2d9cc97b9a888ad5925ea486f8",
+        "selectionProtocol": {
+          "eligible": [
+            "herg",
+            "dili",
+            "ames"
+          ],
+          "excluded": {
+            "clintox": {
+              "positive": 4,
+              "negative": 77,
+              "reason": "minimum-10-per-class-not-met"
+            }
+          },
+          "minimumPerClass": 10,
+          "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "A4": {
+      "herg": {
+        "auroc": {
+          "mean": 0.7718760640108955,
+          "standardDeviation": 0.026013584570032718,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.9059177945692528,
+          "standardDeviation": 0.004956821947190422,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.18195680054581495,
+          "standardDeviation": 0.010625675524413103,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.20310152533055,
+          "standardDeviation": 0.009887554559278812,
+          "definedSeeds": 3
+        }
+      },
+      "dili": {
+        "auroc": {
+          "mean": 0.9270833333333334,
+          "standardDeviation": 0.019094065395649337,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.9617690163186486,
+          "standardDeviation": 0.010374977824664292,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.11933257012304205,
+          "standardDeviation": 0.01591625221298946,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.14038298837224708,
+          "standardDeviation": 0.011260700038920329,
+          "definedSeeds": 3
+        }
+      },
+      "ames": {
+        "auroc": {
+          "mean": 0.7904417575470207,
+          "standardDeviation": 0.0068922422958596725,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8872649351745564,
+          "standardDeviation": 0.006920977656744333,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.16725834385004065,
+          "standardDeviation": 0.004061464399015981,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.08375888475623688,
+          "standardDeviation": 0.008354164145562393,
+          "definedSeeds": 3
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "mean": 0.8636363636363636,
+          "standardDeviation": 0.05403674343212096,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.47159940183535093,
+          "standardDeviation": 0.07775265082311647,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.049170075228340465,
+          "standardDeviation": 0.006542045391807692,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.07391389864087743,
+          "standardDeviation": 0.00774249846765279,
+          "definedSeeds": 3
+        }
+      }
+    },
+    "B16": {
+      "herg": {
+        "auroc": {
+          "mean": 0.7798774259448417,
+          "standardDeviation": 0.0369102787847899,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.9095281733874243,
+          "standardDeviation": 0.007123631151836045,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.16038064263283267,
+          "standardDeviation": 0.023763033014953812,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.1625849832030971,
+          "standardDeviation": 0.050681552150307785,
+          "definedSeeds": 3
+        }
+      },
+      "dili": {
+        "auroc": {
+          "mean": 0.9291666666666667,
+          "standardDeviation": 0.018042195912175808,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.9622310118609461,
+          "standardDeviation": 0.010965088195930315,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.1158348823278847,
+          "standardDeviation": 0.017387661693668094,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.14705662333385638,
+          "standardDeviation": 0.03661783976749754,
+          "definedSeeds": 3
+        }
+      },
+      "ames": {
+        "auroc": {
+          "mean": 0.791737790422001,
+          "standardDeviation": 0.012777770788614789,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8888815124877567,
+          "standardDeviation": 0.010063573851228174,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.16681539781565347,
+          "standardDeviation": 0.008214130790192635,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.08380146684523147,
+          "standardDeviation": 0.02399517505068322,
+          "definedSeeds": 3
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "mean": 0.8636363636363636,
+          "standardDeviation": 0.03827865624205064,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.3094439883232986,
+          "standardDeviation": 0.039843237845121796,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.05991753428876456,
+          "standardDeviation": 0.008318355086077204,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.08202262811652576,
+          "standardDeviation": 0.0214320849905383,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ar": {
+        "auroc": {
+          "mean": 0.6332038725655745,
+          "standardDeviation": 0.008430560324998922,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.21328403789919279,
+          "standardDeviation": 0.03329496984568742,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.054926438298849266,
+          "standardDeviation": 0.0003764148824549441,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.10407935854401405,
+          "standardDeviation": 0.004900582804165142,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ar_lbd": {
+        "auroc": {
+          "mean": 0.6752028397565922,
+          "standardDeviation": 0.029225108469540864,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.1879610896661638,
+          "standardDeviation": 0.034957104621295344,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.046170705547339264,
+          "standardDeviation": 0.0023377801449155746,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.06706482417275393,
+          "standardDeviation": 0.014218099787699053,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ahr": {
+        "auroc": {
+          "mean": 0.845330644374329,
+          "standardDeviation": 0.00960901293746367,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.5439579300472973,
+          "standardDeviation": 0.022351927065280896,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.11279502190431606,
+          "standardDeviation": 0.006816609357752477,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.13116506997774094,
+          "standardDeviation": 0.018324753004883815,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_aromatase": {
+        "auroc": {
+          "mean": 0.7135210195077156,
+          "standardDeviation": 0.014666424827534911,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.24570415628260464,
+          "standardDeviation": 0.03325520146547973,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.10943282456608013,
+          "standardDeviation": 0.006541871895176969,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.1120145042451226,
+          "standardDeviation": 0.027301257590750905,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_er": {
+        "auroc": {
+          "mean": 0.6872961043945501,
+          "standardDeviation": 0.029747672276003414,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.2877036384077221,
+          "standardDeviation": 0.010919522881897075,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.1226409661913578,
+          "standardDeviation": 0.0051352286420170866,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.11536783400521779,
+          "standardDeviation": 0.011759196772926545,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_er_lbd": {
+        "auroc": {
+          "mean": 0.7042353358142832,
+          "standardDeviation": 0.0038733817108620745,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.289753630254104,
+          "standardDeviation": 0.010319680820179923,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.061013062873980624,
+          "standardDeviation": 0.005167977157290593,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.09890852850987887,
+          "standardDeviation": 0.018845557721537235,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ppar_gamma": {
+        "auroc": {
+          "mean": 0.6898319327731093,
+          "standardDeviation": 0.023697925974686684,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.26686497683456983,
+          "standardDeviation": 0.02956334946651409,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.05924316298169769,
+          "standardDeviation": 0.0023294893215506994,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.052475071234013314,
+          "standardDeviation": 0.008687897164900954,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_are": {
+        "auroc": {
+          "mean": 0.6870401221713175,
+          "standardDeviation": 0.007484412925534222,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.4380623668650643,
+          "standardDeviation": 0.04119581255624594,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.17501158039829043,
+          "standardDeviation": 0.0039806670328338565,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.07637741426709942,
+          "standardDeviation": 0.009447605351549862,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_atad5": {
+        "auroc": {
+          "mean": 0.7660627029651886,
+          "standardDeviation": 0.0180795964913409,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.1911442074919865,
+          "standardDeviation": 0.05779050473062697,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.055713504706368155,
+          "standardDeviation": 0.004360162022466724,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.11418390101382585,
+          "standardDeviation": 0.014856978472443445,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_hse": {
+        "auroc": {
+          "mean": 0.6928500249128051,
+          "standardDeviation": 0.04467984334860062,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.1307819891141361,
+          "standardDeviation": 0.01720102966945911,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.07763715620469303,
+          "standardDeviation": 0.00536048449947843,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.10609102599404939,
+          "standardDeviation": 0.024203351037503474,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_mmp": {
+        "auroc": {
+          "mean": 0.8193377709506743,
+          "standardDeviation": 0.012659240636496729,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.5842921324214508,
+          "standardDeviation": 0.04099205859367285,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.13624713686463685,
+          "standardDeviation": 0.006940292605964575,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.07683732820775203,
+          "standardDeviation": 0.018693347991402876,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_p53": {
+        "auroc": {
+          "mean": 0.7351265365148228,
+          "standardDeviation": 0.03839811089838552,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.26074295099981354,
+          "standardDeviation": 0.03216556810416319,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.10052597428757609,
+          "standardDeviation": 0.009819050240362722,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.10924408621172582,
+          "standardDeviation": 0.0330039101570437,
+          "definedSeeds": 3
+        }
+      }
+    },
+    "C_Morgan": {
+      "herg": {
+        "auroc": {
+          "mean": 0.7635342185903985,
+          "standardDeviation": 1.3597399555105182e-16,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8953667024074586,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.14417916176114604,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.149219531238992,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "dili": {
+        "auroc": {
+          "mean": 0.86875,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.9280605290915394,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.14711117434964455,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.07718911309441488,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "ames": {
+        "auroc": {
+          "mean": 0.8034969179706022,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.898918417234793,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.18204880898837703,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.12058008136415714,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "mean": 0.8441558441558441,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.22198275862068964,
+          "standardDeviation": 3.3993498887762956e-17,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.0460815144164713,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.03484802249660959,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ar": {
+        "auroc": {
+          "mean": 0.5998817966903074,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.22950490631792939,
+          "standardDeviation": 3.3993498887762956e-17,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.03261148705496272,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.02494449811154287,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ar_lbd": {
+        "auroc": {
+          "mean": 0.6533975659229209,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.23816002296833724,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.030420134022403043,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.02468419684464396,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ahr": {
+        "auroc": {
+          "mean": 0.7845688449403116,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.41956515821111245,
+          "standardDeviation": 6.798699777552591e-17,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.11152034371302401,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.07627754101659494,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_aromatase": {
+        "auroc": {
+          "mean": 0.701202714506484,
+          "standardDeviation": 1.3597399555105182e-16,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.2943112192417624,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.08535564053208296,
+          "standardDeviation": 1.6996749443881478e-17,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.05946746385667598,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_er": {
+        "auroc": {
+          "mean": 0.6792602187679909,
+          "standardDeviation": 1.3597399555105182e-16,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.28272432969751626,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.11515196001597268,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.08531424737504938,
+          "standardDeviation": 1.6996749443881478e-17,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_er_lbd": {
+        "auroc": {
+          "mean": 0.7158426368952685,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.21483320748165022,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.039446713597398736,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.034311313226319716,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ppar_gamma": {
+        "auroc": {
+          "mean": 0.7295798319327731,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.22518663476082992,
+          "standardDeviation": 3.3993498887762956e-17,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.056119475194618774,
+          "standardDeviation": 8.498374721940739e-18,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.04341736543662631,
+          "standardDeviation": 8.498374721940739e-18,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_are": {
+        "auroc": {
+          "mean": 0.6567228932389283,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.39560659947387955,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.1998178798749425,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.14992916913651166,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_atad5": {
+        "auroc": {
+          "mean": 0.7359555676955294,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.14588567873643452,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.03806010000219872,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.028401291205935774,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_hse": {
+        "auroc": {
+          "mean": 0.7754857997010464,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.19241805643997545,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.06040180739741666,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.05247983622572333,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_mmp": {
+        "auroc": {
+          "mean": 0.7317588325652841,
+          "standardDeviation": 1.3597399555105182e-16,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.48278967487683583,
+          "standardDeviation": 6.798699777552591e-17,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.16286252007486693,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.11988059259070123,
+          "standardDeviation": 1.6996749443881478e-17,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_sr_p53": {
+        "auroc": {
+          "mean": 0.7106724511930587,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.2319343101607193,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.09158413880390975,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.06894354462284323,
+          "standardDeviation": 0.0,
+          "definedSeeds": 3
+        }
+      }
+    },
+    "B16_noTox21": {
+      "herg": {
+        "auroc": {
+          "mean": 0.7718760640108955,
+          "standardDeviation": 0.026013584570032718,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.9059177945692528,
+          "standardDeviation": 0.004956821947190422,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.18195680054581495,
+          "standardDeviation": 0.010625675524413103,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.20310152533055,
+          "standardDeviation": 0.009887554559278812,
+          "definedSeeds": 3
+        }
+      },
+      "dili": {
+        "auroc": {
+          "mean": 0.9270833333333334,
+          "standardDeviation": 0.019094065395649337,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.9617690163186486,
+          "standardDeviation": 0.010374977824664292,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.11933257012304205,
+          "standardDeviation": 0.01591625221298946,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.14038298837224708,
+          "standardDeviation": 0.011260700038920329,
+          "definedSeeds": 3
+        }
+      },
+      "ames": {
+        "auroc": {
+          "mean": 0.7904417575470207,
+          "standardDeviation": 0.0068922422958596725,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.8872649351745564,
+          "standardDeviation": 0.006920977656744333,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.16725834385004065,
+          "standardDeviation": 0.004061464399015981,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.08375888475623688,
+          "standardDeviation": 0.008354164145562393,
+          "definedSeeds": 3
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "mean": 0.8636363636363636,
+          "standardDeviation": 0.05403674343212096,
+          "definedSeeds": 3
+        },
+        "averagePrecision": {
+          "mean": 0.47159940183535093,
+          "standardDeviation": 0.07775265082311647,
+          "definedSeeds": 3
+        },
+        "brier": {
+          "mean": 0.049170075228340465,
+          "standardDeviation": 0.006542045391807692,
+          "definedSeeds": 3
+        },
+        "ece10Bins": {
+          "mean": 0.07391389864087743,
+          "standardDeviation": 0.00774249846765279,
+          "definedSeeds": 3
+        }
+      },
+      "tox21_nr_ar": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_nr_ar_lbd": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_nr_ahr": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_nr_aromatase": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_nr_er": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_nr_er_lbd": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_nr_ppar_gamma": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_sr_are": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_sr_atad5": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_sr_hse": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_sr_mmp": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      },
+      "tox21_sr_p53": {
+        "auroc": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "averagePrecision": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "brier": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        },
+        "ece10Bins": {
+          "mean": null,
+          "standardDeviation": null,
+          "definedSeeds": 0
+        }
+      }
+    }
+  },
+  "pairedNegativeTransfer": {
+    "definition": "paired seed B16 minus A4 on identical original-four validation labels; descriptive, no significance claim",
+    "endpoints": {
+      "herg": {
+        "auroc": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.7900919305413687,
+              "B16": 0.804902962206333,
+              "deltaB16MinusA4": 0.014811031664964225
+            },
+            {
+              "seed": 43,
+              "A4": 0.7834525025536261,
+              "B16": 0.7972420837589378,
+              "deltaB16MinusA4": 0.013789581205311707
+            },
+            {
+              "seed": 44,
+              "A4": 0.7420837589376915,
+              "B16": 0.7374872318692544,
+              "deltaB16MinusA4": -0.004596527068437162
+            }
+          ],
+          "meanDelta": 0.008001361933946257,
+          "standardDeviation": 0.010922039450013944,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "averagePrecision": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.9089252618364793,
+              "B16": 0.9076932866938068,
+              "deltaB16MinusA4": -0.0012319751426724812
+            },
+            {
+              "seed": 43,
+              "A4": 0.9086314581535418,
+              "B16": 0.9173897519506297,
+              "deltaB16MinusA4": 0.008758293797087813
+            },
+            {
+              "seed": 44,
+              "A4": 0.9001966637177373,
+              "B16": 0.9035014815178367,
+              "deltaB16MinusA4": 0.003304817800099391
+            }
+          ],
+          "meanDelta": 0.0036103788181715744,
+          "standardDeviation": 0.005002138944892355,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "brier": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.1779460452845358,
+              "B16": 0.17771400951731603,
+              "deltaB16MinusA4": -0.00023203576721977925
+            },
+            {
+              "seed": 43,
+              "A4": 0.17392024798222872,
+              "B16": 0.13329257128398345,
+              "deltaB16MinusA4": -0.04062767669824527
+            },
+            {
+              "seed": 44,
+              "A4": 0.19400410837068024,
+              "B16": 0.17013534709719852,
+              "deltaB16MinusA4": -0.023868761273481726
+            }
+          ],
+          "meanDelta": -0.021576157912982258,
+          "standardDeviation": 0.02029517120360199,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        },
+        "ece10Bins": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.20986615391742489,
+              "B16": 0.21853865290203167,
+              "deltaB16MinusA4": 0.008672498984606786
+            },
+            {
+              "seed": 43,
+              "A4": 0.2076843591979405,
+              "B16": 0.1197585738216351,
+              "deltaB16MinusA4": -0.08792578537630541
+            },
+            {
+              "seed": 44,
+              "A4": 0.19175406287628455,
+              "B16": 0.1494577228856245,
+              "deltaB16MinusA4": -0.04229633999066004
+            }
+          ],
+          "meanDelta": -0.04051654212745289,
+          "standardDeviation": 0.048323730150861915,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        }
+      },
+      "dili": {
+        "auroc": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.9312500000000001,
+              "B16": 0.9187500000000001,
+              "deltaB16MinusA4": -0.012500000000000067
+            },
+            {
+              "seed": 43,
+              "A4": 0.90625,
+              "B16": 0.9187500000000001,
+              "deltaB16MinusA4": 0.012500000000000067
+            },
+            {
+              "seed": 44,
+              "A4": 0.94375,
+              "B16": 0.9500000000000001,
+              "deltaB16MinusA4": 0.006250000000000089
+            }
+          ],
+          "meanDelta": 0.002083333333333363,
+          "standardDeviation": 0.013010412496663407,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "averagePrecision": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.9676470588235294,
+              "B16": 0.9554534007659008,
+              "deltaB16MinusA4": -0.01219365805762862
+            },
+            {
+              "seed": 43,
+              "A4": 0.9497897170231729,
+              "B16": 0.9563580060290586,
+              "deltaB16MinusA4": 0.006568289005885686
+            },
+            {
+              "seed": 44,
+              "A4": 0.9678702731092437,
+              "B16": 0.9748816287878788,
+              "deltaB16MinusA4": 0.0070113556786350895
+            }
+          ],
+          "meanDelta": 0.000461995542297385,
+          "standardDeviation": 0.01096235618150201,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "brier": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.11123752464698887,
+              "B16": 0.11820203978765405,
+              "deltaB16MinusA4": 0.006964515140665178
+            },
+            {
+              "seed": 43,
+              "A4": 0.13766924131585645,
+              "B16": 0.13191769301049583,
+              "deltaB16MinusA4": -0.005751548305360621
+            },
+            {
+              "seed": 44,
+              "A4": 0.1090909444062808,
+              "B16": 0.09738491418550425,
+              "deltaB16MinusA4": -0.011706030220776542
+            }
+          ],
+          "meanDelta": -0.003497687795157328,
+          "standardDeviation": 0.009537150068180936,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        },
+        "ece10Bins": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.12845402902219424,
+              "B16": 0.14113802531241418,
+              "deltaB16MinusA4": 0.012683996290219934
+            },
+            {
+              "seed": 43,
+              "A4": 0.14186658510022718,
+              "B16": 0.18627325039469114,
+              "deltaB16MinusA4": 0.044406665294463965
+            },
+            {
+              "seed": 44,
+              "A4": 0.15082835099431982,
+              "B16": 0.1137585942944638,
+              "deltaB16MinusA4": -0.037069756699856016
+            }
+          ],
+          "meanDelta": 0.006673634961609294,
+          "standardDeviation": 0.041069394538079944,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        }
+      },
+      "ames": {
+        "auroc": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.795353247984827,
+              "B16": 0.7893314366998578,
+              "deltaB16MinusA4": -0.006021811284969147
+            },
+            {
+              "seed": 43,
+              "A4": 0.7934091986723566,
+              "B16": 0.7803342816500711,
+              "deltaB16MinusA4": -0.01307491702228547
+            },
+            {
+              "seed": 44,
+              "A4": 0.7825628259838786,
+              "B16": 0.8055476529160739,
+              "deltaB16MinusA4": 0.02298482693219528
+            }
+          ],
+          "meanDelta": 0.0012960328749802204,
+          "standardDeviation": 0.019111237947282655,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "averagePrecision": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.8904248091232139,
+              "B16": 0.8852547890863278,
+              "deltaB16MinusA4": -0.005170020036886047
+            },
+            {
+              "seed": 43,
+              "A4": 0.8920419887772697,
+              "B16": 0.8811339810980602,
+              "deltaB16MinusA4": -0.01090800767920952
+            },
+            {
+              "seed": 44,
+              "A4": 0.8793280076231856,
+              "B16": 0.9002557672788822,
+              "deltaB16MinusA4": 0.0209277596556966
+            }
+          ],
+          "meanDelta": 0.001616577313200344,
+          "standardDeviation": 0.01696827770119049,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "brier": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.16257617918875691,
+              "B16": 0.165517587870609,
+              "deltaB16MinusA4": 0.0029414086818520813
+            },
+            {
+              "seed": 43,
+              "A4": 0.16983071307599543,
+              "B16": 0.17560117636764702,
+              "deltaB16MinusA4": 0.005770463291651595
+            },
+            {
+              "seed": 44,
+              "A4": 0.16936813928536965,
+              "B16": 0.15932742920870438,
+              "deltaB16MinusA4": -0.010040710076665266
+            }
+          ],
+          "meanDelta": -0.00044294603438719643,
+          "standardDeviation": 0.008431411118830666,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        },
+        "ece10Bins": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.07708124879058832,
+              "B16": 0.0852936276884091,
+              "deltaB16MinusA4": 0.008212378897820782
+            },
+            {
+              "seed": 43,
+              "A4": 0.09312671111554463,
+              "B16": 0.10701573946207879,
+              "deltaB16MinusA4": 0.01388902834653416
+            },
+            {
+              "seed": 44,
+              "A4": 0.08106869436257769,
+              "B16": 0.05909503338520651,
+              "deltaB16MinusA4": -0.021973660977371176
+            }
+          ],
+          "meanDelta": 4.258208899458882e-05,
+          "standardDeviation": 0.019276729658032465,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        }
+      },
+      "clintox": {
+        "auroc": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.9253246753246754,
+              "B16": 0.8733766233766234,
+              "deltaB16MinusA4": -0.051948051948052076
+            },
+            {
+              "seed": 43,
+              "A4": 0.8246753246753247,
+              "B16": 0.8214285714285714,
+              "deltaB16MinusA4": -0.0032467532467532756
+            },
+            {
+              "seed": 44,
+              "A4": 0.8409090909090909,
+              "B16": 0.8961038961038961,
+              "deltaB16MinusA4": 0.05519480519480513
+            }
+          ],
+          "meanDelta": -7.401486830834377e-17,
+          "standardDeviation": 0.05364516766837115,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "averagePrecision": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.5454545454545454,
+              "B16": 0.305316091954023,
+              "deltaB16MinusA4": -0.24013845350052243
+            },
+            {
+              "seed": 43,
+              "A4": 0.3904616724738676,
+              "B16": 0.2718253968253968,
+              "deltaB16MinusA4": -0.11863627564847079
+            },
+            {
+              "seed": 44,
+              "A4": 0.4788819875776398,
+              "B16": 0.35119047619047616,
+              "deltaB16MinusA4": -0.12769151138716361
+            }
+          ],
+          "meanDelta": -0.1621554135120523,
+          "standardDeviation": 0.06768689103477368,
+          "definedSeeds": 3,
+          "adverseDirection": "negative"
+        },
+        "brier": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.04162290567031448,
+              "B16": 0.050638544776584936,
+              "deltaB16MinusA4": 0.009015639106270457
+            },
+            {
+              "seed": 43,
+              "A4": 0.05322389500744556,
+              "B16": 0.062407541533210785,
+              "deltaB16MinusA4": 0.009183646525765227
+            },
+            {
+              "seed": 44,
+              "A4": 0.052663425007261365,
+              "B16": 0.06670651655649798,
+              "deltaB16MinusA4": 0.014043091549236615
+            }
+          ],
+          "meanDelta": 0.010747459060424099,
+          "standardDeviation": 0.0028553374142540064,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        },
+        "ece10Bins": {
+          "pairs": [
+            {
+              "seed": 42,
+              "A4": 0.06497895217849738,
+              "B16": 0.059641947195455264,
+              "deltaB16MinusA4": -0.005337004983042112
+            },
+            {
+              "seed": 43,
+              "A4": 0.0781142926564639,
+              "B16": 0.08406621460783346,
+              "deltaB16MinusA4": 0.005951921951369565
+            },
+            {
+              "seed": 44,
+              "A4": 0.07864845108767102,
+              "B16": 0.10235972254628858,
+              "deltaB16MinusA4": 0.023711271458617567
+            }
+          ],
+          "meanDelta": 0.00810872947564834,
+          "standardDeviation": 0.014643751400524365,
+          "definedSeeds": 3,
+          "adverseDirection": "positive"
+        }
+      }
+    }
+  },
+  "durationSeconds": 33.273,
+  "repetitionStatus": "at-least-three-seeds"
+}

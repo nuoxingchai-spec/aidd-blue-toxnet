@@ -11,3 +11,4 @@ sources/molformer/** -text
 artifacts/v3/** -text whitespace=cr-at-eol
 artifacts/v3-multitask/** -text whitespace=cr-at-eol
 artifacts/explanations/*.json -text whitespace=cr-at-eol
+artifacts/integration/** -text whitespace=cr-at-eol

@@ -263,7 +263,7 @@ class MultitaskMetricsAndBoundaryTests(unittest.TestCase):
                     "taskContractVersion": data.TASK_CONTRACT_VERSION, "endpoints": list(data.ALL_ENDPOINTS),
                     "splitSha256": "b" * 64, "taskContracts": data.task_contracts(),
                     "trainingPermission": {"status": "synthetic-unit-fixture-never-a-benchmark"}}
-        with tempfile.TemporaryDirectory() as directory, patch.object(data, "load_multitask_data", return_value=(manifest, samples)):
+        with tempfile.TemporaryDirectory() as directory, patch.object(data, "load_multitask_data", return_value=(manifest, samples)), patch.object(experiment, "resolve_device", return_value="cuda"):
             data_dir = Path(directory) / "data"
             data_dir.mkdir()
             (data_dir / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
@@ -280,6 +280,8 @@ class MultitaskMetricsAndBoundaryTests(unittest.TestCase):
                 self.assertEqual(record["training"]["endpointStatus"][experiment.ALL_ENDPOINTS[-1]], "not-trainable")
                 self.assertEqual(record["parameterCount"], 32784)
                 self.assertEqual(record["trainableParameterCount"], 30735)
+                self.assertEqual(record["training"]["device"], "cpu")
+                self.assertIsNone(record["training"]["featureExtractionDevice"])
                 self.assertEqual(record["taskContracts"], data.task_contracts())
                 self.assertFalse(record["training"]["legacyHeldoutAndKarimUsedForSelection"])
                 self.assertTrue(record["training"]["priorV3DevelopmentReuseAllowed"])

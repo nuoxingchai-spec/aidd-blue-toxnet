@@ -122,15 +122,20 @@ class V3DevelopmentArtifactTests(unittest.TestCase):
         self.rows = [observation(smiles, index % 2, number=index + 2) for index, smiles in enumerate(
             ("c1ccccc1", "c1ccncc1", "C1CCCC1", "C1CCC1", "c1ccsc1", "c1ccoc1"))]
         self.source = self.root / "unit-only-frozen-split.json"
-        self.source.write_text(json.dumps({"splits": {"train": self.rows, "validation": [], "test": []}}), encoding="utf-8")
-        self.sources = [("frozen-v2-split", self.source, sha256_file(self.source))]
-        self.inputs = (self.rows, {}, {"modelVersion": "test-fixture-not-real-data"},
+        self.forbidden_smiles = "c1cncnc1"
+        self.source.write_text(json.dumps({"splits": {"train": self.rows, "validation": [], "test": [observation(self.forbidden_smiles)]}}), encoding="utf-8")
+        self.pool = self.root / "unit-only-exposed-pool.csv"
+        self.pool.write_text("smiles\n", encoding="utf-8")
+        self.sources = [("frozen-v2-split", self.source, sha256_file(self.source)),
+                        ("previously-exposed-herg-pool", self.pool, sha256_file(self.pool))]
+        self.inputs = (self.rows, {"old-test": [self.forbidden_smiles]}, {"modelVersion": "test-fixture-not-real-data"},
                        {"tox21Rows": [], "candidateManifest": {}}, self.sources)
         self.output = self.root / "development"
         # Only authenticity of tiny nonexperimental fixtures is replaced. Byte,
         # source-race, chemistry and label-membership verification still execute.
         self.input_patch = patch("backend.v3_data._verified_inputs", return_value=self.inputs)
-        self.role_patch = patch("backend.v3_data._verify_source_role_contract", return_value={"frozen-v2-split": self.source})
+        self.role_patch = patch("backend.v3_data._verify_source_role_contract", return_value={
+            "frozen-v2-split": self.source, "previously-exposed-herg-pool": self.pool})
         self.input_patch.start()
         self.role_patch.start()
 
@@ -175,6 +180,24 @@ class V3DevelopmentArtifactTests(unittest.TestCase):
         self.prepare()
         (self.output / "samples.jsonl").write_text("{}\n", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "SHA256 mismatch"):
+            v3_data.load_v3_data(self.output)
+
+    def test_coherently_rehashed_forbidden_index_cannot_relax_pinned_exclusions(self):
+        manifest = self.prepare()
+        path = self.output / manifest["files"]["forbiddenIdentities"]["file"]
+        self.assertTrue(json.loads(path.read_text(encoding="utf-8")))
+        path.write_bytes(v3_data._json_bytes({}))
+        manifest["files"]["forbiddenIdentities"]["sha256"] = sha256_file(path)
+        version_hash = v3_data._digest({
+            "files": manifest["files"],
+            "sources": [{"role": row["role"], "sha256": row["sha256"]} for row in manifest["sourceFiles"]],
+            "schema": v3_data.DATA_SCHEMA, "chemistryVersion": manifest["chemistryVersion"],
+            "rdkitVersion": manifest["rdkitVersion"], "taskContractVersion": manifest["taskContractVersion"],
+            "encoderCompatibility": manifest["encoderCompatibility"],
+        })
+        manifest["datasetVersion"] = "aidd-toxnet-v3-development-" + version_hash[:16]
+        (self.output / "manifest.json").write_bytes(v3_data._json_bytes(manifest))
+        with self.assertRaisesRegex(ValueError, "fixed historical references"):
             v3_data.load_v3_data(self.output)
 
     def test_blocked_data_and_new_chemistry_revision_refuse_loading(self):
