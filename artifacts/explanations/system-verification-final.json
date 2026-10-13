@@ -1,0 +1,218 @@
+{
+  "schema": "aidd.explanation-system-verification.v1",
+  "status": "passed",
+  "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+  "attributionSourceSha256": "cd02b65ef97a81c400ab9807d73edff9ae439bf048c59dd949eebe9214f8100b",
+  "realV2Attributions": [
+    {
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "endpoint": "herg",
+      "method": "joint-embedding-morgan-integrated-gradients",
+      "status": "available",
+      "atomCount": 3,
+      "diagnostics": {
+        "steps": 64,
+        "quadrature": "Gauss-Legendre",
+        "targetValue": 0.46769624948501587,
+        "baselineValue": 0.28398799896240234,
+        "targetDifference": 0.18370825052261353,
+        "contributionSum": 0.18184858875184642,
+        "completenessResidual": 0.0018596617707671015,
+        "requestedSteps": 32,
+        "comparedSteps": [
+          32,
+          64
+        ],
+        "convergenceL1RelativeChange": 0.017504490479725233,
+        "convergenceTested": true,
+        "completenessTolerance": 0.03,
+        "completenessPassed": true,
+        "convergencePassed": true,
+        "originalForwardMaximumAbsoluteDifference": 0.0
+      },
+      "durationSeconds": 0.286
+    },
+    {
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "endpoint": "dili",
+      "method": "joint-embedding-morgan-integrated-gradients",
+      "status": "available",
+      "atomCount": 3,
+      "diagnostics": {
+        "steps": 64,
+        "quadrature": "Gauss-Legendre",
+        "targetValue": -0.8801877498626709,
+        "baselineValue": -0.6921004056930542,
+        "targetDifference": -0.1880873441696167,
+        "contributionSum": -0.18649549615714917,
+        "completenessResidual": -0.0015918480124675338,
+        "requestedSteps": 32,
+        "comparedSteps": [
+          32,
+          64
+        ],
+        "convergenceL1RelativeChange": 0.026288481424906442,
+        "convergenceTested": true,
+        "completenessTolerance": 0.03,
+        "completenessPassed": true,
+        "convergencePassed": true,
+        "originalForwardMaximumAbsoluteDifference": 0.0
+      },
+      "durationSeconds": 0.267
+    },
+    {
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "endpoint": "ames",
+      "method": "joint-embedding-morgan-integrated-gradients",
+      "status": "available",
+      "atomCount": 3,
+      "diagnostics": {
+        "steps": 64,
+        "quadrature": "Gauss-Legendre",
+        "targetValue": -0.674619197845459,
+        "baselineValue": -0.4078867733478546,
+        "targetDifference": -0.26673242449760437,
+        "contributionSum": -0.2662585394394562,
+        "completenessResidual": -0.0004738850581481602,
+        "requestedSteps": 32,
+        "comparedSteps": [
+          32,
+          64
+        ],
+        "convergenceL1RelativeChange": 0.0188704529677722,
+        "convergenceTested": true,
+        "completenessTolerance": 0.03,
+        "completenessPassed": true,
+        "convergencePassed": true,
+        "originalForwardMaximumAbsoluteDifference": 0.0
+      },
+      "durationSeconds": 0.255
+    },
+    {
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "endpoint": "clintox",
+      "method": "joint-embedding-morgan-integrated-gradients",
+      "status": "available",
+      "atomCount": 3,
+      "diagnostics": {
+        "steps": 64,
+        "quadrature": "Gauss-Legendre",
+        "targetValue": -2.5362510681152344,
+        "baselineValue": -2.5482096672058105,
+        "targetDifference": 0.011958599090576172,
+        "contributionSum": 0.010373974691622365,
+        "completenessResidual": 0.0015846243989538072,
+        "requestedSteps": 32,
+        "comparedSteps": [
+          32,
+          64
+        ],
+        "convergenceL1RelativeChange": 0.022219932552418293,
+        "convergenceTested": true,
+        "completenessTolerance": 0.03,
+        "completenessPassed": true,
+        "convergencePassed": true,
+        "originalForwardMaximumAbsoluteDifference": 0.0
+      },
+      "durationSeconds": 0.244
+    },
+    {
+      "structureId": "2908012d4d1af71b20b6ce8aa15ec902a6ec288a21be1855d631a6045052fe25",
+      "endpoint": "dili",
+      "method": "joint-embedding-morgan-integrated-gradients",
+      "status": "available",
+      "atomCount": 11,
+      "diagnostics": {
+        "steps": 64,
+        "quadrature": "Gauss-Legendre",
+        "targetValue": 0.614944577217102,
+        "baselineValue": -0.6657262444496155,
+        "targetDifference": 1.2806708216667175,
+        "contributionSum": 1.2861224788072263,
+        "completenessResidual": -0.00545165714050877,
+        "requestedSteps": 32,
+        "comparedSteps": [
+          32,
+          64
+        ],
+        "convergenceL1RelativeChange": 0.024171160542243077,
+        "convergenceTested": true,
+        "completenessTolerance": 0.038420124650001525,
+        "completenessPassed": true,
+        "convergencePassed": true,
+        "originalForwardMaximumAbsoluteDifference": 0.0
+      },
+      "durationSeconds": 0.281
+    }
+  ],
+  "parametersBeforeAfterIdentical": true,
+  "parameterGradientsUnmodified": true,
+  "actualAPI": {
+    "predictionScoresUnchanged": true,
+    "languageUnavailableLocalReportPreserved": true,
+    "modelVersion409": true,
+    "invalidInput422": true,
+    "unconfiguredV3_503": true
+  },
+  "v3Attribution": {
+    "status": "available",
+    "method": "legal-fragment-deletion-model-rerun",
+    "weightsSha256": "867b8b11413d30647d026b945efda16643f432af3d4487995f0473c30789fd06",
+    "legalPerturbationCount": 2,
+    "originalPredictionUnchanged": true
+  },
+  "localIndex": {
+    "version": "aidd-evidence-2c9dbc78fc913daa",
+    "records": 97645,
+    "uniqueStructures": 24847,
+    "sha256": "2c9dbc78fc913daa646dcd57d9815d60634a754f909df4ee879ba03831669723",
+    "retrievalCheckedAgainstSourceLedger": true
+  },
+  "protectedV2Files": [
+    {
+      "file": "models/aidd-toxnet/evaluation.json",
+      "sha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1"
+    },
+    {
+      "file": "models/aidd-toxnet/manifest.json",
+      "sha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850"
+    },
+    {
+      "file": "models/aidd-toxnet/split.json",
+      "sha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+    },
+    {
+      "file": "models/aidd-toxnet/test-predictions.json",
+      "sha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae"
+    },
+    {
+      "file": "models/aidd-toxnet/training-history.json",
+      "sha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340"
+    },
+    {
+      "file": "models/aidd-toxnet/training-progress.json",
+      "sha256": "89058233d337e4403bde853927f133cdae71708a0e6a92eef00b15ab14986398"
+    },
+    {
+      "file": "models/aidd-toxnet/training-references.json",
+      "sha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6"
+    },
+    {
+      "file": "models/aidd-toxnet/weights.pt",
+      "sha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation-predictions.json",
+      "sha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89"
+    },
+    {
+      "file": "artifacts/external-herg-evaluation.json",
+      "sha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476"
+    }
+  ],
+  "newModelTrainingPerformed": false,
+  "scientificMechanismValidated": false,
+  "clinicalUseCertified": false,
+  "externalPaidLanguageModelInvoked": false
+}

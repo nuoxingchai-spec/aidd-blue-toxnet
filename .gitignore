@@ -33,10 +33,15 @@ artifacts/v3-multitask/baselines-20261013/*
 !artifacts/v3-multitask/research-http-verification.json
 !artifacts/v3-multitask/ablation-verification.json
 !artifacts/v3-multitask/v2-preservation.json
+!artifacts/explanations/
+artifacts/explanations/*
+!artifacts/explanations/system-verification-final.json
+!artifacts/explanations/browser-verification.json
 data/raw/
 data/processed/
 data/candidates/
 data/catalog/
+data/evidence-index*/
 data/v3*/
 models/pretrained/
 models/aidd-toxnet-v3*/

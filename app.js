@@ -12,6 +12,7 @@
     { id: "ethanol", name: "乙醇", note: "小分子示例", smiles: "CCO" },
   ];
   const ids = ["emptyState", "loadingState", "errorState", "errorMessage", "report", "smilesInput", "analyzeButton", "resetButton", "exportButton", "sampleList", "sampleCount", "reportTitle", "reportSubtitle", "evidenceBadge", "timestamp", "overallScore", "riskTier", "riskAction", "riskGauge", "gaugeValue", "highestEndpoint", "moleculeView", "atomCount", "endpointGrid", "alertCount", "alertList", "propertyGrid", "evidenceFlow", "riskSummary", "modeSelect", "providerSelect", "modeHint", "inputStatus", "apiStatus", "apiDetails", "modelChip", "healthButton", "scoreContext", "validationStatus", "configApiButton", "apiConfigDialog", "apiConfigTitle", "apiConfigForm", "closeConfigButton", "cancelConfigButton", "saveConfigButton", "configApiUrl", "configModelName", "configModelVersion", "configApiKey", "configKeyHint", "configApiFormat", "configScoreKind", "configTimeout", "configTemperature", "configSendImage", "configJsonMode", "configStatus", "configAdvanced", "localModelDialog", "localModelTitle", "localModelStatus", "localModelContent", "closeLocalModelButton", "doneLocalModelButton", "refreshLocalModelButton"];
+  ids.push("explainButton", "explanationEndpoint", "explanationLanguage", "explanationProvider", "explanationStatus", "explanationContent", "exportExplanationButton");
   const elements = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
   const state = {
     selectedSampleId: null, result: null, resultMode: null, resultProvider: null,
@@ -19,6 +20,7 @@
     health: null, healthError: null, mode: "model", provider: "custom", providerInitialized: false, surface: "empty",
     modelRevision: 0, resultModelRevision: null, configProvider: null, configRequestId: 0, configController: null, configSaving: false,
     localInfoRequestId: 0, localInfoController: null,
+    explanation: null, explanationLoading: false, explanationRequestId: 0, explanationController: null,
   };
   const TIER_STYLES = {
     low: { color: "#2563eb", background: "#e7efff" },
@@ -80,6 +82,7 @@
     elements.report.setAttribute("aria-busy", String(surface === "loading"));
   }
   function updateInputStatus() {
+    updateExplanationControls();
     elements.exportButton.disabled = !state.result || state.dirty || state.loading || state.surface !== "report";
     elements.inputStatus.classList.toggle("is-dirty", state.dirty);
     elements.inputStatus.textContent = state.dirty
@@ -90,6 +93,7 @@
       : state.result ? "当前输入与报告一致，可以导出审计包。" : "选择示例或输入 SMILES 后开始筛选。";
   }
   function invalidateRequest() {
+    invalidateExplanation();
     state.requestId += 1;
     state.controller?.abort();
     state.controller = null;
@@ -225,6 +229,7 @@
     } finally {
       elements.healthButton.disabled = false;
       renderServiceStatus();
+      renderExplanationProviders();
     }
   }
 
@@ -581,7 +586,121 @@
     anchor.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
+  function explanationEligible() {
+    return Boolean(state.result && !state.dirty && !state.loading && state.surface === "report"
+      && state.resultMode === "model" && state.resultProvider === "local"
+      && /^[0-9a-f]{64}$/.test(state.result.provenance?.model?.weightsSha256 || ""));
+  }
+  function updateExplanationControls() {
+    elements.explainButton.disabled = !explanationEligible() || state.explanationLoading;
+    elements.exportExplanationButton.disabled = !state.explanation || !explanationEligible() || state.explanationLoading;
+    elements.explanationProvider.disabled = !elements.explanationLanguage.checked;
+    elements.explainButton.textContent = state.explanationLoading ? "正在计算真实归因…" : "解释当前本机模型";
+  }
+  function invalidateExplanation() {
+    state.explanationRequestId += 1;
+    state.explanationController?.abort();
+    state.explanationController = null;
+    state.explanation = null;
+    state.explanationLoading = false;
+    elements.explanationContent.replaceChildren();
+    elements.explanationContent.hidden = true;
+    elements.exportExplanationButton.disabled = true;
+    elements.explanationStatus.textContent = "先使用本机 ToxNet 生成当前分子的报告；输入或模型修改后旧解释失效。";
+  }
+  function renderExplanationProviders() {
+    const previous = elements.explanationProvider.value;
+    const choices = providers().filter(p => p.id !== "local" && p.configured && p.providerFormat === "openai");
+    elements.explanationProvider.innerHTML = '<option value="">未选择 / 本机报告</option>' + choices.map(p =>
+      `<option value="${escapeHtml(p.id)}">${escapeHtml(p.label || p.id)} · ${escapeHtml(p.version || "版本未验证")}</option>`).join("");
+    elements.explanationProvider.value = choices.some(p => p.id === previous) ? previous : "";
+    if (previous && elements.explanationProvider.value !== previous && elements.explanationLanguage.checked) invalidateExplanation();
+    updateExplanationControls();
+  }
+  function pngMarkup(data, label) {
+    return typeof data === "string" && /^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(data) && data.length < 3000000
+      ? `<img class="explanation-image" src="${data}" alt="${escapeHtml(label)}">` : "";
+  }
+  function renderExplanation(packet) {
+    const a = packet.attribution;
+    const sourceNames = { "model-computation": "模型计算", "model-metadata": "模型元数据", "neural-attribution": "模型归因", "human-rule": "人工规则", "experimental-observation": "真实实验观察", "insufficient-evidence": "证据不足", "mechanism-hypothesis": "机制假设", "limitation": "使用限制" };
+    const statusNames = { available: "已计算", "computed-with-warning": "已计算 · 收敛警示", unavailable: "不可用", "insufficient-evidence": "证据不足", organized: "语言模型已整理", "not-requested": "本机报告（未调用语言模型）" };
+    const methodName = a.method === "joint-embedding-morgan-integrated-gradients" ? "图嵌入 + Morgan 联合 Integrated Gradients" : a.method;
+    const unitName = a.unit === "calibrated logit contribution; not probability change" ? "校准 logit 贡献（非概率变化）" : a.unit;
+    const diagnostic = a.diagnostics ? `完整性残差 ${Number(a.diagnostics.completenessResidual).toExponential(3)}；步数收敛=${a.diagnostics.convergencePassed}` : "";
+    const atoms = (a.atoms || []).slice(0, 12).map(atom => `<tr><td>${escapeHtml(atom.index)}</td><td>${escapeHtml(atom.element)}</td><td>${escapeHtml(Number(atom.contribution).toFixed(6))}</td></tr>`).join("");
+    const records = (packet.evidence.results || []).map(row => `<article class="similar-observation">
+      ${pngMarkup(row.imageDataUrl, "检索到的实验化合物结构")}
+      <div><strong>${escapeHtml(row.database)} · ${escapeHtml(row.endpoint)}</strong>
+      <p><code>${escapeHtml(row.canonicalSmiles)}</code></p>
+      <p>实验标签 ${escapeHtml(row.label)} · Tanimoto ${escapeHtml(Number(row.similarity).toFixed(4))}（非预测置信度） · 精确匹配 ${escapeHtml(row.exactMatch)}</p>
+      <p>${escapeHtml(row.positiveDefinition)}</p><p>${escapeHtml(row.definitionConsistency?.note || "定义兼容性未验证")}</p>
+      <small>来源 ${escapeHtml(row.source_id)} / 行 ${escapeHtml(row.source_row)} · ${escapeHtml(row.datasetVersion)} · ${escapeHtml(row.dataRole)}</small>
+      <p>${escapeHtml(row.reference || "未提供可核验的具体文献 / 实验标识；不编造引用。")}</p>
+      <details><summary>来源校验信息</summary><code>${escapeHtml(row.sourceSha256)}</code><p>${escapeHtml(row.documentationUrl)}</p></details></div></article>`).join("");
+    const sections = packet.report.sections.map(section => `<details class="research-report-section"><summary>${escapeHtml(section.title)} · ${escapeHtml(sourceNames[section.sourceKind] || section.sourceKind)}</summary>
+      <p class="report-paragraph">${escapeHtml(section.text)}</p><small>可信度：${escapeHtml(section.confidence)} · 来源 ID：${escapeHtml((section.sourceIds || []).join(", ") || "无机制证据")}</small>
+      <ul>${(section.limitations || []).map(limit => `<li>${escapeHtml(limit)}</li>`).join("")}</ul></details>`).join("");
+    elements.explanationContent.innerHTML = `<div class="explanation-columns"><div><h4>端点归因 · ${escapeHtml(packet.endpoint)}</h4>
+      <p>${escapeHtml(statusNames[a.status] || a.status)} · ${escapeHtml(methodName || a.message || "归因不可用")}</p>
+      <p>${escapeHtml(unitName || "无可用归因单位")}。红色提高、蓝色降低指定模型输出；不代表临床风险。</p>
+      <p>${escapeHtml(diagnostic)}</p>${pngMarkup(a.imageDataUrl, "真实模型的分子结构归因图")}
+      ${atoms ? `<details><summary>原子贡献（前 12 个；完整数据在 JSON）</summary><table><thead><tr><th>索引</th><th>元素</th><th>贡献</th></tr></thead><tbody>${atoms}</tbody></table></details>` : ""}
+      <ul>${(a.limitations || []).map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
+      <div><h4>相似实验化合物</h4><p>${escapeHtml(statusNames[packet.evidence.status] || packet.evidence.status)} · 仅用于解释检索</p>${records || "<p>证据不足：未找到可核验的实验记录。</p>"}</div></div>
+      <h4>可展开的中文研究报告</h4><p>语言整理：${escapeHtml(statusNames[packet.report.language.status] || packet.report.language.status)} · ${escapeHtml(packet.report.language.message || "事实由本机有来源的结论生成")}</p>
+      ${sections}<details><summary>模型与来源版本</summary><code>${escapeHtml(packet.modelPrediction.provenance.modelVersion)}<br>${escapeHtml(packet.modelPrediction.provenance.weightsSha256)}</code>
+      <p>证据包 SHA256：${escapeHtml(packet.report.evidenceBundleSha256)}</p></details>`;
+    elements.explanationContent.hidden = false;
+  }
+  async function explainCurrent() {
+    if (!explanationEligible() || state.explanationLoading) return;
+    invalidateExplanation();
+    const sequence = state.explanationRequestId;
+    const controller = new AbortController();
+    state.explanationController = controller;
+    state.explanationLoading = true;
+    updateExplanationControls();
+    elements.explanationStatus.textContent = "正在运行实际模型归因和本地实验检索…";
+    try {
+      const original = state.result;
+      const packet = await core.explainSmiles(original.canonicalSmiles, { endpoint: elements.explanationEndpoint.value || "herg",
+        includeLanguage: Boolean(elements.explanationLanguage.checked), languageProvider: elements.explanationProvider.value || null,
+        expectedWeightsSha256: original.provenance.model.weightsSha256, expectedStructureId: original.structureId,
+        signal: controller.signal });
+      if (sequence !== state.explanationRequestId || controller.signal.aborted || !explanationEligible()) return;
+      const model = packet.modelPrediction?.provenance;
+      if (packet.structureId !== original.structureId || model?.weightsSha256 !== original.provenance.model.weightsSha256
+          || model?.modelVersion !== original.provenance.model.modelVersion
+          || (original.provenance.model.artifactSha256 && model?.artifactSha256 !== original.provenance.model.artifactSha256)) throw new Error("实际模型或结构已改变，请重新筛选后生成解释。");
+      renderExplanation(packet);
+      state.explanation = packet;
+      elements.explanationStatus.textContent = "研究解释已生成；模型、规则、实验和机制假设分别标注。";
+    } catch (error) {
+      if (sequence !== state.explanationRequestId || controller.signal.aborted) return;
+      state.explanation = null;
+      elements.explanationContent.replaceChildren();
+      elements.explanationContent.hidden = true;
+      elements.explanationStatus.textContent = typeof error?.message === "string" ? error.message : "解释 unavailable；原预测保持不变。";
+    } finally {
+      if (sequence === state.explanationRequestId) { state.explanationLoading = false; state.explanationController = null; updateExplanationControls(); }
+    }
+  }
+  function exportExplanation() {
+    if (!state.explanation || !explanationEligible() || state.explanationLoading || elements.exportExplanationButton.disabled) return;
+    const blob = new Blob([JSON.stringify(auditValue({ schema: "aidd.research.explanation-export.v1", researchOnly: true, ...state.explanation }), null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url; anchor.download = `toxnet-research-explanation-${Date.now()}.json`;
+    document.body.appendChild(anchor); anchor.click(); anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   function bindEvents() {
+    elements.explainButton.addEventListener("click", explainCurrent);
+    elements.exportExplanationButton.addEventListener("click", exportExplanation);
+    elements.explanationEndpoint.addEventListener("change", () => { invalidateExplanation(); updateExplanationControls(); });
+    elements.explanationLanguage.addEventListener("change", () => { invalidateExplanation(); updateExplanationControls(); });
+    elements.explanationProvider.addEventListener("change", () => { invalidateExplanation(); updateExplanationControls(); });
     elements.sampleList.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-sample-id]");
       const sample = button && SAMPLES.find((item) => item.id === button.dataset.sampleId);

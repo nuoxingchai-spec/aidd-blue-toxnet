@@ -63,11 +63,35 @@
   }
   async function getHealth(options) { return request("/api/health", { signal: options?.signal, timeout: 5000 }); }
   async function getLocalModelInfo(options) { return request("/api/local-model/info", { signal: options?.signal, timeout: 15000 }); }
+  async function explainSmiles(smiles, options) {
+    const result = await request("/api/research/explain", { body: { smiles, model: "v2", endpoint: options?.endpoint || "herg",
+      includeLanguage: Boolean(options?.includeLanguage), languageProvider: options?.languageProvider || null,
+      ...(options?.expectedWeightsSha256 ? { expectedWeightsSha256: options.expectedWeightsSha256 } : {}),
+      ...(options?.expectedStructureId ? { expectedStructureId: options.expectedStructureId } : {}) }, signal: options?.signal, timeout: 180000 });
+    if (result?.contractVersion !== "aidd.research.explanation.api.v1" || !["available", "partial"].includes(result.status)
+      || typeof result.structureId !== "string" || !Array.isArray(result.modelPrediction?.endpoints)
+      || !result.attribution || !Array.isArray(result.evidence?.results) || !Array.isArray(result.report?.sections)
+      || !Array.isArray(result.report?.claims) || !Array.isArray(result.report?.sources)) throw new APIError("研究解释契约不完整。", "INVALID_EXPLANATION");
+    if (!/^[0-9a-f]{64}$/.test(result.structureId)
+        || typeof result.modelPrediction.provenance?.modelVersion !== "string"
+        || !/^[0-9a-f]{64}$/.test(result.modelPrediction.provenance?.weightsSha256 || "")
+        || !["not-requested", "unavailable", "organized"].includes(result.report.language?.status)
+        || !["available", "computed-with-warning", "unavailable"].includes(result.attribution.status)
+        || !["available", "insufficient-evidence"].includes(result.evidence.status)
+        || result.report.sections.some(s => !s || typeof s.title !== "string" || typeof s.text !== "string"
+          || !Array.isArray(s.sourceIds) || !Array.isArray(s.limitations))) throw new APIError("研究解释来源或报告字段无效。", "INVALID_EXPLANATION");
+    const ids = result.modelPrediction.endpoints.map(e => e.id);
+    if (ids.length !== 4 || new Set(ids).size !== 4 || ENDPOINT_IDS.some(id => !ids.includes(id))
+        || result.modelPrediction.endpoints.some(e => typeof e.score !== "number" || !Number.isFinite(e.score) || e.score < 0 || e.score > 1)
+        || result.provenance?.researchOnly !== true || result.provenance?.humanRiskProbability !== false
+        || !Array.isArray(result.attribution.atoms) || result.attribution.atoms.some(a => !Number.isFinite(a.contribution))) throw new APIError("研究解释含无效模型数据。", "INVALID_EXPLANATION");
+    return result;
+  }
   function providerConfigPath(provider) {
     if (typeof provider !== "string" || !/^[a-z][a-z0-9_-]{0,39}$/.test(provider)) throw new APIError("请选择有效的模型供应商。", "INVALID_PROVIDER");
     return `/api/providers/${encodeURIComponent(provider)}/config`;
   }
   async function getProviderConfig(provider, options) { return request(providerConfigPath(provider), { signal: options?.signal, timeout: 5000 }); }
   async function saveProviderConfig(provider, config) { return request(providerConfigPath(provider), { body: config, timeout: 10000 }); }
-  return { CLIENT_VERSION, CONTRACT_VERSION, APIError, analyzeSmiles, getHealth, getProviderConfig, saveProviderConfig, getLocalModelInfo, riskTier };
+  return { CLIENT_VERSION, CONTRACT_VERSION, APIError, analyzeSmiles, explainSmiles, getHealth, getProviderConfig, saveProviderConfig, getLocalModelInfo, riskTier };
 });

@@ -1,0 +1,31 @@
+{
+  "schema": "aidd.explanation-browser-verification.v1",
+  "status": "passed",
+  "method": "actual in-app browser interaction; manual agent verification",
+  "qaOrigin": "http://127.0.0.1:4176",
+  "original4173ServiceAndTabModified": false,
+  "realWeights": true,
+  "modelVersion": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "weightsSha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+  "checks": {
+    "realLocalPrediction": true,
+    "attributionPngAndDiagnosticsDisplayed": true,
+    "ethanolHergInsufficientEvidenceNoInventedObservations": true,
+    "acetaminophenDiliThreeAuditedSimilarObservationsDisplayed": true,
+    "expandableChineseMechanismUncertainty": true,
+    "languageUnconfiguredRetainsLocalReportAndOriginalScores": true,
+    "actualJsonDownloadAndInspection": true,
+    "exportWeightsMatch": true,
+    "noCredentialFieldsInDownloadedJson": true,
+    "modifiedInputDisablesBothExports": true,
+    "resetDuringExplanationLeavesEmptyReport": true,
+    "delayedOldResponseCannotReplaceFreshReport": true
+  },
+  "screenshots": {
+    "storage": "local-only ignored artifacts; ethanol views with no retrieved experimental rows",
+    "files": ["workbench-explanation.jpg", "workbench-attribution.jpg"]
+  },
+  "externalPaidLanguageModelInvoked": false,
+  "clinicalOrMechanisticValidation": false,
+  "rawExperimentalRowsIncludedInThisFile": false
+}

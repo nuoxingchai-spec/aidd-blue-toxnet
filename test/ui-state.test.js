@@ -108,7 +108,7 @@ async function setup(options = {}) {
   const elements = Object.fromEntries(ids.map((id) => [id, new Element(id)]));
   elements.modeSelect.value = "model";
   elements.providerSelect.value = "custom";
-  const requests = [], blobs = [], timers = [];
+  const requests = [], explanations = [], blobs = [], timers = [];
   const document = {
     body: new Element("body"), activeElement: null,
     getElementById(id) { assert.ok(elements[id], `Missing HTML element ${id}`); return elements[id]; },
@@ -119,6 +119,9 @@ async function setup(options = {}) {
     getProviderConfig: options.getProviderConfig || (() => Promise.resolve(providerConfig())),
     saveProviderConfig: options.saveProviderConfig || ((provider, config) => Promise.resolve({ ...config, providerId: provider, hasApiKey: true })),
     getLocalModelInfo: options.getLocalModelInfo || (() => Promise.resolve(localModelInfo())),
+    explainSmiles(smiles, explanationOptions) {
+      const pending = deferred(); explanations.push({ smiles, options: explanationOptions, ...pending }); return pending.promise;
+    },
     analyzeSmiles(smiles, analysisOptions) {
       const pending = deferred();
       requests.push({ smiles, options: analysisOptions, ...pending });
@@ -132,7 +135,7 @@ async function setup(options = {}) {
     URL: { createObjectURL(blob) { blobs.push(blob); return "blob:test"; }, revokeObjectURL() {} },
   }, { filename: "app.js" });
   await flush();
-  return { elements, requests, blobs, timers, document };
+  return { elements, requests, explanations, blobs, timers, document };
 }
 function providerConfig(overrides = {}) {
   return { apiUrl: "https://example.com/v1/chat/completions", modelName: "test-model", modelVersion: "model.v1", apiFormat: "openai", scoreKind: "uncalibrated_score", timeoutSeconds: 30, temperature: null, sendImage: false, jsonMode: true, hasApiKey: true, ...overrides };
@@ -159,6 +162,71 @@ async function complete(ui, smiles = "CCO", mode = "model") {
   ui.requests.at(-1).resolve(report(smiles, mode));
   await pending;
 }
+
+function explainedFixture() {
+  return { contractVersion: "aidd.research.explanation.api.v1", status: "partial", structureId: "d".repeat(64), endpoint: "herg",
+    modelPrediction: { provenance: { modelVersion: "unit-fixture-v1", weightsSha256: "a".repeat(64) } },
+    attribution: { status: "unavailable", method: null, atoms: [], limitations: ["unit-test-only"] },
+    evidence: { status: "insufficient-evidence", results: [] },
+    report: { language: { status: "unavailable", message: "unit fixture LLM failure" }, evidenceBundleSha256: "e".repeat(64),
+      sections: [{ title: "机制假设", text: "不确定 <script>alert('fixture')</script>", sourceKind: "mechanism-hypothesis", confidence: "证据不足", sourceIds: [], limitations: [] }] } };
+}
+async function localExplainedUI() {
+  const ui = await setup({ health: localHealth() });
+  const pending = start(ui); const r = report(); r.structureId = "d".repeat(64);
+  r.provenance.model = { modelVersion: "unit-fixture-v1", weightsSha256: "a".repeat(64) };
+  ui.requests.at(-1).resolve(r); await pending; return ui;
+}
+test("research explanation is disabled for external or rules reports", async () => {
+  const ui = await setup(); await complete(ui); assert.equal(ui.elements.explainButton.disabled, true);
+  await ui.elements.explainButton.fire("click"); assert.equal(ui.explanations.length, 0);
+});
+test("local explanation binds original weight and molecule identity without modifying scores", async () => {
+  const ui = await localExplainedUI(); assert.equal(ui.elements.explainButton.disabled, false);
+  const previous = ui.elements.overallScore.textContent;
+  const pending = ui.elements.explainButton.fire("click"); const call = ui.explanations[0];
+  assert.equal(call.options.expectedWeightsSha256, "a".repeat(64)); assert.equal(call.options.includeLanguage, false);
+  call.resolve(explainedFixture()); await pending;
+  assert.equal(ui.elements.exportExplanationButton.disabled, false); assert.equal(ui.elements.overallScore.textContent, previous);
+  assert.match(ui.elements.explanationContent.innerHTML, /&lt;script&gt;/); assert.doesNotMatch(ui.elements.explanationContent.innerHTML, /<script>/);
+  assert.match(ui.elements.explanationContent.innerHTML, /unit fixture LLM failure/);
+});
+test("explanation export preserves source labels and removes credentials", async () => {
+  const ui = await localExplainedUI(); const pending = ui.elements.explainButton.fire("click"); const packet = explainedFixture();
+  packet.report.language.apiKey = "fixture-secret"; ui.explanations[0].resolve(packet); await pending;
+  ui.elements.exportExplanationButton.fire("click"); assert.equal(ui.blobs.length, 1);
+  const text = await ui.blobs[0].text(); assert.match(text, /mechanism-hypothesis/); assert.doesNotMatch(text, /fixture-secret|apiKey/);
+});
+test("input changes abort explanation, invalidate export and ignore late response", async () => {
+  const ui = await localExplainedUI(); const pending = ui.elements.explainButton.fire("click"); const call = ui.explanations[0];
+  ui.elements.smilesInput.value = "CCN"; ui.elements.smilesInput.fire("input"); assert.equal(call.options.signal.aborted, true);
+  call.resolve(explainedFixture()); await pending; assert.equal(ui.elements.explanationContent.hidden, true);
+  ui.elements.exportExplanationButton.fire("click"); assert.equal(ui.blobs.length, 0);
+});
+test("reset during explanation cannot restore old research report", async () => {
+  const ui = await localExplainedUI(); const pending = ui.elements.explainButton.fire("click");
+  ui.elements.resetButton.fire("click"); ui.explanations[0].resolve(explainedFixture()); await pending;
+  assert.equal(ui.elements.explanationContent.hidden, true); assert.equal(ui.elements.exportExplanationButton.disabled, true);
+});
+test("changed model weights are refused without replacing original report", async () => {
+  const ui = await localExplainedUI(); const pending = ui.elements.explainButton.fire("click"); const packet = explainedFixture();
+  packet.modelPrediction.provenance.weightsSha256 = "b".repeat(64); ui.explanations[0].resolve(packet); await pending;
+  assert.match(ui.elements.explanationStatus.textContent, /重新筛选/); assert.equal(ui.elements.exportExplanationButton.disabled, true);
+  assert.equal(ui.elements.report.hidden, false);
+});
+test("failed explanation rendering cannot leave an exportable report", async () => {
+  const ui = await localExplainedUI(); const pending = ui.elements.explainButton.fire("click"); const packet = explainedFixture();
+  delete packet.report.language; ui.explanations[0].resolve(packet); await pending;
+  assert.equal(ui.elements.exportExplanationButton.disabled, true);
+  assert.equal(ui.elements.explanationContent.hidden, true);
+  ui.elements.exportExplanationButton.fire("click"); assert.equal(ui.blobs.length, 0);
+  assert.equal(ui.elements.report.hidden, false);
+});
+test("endpoint or provider changes invalidate completed explanation", async () => {
+  const ui = await localExplainedUI(); const pending = ui.elements.explainButton.fire("click"); ui.explanations[0].resolve(explainedFixture()); await pending;
+  ui.elements.explanationEndpoint.value = "ames"; ui.elements.explanationEndpoint.fire("change"); assert.equal(ui.elements.exportExplanationButton.disabled, true);
+  ui.elements.providerSelect.value = "deepseek"; ui.elements.providerSelect.fire("change"); assert.equal(ui.elements.explainButton.disabled, true);
+});
 
 test("API configuration reads the selected provider without displaying a saved secret", async () => {
   let selected;

@@ -20,6 +20,23 @@
   --radius: 12px;
 }
 
+.explanation-panel { margin-top: 20px; padding: 24px; background: linear-gradient(140deg, #f3f8ff, #fff); border: 1px solid #cadcf6; border-radius: 12px; }
+.explanation-panel h3, .explanation-panel h4 { color: #21477c; }
+.explanation-note { color: #64748b; font-size: 12px; }
+.explanation-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin: 16px 0; }
+.explanation-controls label { display: flex; flex-direction: column; gap: 6px; }
+.explanation-controls select { border: 1px solid #b9cceb; border-radius: 7px; padding: 8px; background: white; }
+.explanation-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.explanation-image { max-width: 100%; height: auto; border-radius: 8px; background: white; }
+.similar-observation { padding: 14px 0; border-top: 1px solid #d8e5f6; overflow-wrap: anywhere; }
+.similar-observation .explanation-image { max-height: 160px; }
+.research-report-section { padding: 12px; margin: 8px 0; border: 1px solid #d7e4f7; background: #fff; border-radius: 8px; }
+.research-report-section summary { cursor: pointer; color: #245ca5; font-weight: 600; }
+.report-paragraph { white-space: pre-line; }
+.explanation-panel table { width: 100%; text-align: left; }
+.explanation-panel code { overflow-wrap: anywhere; }
+@media (max-width: 820px) { .explanation-columns { grid-template-columns: 1fr; } }
+
 * {
   box-sizing: border-box;
 }
