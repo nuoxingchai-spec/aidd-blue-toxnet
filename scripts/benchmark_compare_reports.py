@@ -298,6 +298,30 @@ def _save(path, output):
     temporary.replace(path)
 
 
+def _recover_owned_interruption(client, output, run_id, *, arm, repeat, board_memory=None):
+    """Preserve terminal telemetry after cancelling only this script's run.
+
+    Hard process termination cannot reach this handler; activeRunId remains
+    in the previous atomic checkpoint for explicit operator recovery.
+    """
+    try:
+        record = _json_request(client, 'DELETE', f'/api/research/compare/runs/{run_id}')
+        if record.get('status') not in TERMINAL:
+            record = _json_request(client, 'GET', f'/api/research/compare/runs/{run_id}')
+        if record.get('runId') != run_id or record.get('status') not in TERMINAL:
+            raise BenchmarkError('COMPARE_INTERRUPTION_TERMINAL_STATE_UNCONFIRMED')
+        if not any(row['runId'] == run_id for row in output['runs']):
+            recovered = summarize_run(record, arm=arm, repeat=repeat, board_memory=board_memory)
+            recovered['interruptedDuringArm'] = True
+            output['runs'].append(recovered)
+        output['interruptionCleanup'] = {'runId': run_id, 'terminalStatus': record['status'],
+                                          'terminalRecordObserved': True,
+                                          'policy': 'inspect individual model cleanup confirmations; terminal status alone does not prove GPU release'}
+        output.pop('activeRunId', None)
+    except (BenchmarkError, httpx.HTTPError):
+        output['cleanupAfterInterruption'] = 'unconfirmed; inspect service quarantine before any new run'
+
+
 def run_benchmark(args):
     base_url = validate_base_url(args.base_url)
     if not 1 <= len(args.smiles) <= 10 or not 1 <= args.repeat <= 10:
@@ -342,12 +366,19 @@ def run_benchmark(args):
             for repeat in range(1, args.repeat + 1):
                 for smiles in args.smiles:
                     for arm in ARMS:
+                        board_memory = None
                         sampler = NvidiaSmiSampler(interval_seconds=args.gpu_sample_seconds).start() if args.gpu_sample else None
                         try:
                             submitted = _json_request(client, 'POST', '/api/research/compare/runs', payload=request_for_arm(smiles, arm, model=args.ollama_model))
-                            current = submitted.get('runId')
-                            if not isinstance(current, str) or not re.fullmatch('[a-f0-9]{32}', current):
+                            candidate = submitted.get('runId')
+                            if not isinstance(candidate, str) or not re.fullmatch('[a-f0-9]{32}', candidate):
                                 raise BenchmarkError('COMPARE_INVALID_RUN_ID')
+                            current = candidate
+                            # A hard-terminated CLI cannot run Python cleanup.
+                            # Persist the owned run ID immediately so manual
+                            # recovery can cancel exactly this request by API.
+                            output['activeRunId'] = current
+                            _save(output_path, output)
                             deadline = time.monotonic() + args.timeout
                             while True:
                                 record = _json_request(client, 'GET', f'/api/research/compare/runs/{current}')
@@ -364,6 +395,7 @@ def run_benchmark(args):
                         if output['runs'][-1]['runtimeProvenance'] != runtime:
                             raise BenchmarkError('COMPARE_RUNNING_SERVICE_CHANGED_STOPPED')
                         current = None
+                        output.pop('activeRunId', None)
                         output['summary'] = aggregate(output['runs'])
                         _save(output_path, output)
                         print(f"{arm['id']} repeat={repeat} status={output['runs'][-1]['status']} completed={len(output['runs'])}/{planned}", flush=True)
@@ -375,10 +407,7 @@ def run_benchmark(args):
         except BaseException:
             output['status'] = 'interrupted'
             if current:
-                try:
-                    _json_request(client, 'DELETE', f'/api/research/compare/runs/{current}')
-                except (BenchmarkError, httpx.HTTPError):
-                    output['cleanupAfterInterruption'] = 'unconfirmed; inspect service quarantine before any new run'
+                _recover_owned_interruption(client, output, current, arm=arm, repeat=repeat, board_memory=board_memory)
             raise
         finally:
             output['summary'] = aggregate(output['runs'])

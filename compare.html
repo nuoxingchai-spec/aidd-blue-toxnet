@@ -73,7 +73,7 @@
         <section id="compareHistoryPanel" class="compare-panel compare-history-panel" aria-labelledby="compareHistoryTitle" hidden>
           <div class="compare-section-head"><div><p class="eyebrow">Local experiment history</p><h2 id="compareHistoryTitle">实验历史 · 默认仅摘要</h2></div><button class="secondary-button" id="compareHistoryRefresh" type="button">刷新历史</button></div>
           <p class="compare-hint">打开历史仅查询记录，不再次运行模型、不复用云端授权。没有保存全文的记录，在后台重启后只能恢复摘要。</p>
-          <div class="compare-history-search"><label for="compareHistoryQuery">搜索本机记录</label><input id="compareHistoryQuery" type="search" maxlength="200" placeholder="运行 ID、结构 ID、状态或模型" /><button class="secondary-button" id="compareHistorySearch" type="button">搜索</button></div>
+          <div class="compare-history-search"><label for="compareHistoryQuery">搜索本机记录</label><input id="compareHistoryQuery" type="search" maxlength="120" placeholder="运行 ID、结构 ID、状态或模型" /><button class="secondary-button" id="compareHistorySearch" type="button">搜索</button></div>
           <div class="compare-table-wrap"><table><thead><tr><th>开始时间</th><th>运行状态 / 结构标识</th><th>四模型状态</th><th>保存内容</th><th>操作</th></tr></thead><tbody id="compareHistoryRows"></tbody></table></div>
           <div class="compare-history-pages"><button class="secondary-button" id="compareHistoryPrevious" type="button" disabled>上一页</button><span id="compareHistoryPage" role="status"></span><button class="secondary-button" id="compareHistoryNext" type="button" disabled>下一页</button></div>
           <p id="compareHistoryStatus" role="status" aria-live="polite"></p>

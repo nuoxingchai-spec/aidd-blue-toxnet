@@ -523,6 +523,10 @@ class OllamaQwenAdapter(_CleanupLifecycle):
 
     async def execute(self, context):
         url, messages = validate_ollama_url(self.base_url), _messages(context)
+        from backend.compare_reporting import report_output_format
+        report_format = report_output_format(context['snapshot'],
+            report_contract=context.get('request', {}).get('reportContract', 'v1'),
+            report_mode=context.get('request', {}).get('reportMode', 'deep'))
         options = self._generation_options()
         selected_id = context.get("reporterModel") or self.requested_model
         started = perf_counter()
@@ -535,7 +539,9 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                       "reportOnly": True, "snapshotSha256": _snapshot_sha(context), "independentReport": True,
                       'generationOptions': {key: options[key] for key in ('num_ctx', 'num_predict')}}
         provenance.update(reportContract=context.get('request', {}).get('reportContract', 'v1'),
-                          reportMode=context.get('request', {}).get('reportMode', 'deep'))
+                          reportMode=context.get('request', {}).get('reportMode', 'deep'),
+                          promptVersion=_json(messages[1]['content'])['promptVersion'],
+                          outputFormat='server-bound-json-schema' if isinstance(report_format, dict) else 'json')
         pending_error = None
         self._begin_execution()
         self._cleanup_target, self._cleanup_confirmed = None, False
@@ -554,7 +560,7 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                 self._cleanup_target = (url, selected_id)
                 metrics['httpRequestState'] = 'attempted-unconfirmed'
                 payload = await _http_json(client, "POST", url + "/api/chat", payload={"model": selected_id, "messages": messages,
-                              "format": "json", "stream": False, "keep_alive": 0, "think": False, "options": options}, metrics=metrics, usage_provider='ollama')
+                              "format": report_format, "stream": False, "keep_alive": 0, "think": False, "options": options}, metrics=metrics, usage_provider='ollama')
                 _report_usage(payload, "ollama", metrics)
                 metrics.update(loadSeconds=_duration(payload.get('load_duration')),
                                promptEvaluationSeconds=_duration(payload.get('prompt_eval_duration')),

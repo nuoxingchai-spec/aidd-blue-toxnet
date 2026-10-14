@@ -45,6 +45,25 @@ def fixture_record(run_id="fixture-run", status="completed", *, full=False):
 
 
 class ProjectionTests(unittest.TestCase):
+    def test_report_generation_version_and_format_provenance_preserved_in_both_modes(self):
+        for full in (False, True):
+            with self.subTest(full=full):
+                record = fixture_record(full=full)
+                record['request'].update(reportContract='v2', reportMode='fast')
+                recorded = {'promptVersion': 'aidd.compare.independent-report.v2.1',
+                            'outputFormat': 'server-bound-json-schema', 'reportContract': 'v2', 'reportMode': 'fast',
+                            'revision': 'a' * 64, 'snapshotSha256': 'd' * 64,
+                            'apiKey': 'sk-private-fixture123'}
+                record['models']['ollama-qwen-local']['provenance'] = recorded
+                saved = project_record(record)
+                provenance = saved['models']['ollama-qwen-local']['provenance']
+                for key, value in recorded.items():
+                    if key != 'apiKey': self.assertEqual(provenance[key], value)
+                self.assertNotIn('apiKey', provenance)
+                self.assertNotIn('sk-private-fixture123', json.dumps(saved))
+                self.assertEqual(saved['request']['reportContract'], 'v2')
+                self.assertEqual(saved['request']['reportMode'], 'fast')
+
     def test_minimum_projection_drops_content_keys_paths_and_experiment_rows(self):
         original = fixture_record()
         saved = project_record(original)

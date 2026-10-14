@@ -186,6 +186,11 @@ class BenchmarkTests(unittest.TestCase):
             if request.method == 'GET':
                 identifier = request.url.path.rsplit('/', 1)[-1]
                 self.assertEqual(state['active'], identifier)
+                # The POST-owned ID must be atomically durable before the
+                # first poll, even if the CLI is killed during that poll.
+                checkpoint = json.loads(path.read_text(encoding='utf-8'))
+                self.assertEqual(checkpoint['activeRunId'], identifier)
+                self.assertEqual(checkpoint['status'], 'running')
                 state['active'] = None
                 return httpx.Response(200, json=state['records'][identifier])
             self.fail('Unexpected mocked benchmark request')
@@ -202,7 +207,54 @@ class BenchmarkTests(unittest.TestCase):
             self.assertEqual(state['postCount'], 4)
             self.assertNotIn('DO-NOT-PUBLISH', saved)
             self.assertNotIn('"smiles"', saved.lower())
+            self.assertNotIn('activeRunId', json.loads(saved))
             self.assertTrue(result['summary']['pairedComparability'][0]['comparable'])
+
+    def test_graceful_interruption_keeps_cancelled_usage_and_clears_active_checkpoint(self):
+        arm = benchmark.ARMS[0]
+        record = fixture_record(arm)
+        identifier = record['runId']
+        record['status'] = 'cancelled'
+        record['reports'] = {}
+        record['models']['ollama-qwen-local']['status'] = 'cancelled'
+        calls = []
+        def handler(request):
+            calls.append((request.method, request.url.path))
+            return httpx.Response(200, json=record)
+        output = {'status': 'interrupted', 'activeRunId': identifier, 'runs': []}
+        with httpx.Client(base_url='http://127.0.0.1:4185', transport=httpx.MockTransport(handler)) as client:
+            benchmark._recover_owned_interruption(client, output, identifier, arm=arm, repeat=1)
+        self.assertEqual(calls, [('DELETE', '/api/research/compare/runs/' + identifier)])
+        self.assertNotIn('activeRunId', output)
+        self.assertTrue(output['interruptionCleanup']['terminalRecordObserved'])
+        self.assertEqual(len(output['runs']), 1)
+        self.assertEqual(output['runs'][0]['status'], 'cancelled')
+        self.assertTrue(output['runs'][0]['interruptedDuringArm'])
+        self.assertEqual(output['runs'][0]['models']['ollama-qwen-local']['metrics']['completionTokens'], 50)
+        self.assertNotIn('DO-NOT-PUBLISH', json.dumps(output))
+
+    def test_unconfirmed_interruption_retains_owned_id_for_manual_recovery(self):
+        arm = benchmark.ARMS[0]
+        identifier = fixture_record(arm)['runId']
+        def handler(request):
+            raise httpx.ReadTimeout('fixture only', request=request)
+        output = {'status': 'interrupted', 'activeRunId': identifier, 'runs': []}
+        with httpx.Client(base_url='http://127.0.0.1:4185', transport=httpx.MockTransport(handler)) as client:
+            benchmark._recover_owned_interruption(client, output, identifier, arm=arm, repeat=1)
+        self.assertEqual(output['activeRunId'], identifier)
+        self.assertEqual(output['runs'], [])
+        self.assertIn('unconfirmed', output['cleanupAfterInterruption'])
+
+    def test_interruption_recovery_never_overwrites_already_recorded_measurements(self):
+        arm = benchmark.ARMS[0]
+        original = benchmark.summarize_run(fixture_record(arm), arm=arm, repeat=1)
+        identifier = original['runId']
+        changed = fixture_record(arm)
+        changed['durationMs'] = 10000
+        output = {'status': 'interrupted', 'activeRunId': identifier, 'runs': [copy.deepcopy(original)]}
+        with httpx.Client(base_url='http://127.0.0.1:4185', transport=httpx.MockTransport(lambda _: httpx.Response(200, json=changed))) as client:
+            benchmark._recover_owned_interruption(client, output, identifier, arm=arm, repeat=1)
+        self.assertEqual(output['runs'], [original])
 
     def test_runtime_mismatch_dirty_source_and_active_run_rejected(self):
         response = {'runtimeProvenance': fixture_runtime(), 'inFlightRuns': 0,

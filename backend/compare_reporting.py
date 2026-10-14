@@ -23,7 +23,7 @@ FACT_SCHEMA = 'aidd.compare.facts.v1'
 REPORT_SCHEMA = 'aidd.compare.report.v1'
 REPORT_SCHEMA_V2 = 'aidd.compare.report.v2'
 PROMPT_VERSION = 'aidd.compare.independent-report.v1'
-PROMPT_VERSION_V2 = 'aidd.compare.independent-report.v2'
+PROMPT_VERSION_V2 = 'aidd.compare.independent-report.v2.1'
 REPORT_POLICIES = {
     'fast': {'commentaryItems': 4, 'commentaryCharacters': 240, 'totalCommentaryCharacters': 600,
              'uncertaintyCharacters': 180, 'refusalCharacters': 180},
@@ -220,7 +220,8 @@ def _contract_schema(report_contract):
 
 def _mode_instructions(report_mode, *, compact=True):
     limits = report_policy(report_mode)
-    purpose = ('快速报告：简述四端点、通路提示、专项类别、现有证据状态和主要局限；避免逐项重复事实。'
+    purpose = ('快速报告：仅缩短commentary解释，概述四端点、通路提示、专项类别、证据状态与局限；'
+               '所有章节和事实ID仍须完整，不要为缩短解释而删减事实。'
                if report_mode == 'fast' else
                '深度报告：解释端点差异、模型来源、校准与适用域、规则/归因、证据和专项可比性；'
                '研究假设和后续实验建议仅为未验证推断，不得声称机制成立。')
@@ -231,6 +232,58 @@ def _mode_instructions(report_mode, *, compact=True):
     return result
 
 
+def _response_template(snapshot):
+    return {'schema': REPORT_SCHEMA_V2, 'snapshotSha256': snapshot['snapshotSha256'],
+            'sectionOrder': [section['id'] for section in snapshot['sections']],
+            'claimOrder': {section['id']: list(section['claimIds']) for section in snapshot['sections']},
+            'commentary': [], 'uncertainty': None, 'refusal': None}
+
+
+def report_output_format(snapshot, *, report_contract='v1', report_mode='deep'):
+    """Ollama's structured generation constraint, not a scientific validator.
+
+    v1 preserves its original JSON mode. For v2 the grammar constrains shapes,
+    source-bound IDs and paragraph bounds before generation; the independent
+    post-generation validator still enforces exact membership, total prose
+    budget, identity, versions, hashes and complete scientific limitations.
+    """
+    _contract_schema(report_contract)
+    policy = report_policy(report_mode)
+    if report_contract == 'v1':
+        return 'json'
+    _verify_snapshot_v2(snapshot, snapshot.get('snapshotSha256'))
+    schema = GeneratedReportV2.model_json_schema()
+    properties = schema['properties']
+    identifiers = [section['id'] for section in snapshot['sections']]
+    properties['snapshotSha256'] = {'type': 'string', 'const': snapshot['snapshotSha256']}
+    properties['sectionOrder'] = {'type': 'array', 'items': {'type': 'string', 'enum': identifiers},
+                                  'minItems': len(identifiers), 'maxItems': len(identifiers)}
+    claims = {}
+    for section in snapshot['sections']:
+        ids = list(section['claimIds'])
+        items = {'type': 'string', 'enum': ids} if ids else {'type': 'string'}
+        claims[section['id']] = {'type': 'array', 'items': items, 'minItems': len(ids), 'maxItems': len(ids)}
+    properties['claimOrder'] = {'type': 'object', 'properties': claims,
+                                'required': identifiers, 'additionalProperties': False}
+    properties['commentary']['maxItems'] = policy['commentaryItems']
+    schema['$defs']['CompactCommentary']['properties']['text']['maxLength'] = policy['commentaryCharacters']
+    for name in ('uncertainty', 'refusal'):
+        for option in properties[name]['anyOf']:
+            if option.get('type') == 'string':
+                option['maxLength'] = policy[name + 'Characters']
+    schema['required'] = list(properties)
+
+    def compact_schema(value):
+        if isinstance(value, list):
+            return [compact_schema(item) for item in value]
+        if isinstance(value, dict):
+            return {key: compact_schema(item) for key, item in value.items()
+                    if key not in ('title', 'description', 'default')}
+        return value
+
+    return compact_schema(schema)
+
+
 def report_messages(snapshot, *, report_contract='v1', report_mode='deep'):
     schema_id = _contract_schema(report_contract)
     report_policy(report_mode)
@@ -239,22 +292,26 @@ def report_messages(snapshot, *, report_contract='v1', report_mode='deep'):
         # The original full snapshot hash still binds all facts, identity,
         # provenance, versions and limitations. Nothing is omitted at render.
         compact = {k: copy.deepcopy(snapshot[k]) for k in
-                   ('snapshotSha256', 'structure', 'chemistryVersion', 'questionScope', 'sources', 'sections', 'limitations')}
+                   ('snapshotSha256', 'structure', 'chemistryVersion', 'questionScope', 'sources', 'limitations')}
+        compact['sectionTitles'] = {section['id']: section['title'] for section in snapshot['sections']}
         compact['facts'] = [{k: copy.deepcopy(f[k]) for k in ('id', 'sourceKind', 'value', 'sourceIds')}
                             for f in snapshot['facts']]
         if 'questionInterpretation' in snapshot:
             compact['questionInterpretation'] = copy.deepcopy(snapshot['questionInterpretation'])
         system = ('你是中文研究报告整理器。仅整理给定事实，全部事实由后端重建。只返回严格JSON，不要Markdown或工具调用。'
                   f'schema必须为{schema_id}；原样复制snapshotSha256。'
-                  'sectionOrder包含每个章节ID各一次；claimOrder按各章claimIds列出全部事实各一次，不能跨章。'
+                  '严格按responseTemplate返回同形对象，claimOrder必须是以章节ID为键的JSON对象，不能变成列表。'
+                  'sectionOrder包含每个章节ID各一次；claimOrder保留模板中各章全部事实各一次，不能跨章。'
                   '只允许字段schema,snapshotSha256,sectionOrder,claimOrder,commentary,uncertainty,refusal。'
                   'commentary为[{"sectionId":"limits","text":"尚无充分证据"}]形式；uncertainty和refusal为字符串或null。'
+                  '每章commentary最多一段，不要为每个端点或事实各写一段；无法简明整理时保留空列表。'
                   '严禁输出factChecks、score、sourceIds、模型版本、结构或任何新字段；不得重算分数或类别。'
                   '解释均为unverified，不能新增实验值、文献、临床风险或确认的毒性机制。'
                   '缺少证据时明确“不确定”或“尚无充分证据”；保留全部事实ID和科研限制。'
                   + _mode_instructions(report_mode))
         return [{'role': 'system', 'content': system}, {'role': 'user', 'content': encoded({
-            'promptVersion': PROMPT_VERSION_V2, 'reportMode': report_mode, 'snapshot': compact})}]
+            'promptVersion': PROMPT_VERSION_V2, 'reportMode': report_mode, 'snapshot': compact,
+            'responseTemplate': _response_template(snapshot)})}]
     schema = GeneratedReport.model_json_schema()
     system = ('你是中文研究报告整理器。仅使用提供的已核验事实；不得改写分数、来源、类别或发明实验与文献。'
               '返回一个严格 JSON 对象，schema=aidd.compare.report.v1。复制 snapshotSha256。'
@@ -263,6 +320,8 @@ def report_messages(snapshot, *, report_contract='v1', report_mode='deep'):
               '科学机制不确定；不要输出临床风险概率、工具调用或Markdown。')
     if report_mode == 'fast':
         system += _mode_instructions(report_mode, compact=False)
+        system += ('Fast只限制commentary篇幅；factChecks必须逐条完整、精确复制所有事实value和sourceIds，'
+                   '不能省略、汇总或缩写factChecks与claimOrder，commentary可直接为空。')
     return [{'role': 'system', 'content': system}, {'role': 'user', 'content': encoded({
         'promptVersion': PROMPT_VERSION, 'snapshot': snapshot, 'responseSchema': schema})}]
 

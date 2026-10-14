@@ -485,3 +485,44 @@ test("software fixture: runtime ownership, queue, tokens and cleanup retain meas
   assert.match(ui.elements.compareMetricsRows.textContent, /排队 0.00 ms.*生成 未测量.*123 \/ 45.*释放未确认/);
   assert.doesNotMatch(ui.elements.compareMetricsRows.textContent, /8000/);
 });
+
+test("software fixture: production run top-level queue/duration override legacy metrics even when unknown", async () => {
+  const historical = run({ queueWaitMs: 12.5, durationMs: 1500.25, metrics: { durationMs: 9999, queueWaitMs: 8888 } });
+  const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+    if (request.url.endsWith("/fixture-run-1")) return response(historical);
+  } });
+  assert.match(ui.elements.compareResourceStatus.textContent, /入队等待：12.50 ms.*总耗时：1500.25 ms/);
+  assert.doesNotMatch(ui.elements.compareResourceStatus.textContent, /9999|8888/);
+  // Null means unmeasured in the production contract; do not replace it with
+  // an obsolete nested measurement merely because null is falsy.
+  historical.queueWaitMs = null; historical.durationMs = null;
+  // A fresh fixture boot exercises the null shape without changing execution.
+  const second = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+    if (request.url.endsWith("/fixture-run-1")) return response(historical);
+  } });
+  assert.match(second.elements.compareResourceStatus.textContent, /入队等待：未测量.*总耗时：未测量/);
+  assert.doesNotMatch(second.elements.compareResourceStatus.textContent, /9999|8888/);
+});
+
+test("software fixture: search bounds match API maximum and model stage status updates without metric changes", async () => {
+  let polls = 0;
+  const progress = run({ status: "running" }); progress.models["ollama-qwen-local"] = { status: "pending", metrics: {} };
+  const ui = await setup({ fetch(request) {
+    if (request.url.startsWith("/api/research/compare/runs?")) return response({ contractVersion, runs: [], offset: 0, limit: 10, total: 0, hasMore: false });
+    if (request.method === "GET" && request.url.endsWith("/fixture-run-1")) {
+      const result = JSON.parse(JSON.stringify(progress));
+      result.models["ollama-qwen-local"].status = ++polls === 1 ? "pending" : "running";
+      return response(result);
+    }
+  } });
+  assert.match(html, /id="compareHistoryQuery"[^>]*maxlength="120"/);
+  ui.elements.compareHistoryQuery.value = "q".repeat(130);
+  await ui.elements.compareHistorySearch.fire("click"); await flush();
+  const history = ui.requests.find((request) => request.url.startsWith("/api/research/compare/runs?"));
+  assert.equal(decodeURIComponent(history.url.split("&q=")[1]).length, 120);
+  ui.elements.compareSmiles.value = "CCO"; await ui.elements.compareForm.fire("submit"); await flush();
+  const row = () => ui.elements.compareMetricsRows.children[2].textContent;
+  assert.match(row(), /排队中 \/ 排队 未测量/);
+  await ui.pollOnce();
+  assert.match(row(), /正在运行 \/ 排队 未测量/);
+});

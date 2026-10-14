@@ -7,7 +7,7 @@ from backend.chemistry import analyze_chemistry
 from backend.compare_question import interpret_question
 from backend.compare_reporting import (
     LIMITATIONS, REPORT_SCHEMA, REPORT_SCHEMA_V2, build_snapshot, digest,
-    report_messages, report_policy, validate_report, validate_report_v2,
+    report_messages, report_output_format, report_policy, validate_report, validate_report_v2,
 )
 from backend.compare_schemas import MODEL_IDS
 from test.compare_fixture import fixture_prediction, fixture_report
@@ -174,6 +174,12 @@ class CompactReportTests(unittest.TestCase):
         self.assertEqual(payload['snapshot']['limitations'], LIMITATIONS)
         self.assertEqual(len(payload['snapshot']['facts']), len(self.snapshot['facts']))
         self.assertNotIn('text', payload['snapshot']['facts'][0])
+        self.assertNotIn('sections', payload['snapshot'])
+        self.assertEqual(payload['snapshot']['sectionTitles'], {s['id']: s['title'] for s in self.snapshot['sections']})
+        self.assertEqual(payload['promptVersion'], 'aidd.compare.independent-report.v2.1')
+        self.assertIsInstance(payload['responseTemplate']['claimOrder'], dict)
+        self.assertEqual(payload['responseTemplate']['commentary'], [])
+        self.assertEqual(validate_report(payload['responseTemplate'], self.snapshot, report_mode='fast')['verifiedFacts'], self.snapshot['facts'])
         self.assertNotIn('responseSchema', payload)
         self.assertNotEqual(fast, deep)
         # This checks bytes only; no token-count or runtime claim is made.
@@ -185,6 +191,64 @@ class CompactReportTests(unittest.TestCase):
     def test_snapshot_does_not_share_mutable_global_limits(self):
         self.snapshot['limitations'].append('local change')
         self.assertNotIn('local change', LIMITATIONS)
+
+    def test_v2_generation_schema_has_strict_shape_exact_dynamic_members_and_hash(self):
+        schema = report_output_format(self.snapshot, report_contract='v2', report_mode='fast')
+        self.assertFalse(schema['additionalProperties'])
+        expected_fields = {'schema', 'snapshotSha256', 'sectionOrder', 'claimOrder', 'commentary', 'uncertainty', 'refusal'}
+        self.assertEqual(set(schema['properties']), expected_fields)
+        self.assertEqual(set(schema['required']), expected_fields)
+        properties = schema['properties']
+        self.assertEqual(properties['schema']['const'], REPORT_SCHEMA_V2)
+        self.assertEqual(properties['snapshotSha256']['const'], self.snapshot['snapshotSha256'])
+        self.assertEqual(set(properties['sectionOrder']['items']['enum']), {s['id'] for s in self.snapshot['sections']})
+        self.assertEqual(properties['sectionOrder']['minItems'], 4)
+        self.assertEqual(properties['sectionOrder']['maxItems'], 4)
+        self.assertEqual(properties['claimOrder']['type'], 'object')
+        self.assertFalse(properties['claimOrder']['additionalProperties'])
+        for section in self.snapshot['sections']:
+            dynamic = properties['claimOrder']['properties'][section['id']]
+            self.assertEqual(dynamic['items']['enum'], section['claimIds'])
+            self.assertEqual(dynamic['minItems'], len(section['claimIds']))
+            self.assertEqual(dynamic['maxItems'], len(section['claimIds']))
+        self.assertNotIn('description', schema)
+
+    def test_generation_schema_applies_mode_bounds_but_keeps_postvalidator_strict(self):
+        for mode in ('fast', 'deep'):
+            schema = report_output_format(self.snapshot, report_contract='v2', report_mode=mode)
+            policy = report_policy(mode)
+            self.assertEqual(schema['properties']['commentary']['maxItems'], policy['commentaryItems'])
+            self.assertEqual(schema['$defs']['CompactCommentary']['properties']['text']['maxLength'], policy['commentaryCharacters'])
+            self.assertFalse(schema['$defs']['CompactCommentary']['additionalProperties'])
+            for name in ('uncertainty', 'refusal'):
+                options = schema['properties'][name]['anyOf']
+                self.assertEqual(next(item for item in options if item['type'] == 'string')['maxLength'], policy[name + 'Characters'])
+        raw = compact_report(self.snapshot)
+        raw['claimOrder'] = list(raw['claimOrder'].values())
+        with self.assertRaises(ValueError): validate_report(raw, self.snapshot)
+        raw = compact_report(self.snapshot)
+        raw['commentary'] *= 12
+        with self.assertRaises(ValueError): validate_report(raw, self.snapshot)
+        # Schema output is independent and cannot mutate future formats.
+        schema['properties']['claimOrder']['properties']['prediction']['items']['enum'].append('invented')
+        self.assertNotIn('invented', str(report_output_format(self.snapshot, report_contract='v2')))
+
+    def test_v1_generation_format_remains_json_fast_keeps_all_factchecks(self):
+        for mode in ('fast', 'deep'):
+            self.assertEqual(report_output_format(self.snapshot, report_contract='v1', report_mode=mode), 'json')
+        fast = report_messages(self.snapshot, report_contract='v1', report_mode='fast')
+        self.assertIn('factChecks必须逐条完整', fast[0]['content'])
+        self.assertNotIn('避免逐项重复事实', fast[0]['content'])
+        self.assertEqual(json.loads(fast[1]['content'])['snapshot']['facts'], self.snapshot['facts'])
+        for contract, mode in [('unsupported', 'deep'), ('v2', 'unknown')]:
+            with self.assertRaises(ValueError): report_output_format(self.snapshot, report_contract=contract, report_mode=mode)
+
+    def test_dynamic_generation_schema_does_not_mix_snapshots_or_hide_integrity_failure(self):
+        original = report_output_format(self.snapshot, report_contract='v2')
+        changed = copy.deepcopy(self.snapshot)
+        changed['facts'][0]['value']['score'] = .99
+        with self.assertRaises(ValueError): report_output_format(changed, report_contract='v2')
+        self.assertEqual(report_output_format(self.snapshot, report_contract='v2'), original)
 
 
 class ChineseQuestionTests(unittest.TestCase):

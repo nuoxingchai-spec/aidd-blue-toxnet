@@ -144,7 +144,7 @@ def _provenance(value):
                            "sourceKind", "sourceRepository", "sourceRevision", "ggufSha256", "quantization",
                            "upstreamRevisionStatus", "upstreamRevision", "baseModelId", "localPackageVerification",
                            "localPackageVerified", "sourceFile", "ggufSizeBytes", "auditSchema", "promptMode", "sourceAuthenticity",
-                           "tokenizerIdentity", "modelContextLength", "rawPrompt", "reportContract", "reportMode"))
+                           "tokenizerIdentity", "modelContextLength", "rawPrompt", "reportContract", "reportMode", "promptVersion", "outputFormat"))
     if not isinstance(value, dict):
         return output
     if isinstance(value.get("encoder"), dict):

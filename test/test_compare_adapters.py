@@ -17,7 +17,7 @@ from backend.compare_worker import WORKER_SCHEMA, _cuda_oom, _require_b16, run_w
 from backend.model_client import ModelConfig, ModelAPIError
 from backend.multitask_model import ALL_TASKS
 from backend.chemistry import analyze_chemistry
-from backend.compare_reporting import build_snapshot, report_messages
+from backend.compare_reporting import build_snapshot, report_messages, report_output_format, validate_report
 
 DIGEST = "a" * 64
 TEST_STRUCTURE = {"canonicalSmiles": "CCO", "structureId": hashlib.sha256(b"CCO").hexdigest()}
@@ -99,6 +99,115 @@ class URLValidationTests(unittest.TestCase):
 
 
 class OllamaAdapterTests(unittest.IsolatedAsyncioTestCase):
+    async def test_v2_payload_uses_snapshot_bound_schema_for_fast_and_deep(self):
+        """Real adapter with MockTransport; no Ollama or model is contacted."""
+        for mode in ('fast', 'deep'):
+            with self.subTest(mode=mode):
+                supplied = deepcopy(context())
+                supplied['request'].update(reportContract='v2', reportMode=mode)
+                supplied['messages'] = report_messages(supplied['snapshot'], report_contract='v2', report_mode=mode)
+                template = json.loads(supplied['messages'][1]['content'])['responseTemplate']
+                submitted = []
+                def handler(request):
+                    if request.url.path == '/api/chat':
+                        submitted.append(json.loads(request.content))
+                        return httpx.Response(200, json=chat(template))
+                    return httpx.Response(200, json={'models': []} if request.url.path == '/api/ps' else tags())
+                adapter = OllamaQwenAdapter(transport=httpx.MockTransport(handler))
+                result = await adapter.execute(supplied)
+                self.assertEqual(len(submitted), 1)
+                body = submitted[0]
+                self.assertEqual(body['messages'], supplied['messages'])
+                self.assertIsInstance(body['format'], dict)
+                self.assertEqual(body['format'], report_output_format(supplied['snapshot'], report_contract='v2', report_mode=mode))
+                properties = body['format']['properties']
+                self.assertEqual(properties['snapshotSha256']['const'], supplied['snapshot']['snapshotSha256'])
+                self.assertEqual(properties['claimOrder']['type'], 'object')
+                self.assertFalse(properties['claimOrder']['additionalProperties'])
+                for section in supplied['snapshot']['sections']:
+                    member_schema = properties['claimOrder']['properties'][section['id']]
+                    self.assertEqual(member_schema['items']['enum'], section['claimIds'])
+                    self.assertEqual(member_schema['minItems'], len(section['claimIds']))
+                    self.assertEqual(member_schema['maxItems'], len(section['claimIds']))
+                for forbidden in ('score', 'sources', 'sourceIds', 'modelVersion', 'structureId', 'factChecks'):
+                    self.assertNotIn(forbidden, properties)
+                verified = validate_report(result['data']['rawReport'], supplied['snapshot'], report_contract='v2', report_mode=mode)
+                self.assertEqual(verified['verifiedFacts'], supplied['snapshot']['facts'])
+                self.assertTrue(result['metrics']['resourceCleanupVerified'])
+
+    async def test_v2_prompt_and_output_format_provenance_track_actual_payload(self):
+        supplied = deepcopy(context())
+        supplied['request'].update(reportContract='v2', reportMode='fast')
+        supplied['messages'] = report_messages(supplied['snapshot'], report_contract='v2', report_mode='fast')
+        message_payload = json.loads(supplied['messages'][1]['content'])
+        def handler(request):
+            if request.url.path == '/api/chat':
+                return httpx.Response(200, json=chat(message_payload['responseTemplate']))
+            return httpx.Response(200, json={'models': []} if request.url.path == '/api/ps' else tags())
+        result = await OllamaQwenAdapter(transport=httpx.MockTransport(handler)).execute(supplied)
+        provenance = result['provenance']
+        self.assertEqual(provenance['promptVersion'], message_payload['promptVersion'])
+        self.assertEqual(provenance['promptVersion'], 'aidd.compare.independent-report.v2.1')
+        self.assertEqual(provenance['outputFormat'], 'server-bound-json-schema')
+        self.assertEqual(provenance['reportContract'], 'v2')
+        self.assertEqual(provenance['reportMode'], 'fast')
+        self.assertEqual(provenance['snapshotSha256'], TEST_SNAPSHOT['snapshotSha256'])
+        self.assertEqual(provenance['revision'], DIGEST)
+
+    async def test_v1_default_and_explicit_contract_keep_json_generation_and_provenance(self):
+        for explicit in (False, True):
+            with self.subTest(explicit=explicit):
+                supplied = deepcopy(context())
+                if explicit:
+                    supplied['request'].update(reportContract='v1', reportMode='deep')
+                bodies = []
+                def handler(request):
+                    if request.url.path == '/api/chat':
+                        bodies.append(json.loads(request.content))
+                        return httpx.Response(200, json=chat())
+                    return httpx.Response(200, json={'models': []} if request.url.path == '/api/ps' else tags())
+                result = await OllamaQwenAdapter(transport=httpx.MockTransport(handler)).execute(supplied)
+                self.assertEqual(bodies[0]['format'], 'json')
+                self.assertEqual(bodies[0]['messages'], MESSAGES)
+                self.assertEqual(result['provenance']['promptVersion'], 'aidd.compare.independent-report.v1')
+                self.assertEqual(result['provenance']['outputFormat'], 'json')
+                self.assertEqual(result['provenance']['reportContract'], 'v1')
+                self.assertEqual(result['provenance']['reportMode'], 'deep')
+
+    async def test_v2_invalid_or_truncated_json_keeps_usage_generation_provenance_and_cleanup(self):
+        for failure, expected_code in (('invalid', 'OLLAMA_INVALID_REPORT'), ('truncated', 'OLLAMA_REPORT_TRUNCATED')):
+            with self.subTest(failure=failure):
+                supplied = deepcopy(context())
+                supplied['request'].update(reportContract='v2', reportMode='fast')
+                supplied['messages'] = report_messages(supplied['snapshot'], report_contract='v2', report_mode='fast')
+                unloads = []
+                def handler(request):
+                    if request.url.path == '/api/chat':
+                        payload = chat()
+                        payload['message']['content'] = 'DO-NOT-PUBLISH-INVALID-MODEL-TEXT'
+                        if failure == 'truncated':
+                            payload['done_reason'] = 'length'
+                        return httpx.Response(200, json=payload)
+                    if request.url.path == '/api/generate':
+                        unloads.append(True)
+                        return httpx.Response(200, json={'done': True})
+                    return httpx.Response(200, json={'models': []} if request.url.path == '/api/ps' else tags())
+                adapter = OllamaQwenAdapter(transport=httpx.MockTransport(handler))
+                with self.assertRaises(CompareAdapterError) as caught:
+                    await adapter.execute(supplied)
+                error = caught.exception
+                self.assertEqual(error.code, expected_code)
+                self.assertEqual(error.metrics['promptTokens'], 12)
+                self.assertEqual(error.metrics['completionTokens'], 6)
+                self.assertEqual(error.metrics['generationSeconds'], 2.0)
+                self.assertEqual(error.provenance['promptVersion'], 'aidd.compare.independent-report.v2.1')
+                self.assertEqual(error.provenance['outputFormat'], 'server-bound-json-schema')
+                self.assertEqual(error.provenance['snapshotSha256'], TEST_SNAPSHOT['snapshotSha256'])
+                self.assertEqual(error.provenance['revision'], DIGEST)
+                self.assertTrue(error.metrics['resourceCleanupVerified'])
+                self.assertEqual(unloads, [True])
+                self.assertNotIn('DO-NOT-PUBLISH-INVALID-MODEL-TEXT', json.dumps(error.__dict__))
+
     async def test_status_queries_actual_tags_and_reports_digest(self):
         calls = []
         def handler(request):

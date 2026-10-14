@@ -437,7 +437,12 @@
       if (resource.blocked === true) text += ` 资源已隔离：${resource.blockedReason || "清理未确认"}。`;
       const waiting = Core.MODEL_IDS.filter((id) => run.models && run.models[id] && run.models[id].status === "pending");
       if (waiting.length && state.inFlight) text += ` 等待阶段：${waiting.map((id) => NAMES[id]).join(" → ")}。`;
-      if (run.metrics) text += ` 本次入队等待：${Core.formatMetric(run.metrics.queueWaitMs, "ms")}；已记录总耗时：${Core.formatMetric(run.metrics.durationMs, "ms")}。`;
+    }
+    if (run) {
+      const legacy = run.metrics || {};
+      const queueWaitMs = Object.hasOwn(run, "queueWaitMs") ? run.queueWaitMs : legacy.queueWaitMs;
+      const durationMs = Object.hasOwn(run, "durationMs") ? run.durationMs : legacy.durationMs;
+      text += ` 本次入队等待：${Core.formatMetric(queueWaitMs, "ms")}；已记录总耗时：${Core.formatMetric(durationMs, "ms")}。`;
     }
     setText($("compareResourceStatus"), text);
   }
@@ -502,7 +507,10 @@
     renderRegion($("compareDifferences"), run.comparison, () => renderDifferences(run));
     const primary = run.models && run.models["toxnet-v3-b16"];
     renderRegion($("compareEvidenceContent"), { evidence: primary && primary.data && primary.data.evidence, attribution: primary && primary.data && primary.data.attribution, request: run.request && { includeEvidence: run.request.includeEvidence, includeAttribution: run.request.includeAttribution, explainEndpoint: run.request.explainEndpoint }, summary }, () => renderOptional(run));
-    renderRegion($("compareMetricsRows"), Core.MODEL_IDS.map((id) => run.models && run.models[id] && run.models[id].metrics), () => renderMetrics(run));
+    renderRegion($("compareMetricsRows"), Core.MODEL_IDS.map((id) => {
+      const item = run.models && run.models[id];
+      return { status: item && item.status, metrics: item && item.metrics };
+    }), () => renderMetrics(run));
     const limitations = [...new Set([...(run.limitations || []), "研究原型，不构成临床诊断或人体风险概率。", "B16 未独立校准，适用域未完成验证。ClinTox 少样本，可能发生负迁移。", "旧 test 和历史 hERG_Karim 属于已曝光参考，不用于本轮模型选择。", "归因不等于因果机制；自然语言推理不等于科学机制验证。"])] ;
     renderRegion($("compareLimitations"), limitations, () => replace($("compareLimitations"), ...limitations.map((text) => node("li", objectText(text)))));
   }
@@ -689,7 +697,7 @@
   $("comparePresetSelect").addEventListener("change", applyPreset);
   $("compareHistoryButton").addEventListener("click", toggleHistory);
   $("compareHistoryRefresh").addEventListener("click", () => refreshHistory());
-  function searchHistory() { historyQuery = $("compareHistoryQuery").value.trim().slice(0, 200); refreshHistory(0); }
+  function searchHistory() { historyQuery = $("compareHistoryQuery").value.trim().slice(0, 120); refreshHistory(0); }
   $("compareHistorySearch").addEventListener("click", searchHistory);
   $("compareHistoryQuery").addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); searchHistory(); } });
   $("compareHistoryPrevious").addEventListener("click", () => refreshHistory(historyOffset - historyLimit));
