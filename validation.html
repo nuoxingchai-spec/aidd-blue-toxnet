@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="蓝研 AIDD 独立科学验证：数据资格、结构隔离、公平比较、校准与适用域审计。" /><title>AIDD 蓝研 | 独立科学验证</title><link rel="stylesheet" href="styles.css" /><link rel="stylesheet" href="validation.css" /></head>
+  <body class="validation-page">
+    <div class="validation-shell">
+      <aside class="validation-sidebar" aria-label="独立验证配置">
+        <a class="validation-brand" href="/">蓝研 AIDD <small>Independent scientific validation</small></a>
+        <p class="validation-eyebrow">RESEARCH VALIDATION</p><h1>从数据资格开始</h1><p class="validation-muted">审计、评价和部署分别留痕。缺少合格数据时，明确停止在未合格状态。</p>
+        <form id="validationForm">
+          <label for="validationDataset">已登记的数据集</label><select id="validationDataset"><option value="">正在读取数据清单…</option></select>
+          <div id="validationDatasetHint" class="validation-hint"></div>
+          <fieldset><legend>固定模型对照</legend><label><input id="validationModelA4" type="checkbox" checked disabled /> A4 · 四端点模型</label><label><input id="validationModelB16" type="checkbox" checked disabled /> B16 · 十六任务模型</label><label><input id="validationModelMorgan" type="checkbox" checked disabled /> C_Morgan · 指纹基线</label></fieldset>
+          <p id="validationModelStatus" class="validation-hint">尚未检查真实模型工件。</p>
+          <label for="validationProtocol">冻结协议</label><input id="validationProtocol" type="text" readonly value="" /><p class="validation-hint">仅使用服务端登记的协议、真实标签和模型工件。种子固定为 42；此页面不接受文件路径、外部 URL 或临时模型参数。</p>
+          <button id="validationAudit" class="primary-button" type="button">审计数据资格</button><button id="validationEvaluate" class="secondary-button" type="submit">执行独立评价</button><button id="validationCancel" class="secondary-button" type="button" disabled>取消运行</button>
+        </form>
+        <nav class="validation-nav"><a href="/compare">← 多模型对照实验室</a><a href="/">← 原分子毒性工作台</a></nav>
+      </aside>
+      <main class="validation-workspace">
+        <header class="validation-topbar"><div><p class="validation-eyebrow">AUDITABLE EVIDENCE</p><h2>独立科学验证工作台</h2><p class="validation-muted">不把报告生成成功当成科学准确率证明。</p></div><div class="validation-actions"><button id="validationRefresh" class="secondary-button" type="button">刷新数据状态</button><button id="validationExport" class="secondary-button" type="button" disabled>导出聚合 JSON</button></div></header>
+        <div class="validation-notice">研究原型 · 所有 v3 工件 formalAvailability=false。旧 test 和 hERG_Karim 已曝光，不能重新声称首次盲测；毒性标签分数不构成人体风险概率。</div>
+        <div id="validationFixture" class="validation-fixture" role="note" hidden>软件 Mock 测试：以下记录仅验证接口和交互，不能视为真实科学数据、评价或模型推理。</div>
+        <p id="validationStatus" class="validation-status" role="status" aria-live="polite">正在读取真实数据与协议状态…</p><div id="validationError" class="validation-error" role="alert" hidden></div><div id="validationStale" class="validation-stale" role="status" hidden>数据或模型配置已修改。当前展示旧报告，不能按新配置导出。</div>
+        <section class="validation-panel"><div class="validation-section-head"><h2>数据资格与来源</h2><span class="validation-badge" id="validationQualification">未审计</span></div><div id="validationDatasetSummary"></div><div id="validationDependencies"></div><details data-view-key="dataset-source"><summary>数据、任务与许可来源</summary><pre id="validationDatasetSource"></pre></details></section>
+        <section class="validation-panel"><h2>结构隔离与审计</h2><p class="validation-hint">分别核验 canonical、母体、骨架、来源及历史曝光。没有审计结果的项目保持未计算。</p><div id="validationAuditSummary"></div><details data-view-key="audit"><summary>完整聚合审计与资格原因</summary><pre id="validationAuditDetails"></pre></details></section>
+        <section class="validation-panel"><h2>公平比较 · 每端点证据</h2><p class="validation-hint">仅比较同一成员与相同标签语义。CI 在本表指置信区间，软件持续集成通过不代表模型科学效能通过。Coverage 为有定义的预测覆盖率，不代表置信度。</p><p id="validationEvidenceSummary" class="validation-hint"></p><details data-view-key="evaluation-source"><summary>数据、协议、曝光与评价源码绑定</summary><pre id="validationEvidenceDetails"></pre></details><div class="validation-table-wrap"><table><thead><tr><th>端点 / 模型</th><th>样本 / 阳性</th><th>Coverage</th><th>AUROC / CI</th><th>AP / CI</th><th>Brier / ECE</th><th>状态 / 模型版本</th></tr></thead><tbody id="validationMetricRows"></tbody></table></div><details data-view-key="fair-comparison"><summary>成员、标签合同与配对依据</summary><pre id="validationFairDetails"></pre></details></section>
+        <section class="validation-two-columns"><article class="validation-panel"><h2>概率校准</h2><div id="validationCalibration"></div><div id="validationReliability"></div><p class="validation-hint">只有真实、可追溯的分箱统计才绘制可靠性曲线。未拟合、单类别或缺少独立数据时不生成曲线。</p></article><article class="validation-panel"><h2>适用域与拒绝覆盖率</h2><div id="validationApplicability"></div><p class="validation-hint">Tanimoto 仅为结构相似度启发，不能当作预测置信度或已验证的适用域。未知阈值与域外性能保持未知。</p></article></section>
+        <section class="validation-panel"><h2>ClinTox 与负迁移观察</h2><p class="validation-hint">开发集配对差异属于描述性观察。ClinTox 少样本须展示正类数与区间，不能以单次点估计宣称改善或损害已获证明。</p><div id="validationNegativeTransfer"></div></section>
+        <section class="validation-panel"><div class="validation-section-head"><h2>本机验证运行</h2><button id="validationHistoryRefresh" class="secondary-button" type="button">刷新记录</button></div><p class="validation-hint">查看历史只读取聚合结果，不会重新执行模型或扩大数据授权。</p><p id="validationRunMeta" class="validation-hint"></p><div id="validationHistory"></div></section>
+        <section class="validation-panel"><h2>科学限制与未完成项</h2><ul id="validationLimitations"></ul></section>
+        <footer class="validation-footer">aidd.scientific-validation.v1 · 科学资格与工程完成分别记录</footer>
+      </main>
+    </div><script src="validation-core.js"></script><script src="validation-app.js"></script>
+  </body>
+</html>

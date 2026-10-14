@@ -1,0 +1,103 @@
+{
+  "schema": "aidd.independent.public-input-model-parity.v1",
+  "role": "public-basic-molecule-inference-parity",
+  "independentTest": false,
+  "experimentalLabelsRead": false,
+  "trainingExecuted": false,
+  "device": "cpu",
+  "publicInputCount": 2,
+  "inputListSha256": "decb34b3a10a038f9be37d3526189633670267d3a3b813b69d9e0219f25292a4",
+  "evaluatorSourceSha256": "48ad576a18cb2416b801132014f840e058c6871f3f02c9eabd866716bd415406",
+  "models": {
+    "A4": {
+      "status": "passed-real-cpu-parity",
+      "modelVersion": "aidd-toxnet-multitask-a4-42-c6396f9226f6",
+      "weightsSha256": "c6396f9226f615faa8591eba7b2edf959e49c9178e410cf2a0fe60be8d5d35e2",
+      "manifestSha256": "39d5533c982eb0be66170fd33fb999e5a8610650aab39541c2a9475d01889254",
+      "taskIds": [
+        "herg",
+        "dili",
+        "ames",
+        "clintox"
+      ],
+      "outputShape": [
+        2,
+        4
+      ],
+      "taskOrderMatchesPublicPredictAll": true,
+      "maximumAbsoluteDifference": 5.179085142970052e-07,
+      "batchScoreSha256": "5609c09d4dc7265470608eb48f313b712aabf799529abec6bd2a3f9661727618",
+      "totalLoadAndParitySeconds": 24.314772000000175
+    },
+    "B16": {
+      "status": "passed-real-cpu-parity",
+      "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+      "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "taskIds": [
+        "herg",
+        "dili",
+        "ames",
+        "clintox",
+        "tox21_nr_ar",
+        "tox21_nr_ar_lbd",
+        "tox21_nr_ahr",
+        "tox21_nr_aromatase",
+        "tox21_nr_er",
+        "tox21_nr_er_lbd",
+        "tox21_nr_ppar_gamma",
+        "tox21_sr_are",
+        "tox21_sr_atad5",
+        "tox21_sr_hse",
+        "tox21_sr_mmp",
+        "tox21_sr_p53"
+      ],
+      "outputShape": [
+        2,
+        16
+      ],
+      "taskOrderMatchesPublicPredictAll": true,
+      "maximumAbsoluteDifference": 2.974763096685873e-07,
+      "batchScoreSha256": "8cea96afb40b14fcbd4e3dc669032cd41f82f2b2b80b26576fc720dbcee8c1ad",
+      "totalLoadAndParitySeconds": 4.479503800000202
+    },
+    "C_Morgan": {
+      "status": "passed-real-cpu-parity",
+      "modelVersion": "aidd-toxnet-multitask-c_morgan-42-2436ae9fc478",
+      "weightsSha256": "2436ae9fc478add0549feefb80aa23c31d3846551a2da1702bc558b6e0bd55f0",
+      "manifestSha256": "9f16f65f60f623f40aab5b0f7e92f902256636dec8d4b024c0c1a1c512203d81",
+      "taskIds": [
+        "herg",
+        "dili",
+        "ames",
+        "clintox",
+        "tox21_nr_ar",
+        "tox21_nr_ar_lbd",
+        "tox21_nr_ahr",
+        "tox21_nr_aromatase",
+        "tox21_nr_er",
+        "tox21_nr_er_lbd",
+        "tox21_nr_ppar_gamma",
+        "tox21_sr_are",
+        "tox21_sr_atad5",
+        "tox21_sr_hse",
+        "tox21_sr_mmp",
+        "tox21_sr_p53"
+      ],
+      "outputShape": [
+        2,
+        16
+      ],
+      "taskOrderMatchesPublicPredictAll": true,
+      "maximumAbsoluteDifference": 0.0,
+      "batchScoreSha256": "67c1c209c12aac26e1c232b425b4446f869c3552c37386cb91d7d1bd7da0ae17",
+      "totalLoadAndParitySeconds": 3.1902681999999913
+    }
+  },
+  "formalAvailability": false,
+  "limitations": [
+    "Real model inference parity on basic public structures does not measure predictive accuracy or independent generalization.",
+    "MoLFormer batch versus single floating-point outputs are compared with absolute tolerance 1e-6, relative 1e-5."
+  ],
+  "receiptSha256": "01576b2e0a4d9e8a5d131d4f5039a3c5690c3fa57b40b3dbb9a7a73773abc35c"
+}

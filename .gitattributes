@@ -13,3 +13,4 @@ artifacts/v3-multitask/** -text whitespace=cr-at-eol
 artifacts/explanations/*.json -text whitespace=cr-at-eol
 artifacts/integration/** -text whitespace=cr-at-eol
 artifacts/main-merge/*.json -text whitespace=cr-at-eol
+artifacts/independent-validation/** -text whitespace=cr-at-eol

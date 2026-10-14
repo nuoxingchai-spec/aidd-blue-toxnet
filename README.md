@@ -1,5 +1,9 @@
 # AIDD 蓝研
 
+新增研究分支的 **[科研验证工作台](INDEPENDENT_VALIDATION_PROTOCOL.md)**（`/validation`）：标签盲审计、固定A4/B16/Morgan比较、校准/适用域研究与开发负迁移分析。**独立科学验收未完成**，不会把旧test/Karim或开发validation当新盲测；所有v3继续 `formalAvailability=false`。真实观察与限制见 [模型比较](TOXNET_MODEL_COMPARISON.md)、[科学限制](TOXNET_SCIENTIFIC_LIMITATIONS.md)、[许可审查](LICENSE_REVIEW.md)。
+
+第六阶段实际代码、测试、真实CPU一致性和浏览器验收见 [STAGE6_ACCEPTANCE.md](STAGE6_ACCEPTANCE.md)。
+
 ![蓝研 ToxNet 工作台](artifacts/aidd-toxnet-workbench.jpg)
 
 界面采用浅蓝侧栏，支持按钮悬停与按压反馈、报告渐入、风险条与圆环展开、弹窗开合动画。手机布局和滚动已适配，系统开启“减少动态效果”时会减少动画并使用即时滚动。
