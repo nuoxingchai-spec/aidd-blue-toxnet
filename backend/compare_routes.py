@@ -46,6 +46,13 @@ def create_compare_router(service):
         except Exception:
             return JSONResponse({'error': {'code': 'COMPARE_STATUS_UNAVAILABLE', 'message': '模型状态不可用；请检查本机配置和资源清理。'}}, status_code=503)
 
+    @router.get('/compare/runtime')
+    async def runtime():
+        try:
+            return service.runtime_status()
+        except ComparePersistenceError as error:
+            return failure(error)
+
     @router.post('/compare/runs', status_code=202)
     async def create_run(payload: CompareRequest, request: Request):
         try:
@@ -54,9 +61,10 @@ def create_compare_router(service):
             return failure(error)
 
     @router.get('/compare/runs')
-    async def list_runs(limit: int = Query(default=20, ge=1, le=100), offset: int = Query(default=0, ge=0, le=1000000)):
+    async def list_runs(limit: int = Query(default=20, ge=1, le=100), offset: int = Query(default=0, ge=0, le=1000000),
+                        q: str = Query(default='', max_length=120)):
         try:
-            return service.list_runs(limit=limit, offset=offset)
+            return service.list_runs(limit=limit, offset=offset, q=q)
         except ComparePersistenceError as error:
             return failure(error)
 

@@ -50,7 +50,8 @@ TERMINAL = ("completed", "partial", "failed", "cancelled")
 RUN_STATES = ("pending", "running", *TERMINAL)
 MODEL_STATES = (*RUN_STATES, "unavailable", "unsupported", "skipped")
 SETTINGS = ("mode", "primaryPredictor", "specialistPredictor", "specialistTask", "primaryReporter",
-            "comparisonReporter", "includeTox21", "includeEvidence", "evidenceEndpoint", "includeAttribution", "explainEndpoint", "ollamaModel")
+            "comparisonReporter", "includeTox21", "includeEvidence", "evidenceEndpoint", "includeAttribution", "explainEndpoint", "ollamaModel",
+            "reportContract", "reportMode")
 
 
 class ComparePersistenceError(Exception):
@@ -143,7 +144,7 @@ def _provenance(value):
                            "sourceKind", "sourceRepository", "sourceRevision", "ggufSha256", "quantization",
                            "upstreamRevisionStatus", "upstreamRevision", "baseModelId", "localPackageVerification",
                            "localPackageVerified", "sourceFile", "ggufSizeBytes", "auditSchema", "promptMode", "sourceAuthenticity",
-                           "tokenizerIdentity", "modelContextLength", "rawPrompt"))
+                           "tokenizerIdentity", "modelContextLength", "rawPrompt", "reportContract", "reportMode"))
     if not isinstance(value, dict):
         return output
     if isinstance(value.get("encoder"), dict):
@@ -166,8 +167,14 @@ def _metrics(value):
                            "tokensPerSecond", "totalDurationNs", "loadDurationNs", "promptEvalDurationNs", "evalDurationNs",
                            "device", "dtype", "costStatus", "requestAttempted", "resourceCleanupVerified", "totalTokens",
                            "totalDurationSeconds", "httpStatusCode", "httpStatus", "httpResponseReceived", "usageStatus", "invalidUsageFields",
-                           "httpRequestState", "timeoutPhase", "reportValidation", "cleanupState"))
+                           "httpRequestState", "timeoutPhase", "reportValidation", "cleanupState", "promptEvaluationSeconds",
+                           "timeToFirstTokenSeconds", "streaming", "sourceErrorCount", "unverifiedAdditionCount"))
     if isinstance(value, dict):
+        if isinstance(value.get('boardMemory'), dict):
+            output['boardMemory'] = _pick(value['boardMemory'], (
+                'schema', 'status', 'measured', 'scope', 'startedAt', 'endedAt', 'requestedIntervalSeconds',
+                'sampleCount', 'sampleCapReached', 'gpus', 'exactPeakBytes', 'modelAttributedPeakBytes',
+                'samplingLimit', 'otherProcessContext', 'errorCodes'))
         output["cost"] = _pick(value["cost"], ("amount", "currency", "source", "providerReported")) if isinstance(value.get("cost"), dict) else None
         output["gpu"] = _pick(value["gpu"], ("name", "peakAllocatedMiB", "peakReservedMiB", "peakAllocatedBytes", "peakReservedBytes",
                                              "scope", "measurementScope", "measured")) if isinstance(value.get("gpu"), dict) else None
@@ -177,7 +184,7 @@ def _metrics(value):
 def _report_summary(value):
     if not isinstance(value, dict):
         return None
-    output = _pick(value, ("status", "reportSchema", "snapshotSha256", "verifiedFactIds", "sourceVerification"))
+    output = _pick(value, ("status", "reportSchema", "reportMode", "snapshotSha256", "verifiedFactIds", "sourceVerification", "factReconstruction"))
     output["sectionCount"] = len(value["sections"]) if isinstance(value.get("sections"), list) else value.get("sectionCount", 0) if type(value.get("sectionCount")) is int else 0
     output["unverifiedAdditionCount"] = len(value["unverifiedAdditions"]) if isinstance(value.get("unverifiedAdditions"), list) else value.get("unverifiedAdditionCount", 0) if type(value.get("unverifiedAdditionCount")) is int else 0
     return output
@@ -220,7 +227,10 @@ def project_record(record):
         raise _error("COMPARE_PERSISTENCE_INVALID_RECORD")
     request = record.get("request") if isinstance(record.get("request"), dict) else {}
     sensitive = request.get("persistSensitiveContent") is True or record.get("persistSensitiveContent") is True
-    output = _pick(record, ("contractVersion", "runId", "requestId", "status", "createdAt", "updatedAt", "durationMs", "limitations"))
+    output = _pick(record, ("contractVersion", "runId", "requestId", "status", "createdAt", "updatedAt", "durationMs", "queueWaitMs", "limitations"))
+    output['runtimeProvenance'] = _pick(record.get('runtimeProvenance'), (
+        'schema', 'capturedAt', 'gitCommit', 'sourceFilesDifferFromCommit', 'sourceSha256', 'sourceFiles',
+        'processId', 'pythonVersion', 'scope')) or None
     output.update(persistenceSchema=STORE_SCHEMA, contentSaved=sensitive)
     output["request"] = _pick(request, SETTINGS)
     output["request"].update(persistSensitiveContent=sensitive, allowCloudTransfer=False)
@@ -246,10 +256,11 @@ def project_record(record):
             prediction["provenance"] = _provenance(data["prediction"].get("provenance"))
     reports = record.get("reports") or {}
     output["reports"] = {identifier: _pick(value, ("status", "reportSchema", "snapshotSha256", "sections", "verifiedFactIds", "unverifiedAdditions",
-                                                 "sourceVerification", "limitations")) if sensitive else _report_summary(value)
+                                                 "sourceVerification", "limitations", "reportMode", "verifiedFacts", "verifiedSources",
+                                                 "structure", "chemistryVersion", "factReconstruction", "uncertainty", "refusal")) if sensitive else _report_summary(value)
                          for identifier, value in reports.items() if identifier in MODEL_IDS and isinstance(value, dict)}
     snapshot = record.get("snapshot")
-    output["snapshot"] = _pick(snapshot, ("schema", "structure", "chemistryVersion", "questionScope", "facts", "sources", "sections", "limitations",
+    output["snapshot"] = _pick(snapshot, ("schema", "structure", "chemistryVersion", "questionScope", "questionInterpretation", "facts", "sources", "sections", "limitations",
                                          "sentInformationCategories", "experimentalRowsIncluded", "privatePathsIncluded", "freeQuestionIncluded", "snapshotSha256")) if sensitive and isinstance(snapshot, dict) else _pick(snapshot, ("schema", "snapshotSha256", "chemistryVersion")) or None
     output["comparison"] = _pick(record.get("comparison"), ("method", "scientificAccuracyRanked", "directPredictionComparison", "sharedSnapshotSha256",
                                                              "independentReporterInputs", "reportersCompleted", "verifiedFactsShared", "sectionOrdersEqual", "unverifiedProseCounts",
@@ -265,6 +276,7 @@ def _history_item(record, expires_at):
     return {"contractVersion": record.get("contractVersion"), "runId": record["runId"], "status": record["status"],
             "createdAt": record.get("createdAt"), "updatedAt": record.get("updatedAt"), "expiresAtEpoch": expires_at,
             "structureId": (record.get("structure") or {}).get("structureId"), "contentSaved": record.get("contentSaved", False),
+            'request': _pick(record.get('request'), ('reportContract', 'reportMode', 'specialistTask', 'ollamaModel')),
             "models": {identifier: {"status": model.get("status"), "error": model.get("error"),
                                     "provenance": _pick(model.get("provenance"), ("testFixture", "modelVersion", "modelId", "revision", "weightsSha256", "snapshotSha256"))}
                        for identifier, model in record.get("models", {}).items()},
@@ -448,16 +460,37 @@ class CompareRunStore:
             value["expiresAtEpoch"] = row[1]
             return value
 
-    def list(self, limit=20, offset=0, *, now=None):
+    def list(self, limit=20, offset=0, *, now=None, q=''):
         if type(limit) is not int or not 1 <= limit <= 100 or type(offset) is not int or not 0 <= offset <= 1000000:
             raise _error("COMPARE_PERSISTENCE_INVALID_PAGINATION")
+        if not isinstance(q, str) or len(q) > 120 or any(ord(c) < 32 for c in q):
+            raise _error('COMPARE_PERSISTENCE_INVALID_SEARCH')
         timestamp = self.clock() if now is None else now
         with self._mutex:
             self.start()
             condition = "(status NOT IN ('completed','partial','failed','cancelled') OR expires_at>?)"
-            total = self._db.execute("SELECT count(*) FROM compare_runs WHERE " + condition, (timestamp,)).fetchone()[0]
-            rows = self._db.execute("SELECT record_json,expires_at FROM compare_runs WHERE " + condition + " ORDER BY updated_at DESC,run_id ASC LIMIT ? OFFSET ?", (timestamp, limit, offset)).fetchall()
+            arguments = [timestamp]
+            if q.strip():
+                # Search only explicitly allowed metadata. Full saved questions,
+                # molecular strings, reports and experimental rows stay out.
+                fields = ["run_id", "status", "created_at", "json_extract(record_json,'$.structure.structureId')",
+                          "json_extract(record_json,'$.request.reportContract')", "json_extract(record_json,'$.request.reportMode')",
+                          "json_extract(record_json,'$.request.specialistTask')", "json_extract(record_json,'$.request.ollamaModel')"]
+                haystack = " || ' ' || ".join("coalesce(" + field + ",'')" for field in fields)
+                condition += ' AND instr(lower(' + haystack + '),lower(?))>0'
+                arguments.append(q.strip())
+            total = self._db.execute("SELECT count(*) FROM compare_runs WHERE " + condition, arguments).fetchone()[0]
+            rows = self._db.execute("SELECT record_json,expires_at FROM compare_runs WHERE " + condition + " ORDER BY updated_at DESC,run_id ASC LIMIT ? OFFSET ?", [*arguments, limit, offset]).fetchall()
             return {"items": [_history_item(json.loads(row[0]), row[1]) for row in rows], "total": total, "limit": limit, "offset": offset}
+
+    def diagnostics(self):
+        """Non-content owner diagnostics. No recovery, pruning or model calls."""
+        with self._mutex:
+            self.start()
+            rows = self._db.execute('SELECT status,count(*) FROM compare_runs GROUP BY status').fetchall()
+            return {'schemaVersion': self._db.execute('PRAGMA user_version').fetchone()[0],
+                    'recordsByState': dict(rows), 'ownerAcquired': self._owner is not None or self.path is None,
+                    'quarantine': self.get_quarantine()}
 
     def prune(self, now=None):
         timestamp = self.clock() if now is None else now

@@ -21,12 +21,17 @@ def fixture_prediction(context):
                            'taskContractVersion': 'MOCK-only', 'formalAvailability': False}}
 
 
-def fixture_report(snapshot):
-    return {'schema': 'aidd.compare.report.v1', 'snapshotSha256': snapshot['snapshotSha256'],
+def fixture_report(snapshot, report_contract='v1'):
+    report = {'schema': 'aidd.compare.report.v1', 'snapshotSha256': snapshot['snapshotSha256'],
             'sectionOrder': [s['id'] for s in snapshot['sections']],
             'claimOrder': {s['id']: s['claimIds'] for s in snapshot['sections']},
             'factChecks': [{'claimId': f['id'], 'value': copy.deepcopy(f['value']), 'sourceIds': f['sourceIds']} for f in snapshot['facts']],
             'commentary': [{'sectionId': 'limits', 'text': 'MOCK 测试文字，不是科学机制或真实模型报告。'}]}
+    if report_contract == 'v2':
+        report['schema'] = 'aidd.compare.report.v2'
+        report.pop('factChecks')
+        report.update(uncertainty=None, refusal=None)
+    return report
 
 
 class FixtureAdapter:
@@ -58,7 +63,7 @@ class FixtureAdapter:
         else:
             if context['snapshot']['structure']['canonicalSmiles'] == 'N#N' and self.id == MODEL_IDS[2]:
                 raise CompareAdapterError('MOCK_REPORT_FAILURE', 'MOCK reporter failure to test partial result retention')
-            data = {'rawReport': fixture_report(context['snapshot'])}
+            data = {'rawReport': fixture_report(context['snapshot'], context.get('request', {}).get('reportContract', 'v1'))}
         return {'status': 'completed', 'data': data, 'provenance': {'testFixture': True,
                 'revision': TXGEMMA_REVISION if self.id == MODEL_IDS[1] else 'MOCK', 'formalAvailability': False},
                 'metrics': {'cost': None, 'gpu': {'measured': False}, 'promptTokens': None, 'completionTokens': None}}

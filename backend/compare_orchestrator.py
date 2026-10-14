@@ -18,6 +18,7 @@ from backend.compare_resources import CompareResourceManager, ResourceUnavailabl
 from backend.compare_logging import configure_diagnostics, diagnostic
 from backend.compare_persistence import CompareRunStore
 from backend.compare_schemas import CONTRACT_VERSION, MODEL_IDS, ComparePresetRequest, CompareSettings
+from backend.compare_runtime import STARTUP_RUNTIME
 
 TERMINAL = {'completed', 'partial', 'failed', 'cancelled'}
 
@@ -44,7 +45,9 @@ class CompareOrchestrator:
         self.registry = registry
         self.adapters = registry.adapters
         self.resources = resources or CompareResourceManager()
+        self.runtime_provenance = copy.deepcopy(STARTUP_RUNTIME)
         env = env or {}
+        self.sample_gpu = str(env.get('TOXNET_COMPARE_GPU_SAMPLING', 'false')).lower() == 'true'
         self.stage_seconds = bounded_int(env, 'TOXNET_COMPARE_STAGE_TIMEOUT_SECONDS', 240, 1, 600)
         self.run_seconds = bounded_int(env, 'TOXNET_COMPARE_RUN_TIMEOUT_SECONDS', 900, 5, 1800)
         self.ttl = bounded_int(env, 'TOXNET_COMPARE_TTL_SECONDS', 1800, 1, 86400)
@@ -143,6 +146,7 @@ class CompareOrchestrator:
                 from backend.compare_resources import wait_tracked_cleanup
                 await wait_tracked_cleanup(asyncio.create_task(self._drain_adapters()))
         return {'contractVersion': CONTRACT_VERSION, 'models': models,
+                'runtimeProvenance': copy.deepcopy(self.runtime_provenance),
                 'specialistTasks': self._task_list(), 'resourcePolicy': self.resources.public(),
                 'runPolicy': {'maxRunning': self.max_running, 'maxRecords': self.maximum_records,
                               'stageTimeoutSeconds': self.stage_seconds, 'runTimeoutSeconds': self.run_seconds,
@@ -191,6 +195,7 @@ class CompareOrchestrator:
         chemistry = analyze_chemistry(payload.smiles)
         identifier = uuid4().hex
         record = {'contractVersion': CONTRACT_VERSION, 'runId': identifier, 'status': 'pending',
+                  'runtimeProvenance': copy.deepcopy(self.runtime_provenance),
                   'createdAt': now(), 'updatedAt': now(), 'requestId': request_id, 'request': payload.model_dump(),
                   'contentSaved': payload.persistSensitiveContent, 'restored': False,
                   'recovery': {'contentAvailable': True, 'executionResumed': False},
@@ -215,13 +220,21 @@ class CompareOrchestrator:
                 raise CompareRunError('COMPARE_RUN_NOT_FOUND', '运行不存在或已过期。', 404)
             saved['restored'] = True
             return saved
-        return copy.deepcopy(self.runs[identifier])
+        result = copy.deepcopy(self.runs[identifier])
+        result['resourceState'] = self.resources.public()
+        return result
 
-    def list_runs(self, limit=20, offset=0):
+    def list_runs(self, limit=20, offset=0, q=''):
         self.sweep()
-        saved = self.store.list(limit=limit, offset=offset)
+        saved = self.store.list(limit=limit, offset=offset, q=q)
         return {'contractVersion': CONTRACT_VERSION, 'runs': saved['items'], 'total': saved['total'],
                 'limit': limit, 'offset': offset, 'hasMore': offset + len(saved['items']) < saved['total']}
+
+    def runtime_status(self):
+        return {'contractVersion': CONTRACT_VERSION, 'runtimeProvenance': copy.deepcopy(self.runtime_provenance),
+                'resourceState': self.resources.public(), 'persistence': self.store.diagnostics(),
+                'acceptingRuns': self.started and not self.closing,
+                'inFlightRuns': sum(not task.done() for task in self.tasks.values())}
 
     async def cancel(self, identifier):
         record = self.get(identifier)
@@ -258,10 +271,14 @@ class CompareOrchestrator:
         self._log(record, 'model-started', model_id)
         started = time.perf_counter()
         execution_started = False
+        sampler = None
         try:
             async def operation():
-                nonlocal execution_started
+                nonlocal execution_started, sampler
                 execution_started = True
+                if self.sample_gpu and model_id != 'deepseek-api':
+                    from backend.compare_gpu_metrics import NvidiaSmiSampler
+                    sampler = NvidiaSmiSampler(interval_seconds=0.25).start()
                 result = await adapter.execute(copy.deepcopy(context))
                 if not isinstance(result, dict) or not isinstance(result.get('data'), dict) or result.get('status') not in ('completed', 'partial'):
                     raise ValueError('Adapter returned an invalid typed envelope')
@@ -284,10 +301,14 @@ class CompareOrchestrator:
             if reporter:
                 raw = data.get('rawReport', data.get('report', data))
                 item['metrics']['reportValidation'] = 'verifying'
-                verified = validate_report(raw, context['snapshot'])
+                verified = validate_report(raw, context['snapshot'],
+                    report_contract=record['request'].get('reportContract', 'v1'),
+                    report_mode=record['request'].get('reportMode', 'deep'))
                 record['reports'][model_id] = verified
                 data = {'report': verified}
                 item['metrics']['reportValidation'] = 'verified'
+                item['metrics']['sourceErrorCount'] = 0
+                item['metrics']['unverifiedAdditionCount'] = len(verified['unverifiedAdditions'])
             item.update(status='partial' if result.get('status') == 'partial' else 'completed', data=copy.deepcopy(data),
                         provenance=copy.deepcopy(result.get('provenance') or {}), metrics={**item['metrics'], **queue})
         except asyncio.CancelledError as error:
@@ -327,12 +348,19 @@ class CompareOrchestrator:
             message = getattr(error, 'public_message', '模型输出或事实核验失败；该结果不可用。')
             if reporter and item['metrics'].get('reportValidation') == 'verifying':
                 item['metrics']['reportValidation'] = 'fact-check-failed'
+                item['metrics']['sourceErrorCount'] = None
+                item['metrics']['unverifiedAdditionCount'] = None
                 code = 'COMPARE_REPORT_FACT_CHECK_FAILED'
             status = 'unsupported' if 'UNSUPPORTED' in code else 'unavailable' if any(word in code for word in ('UNAVAILABLE', 'NOT_READY', 'NOT_CONFIGURED', 'UNCONFIGURED', 'MISSING', 'AUTHORIZATION', 'DISABLED', 'LICENSE_REQUIRED', 'NOT_INSTALLED', 'CONNECTION_ERROR')) else 'failed'
             if isinstance(error, ResourceUnavailable):
                 code, message, status = 'COMPARE_RESOURCE_QUARANTINED', '本地资源已隔离；停止 Compare 后按安全恢复流程验证清理，普通重启不会解除隔离。', 'unavailable'
             item.update(status=status, error={'code': code, 'message': message})
         finally:
+            if sampler is not None:
+                # No GPU ownership in the sampler. The bounded driver-query
+                # join completes after adapter cleanup; it does not release a
+                # resource slot early or create an untracked cancellation task.
+                item['metrics']['boardMemory'] = sampler.stop()
             if model_id == 'deepseek-api':
                 attempted_for = getattr(adapter, 'attempted_for', None)
                 record['cloudTransfer']['requestAttempted'] = bool(attempted_for(record['runId']) if attempted_for else item['provenance'].get('requestAttempted', False))
@@ -353,6 +381,7 @@ class CompareOrchestrator:
         try:
             async with asyncio.timeout(self.run_seconds):
                 async with self.semaphore:
+                    record['queueWaitMs'] = round((time.perf_counter() - started) * 1000, 3)
                     record['status'], record['updatedAt'] = 'running', now()
                     self._persist(record)
                     context = {**record['structure'], 'request': record['request']}
@@ -365,14 +394,18 @@ class CompareOrchestrator:
                     else:
                         await self._execute(record, 'txgemma-2b-predict', context)
                     snapshot = build_snapshot(record['structure'], chemistry, record['models'],
-                        include_tox21=record['request']['includeTox21'], question=record['request']['question'])
+                        include_tox21=record['request']['includeTox21'], question=record['request']['question'],
+                        specialist_task=record['request']['specialistTask'])
                     frozen = encoded(snapshot)
                     record['snapshot'] = json.loads(frozen)
                     self._persist(record)
                     # Only the immutable common snapshot is provided, never a
                     # preceding generator's report or the free user question.
                     report_request = {key: value for key, value in record['request'].items() if key not in ('smiles', 'question')}
-                    report_context = {'runId': record['runId'], 'snapshotSha256': snapshot['snapshotSha256'], 'snapshot': json.loads(frozen), 'messages': report_messages(json.loads(frozen)),
+                    messages = report_messages(json.loads(frozen),
+                        report_contract=record['request'].get('reportContract', 'v1'),
+                        report_mode=record['request'].get('reportMode', 'deep'))
+                    report_context = {'runId': record['runId'], 'snapshotSha256': snapshot['snapshotSha256'], 'snapshot': json.loads(frozen), 'messages': messages,
                                       'request': report_request, 'reporterModel': record['request']['ollamaModel']}
                     await self._execute(record, 'ollama-qwen-local', report_context, reporter=True)
                     if not record['request']['comparisonReporter'] or not record['request']['allowCloudTransfer']:

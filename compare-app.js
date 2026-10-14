@@ -7,6 +7,7 @@
   const MARKS = { "toxnet-v3-b16": "B16", "txgemma-2b-predict": "Tx", "ollama-qwen-local": "Q", "deepseek-api": "D" };
   const STATUS = { "mock-ready": "Mock 软件测试入口", available: "实际可用", installed: "当前模型已安装 · 待生成验收", "configured-unverified": "账户已配置 · 访问待核验", "not-installed": "所选模型未安装", unreachable: "本机服务不可达", unavailable: "不可用", configured: "已配置 · 待核验", unknown: "尚未检查", pending: "排队中", running: "正在运行", completed: "已完成", partial: "部分完成", failed: "失败", skipped: "已跳过", unsupported: "任务未支持", cancelled: "已取消" };
   const POSITIVE = { herg: "来源标签：hERG 通道抑制", dili: "来源标签：药物性肝损伤", ames: "Ames 致突变试验阳性", clintox: "临床毒性标签；区别于批准状态" };
+  const SOURCE_KINDS = { "model-computation": "模型计算结果", "model-metadata": "模型版本与校准状态", "human-rule": "人工规则警示", "neural-attribution": "神经网络研究归因", "evidence-audit-summary": "实验来源审计摘要", "insufficient-evidence": "证据不足", limitation: "科研限制" };
   let state = Core.initialState();
   let registry = null;
   let presets = [];
@@ -15,6 +16,7 @@
   let pollTimer = null;
   let historyGeneration = 0;
   let historyOffset = 0;
+  let historyQuery = "";
   let historyPaging = { previousDisabled: true, nextDisabled: true };
   const historyLimit = 10;
   const runIdStorageKey = "aidd.compare.lastRunId";
@@ -47,6 +49,7 @@
   function fields() {
     return {
       smiles: $("compareSmiles").value, question: $("compareQuestion").value,
+      reportMode: $("compareReportMode").value, reportContract: "v2",
       specialistTask: $("compareSpecialistTask").value, ollamaModel: $("compareOllamaModel").value,
       includeTox21: $("compareIncludeTox21").checked, includeEvidence: $("compareIncludeEvidence").checked,
       evidenceEndpoint: $("compareEvidenceEndpoint").value, includeAttribution: $("compareIncludeAttribution").checked,
@@ -344,16 +347,32 @@
       return;
     }
     const snapshotFacts = new Map(((run.snapshot && run.snapshot.facts) || []).map((fact) => [fact.id, fact]));
+    const reportInfo = Core.reportMetadata(run, report);
+    target.append(node("p", `报告合同 / 模式：${reportInfo.label}`, "compare-source-meta"));
     target.append(node("p", `事实快照：${report.snapshotSha256 || "未提供"}`, "compare-source-meta"));
     for (const section of report.sections) {
       const block = node("section", null, "compare-report-block");
       block.dataset.readingKey = `report:${id}:${section.id}`;
       block.append(node("h4", section.title || section.id || "研究说明"));
       const known = (section.claimIds || []).every((claim) => snapshotFacts.has(claim));
-      if (section.text) block.append(node("p", section.text));
+      // Render authoritative facts from the immutable snapshot rather than
+      // treating a generator's narration as verified scientific evidence.
+      const citedFacts = (section.claimIds || []).map((claim) => snapshotFacts.get(claim)).filter(Boolean);
+      for (const fact of citedFacts) {
+        const factBlock = node("div", null, "compare-verified-fact");
+        factBlock.append(node("span", "已核验快照事实", "compare-fact-label"), node("p", fact.text || objectText(fact.value)), node("div", `事实 ${fact.id} · 来源 ${(fact.sourceIds || []).join("、") || "无外部实验来源"} · ${SOURCE_KINDS[fact.sourceKind] || fact.sourceKind || "来源类型未提供"}`, "compare-source-meta"));
+        block.append(factBlock);
+      }
+      // Legacy report text was deterministically rebuilt by the server. The
+      // snapshot remains the display authority; missing facts stay unverified.
+      if (!citedFacts.length && section.text) block.append(node("p", `未核验的报告文字：${section.text}`, "compare-unverified"));
       block.append(node("div", (section.claimIds || []).length ? `${known ? "事实 ID 对应当前快照" : "含无法对应快照的 ID · 未核验"}：${(section.claimIds || []).join("、")}` : "没有可追溯事实引用；该段不能视为已确认实验事实。", "compare-source-meta"));
       const commentary = Array.isArray(section.commentary) ? section.commentary : section.commentary ? [section.commentary] : [];
-      for (const text of commentary) if (text) block.append(node("p", `未验证的语言推理：${objectText(text)}`, "compare-unverified"));
+      for (const text of commentary) if (text) {
+        const generated = node("div", null, "compare-generated-explanation");
+        generated.append(node("span", "模型生成解释 · 未验证", "compare-generated-label"), node("p", `未验证的语言推理：${objectText(text)}`, "compare-unverified"));
+        block.append(generated);
+      }
       target.append(block);
     }
     if (report.unverifiedAdditions && report.unverifiedAdditions.length) target.append(node("p", `${report.unverifiedAdditions.length} 条新增语言推理均为 unverified，不属于已确认的实验事实。`, "compare-source-meta"));
@@ -363,12 +382,14 @@
     const facts = run.snapshot && run.snapshot.facts || [];
     const list = node("ul", null, "compare-audit-list");
     for (const fact of facts) {
-      const item = node("li"); item.append(node("strong", `${fact.id} · ${fact.sourceKind || "来源类型未提供"}`), node("div", fact.text || objectText(fact.value)), node("div", `来源 ID：${(fact.sourceIds || []).join("、") || "未提供"}`, "compare-source-meta")); list.append(item);
+      const item = node("li"); item.append(node("strong", `${fact.id} · ${SOURCE_KINDS[fact.sourceKind] || fact.sourceKind || "来源类型未提供"}`), node("div", fact.text || objectText(fact.value)), node("div", `来源 ID：${(fact.sourceIds || []).join("、") || "未提供"}`, "compare-source-meta")); list.append(item);
     }
     replace($("compareFactAudit"));
     $("compareFactAudit").append(facts.length ? list : node("p", "尚无已核验事实快照。", "compare-hint"));
     if (Core.summaryOnly(run)) $("compareFactAudit").append(node("p", "原事实快照全文没有保存；保留的预测摘要属于原运行记录，不是本次新推理。", "compare-hint"));
     appendDetails($("compareFactAudit"), "快照来源及核验状态", run.snapshot && { schema: run.snapshot.schema, snapshotSha256: run.snapshot.snapshotSha256, sources: run.snapshot.sources });
+    const interpretation = run.snapshot && run.snapshot.questionInterpretation;
+    if (interpretation) appendDetails($("compareFactAudit"), "中文研究问题确定性识别", interpretation);
   }
   function renderDifferences(run) {
     replace($("compareDifferences"));
@@ -398,8 +419,27 @@
       const peak = Core.gpuMemoryMiB(gpu, "allocated");
       const reserved = Core.gpuMemoryMiB(gpu, "reserved");
       const memory = typeof peak === "number" ? `${Core.formatMetric(peak, "MiB")} allocated${typeof reserved === "number" ? ` / ${Core.formatMetric(reserved, "MiB")} reserved` : ""}` : "未测量";
-      return tableRow([NAMES[id], Core.formatMetric(m.durationMs, "ms"), `${Core.formatMetric(m.promptTokens, "", 0)} / ${Core.formatMetric(m.completionTokens, "", 0)}`, Core.formatMetric(m.tokensPerSecond, "token/s"), cost, memory]);
+      const stateText = `${STATUS[item && item.status] || "未记录"} / 排队 ${Core.formatMetric(m.queueWaitMs, "ms")}`;
+      const cleanup = m.cleanupState;
+      const cleanupText = cleanup && cleanup.confirmed === true ? "已确认释放" : cleanup && cleanup.confirmed === false ? "释放未确认" : m.resourceCleanupVerified === true ? "已确认释放" : "未测量";
+      return tableRow([NAMES[id], stateText, `${Core.formatMetric(m.durationMs, "ms")} / 生成 ${Core.formatMetric(m.generationSeconds, "s")}`, `${Core.formatMetric(m.promptTokens, "", 0)} / ${Core.formatMetric(m.completionTokens, "", 0)}`, Core.formatMetric(m.tokensPerSecond, "token/s"), cost, memory, cleanupText]);
     }); replace($("compareMetricsRows"), ...rows);
+  }
+  function renderResourceStatus(run) {
+    // Only the live run endpoint supplies current ownership. Registry checks
+    // and restored historical resources must not masquerade as current GPU use.
+    const resource = run && run.resourceState;
+    let text = "GPU 当前模型：未测量；服务端尚未提供实时资源状态。";
+    if (resource) {
+      const active = resource.activeModel;
+      const currentLabel = state.stale ? "旧记录的 GPU 调度快照" : "GPU 调度当前阶段";
+      text = `${currentLabel}：${active ? NAMES[active] || active : Object.hasOwn(resource, "activeModel") ? "当前无 Compare 占用" : "未测量"}；此状态不代表整卡显存测量。`;
+      if (resource.blocked === true) text += ` 资源已隔离：${resource.blockedReason || "清理未确认"}。`;
+      const waiting = Core.MODEL_IDS.filter((id) => run.models && run.models[id] && run.models[id].status === "pending");
+      if (waiting.length && state.inFlight) text += ` 等待阶段：${waiting.map((id) => NAMES[id]).join(" → ")}。`;
+      if (run.metrics) text += ` 本次入队等待：${Core.formatMetric(run.metrics.queueWaitMs, "ms")}；已记录总耗时：${Core.formatMetric(run.metrics.durationMs, "ms")}。`;
+    }
+    setText($("compareResourceStatus"), text);
   }
   function captureReadingPosition() {
     if (!window.scrollY || typeof document.elementFromPoint !== "function") return null;
@@ -432,6 +472,7 @@
     if (state.error) $("compareError").textContent = state.error;
     $("compareExportButton").disabled = !state.run || state.stale || !Core.TERMINAL.has(state.run.status);
     const run = state.run;
+    renderResourceStatus(run);
     const summary = Core.summaryOnly(run);
     setText($("compareExportButton"), summary ? "导出摘要 JSON" : "导出 JSON");
     $("compareEmptyState").hidden = Boolean(run || state.inFlight);
@@ -450,11 +491,12 @@
     setText($("compareStructureId"), run.structure && run.structure.structureId || "未提供");
     setText($("compareRunId"), run.runId);
     setText($("compareSnapshotHash"), run.snapshot && run.snapshot.snapshotSha256 || run.snapshotSha256 || (summary ? "事实快照全文未保存" : "事实快照尚未完成"));
+    setText($("compareReportMetadata"), Core.reportMetadata(run).label);
     renderPrediction(run);
     for (const [id, targetId] of [["ollama-qwen-local", "compareQwenContent"], ["deepseek-api", "compareDeepSeekContent"]]) {
       const result = run.models && run.models[id];
       const report = run.reports && run.reports[id] || result && result.data && (result.data.report || result.data);
-      renderRegion($(targetId), { report, status: result && result.status, error: result && result.error, facts: run.snapshot && run.snapshot.facts, summary }, () => renderReport(run, id, $(targetId)));
+      renderRegion($(targetId), { report, status: result && result.status, error: result && result.error, facts: run.snapshot && run.snapshot.facts, reportConfiguration: run.request || run.reportConfiguration, summary }, () => renderReport(run, id, $(targetId)));
     }
     renderRegion($("compareFactAudit"), { snapshot: run.snapshot, summary }, () => renderFactAudit(run));
     renderRegion($("compareDifferences"), run.comparison, () => renderDifferences(run));
@@ -489,6 +531,7 @@
     const taskAllowed = registry && (registry.specialistTasks || []).some((task) => task.id === values.specialistTask && task.supported === true);
     $("compareSpecialistTask").value = taskAllowed ? values.specialistTask : "";
     $("compareOllamaModel").value = Core.installedOllamaModels(registry).some((model) => model.name === values.ollamaModel) ? values.ollamaModel : "";
+    $("compareReportMode").value = Core.REPORT_MODES.includes(values.reportMode) ? values.reportMode : "fast";
     $("compareIncludeTox21").checked = values.includeTox21 !== false;
     $("compareIncludeEvidence").checked = values.includeEvidence === true;
     $("compareEvidenceEndpoint").value = Core.ENDPOINT_IDS.includes(values.evidenceEndpoint) ? values.evidenceEndpoint : "";
@@ -528,7 +571,7 @@
     $("compareHistoryNext").disabled = true;
     setText($("compareHistoryStatus"), "正在读取本机运行摘要…");
     try {
-      const history = Core.validateHistory(await api(`/api/research/compare/runs?limit=${historyLimit}&offset=${requestedOffset}`));
+      const history = Core.validateHistory(await api(`/api/research/compare/runs?limit=${historyLimit}&offset=${requestedOffset}${historyQuery ? `&q=${encodeURIComponent(historyQuery)}` : ""}`));
       if (generation !== historyGeneration) return;
       historyOffset = history.offset;
       renderRegion($("compareHistoryRows"), history.runs, () => {
@@ -536,13 +579,13 @@
           const open = node("button", "只读打开", "secondary-button"); open.type = "button"; open.dataset.focusKey = `history:${item.runId}:open`;
           open.addEventListener("click", () => restoreRun(item.runId));
           const action = node("td"); action.append(open);
-          const identity = node("td"); identity.append(node("div", STATUS[item.status] || item.status), node("code", item.structureId || item.structure && item.structure.structureId || "结构标识未记录", "compare-source-meta"));
+          const identity = node("td"); identity.append(node("div", STATUS[item.status] || item.status), node("code", item.structureId || item.structure && item.structure.structureId || "结构标识未记录", "compare-source-meta"), node("div", Core.reportMetadata(item).label, "compare-source-meta"));
           const models = Core.MODEL_IDS.map((id) => { const model = item.models && item.models[id]; const status = typeof model === "string" ? model : model && model.status; return `${NAMES[id]}：${STATUS[status] || status || "未记录"}`; }).join("\n");
           const modelCell = node("td", models, "compare-history-models");
           const timestamp = item.createdAt && !Number.isNaN(Date.parse(item.createdAt)) ? new Date(item.createdAt).toLocaleString("zh-CN") : "未提供";
           return tableRow([timestamp, identity, modelCell, item.contentSaved === true ? "已显式保存完整内容" : "仅持久化摘要 · 全文未保存", action]);
         });
-        if (!rows.length) { const row = node("tr"); const cell = node("td", "暂无可恢复的本机运行记录。"); cell.colSpan = 5; row.append(cell); rows.push(row); }
+        if (!rows.length) { const row = node("tr"); const cell = node("td", historyQuery ? "没有匹配的已保存运行摘要。" : "暂无可恢复的本机运行记录。"); cell.colSpan = 5; row.append(cell); rows.push(row); }
         replace($("compareHistoryRows"), ...rows);
       });
       $("compareHistoryPrevious").disabled = history.offset === 0;
@@ -631,7 +674,7 @@
   }
   $("compareForm").addEventListener("submit", submit);
   for (const id of ["compareSmiles", "compareQuestion"]) $(id).addEventListener("input", () => edited("分子或研究问题已修改"));
-  for (const id of ["compareSpecialistTask", "compareOllamaModel", "compareIncludeTox21", "compareIncludeEvidence", "compareEvidenceEndpoint", "compareIncludeAttribution", "compareExplainEndpoint", "compareEnableDeepSeek", "compareAllowCloud", "comparePersistSensitive"]) $(id).addEventListener("change", () => edited("任务或模型设置已修改"));
+  for (const id of ["compareSpecialistTask", "compareOllamaModel", "compareReportMode", "compareIncludeTox21", "compareIncludeEvidence", "compareEvidenceEndpoint", "compareIncludeAttribution", "compareExplainEndpoint", "compareEnableDeepSeek", "compareAllowCloud", "comparePersistSensitive"]) $(id).addEventListener("change", () => edited("任务、报告模式或模型设置已修改"));
   $("compareForm").addEventListener("keydown", (event) => { if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) { event.preventDefault(); submit(); } });
   $("compareCancelButton").addEventListener("click", cancel);
   $("compareResetButton").addEventListener("click", reset);
@@ -646,6 +689,9 @@
   $("comparePresetSelect").addEventListener("change", applyPreset);
   $("compareHistoryButton").addEventListener("click", toggleHistory);
   $("compareHistoryRefresh").addEventListener("click", () => refreshHistory());
+  function searchHistory() { historyQuery = $("compareHistoryQuery").value.trim().slice(0, 200); refreshHistory(0); }
+  $("compareHistorySearch").addEventListener("click", searchHistory);
+  $("compareHistoryQuery").addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); searchHistory(); } });
   $("compareHistoryPrevious").addEventListener("click", () => refreshHistory(historyOffset - historyLimit));
   $("compareHistoryNext").addEventListener("click", () => refreshHistory(historyOffset + historyLimit));
   window.addEventListener("pagehide", stopPolling);

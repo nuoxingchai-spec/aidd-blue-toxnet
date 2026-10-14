@@ -174,7 +174,9 @@ def _messages(context):
     from backend.compare_reporting import CLOUD_CATEGORIES, encoded, report_messages
     if (snapshot.get("experimentalRowsIncluded") is not False or snapshot.get("privatePathsIncluded") is not False
         or snapshot.get("freeQuestionIncluded") is not False or snapshot.get("sentInformationCategories") != CLOUD_CATEGORIES
-        or encoded(messages) != encoded(report_messages(snapshot))):
+        or encoded(messages) != encoded(report_messages(snapshot,
+            report_contract=context.get('request', {}).get('reportContract', 'v1'),
+            report_mode=context.get('request', {}).get('reportMode', 'deep')))):
         raise CompareAdapterError("COMPARE_REPORT_CONTEXT_INVALID", "报告输入不符合受控事实、固定提示及最小外传合同。")
     return messages
 
@@ -532,6 +534,8 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                       "runtime": "ollama", "device": "ollama-managed; unmeasured", "licenseStatus": "local-package-license-not-reviewed",
                       "reportOnly": True, "snapshotSha256": _snapshot_sha(context), "independentReport": True,
                       'generationOptions': {key: options[key] for key in ('num_ctx', 'num_predict')}}
+        provenance.update(reportContract=context.get('request', {}).get('reportContract', 'v1'),
+                          reportMode=context.get('request', {}).get('reportMode', 'deep'))
         pending_error = None
         self._begin_execution()
         self._cleanup_target, self._cleanup_confirmed = None, False
@@ -552,7 +556,11 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                 payload = await _http_json(client, "POST", url + "/api/chat", payload={"model": selected_id, "messages": messages,
                               "format": "json", "stream": False, "keep_alive": 0, "think": False, "options": options}, metrics=metrics, usage_provider='ollama')
                 _report_usage(payload, "ollama", metrics)
-                metrics.update(generationSeconds=_duration(payload.get("eval_duration")), totalDurationSeconds=_duration(payload.get("total_duration")))
+                metrics.update(loadSeconds=_duration(payload.get('load_duration')),
+                               promptEvaluationSeconds=_duration(payload.get('prompt_eval_duration')),
+                               generationSeconds=_duration(payload.get("eval_duration")),
+                               totalDurationSeconds=_duration(payload.get("total_duration")),
+                               timeToFirstTokenSeconds=None, streaming=False)
                 tokens, seconds = metrics["completionTokens"], metrics["generationSeconds"]
                 metrics["tokensPerSecond"] = tokens / seconds if tokens is not None and seconds and seconds > 0 else None
                 if payload.get("done") is not True or payload.get("done_reason") == "length":

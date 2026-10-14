@@ -25,6 +25,10 @@ class CompareSettings(BaseModel):
     includeAttribution: StrictBool | None = None
     explainEndpoint: Literal['herg', 'dili', 'ames', 'clintox'] | None = None
     ollamaModel: StrictStr | None = Field(default=None, min_length=1, max_length=200)
+    # Clients without these fields retain their existing report behavior.
+    # The new workbench explicitly requests v2/fast.
+    reportContract: Literal['v1', 'v2'] = 'v1'
+    reportMode: Literal['fast', 'deep'] = 'deep'
 
     @model_validator(mode='after')
     def compatible_research_steps(self):

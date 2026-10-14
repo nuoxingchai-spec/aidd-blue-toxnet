@@ -8,6 +8,8 @@
   const CONTRACT = "aidd.multimodel.compare.v1";
   const MODEL_IDS = ["toxnet-v3-b16", "txgemma-2b-predict", "ollama-qwen-local", "deepseek-api"];
   const ENDPOINT_IDS = ["herg", "dili", "ames", "clintox"];
+  const REPORT_MODES = ["fast", "deep"];
+  const REPORT_CONTRACTS = ["v1", "v2"];
   const TERMINAL = new Set(["completed", "partial", "failed", "cancelled"]);
   const RUN_STATES = new Set(["pending", "running", ...TERMINAL]);
   const MODEL_STATES = new Set(["pending", "running", "completed", "partial", "failed", "unavailable", "unsupported", "skipped", "cancelled"]);
@@ -25,6 +27,10 @@
     if (evidenceEndpoint && !ENDPOINT_IDS.includes(evidenceEndpoint)) throw new Error("实验检索端点无效。");
     const includeAttribution = Object.hasOwn(fields, "includeAttribution") ? fields.includeAttribution === true : Boolean(explainEndpoint);
     const cloud = fields.comparisonEnabled === true && fields.allowCloudTransfer === true;
+    const reportMode = fields.reportMode || "fast";
+    const reportContract = fields.reportContract || "v2";
+    if (!REPORT_MODES.includes(reportMode)) throw new Error("报告模式仅支持快速报告或深度报告。");
+    if (!REPORT_CONTRACTS.includes(reportContract)) throw new Error("报告合同版本不受支持。");
     return {
       smiles, question, mode: "compare", primaryPredictor: "toxnet-v3-b16",
       specialistPredictor: "txgemma-2b-predict", specialistTask: fields.specialistTask || null,
@@ -33,6 +39,7 @@
       evidenceEndpoint, includeAttribution, explainEndpoint: includeAttribution ? explainEndpoint || "herg" : explainEndpoint,
       persistSensitiveContent: fields.persistSensitiveContent === true,
       allowCloudTransfer: cloud, ollamaModel: fields.ollamaModel || null,
+      reportMode, reportContract,
     };
   }
 
@@ -125,7 +132,7 @@
   }
   function presetSettings(request) {
     const result = {};
-    for (const key of ["mode", "primaryPredictor", "specialistPredictor", "specialistTask", "primaryReporter", "comparisonReporter", "includeTox21", "includeEvidence", "evidenceEndpoint", "includeAttribution", "explainEndpoint", "ollamaModel"]) {
+    for (const key of ["mode", "primaryPredictor", "specialistPredictor", "specialistTask", "primaryReporter", "comparisonReporter", "includeTox21", "includeEvidence", "evidenceEndpoint", "includeAttribution", "explainEndpoint", "ollamaModel", "reportMode", "reportContract"]) {
       if (Object.hasOwn(request, key)) result[key] = request[key];
     }
     return result;
@@ -162,6 +169,17 @@
     return Array.isArray(model.data.tasks) ? model.data.tasks : [model.data];
   }
   function summaryOnly(run) { return Boolean(run && run.recovery && run.recovery.contentAvailable === false); }
+  function reportMetadata(run, report) {
+    const request = run && (run.request || run.reportConfiguration) || {};
+    const schema = report && (report.reportSchema || report.schema || report.contractVersion);
+    const contract = typeof schema === "string" && /^aidd\.compare\.report\.v[12]$/.test(schema) ? schema.slice(-2)
+      : report && REPORT_CONTRACTS.includes(report.reportContract) ? report.reportContract
+      : REPORT_CONTRACTS.includes(request.reportContract) ? request.reportContract : "v1";
+    const recordedMode = report && REPORT_MODES.includes(report.reportMode) ? report.reportMode
+      : REPORT_MODES.includes(request.reportMode) ? request.reportMode : null;
+    const mode = recordedMode || (contract === "v1" ? "deep" : null);
+    return { contract, mode, legacy: !recordedMode && contract === "v1", label: `${contract} · ${mode === "fast" ? "快速报告 Fast" : mode === "deep" ? "深度报告 Deep" : "模式未记录"}${!recordedMode && contract === "v1" ? "（历史合同）" : ""}` };
+  }
   function fixtureResult(result) {
     return Boolean(result && (result.testFixture === true || result.provenance && result.provenance.testFixture === true
       || result.data && result.data.prediction && result.data.prediction.provenance && result.data.prediction.provenance.testFixture === true));
@@ -178,6 +196,7 @@
     const saved = request || {};
     return { smiles: typeof saved.smiles === "string" ? saved.smiles : "", question: typeof saved.question === "string" ? saved.question : "",
       specialistTask: saved.specialistTask || null, ollamaModel: saved.ollamaModel || null,
+      reportMode: REPORT_MODES.includes(saved.reportMode) ? saved.reportMode : "fast", reportContract: "v2",
       includeTox21: saved.includeTox21 !== false, includeEvidence: saved.includeEvidence === true,
       evidenceEndpoint: ENDPOINT_IDS.includes(saved.evidenceEndpoint) ? saved.evidenceEndpoint : null,
       includeAttribution: Object.hasOwn(saved, "includeAttribution") ? saved.includeAttribution === true : Boolean(saved.explainEndpoint),
@@ -235,5 +254,5 @@
     };
   }
 
-  return { CONTRACT, MODEL_IDS, ENDPOINT_IDS, ENDPOINT_NAMES, TASK_NAMES, TERMINAL, buildRequest, fingerprint, initialState, reduce, validateRegistry, validateRun, endpointRows, pathwayRows, predictionData, installedOllamaModels, presetSettings, sanitizeExport, exportRun, formatScore, formatMetric, gpuMemoryMiB, specialistTasks, summaryOnly, fixtureResult, fixtureRun, validRunId, validateHistory, restoredFields, selectedModelReadiness, createRegionRenderer, regionSignature };
+  return { CONTRACT, MODEL_IDS, ENDPOINT_IDS, ENDPOINT_NAMES, TASK_NAMES, REPORT_MODES, REPORT_CONTRACTS, TERMINAL, buildRequest, fingerprint, initialState, reduce, validateRegistry, validateRun, endpointRows, pathwayRows, predictionData, installedOllamaModels, presetSettings, sanitizeExport, exportRun, formatScore, formatMetric, gpuMemoryMiB, specialistTasks, summaryOnly, reportMetadata, fixtureResult, fixtureRun, validRunId, validateHistory, restoredFields, selectedModelReadiness, createRegionRenderer, regionSignature };
 });

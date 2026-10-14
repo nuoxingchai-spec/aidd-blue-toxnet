@@ -20,6 +20,28 @@ test("compare request fixes roles, preserves identity and defaults to no cloud t
   assert.equal(result.allowCloudTransfer, false);
   assert.equal(result.ollamaModel, null);
   assert.equal("unexpectedApiKey" in result, false);
+  assert.equal(result.reportContract, "v2");
+  assert.equal(result.reportMode, "fast");
+});
+
+test("report modes and contracts are bounded, preserved in presets and change the run fingerprint", () => {
+  const fast = request(); const deep = request({ reportMode: "deep" });
+  assert.notEqual(Core.fingerprint(fast), Core.fingerprint(deep));
+  assert.equal(Core.presetSettings(deep).reportMode, "deep");
+  assert.equal(Core.presetSettings(deep).reportContract, "v2");
+  assert.equal(request({ reportContract: "v1", reportMode: "deep" }).reportContract, "v1");
+  assert.throws(() => request({ reportMode: "unchecked" }), /报告模式/);
+  assert.throws(() => request({ reportContract: "v3" }), /合同版本/);
+});
+
+test("historical report metadata stays legacy while reruns use explicit current defaults", () => {
+  assert.deepEqual(Core.reportMetadata({}), { contract: "v1", mode: "deep", legacy: true, label: "v1 · 深度报告 Deep（历史合同）" });
+  const saved = { request: { reportContract: "v2", reportMode: "fast" } };
+  assert.equal(Core.reportMetadata(saved).label, "v2 · 快速报告 Fast");
+  assert.equal(Core.reportMetadata(saved, { reportSchema: "aidd.compare.report.v1", reportMode: "deep" }).contract, "v1", "The executed report schema is the display authority");
+  assert.equal(Core.restoredFields({}).reportContract, "v2");
+  assert.equal(Core.restoredFields({}).reportMode, "fast");
+  assert.equal(Core.restoredFields({ reportMode: "deep" }).reportMode, "deep");
 });
 
 test("explicit DeepSeek role and per-run consent are both required for transfer", () => {

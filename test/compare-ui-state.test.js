@@ -402,3 +402,86 @@ test("software fixture: back-forward cache resumes GET polling without resubmiss
   assert.equal(ui.requests.filter((request) => request.method === "DELETE").length, 0);
   assert.ok(ui.requests.filter((request) => request.method === "GET" && request.url.endsWith("/fixture-run-1")).length > oldGets);
 });
+
+test("software fixture: fast/deep mode submits v2 explicitly, invalidates old results and blocks silent export", async () => {
+  const ui = await setup();
+  ui.elements.compareSmiles.value = "CCO";
+  assert.equal(ui.elements.compareReportMode.value, "fast");
+  await ui.elements.compareForm.fire("submit"); await flush();
+  const payload = ui.requests.find((item) => item.method === "POST").body;
+  assert.equal(payload.reportContract, "v2"); assert.equal(payload.reportMode, "fast");
+  assert.equal(ui.elements.compareExportButton.disabled, false);
+  ui.elements.compareReportMode.value = "deep";
+  await ui.elements.compareReportMode.fire("change");
+  assert.equal(ui.elements.compareStaleBanner.hidden, false);
+  assert.equal(ui.elements.compareExportButton.disabled, true);
+  assert.match(ui.elements.compareRunStatus.textContent, /报告模式.*旧结果已失效/);
+  await ui.elements.compareExportButton.fire("click");
+  assert.equal(ui.blobs.length, 0);
+});
+
+test("software fixture: v2 facts are read from snapshot and generated commentary remains visually unverified", async () => {
+  const historical = run();
+  const report_ = historical.models["ollama-qwen-local"].data.report;
+  Object.assign(report_, { reportSchema: "aidd.compare.report.v2", reportMode: "deep" });
+  Object.assign(report_.sections[0], { text: "This report field must not replace the snapshot score", commentary: ["软件夹具生成解释，未验证。"] });
+  const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+    if (request.url.endsWith("/fixture-run-1")) return response(historical);
+  } });
+  const target = ui.elements.compareQwenContent;
+  assert.match(target.textContent, /v2 · 深度报告 Deep/);
+  assert.match(target.textContent, /已核验快照事实.*软件验证分数，不是真实预测/);
+  assert.match(target.textContent, /模型生成解释 · 未验证.*软件夹具生成解释/);
+  assert.doesNotMatch(target.textContent, /must not replace/);
+  await ui.elements.compareExportButton.fire("click");
+  const packet = JSON.parse(await ui.blobs[0].text());
+  assert.equal(packet.models["ollama-qwen-local"].data.report.reportSchema, "aidd.compare.report.v2");
+  assert.equal(packet.models["ollama-qwen-local"].data.report.sections[0].commentary[0], "软件夹具生成解释，未验证。");
+});
+
+test("software fixture: legacy history stays v1, old presets choose fast v2 and neither action executes models", async () => {
+  const historical = run(); delete historical.request.reportMode; delete historical.request.reportContract;
+  const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, presets: [{ id: "old-preset", name: "Legacy preset", settings: { includeTox21: true } }], fetch(request) {
+    if (request.url.endsWith("/fixture-run-1")) return response(historical);
+  } });
+  assert.match(ui.elements.compareReportMetadata.textContent, /v1.*历史合同/);
+  assert.match(ui.elements.compareQwenContent.textContent, /v1.*历史合同/);
+  ui.elements.compareReportMode.value = "deep";
+  ui.elements.comparePresetSelect.value = "old-preset"; await ui.elements.comparePresetSelect.fire("change");
+  assert.equal(ui.elements.compareReportMode.value, "fast");
+  assert.equal(ui.requests.filter((request) => request.method !== "GET").length, 0);
+});
+
+test("software fixture: history search encodes local query, resets page and keeps pagination", async () => {
+  const queries = [];
+  const ui = await setup({ fetch(request) {
+    if (request.url.startsWith("/api/research/compare/runs?")) {
+      queries.push(request.url);
+      const offset = request.url.includes("offset=10") ? 10 : 0;
+      return response({ contractVersion, runs: [{ runId: "search-result", status: "completed", request: { reportContract: "v2", reportMode: "deep" } }], offset, limit: 10, total: 11, hasMore: !offset });
+    }
+  } });
+  await ui.elements.compareHistoryButton.fire("click"); await flush();
+  await ui.elements.compareHistoryNext.fire("click"); await flush();
+  assert.match(queries.at(-1), /offset=10/);
+  ui.elements.compareHistoryQuery.value = "  完成 & model  ";
+  await ui.elements.compareHistoryQuery.fire("keydown", { key: "Enter" }); await flush();
+  assert.match(queries.at(-1), /offset=0&q=%E5%AE%8C%E6%88%90%20%26%20model$/);
+  assert.match(ui.elements.compareHistoryRows.textContent, /v2 · 深度报告 Deep/);
+  await ui.elements.compareHistoryNext.fire("click"); await flush();
+  assert.match(queries.at(-1), /offset=10&q=/);
+  assert.ok(ui.requests.every((request) => request.method === "GET"));
+});
+
+test("software fixture: runtime ownership, queue, tokens and cleanup retain measured/unknown distinction", async () => {
+  const historical = run({ resourceState: { activeModel: "ollama-qwen-local", blocked: false }, metrics: { durationMs: 1200, queueWaitMs: null } });
+  historical.models["ollama-qwen-local"].metrics = { queueWaitMs: 0, durationMs: 1000, generationSeconds: null,
+    promptTokens: 123, completionTokens: 45, gpu: { measured: false, peakAllocatedMiB: 8000 }, cleanupState: { confirmed: false } };
+  const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+    if (request.url.endsWith("/fixture-run-1")) return response(historical);
+  } });
+  assert.match(ui.elements.compareResourceStatus.textContent, /GPU 调度当前阶段：Qwen · Ollama/);
+  assert.match(ui.elements.compareResourceStatus.textContent, /入队等待：未测量/);
+  assert.match(ui.elements.compareMetricsRows.textContent, /排队 0.00 ms.*生成 未测量.*123 \/ 45.*释放未确认/);
+  assert.doesNotMatch(ui.elements.compareMetricsRows.textContent, /8000/);
+});
