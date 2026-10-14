@@ -95,6 +95,16 @@ models/pilot-isotope-unaware/
 data/compare-presets.json
 data/.compare-presets-*
 data/compare/
+data/scientific-validation/
+!artifacts/independent-validation/
+artifacts/independent-validation/*
+!artifacts/independent-validation/labelblind-inventory-20261014.json
+!artifacts/independent-validation/labelblind-inventory-20261015.json
+!artifacts/independent-validation/development-negative-transfer.json
+!artifacts/independent-validation/development-negative-transfer-20261015.json
+!artifacts/independent-validation/public-model-parity-20261015.json
+!artifacts/independent-validation/stage6-acceptance-20261015.json
+!artifacts/independent-validation/license-review-20261015.json
 *.sqlite3
 *.sqlite3-wal
 *.sqlite3-shm

@@ -1,0 +1,18 @@
+{
+  "schema": "aidd.license-review.v1",
+  "reviewedAtUtc": "2026-10-14T18:02:18.632965+00:00",
+  "codeLicense": "not-declared-at-root",
+  "chembl37": {
+    "sourceUrl": "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_37/LICENSE",
+    "httpStatus": 200,
+    "pageSha256": "f0c22ca33207ad8a85129a71f1454fcf8f2f71c99e68da5da01538210fa3ffba"
+  },
+  "chembl37DeclaredLicense": "CC-BY-SA-3.0-Unported",
+  "datasetDownloaded": false,
+  "independentDatasetRegistered": false,
+  "underlyingTdcRights": "unresolved",
+  "fdaRights": "requires-review",
+  "txgemmaGguf": "third-party; upstream revision and converter version unconfirmed",
+  "modelWeightsRedistribution": "not-inferred-from-code-license",
+  "commercialUseApprovalGrantedByThisReview": false
+}

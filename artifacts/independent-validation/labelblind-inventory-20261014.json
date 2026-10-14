@@ -1,0 +1,172 @@
+{
+  "candidates": [
+    {
+      "blockingReasons": [
+        "historical-source-lineage-and-exposure",
+        "source-rights-unresolved"
+      ],
+      "exposure": "previously-exposed-evaluation-source",
+      "invalidOrUnsupportedStructures": 0,
+      "labelsRead": false,
+      "overlapCountsByHistoricalRole": {
+        "audited-tox21-source": 1271,
+        "exposed-herg-karim": 11890,
+        "v2-test": 473,
+        "v2-train": 1131,
+        "v2-validation": 297,
+        "v3-audited-train": 555,
+        "v3-audited-validation": 216,
+        "v3-four-train": 533,
+        "v3-four-validation": 257,
+        "v3-multitask-train": 555,
+        "v3-multitask-validation": 216
+      },
+      "processedSha256": "9db0ca05bcceb5bf3e6fa8fa2c3a4b4b90c31bcc52704ae5b52ce944725085aa",
+      "sourceDefinition": "1: hERG blocker below 10 micromolar; 0: at or above 10 micromolar, according to TDC documentation.",
+      "sourceId": "herg_karim",
+      "sourcePopulationIndependent": false,
+      "sourceRights": "unresolved",
+      "sourceSha256": "b47cbff0d65bbb5c6ade5ecd4c5bab20158c6cbf631a68f355efbe7e5fafc099",
+      "status": "not-independently-qualified",
+      "structurallyDisjoint": 60,
+      "structurallyOverlapping": 13385,
+      "uniqueStructures": 13445
+    },
+    {
+      "blockingReasons": [
+        "historical-source-lineage-and-exposure",
+        "source-rights-unresolved"
+      ],
+      "exposure": "previously-audited-source; tox21-used-in-development",
+      "invalidOrUnsupportedStructures": 0,
+      "labelsRead": false,
+      "overlapCountsByHistoricalRole": {
+        "audited-tox21-source": 7822,
+        "exposed-herg-karim": 127,
+        "v2-test": 2173,
+        "v2-train": 5683,
+        "v2-validation": 651,
+        "v3-audited-train": 2416,
+        "v3-audited-validation": 676,
+        "v3-four-train": 3180,
+        "v3-four-validation": 464,
+        "v3-multitask-train": 2416,
+        "v3-multitask-validation": 676
+      },
+      "processedSha256": "6546b23e114788a0e5c2ca41122b83b88e6a0ba1cedcf760c03db005d831059c",
+      "sourceDefinition": "Twelve separate nuclear-receptor/stress-response assay labels: activity 1, inactivity 0; missing entries remain masked.",
+      "sourceId": "tox21",
+      "sourcePopulationIndependent": false,
+      "sourceRights": "unresolved",
+      "sourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1",
+      "status": "not-independently-qualified",
+      "structurallyDisjoint": 0,
+      "structurallyOverlapping": 7822,
+      "uniqueStructures": 7822
+    },
+    {
+      "blockingReasons": [
+        "no-verified-structure-mapping",
+        "possible-fda-dili-source-lineage-overlap",
+        "source-rights-unresolved"
+      ],
+      "labelsRead": false,
+      "rawDrugRows": 1336,
+      "sourceId": "DILIrank 2.0",
+      "sourceRights": "dataset-specific-license-not-stated-on-landing-page",
+      "sourceSha256": "1ca1352ff727af68e68e250eae2ed775bca8492335140ac0afd2233248694993",
+      "status": "not-independently-qualified",
+      "structureMappingStatus": "not-attempted"
+    },
+    {
+      "blockingReasons": [
+        "no-verified-structure-mapping",
+        "possible-fda-dili-source-lineage-overlap",
+        "source-rights-unresolved"
+      ],
+      "labelsRead": false,
+      "rawDrugRows": 1279,
+      "sourceId": "DILIst",
+      "sourceRights": "dataset-specific-license-not-stated-on-landing-page",
+      "sourceSha256": "4331ee9d16ae7641488161e4dc2c603c29e06baa8667dd16e7f3d635366e7e5e",
+      "status": "not-independently-qualified",
+      "structureMappingStatus": "not-attempted"
+    }
+  ],
+  "historicalReferences": {
+    "chemistryVersion": "rdkit-chemistry-1.0.0",
+    "completeReferences": true,
+    "identityPolicy": "Strict canonical input retained. Audit only: remove stereo and isotopes; LargestFragmentChooser(preferOrganic=True), Uncharger, tautomer canonicalizer; compare original/full and neutral-parent Bemis-Murcko scaffolds. All acyclic structures share [ACYCLIC]. Connected components are indivisible.",
+    "identityVersion": "aidd.v3.leakage-identities.v1",
+    "labelsRead": false,
+    "missing": [],
+    "pretrainingStructureExposure": "unknown",
+    "rdkitVersion": "2026.09.1",
+    "receiptSha256": "07a8f334af4cd78a1c99971b63fd20ef7ec101c473651ae1ea5b3da7beaefce0",
+    "referenceFiles": [
+      {
+        "role": "v2-manifest",
+        "sha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850"
+      },
+      {
+        "role": "v2-splits",
+        "sha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193"
+      },
+      {
+        "role": "v3-four-manifest",
+        "sha256": "1fffa35d1da6e4f58e269a0d74d6dc3473d98251ae419b8c8c762a7bbe4b4bf6"
+      },
+      {
+        "role": "v3-four-splits",
+        "sha256": "7701f6c3d8b69a7b1ed918e1365d39e79726414ce2898dca157f7a42134cbc91"
+      },
+      {
+        "role": "v3-multitask-manifest",
+        "sha256": "9a4056bb740b0d6fce763fbd4d7c2b618a55f4670eeea7db423ed9b7465dda15"
+      },
+      {
+        "role": "v3-multitask-splits",
+        "sha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8"
+      },
+      {
+        "role": "v3-audited-manifest",
+        "sha256": "ff4837c1bcb0e568c506e503cab9321f23be328f5c432d495be3606f15d7ceae"
+      },
+      {
+        "role": "v3-audited-splits",
+        "sha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8"
+      },
+      {
+        "role": "exposed-herg-karim",
+        "sha256": "7e1df556c8674898e48b37c44f9bfdbcb9a4f60aba8df00dadff7564ce957262"
+      },
+      {
+        "role": "audited-tox21-source",
+        "sha256": "6546b23e114788a0e5c2ca41122b83b88e6a0ba1cedcf760c03db005d831059c"
+      }
+    ],
+    "schema": "aidd.independent.historical-references.v1",
+    "sourcePopulationIndependenceProvenByStructure": false,
+    "structureCountsByRole": {
+      "audited-tox21-source": 7822,
+      "exposed-herg-karim": 9978,
+      "v2-test": 937,
+      "v2-train": 7535,
+      "v2-validation": 956,
+      "v3-audited-train": 4804,
+      "v3-audited-validation": 1462,
+      "v3-four-train": 4243,
+      "v3-four-validation": 1045,
+      "v3-multitask-train": 4804,
+      "v3-multitask-validation": 1462
+    }
+  },
+  "labelsRead": false,
+  "modelsExecuted": false,
+  "newBlindTestCreated": false,
+  "rawRowsIncluded": false,
+  "schema": "aidd.independent.local-inventory.v1",
+  "sourceRightsNote": "TDC toxicity documentation displays both 'Not Specified' and a 'CC BY 4.0' link. Dataset-specific original rights and commercial redistribution were not independently resolved. TDC's MIT software license is not a blanket license for its underlying datasets. Retain source attribution; raw data are excluded from the source repository.",
+  "status": "not-independently-qualified",
+  "structureStringsIncluded": false
+}

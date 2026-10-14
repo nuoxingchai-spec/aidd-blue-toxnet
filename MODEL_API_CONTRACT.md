@@ -235,3 +235,7 @@ PyTorch `gpu.peakAllocatedBytes/peakReservedBytes` 与 `boardMemory` 使用不�
 SQLite继续schema2；新字段作为可选JSON内容写入新运行，不升级数据库版本，不回填或重写旧历史payload。旧v1历史没有新增字段仍可查询和导出，报告模式缺失明确按历史语义显示。全文保存授权、云端逐次授权、默认摘要、owner锁、quarantine与取消清理保持原合同。最新真实回执独立保存到 `artifacts/compare/report-optimization-20261014/receipt.json`；该文件不存在或没有成功实际记录时，相关验收保持待验证，不填演示指标。
 
 首次真实基准（源码04eb143）首组4次尝试为1次报告通过、3次报告失败，原始聚合 `artifacts/compare/report-optimization-20261014/benchmark.json` 保留，另有后续取消运行状态。单独复现的v2 Deep失败包含claimOrder数组代替对象和12段commentary超过8段；不把其他失败归于未经复现的原因。上述v2.1模板/schema修复后须另路径重新测量，不覆盖或删除失败回执，未取得新真实结果前不填写新Token/耗时或宣称提速。
+
+## 独立科研验证补充合同
+
+新增 `/validation` 与 `/api/research/validation/*`，schema `aidd.scientific-validation.v1`。请求仅接受服务端登记ID，严格拒绝额外字段、本机路径/远程地址/标签/超参数；audit/evaluate返回202与runId，状态/取消/只读历史/聚合导出分别提供独立接口。标签默认禁止，evaluate必须具有合法独立seal、模型/任务/协议/源码SHA绑定与显式服务器许可。CPU子进程不共享Compare GPU状态；缺合法数据返回明确不可用，不生成模拟指标。完整请求、错误码、保护目录、冻结流程与PowerShell命令见 [INDEPENDENT_VALIDATION_PROTOCOL.md](INDEPENDENT_VALIDATION_PROTOCOL.md)。原v2和Compare合同不变。

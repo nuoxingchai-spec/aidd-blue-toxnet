@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [feat/aidd-four-model-compare]
+    branches: [main, feat/aidd-four-model-compare, feat/toxnet-independent-validation]
   workflow_dispatch:
 
 permissions:
@@ -57,6 +57,8 @@ jobs:
           node --check toxicity-core.js
           node --check compare-app.js
           node --check compare-core.js
+          node --check validation-app.js
+          node --check validation-core.js
       - name: Recheck immutable scientific artifacts after all tests
         run: |
           python scripts/verify_compare_preservation.py

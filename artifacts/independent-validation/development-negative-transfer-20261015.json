@@ -1,0 +1,1753 @@
+{
+  "schema": "aidd.negative-transfer-retrospective.v1",
+  "role": "development-retrospective",
+  "previouslyExposed": true,
+  "independentTest": false,
+  "formalAvailability": false,
+  "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+  "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+  "historicalExperimentSha256": "643ed09fb99e513952e5cf48daeba4825716a5dd17559907fbd88c30fd3b2fd0",
+  "seed": 42,
+  "runs": [
+    {
+      "seed": 42,
+      "A4WeightsSha256": "c6396f9226f615faa8591eba7b2edf959e49c9178e410cf2a0fe60be8d5d35e2",
+      "B16WeightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "endpoints": {
+        "herg": {
+          "count": 111,
+          "positives": 89,
+          "negatives": 22,
+          "positiveRate": 0.8018018018018018,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "5016c960e0a278cb34dc705afb6106163ab64adc29283ff3c3ea99c320b6e877",
+          "A4": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "positiveRate": 0.8018018018018018,
+            "auroc": 0.7900919305413687,
+            "averagePrecision": 0.9089252618364793,
+            "brier": 0.1779460452845358,
+            "ece10Bins": 0.20986615391742489,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "positiveRate": 0.8018018018018018,
+            "auroc": 0.804902962206333,
+            "averagePrecision": 0.9076932866938068,
+            "brier": 0.17771400951731603,
+            "ece10Bins": 0.21853865290203167,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": 0.014811031664964225,
+            "averagePrecision": -0.0012319751426724812,
+            "brier": -0.00023203576721977925,
+            "ece10Bins": 0.008672498984606786
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 49,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.02775391802290534,
+                "upper": 0.049688140806561844,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.017508693820838216,
+                "upper": 0.02039937006019499,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.028952352346159945,
+                "upper": 0.026450056000462015,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.04418356659059147,
+                "upper": 0.07003740193950708,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "dili": {
+          "count": 26,
+          "positives": 16,
+          "negatives": 10,
+          "positiveRate": 0.6153846153846154,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "52611fd03c0f93b5ee47bcb3a676379d9dc722eff91b034c3a40d438f5622699",
+          "A4": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "positiveRate": 0.6153846153846154,
+            "auroc": 0.9312500000000001,
+            "averagePrecision": 0.9676470588235294,
+            "brier": 0.11123752464698887,
+            "ece10Bins": 0.12845402902219424,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "positiveRate": 0.6153846153846154,
+            "auroc": 0.9187500000000001,
+            "averagePrecision": 0.9554534007659008,
+            "brier": 0.11820203978765405,
+            "ece10Bins": 0.14113802531241418,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": -0.012500000000000067,
+            "averagePrecision": -0.01219365805762862,
+            "brier": 0.006964515140665178,
+            "ece10Bins": 0.012683996290219934
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 24,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.10261093073593062,
+                "upper": 0.06302251669898717,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.07523589523221873,
+                "upper": 0.023362417944797674,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.03763831173058671,
+                "upper": 0.04274219734986943,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.08367384340973398,
+                "upper": 0.09097877720496284,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "ames": {
+          "count": 634,
+          "positives": 444,
+          "negatives": 190,
+          "positiveRate": 0.7003154574132492,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "6c96814fc97b173b1dc046ae20935249992fa9d7d83b98627d156edb6e32e451",
+          "A4": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "positiveRate": 0.7003154574132492,
+            "auroc": 0.795353247984827,
+            "averagePrecision": 0.8904248091232139,
+            "brier": 0.16257617918875691,
+            "ece10Bins": 0.07708124879058832,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "positiveRate": 0.7003154574132492,
+            "auroc": 0.7893314366998578,
+            "averagePrecision": 0.8852547890863278,
+            "brier": 0.165517587870609,
+            "ece10Bins": 0.0852936276884091,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": -0.006021811284969147,
+            "averagePrecision": -0.005170020036886047,
+            "brier": 0.0029414086818520813,
+            "ece10Bins": 0.008212378897820782
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 240,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.024777803818068312,
+                "upper": 0.011977304642646517,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.018185000525884412,
+                "upper": 0.006537724169703188,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.004527415163980975,
+                "upper": 0.010543004698622817,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.014796553586900555,
+                "upper": 0.028401203178001672,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "clintox": {
+          "count": 81,
+          "positives": 4,
+          "negatives": 77,
+          "positiveRate": 0.04938271604938271,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "805059f8f514b6d71d756a04c92f95c95b56b573c8e2626cbe174f461f57f2a6",
+          "A4": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "positiveRate": 0.04938271604938271,
+            "auroc": 0.9253246753246754,
+            "averagePrecision": 0.5454545454545454,
+            "brier": 0.04162290567031448,
+            "ece10Bins": 0.06497895217849738,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "positiveRate": 0.04938271604938271,
+            "auroc": 0.8733766233766234,
+            "averagePrecision": 0.305316091954023,
+            "brier": 0.050638544776584936,
+            "ece10Bins": 0.059641947195455264,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": -0.051948051948052076,
+            "averagePrecision": -0.24013845350052243,
+            "brier": 0.009015639106270457,
+            "ece10Bins": -0.005337004983042112
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 68,
+            "confidenceLevel": 0.95,
+            "status": "insufficient-support",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "averagePrecision": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "brier": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "ece10Bins": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        }
+      },
+      "trainingObjectives": {
+        "A4": {
+          "classCounts": {
+            "herg": {
+              "positive": 123,
+              "negative": 72,
+              "count": 195
+            },
+            "dili": {
+              "positive": 84,
+              "negative": 81,
+              "count": 165
+            },
+            "ames": {
+              "positive": 1450,
+              "negative": 923,
+              "count": 2373
+            },
+            "clintox": {
+              "positive": 26,
+              "negative": 438,
+              "count": 464
+            }
+          },
+          "taskWeights": {
+            "herg": 1.0,
+            "dili": 1.0,
+            "ames": 1.0,
+            "clintox": 1.0
+          },
+          "positiveWeights": {
+            "herg": 0.7650920152664185,
+            "dili": 0.9819805026054382,
+            "ames": 0.7978419065475464,
+            "clintox": 4.0
+          },
+          "positiveWeightPolicy": "train-only sqrt(negative/positive) clipped to [0.5,4]; tasks without both classes disabled from loss",
+          "loss": "observed-task-mean weighted BCE; zero-observation batches skip optimizer",
+          "selectionProtocol": {
+            "eligible": [
+              "herg",
+              "dili",
+              "ames"
+            ],
+            "excluded": {
+              "clintox": {
+                "positive": 4,
+                "negative": 77,
+                "reason": "minimum-10-per-class-not-met"
+              }
+            },
+            "minimumPerClass": 10,
+            "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+          },
+          "bestEpoch": 3,
+          "epochsExecuted": 11
+        },
+        "B16": {
+          "classCounts": {
+            "herg": {
+              "positive": 123,
+              "negative": 72,
+              "count": 195
+            },
+            "dili": {
+              "positive": 84,
+              "negative": 81,
+              "count": 165
+            },
+            "ames": {
+              "positive": 1450,
+              "negative": 923,
+              "count": 2373
+            },
+            "clintox": {
+              "positive": 26,
+              "negative": 438,
+              "count": 464
+            },
+            "tox21_nr_ar": {
+              "positive": 175,
+              "negative": 2062,
+              "count": 2237
+            },
+            "tox21_nr_ar_lbd": {
+              "positive": 134,
+              "negative": 1927,
+              "count": 2061
+            },
+            "tox21_nr_ahr": {
+              "positive": 326,
+              "negative": 1648,
+              "count": 1974
+            },
+            "tox21_nr_aromatase": {
+              "positive": 149,
+              "negative": 1541,
+              "count": 1690
+            },
+            "tox21_nr_er": {
+              "positive": 340,
+              "negative": 1498,
+              "count": 1838
+            },
+            "tox21_nr_er_lbd": {
+              "positive": 170,
+              "negative": 1928,
+              "count": 2098
+            },
+            "tox21_nr_ppar_gamma": {
+              "positive": 69,
+              "negative": 1848,
+              "count": 1917
+            },
+            "tox21_sr_are": {
+              "positive": 353,
+              "negative": 1331,
+              "count": 1684
+            },
+            "tox21_sr_atad5": {
+              "positive": 113,
+              "negative": 2061,
+              "count": 2174
+            },
+            "tox21_sr_hse": {
+              "positive": 121,
+              "negative": 1777,
+              "count": 1898
+            },
+            "tox21_sr_mmp": {
+              "positive": 403,
+              "negative": 1335,
+              "count": 1738
+            },
+            "tox21_sr_p53": {
+              "positive": 172,
+              "negative": 1856,
+              "count": 2028
+            }
+          },
+          "taskWeights": {
+            "herg": 1.0,
+            "dili": 1.0,
+            "ames": 1.0,
+            "clintox": 1.0,
+            "tox21_nr_ar": 0.25,
+            "tox21_nr_ar_lbd": 0.25,
+            "tox21_nr_ahr": 0.25,
+            "tox21_nr_aromatase": 0.25,
+            "tox21_nr_er": 0.25,
+            "tox21_nr_er_lbd": 0.25,
+            "tox21_nr_ppar_gamma": 0.25,
+            "tox21_sr_are": 0.25,
+            "tox21_sr_atad5": 0.25,
+            "tox21_sr_hse": 0.25,
+            "tox21_sr_mmp": 0.25,
+            "tox21_sr_p53": 0.25
+          },
+          "positiveWeights": {
+            "herg": 0.7650920152664185,
+            "dili": 0.9819805026054382,
+            "ames": 0.7978419065475464,
+            "clintox": 4.0,
+            "tox21_nr_ar": 3.432616710662842,
+            "tox21_nr_ar_lbd": 3.792175769805908,
+            "tox21_nr_ahr": 2.248380422592163,
+            "tox21_nr_aromatase": 3.215941905975342,
+            "tox21_nr_er": 2.0990192890167236,
+            "tox21_nr_er_lbd": 3.367666244506836,
+            "tox21_nr_ppar_gamma": 4.0,
+            "tox21_sr_are": 1.9417873620986938,
+            "tox21_sr_atad5": 4.0,
+            "tox21_sr_hse": 3.8322253227233887,
+            "tox21_sr_mmp": 1.8200700283050537,
+            "tox21_sr_p53": 3.2849197387695312
+          },
+          "positiveWeightPolicy": "train-only sqrt(negative/positive) clipped to [0.5,4]; tasks without both classes disabled from loss",
+          "loss": "observed-task-mean weighted BCE; zero-observation batches skip optimizer",
+          "selectionProtocol": {
+            "eligible": [
+              "herg",
+              "dili",
+              "ames"
+            ],
+            "excluded": {
+              "clintox": {
+                "positive": 4,
+                "negative": 77,
+                "reason": "minimum-10-per-class-not-met"
+              }
+            },
+            "minimumPerClass": 10,
+            "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+          },
+          "bestEpoch": 2,
+          "epochsExecuted": 10
+        }
+      },
+      "gradientInterference": {
+        "status": "not-measured",
+        "reason": "Stored prediction artifacts do not contain shared-parameter gradients; no gradient mechanism inferred."
+      }
+    },
+    {
+      "seed": 43,
+      "A4WeightsSha256": "50ff9eae6867ec5915abe0d196ef01e9ccc7ad117209250dbb885b5673b1105b",
+      "B16WeightsSha256": "e5602288665b0af2a01e07abca66bd01b33a88396aa7d2d184f37081b6d28ebb",
+      "endpoints": {
+        "herg": {
+          "count": 111,
+          "positives": 89,
+          "negatives": 22,
+          "positiveRate": 0.8018018018018018,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "5016c960e0a278cb34dc705afb6106163ab64adc29283ff3c3ea99c320b6e877",
+          "A4": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "positiveRate": 0.8018018018018018,
+            "auroc": 0.7834525025536261,
+            "averagePrecision": 0.9086314581535418,
+            "brier": 0.17392024798222872,
+            "ece10Bins": 0.2076843591979405,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "positiveRate": 0.8018018018018018,
+            "auroc": 0.7972420837589378,
+            "averagePrecision": 0.9173897519506297,
+            "brier": 0.13329257128398345,
+            "ece10Bins": 0.1197585738216351,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": 0.013789581205311707,
+            "averagePrecision": 0.008758293797087813,
+            "brier": -0.04062767669824527,
+            "ece10Bins": -0.08792578537630541
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 49,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.06209593777009512,
+                "upper": 0.09198091172680423,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.015097659527919412,
+                "upper": 0.03965231252098451,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.09017577505005492,
+                "upper": 0.016489094146275016,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.13117931019100934,
+                "upper": 0.008593456719369758,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "dili": {
+          "count": 26,
+          "positives": 16,
+          "negatives": 10,
+          "positiveRate": 0.6153846153846154,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "52611fd03c0f93b5ee47bcb3a676379d9dc722eff91b034c3a40d438f5622699",
+          "A4": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "positiveRate": 0.6153846153846154,
+            "auroc": 0.90625,
+            "averagePrecision": 0.9497897170231729,
+            "brier": 0.13766924131585645,
+            "ece10Bins": 0.14186658510022718,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "positiveRate": 0.6153846153846154,
+            "auroc": 0.9187500000000001,
+            "averagePrecision": 0.9563580060290586,
+            "brier": 0.13191769301049583,
+            "ece10Bins": 0.18627325039469114,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": 0.012500000000000067,
+            "averagePrecision": 0.006568289005885686,
+            "brier": -0.005751548305360621,
+            "ece10Bins": 0.044406665294463965
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 24,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.05902670278637767,
+                "upper": 0.125,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.040007314114456925,
+                "upper": 0.07070533020900663,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.06124142732535821,
+                "upper": 0.0381724405870171,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.0870078478876355,
+                "upper": 0.11589598879007719,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "ames": {
+          "count": 634,
+          "positives": 444,
+          "negatives": 190,
+          "positiveRate": 0.7003154574132492,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "6c96814fc97b173b1dc046ae20935249992fa9d7d83b98627d156edb6e32e451",
+          "A4": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "positiveRate": 0.7003154574132492,
+            "auroc": 0.7934091986723566,
+            "averagePrecision": 0.8920419887772697,
+            "brier": 0.16983071307599543,
+            "ece10Bins": 0.09312671111554463,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "positiveRate": 0.7003154574132492,
+            "auroc": 0.7803342816500711,
+            "averagePrecision": 0.8811339810980602,
+            "brier": 0.17560117636764702,
+            "ece10Bins": 0.10701573946207879,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": -0.01307491702228547,
+            "averagePrecision": -0.01090800767920952,
+            "brier": 0.005770463291651595,
+            "ece10Bins": 0.01388902834653416
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 240,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.035197092106955596,
+                "upper": 0.010152026207558458,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.028040448864185618,
+                "upper": 0.003729288494786587,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.0036819386813562783,
+                "upper": 0.0146266374764463,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.016967437561872516,
+                "upper": 0.026835507637725395,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "clintox": {
+          "count": 81,
+          "positives": 4,
+          "negatives": 77,
+          "positiveRate": 0.04938271604938271,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "805059f8f514b6d71d756a04c92f95c95b56b573c8e2626cbe174f461f57f2a6",
+          "A4": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "positiveRate": 0.04938271604938271,
+            "auroc": 0.8246753246753247,
+            "averagePrecision": 0.3904616724738676,
+            "brier": 0.05322389500744556,
+            "ece10Bins": 0.0781142926564639,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "positiveRate": 0.04938271604938271,
+            "auroc": 0.8214285714285714,
+            "averagePrecision": 0.2718253968253968,
+            "brier": 0.062407541533210785,
+            "ece10Bins": 0.08406621460783346,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": -0.0032467532467532756,
+            "averagePrecision": -0.11863627564847079,
+            "brier": 0.009183646525765227,
+            "ece10Bins": 0.005951921951369565
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 68,
+            "confidenceLevel": 0.95,
+            "status": "insufficient-support",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "averagePrecision": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "brier": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "ece10Bins": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        }
+      },
+      "trainingObjectives": {
+        "A4": {
+          "classCounts": {
+            "herg": {
+              "positive": 123,
+              "negative": 72,
+              "count": 195
+            },
+            "dili": {
+              "positive": 84,
+              "negative": 81,
+              "count": 165
+            },
+            "ames": {
+              "positive": 1450,
+              "negative": 923,
+              "count": 2373
+            },
+            "clintox": {
+              "positive": 26,
+              "negative": 438,
+              "count": 464
+            }
+          },
+          "taskWeights": {
+            "herg": 1.0,
+            "dili": 1.0,
+            "ames": 1.0,
+            "clintox": 1.0
+          },
+          "positiveWeights": {
+            "herg": 0.7650920152664185,
+            "dili": 0.9819805026054382,
+            "ames": 0.7978419065475464,
+            "clintox": 4.0
+          },
+          "positiveWeightPolicy": "train-only sqrt(negative/positive) clipped to [0.5,4]; tasks without both classes disabled from loss",
+          "loss": "observed-task-mean weighted BCE; zero-observation batches skip optimizer",
+          "selectionProtocol": {
+            "eligible": [
+              "herg",
+              "dili",
+              "ames"
+            ],
+            "excluded": {
+              "clintox": {
+                "positive": 4,
+                "negative": 77,
+                "reason": "minimum-10-per-class-not-met"
+              }
+            },
+            "minimumPerClass": 10,
+            "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+          },
+          "bestEpoch": 2,
+          "epochsExecuted": 10
+        },
+        "B16": {
+          "classCounts": {
+            "herg": {
+              "positive": 123,
+              "negative": 72,
+              "count": 195
+            },
+            "dili": {
+              "positive": 84,
+              "negative": 81,
+              "count": 165
+            },
+            "ames": {
+              "positive": 1450,
+              "negative": 923,
+              "count": 2373
+            },
+            "clintox": {
+              "positive": 26,
+              "negative": 438,
+              "count": 464
+            },
+            "tox21_nr_ar": {
+              "positive": 175,
+              "negative": 2062,
+              "count": 2237
+            },
+            "tox21_nr_ar_lbd": {
+              "positive": 134,
+              "negative": 1927,
+              "count": 2061
+            },
+            "tox21_nr_ahr": {
+              "positive": 326,
+              "negative": 1648,
+              "count": 1974
+            },
+            "tox21_nr_aromatase": {
+              "positive": 149,
+              "negative": 1541,
+              "count": 1690
+            },
+            "tox21_nr_er": {
+              "positive": 340,
+              "negative": 1498,
+              "count": 1838
+            },
+            "tox21_nr_er_lbd": {
+              "positive": 170,
+              "negative": 1928,
+              "count": 2098
+            },
+            "tox21_nr_ppar_gamma": {
+              "positive": 69,
+              "negative": 1848,
+              "count": 1917
+            },
+            "tox21_sr_are": {
+              "positive": 353,
+              "negative": 1331,
+              "count": 1684
+            },
+            "tox21_sr_atad5": {
+              "positive": 113,
+              "negative": 2061,
+              "count": 2174
+            },
+            "tox21_sr_hse": {
+              "positive": 121,
+              "negative": 1777,
+              "count": 1898
+            },
+            "tox21_sr_mmp": {
+              "positive": 403,
+              "negative": 1335,
+              "count": 1738
+            },
+            "tox21_sr_p53": {
+              "positive": 172,
+              "negative": 1856,
+              "count": 2028
+            }
+          },
+          "taskWeights": {
+            "herg": 1.0,
+            "dili": 1.0,
+            "ames": 1.0,
+            "clintox": 1.0,
+            "tox21_nr_ar": 0.25,
+            "tox21_nr_ar_lbd": 0.25,
+            "tox21_nr_ahr": 0.25,
+            "tox21_nr_aromatase": 0.25,
+            "tox21_nr_er": 0.25,
+            "tox21_nr_er_lbd": 0.25,
+            "tox21_nr_ppar_gamma": 0.25,
+            "tox21_sr_are": 0.25,
+            "tox21_sr_atad5": 0.25,
+            "tox21_sr_hse": 0.25,
+            "tox21_sr_mmp": 0.25,
+            "tox21_sr_p53": 0.25
+          },
+          "positiveWeights": {
+            "herg": 0.7650920152664185,
+            "dili": 0.9819805026054382,
+            "ames": 0.7978419065475464,
+            "clintox": 4.0,
+            "tox21_nr_ar": 3.432616710662842,
+            "tox21_nr_ar_lbd": 3.792175769805908,
+            "tox21_nr_ahr": 2.248380422592163,
+            "tox21_nr_aromatase": 3.215941905975342,
+            "tox21_nr_er": 2.0990192890167236,
+            "tox21_nr_er_lbd": 3.367666244506836,
+            "tox21_nr_ppar_gamma": 4.0,
+            "tox21_sr_are": 1.9417873620986938,
+            "tox21_sr_atad5": 4.0,
+            "tox21_sr_hse": 3.8322253227233887,
+            "tox21_sr_mmp": 1.8200700283050537,
+            "tox21_sr_p53": 3.2849197387695312
+          },
+          "positiveWeightPolicy": "train-only sqrt(negative/positive) clipped to [0.5,4]; tasks without both classes disabled from loss",
+          "loss": "observed-task-mean weighted BCE; zero-observation batches skip optimizer",
+          "selectionProtocol": {
+            "eligible": [
+              "herg",
+              "dili",
+              "ames"
+            ],
+            "excluded": {
+              "clintox": {
+                "positive": 4,
+                "negative": 77,
+                "reason": "minimum-10-per-class-not-met"
+              }
+            },
+            "minimumPerClass": 10,
+            "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+          },
+          "bestEpoch": 2,
+          "epochsExecuted": 10
+        }
+      },
+      "gradientInterference": {
+        "status": "not-measured",
+        "reason": "Stored prediction artifacts do not contain shared-parameter gradients; no gradient mechanism inferred."
+      }
+    },
+    {
+      "seed": 44,
+      "A4WeightsSha256": "2487b6ee664f9fc34581075217becf1d03f4c9a97c29f9673d8186fa7515e0d3",
+      "B16WeightsSha256": "02d962c7f8a0679289637091803fb066fe1b969f374c7624c8c098f18e24e014",
+      "endpoints": {
+        "herg": {
+          "count": 111,
+          "positives": 89,
+          "negatives": 22,
+          "positiveRate": 0.8018018018018018,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "5016c960e0a278cb34dc705afb6106163ab64adc29283ff3c3ea99c320b6e877",
+          "A4": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "positiveRate": 0.8018018018018018,
+            "auroc": 0.7420837589376915,
+            "averagePrecision": 0.9001966637177373,
+            "brier": 0.19400410837068024,
+            "ece10Bins": 0.19175406287628455,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 111,
+            "positives": 89,
+            "negatives": 22,
+            "positiveRate": 0.8018018018018018,
+            "auroc": 0.7374872318692544,
+            "averagePrecision": 0.9035014815178367,
+            "brier": 0.17013534709719852,
+            "ece10Bins": 0.1494577228856245,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": -0.004596527068437162,
+            "averagePrecision": 0.003304817800099391,
+            "brier": -0.023868761273481726,
+            "ece10Bins": -0.04229633999066004
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 49,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.042851492472839564,
+                "upper": 0.03128071581196567,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.013292297735794666,
+                "upper": 0.022134170725258955,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.057822399463868274,
+                "upper": 0.014192083649376089,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.08229108323681472,
+                "upper": 0.01630454768580122,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "dili": {
+          "count": 26,
+          "positives": 16,
+          "negatives": 10,
+          "positiveRate": 0.6153846153846154,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "52611fd03c0f93b5ee47bcb3a676379d9dc722eff91b034c3a40d438f5622699",
+          "A4": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "positiveRate": 0.6153846153846154,
+            "auroc": 0.94375,
+            "averagePrecision": 0.9678702731092437,
+            "brier": 0.1090909444062808,
+            "ece10Bins": 0.15082835099431982,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 26,
+            "positives": 16,
+            "negatives": 10,
+            "positiveRate": 0.6153846153846154,
+            "auroc": 0.9500000000000001,
+            "averagePrecision": 0.9748816287878788,
+            "brier": 0.09738491418550425,
+            "ece10Bins": 0.1137585942944638,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": 0.006250000000000089,
+            "averagePrecision": 0.0070113556786350895,
+            "brier": -0.011706030220776542,
+            "ece10Bins": -0.037069756699856016
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 24,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": -0.05146520146520149,
+                "upper": 0.07013084571678319,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": -0.018446257689678724,
+                "upper": 0.044837072649572644,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.04008320674500767,
+                "upper": 0.011241337382970068,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.12390816232986117,
+                "upper": 0.05016964715757253,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "ames": {
+          "count": 634,
+          "positives": 444,
+          "negatives": 190,
+          "positiveRate": 0.7003154574132492,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "6c96814fc97b173b1dc046ae20935249992fa9d7d83b98627d156edb6e32e451",
+          "A4": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "positiveRate": 0.7003154574132492,
+            "auroc": 0.7825628259838786,
+            "averagePrecision": 0.8793280076231856,
+            "brier": 0.16936813928536965,
+            "ece10Bins": 0.08106869436257769,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 634,
+            "positives": 444,
+            "negatives": 190,
+            "positiveRate": 0.7003154574132492,
+            "auroc": 0.8055476529160739,
+            "averagePrecision": 0.9002557672788822,
+            "brier": 0.15932742920870438,
+            "ece10Bins": 0.05909503338520651,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": 0.02298482693219528,
+            "averagePrecision": 0.0209277596556966,
+            "brier": -0.010040710076665266,
+            "ece10Bins": -0.021973660977371176
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 240,
+            "confidenceLevel": 0.95,
+            "status": "computed-exploratory",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": 0.0022887216200132288,
+                "upper": 0.04264832741322051,
+                "validReplicates": 500
+              },
+              "averagePrecision": {
+                "lower": 0.0044649454845572594,
+                "upper": 0.03991866493444258,
+                "validReplicates": 500
+              },
+              "brier": {
+                "lower": -0.019234041606570045,
+                "upper": -0.0006193924922395481,
+                "validReplicates": 500
+              },
+              "ece10Bins": {
+                "lower": -0.04525120192328964,
+                "upper": 0.015818058116360473,
+                "validReplicates": 500
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        },
+        "clintox": {
+          "count": 81,
+          "positives": 4,
+          "negatives": 77,
+          "positiveRate": 0.04938271604938271,
+          "coverageFraction": 1.0,
+          "sameObservedMemberOrderSha256": "805059f8f514b6d71d756a04c92f95c95b56b573c8e2626cbe174f461f57f2a6",
+          "A4": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "positiveRate": 0.04938271604938271,
+            "auroc": 0.8409090909090909,
+            "averagePrecision": 0.4788819875776398,
+            "brier": 0.052663425007261365,
+            "ece10Bins": 0.07864845108767102,
+            "status": "computed"
+          },
+          "B16": {
+            "count": 81,
+            "positives": 4,
+            "negatives": 77,
+            "positiveRate": 0.04938271604938271,
+            "auroc": 0.8961038961038961,
+            "averagePrecision": 0.35119047619047616,
+            "brier": 0.06670651655649798,
+            "ece10Bins": 0.10235972254628858,
+            "status": "computed"
+          },
+          "deltaB16MinusA4": {
+            "auroc": 0.05519480519480513,
+            "averagePrecision": -0.12769151138716361,
+            "brier": 0.014043091549236615,
+            "ece10Bins": 0.023711271458617567
+          },
+          "confidenceIntervals": {
+            "method": "paired-scaffold-cluster-bootstrap",
+            "seed": 42,
+            "requestedReplicates": 500,
+            "clusterCount": 68,
+            "confidenceLevel": 0.95,
+            "status": "insufficient-support",
+            "minimumPerClass": 10,
+            "minimumGroups": 10,
+            "intervals": {
+              "auroc": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "averagePrecision": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "brier": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              },
+              "ece10Bins": {
+                "lower": null,
+                "upper": null,
+                "validReplicates": 0
+              }
+            },
+            "limitations": "Exploratory cluster percentile intervals; seeds are not independent molecular observations."
+          }
+        }
+      },
+      "trainingObjectives": {
+        "A4": {
+          "classCounts": {
+            "herg": {
+              "positive": 123,
+              "negative": 72,
+              "count": 195
+            },
+            "dili": {
+              "positive": 84,
+              "negative": 81,
+              "count": 165
+            },
+            "ames": {
+              "positive": 1450,
+              "negative": 923,
+              "count": 2373
+            },
+            "clintox": {
+              "positive": 26,
+              "negative": 438,
+              "count": 464
+            }
+          },
+          "taskWeights": {
+            "herg": 1.0,
+            "dili": 1.0,
+            "ames": 1.0,
+            "clintox": 1.0
+          },
+          "positiveWeights": {
+            "herg": 0.7650920152664185,
+            "dili": 0.9819805026054382,
+            "ames": 0.7978419065475464,
+            "clintox": 4.0
+          },
+          "positiveWeightPolicy": "train-only sqrt(negative/positive) clipped to [0.5,4]; tasks without both classes disabled from loss",
+          "loss": "observed-task-mean weighted BCE; zero-observation batches skip optimizer",
+          "selectionProtocol": {
+            "eligible": [
+              "herg",
+              "dili",
+              "ames"
+            ],
+            "excluded": {
+              "clintox": {
+                "positive": 4,
+                "negative": 77,
+                "reason": "minimum-10-per-class-not-met"
+              }
+            },
+            "minimumPerClass": 10,
+            "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+          },
+          "bestEpoch": 5,
+          "epochsExecuted": 13
+        },
+        "B16": {
+          "classCounts": {
+            "herg": {
+              "positive": 123,
+              "negative": 72,
+              "count": 195
+            },
+            "dili": {
+              "positive": 84,
+              "negative": 81,
+              "count": 165
+            },
+            "ames": {
+              "positive": 1450,
+              "negative": 923,
+              "count": 2373
+            },
+            "clintox": {
+              "positive": 26,
+              "negative": 438,
+              "count": 464
+            },
+            "tox21_nr_ar": {
+              "positive": 175,
+              "negative": 2062,
+              "count": 2237
+            },
+            "tox21_nr_ar_lbd": {
+              "positive": 134,
+              "negative": 1927,
+              "count": 2061
+            },
+            "tox21_nr_ahr": {
+              "positive": 326,
+              "negative": 1648,
+              "count": 1974
+            },
+            "tox21_nr_aromatase": {
+              "positive": 149,
+              "negative": 1541,
+              "count": 1690
+            },
+            "tox21_nr_er": {
+              "positive": 340,
+              "negative": 1498,
+              "count": 1838
+            },
+            "tox21_nr_er_lbd": {
+              "positive": 170,
+              "negative": 1928,
+              "count": 2098
+            },
+            "tox21_nr_ppar_gamma": {
+              "positive": 69,
+              "negative": 1848,
+              "count": 1917
+            },
+            "tox21_sr_are": {
+              "positive": 353,
+              "negative": 1331,
+              "count": 1684
+            },
+            "tox21_sr_atad5": {
+              "positive": 113,
+              "negative": 2061,
+              "count": 2174
+            },
+            "tox21_sr_hse": {
+              "positive": 121,
+              "negative": 1777,
+              "count": 1898
+            },
+            "tox21_sr_mmp": {
+              "positive": 403,
+              "negative": 1335,
+              "count": 1738
+            },
+            "tox21_sr_p53": {
+              "positive": 172,
+              "negative": 1856,
+              "count": 2028
+            }
+          },
+          "taskWeights": {
+            "herg": 1.0,
+            "dili": 1.0,
+            "ames": 1.0,
+            "clintox": 1.0,
+            "tox21_nr_ar": 0.25,
+            "tox21_nr_ar_lbd": 0.25,
+            "tox21_nr_ahr": 0.25,
+            "tox21_nr_aromatase": 0.25,
+            "tox21_nr_er": 0.25,
+            "tox21_nr_er_lbd": 0.25,
+            "tox21_nr_ppar_gamma": 0.25,
+            "tox21_sr_are": 0.25,
+            "tox21_sr_atad5": 0.25,
+            "tox21_sr_hse": 0.25,
+            "tox21_sr_mmp": 0.25,
+            "tox21_sr_p53": 0.25
+          },
+          "positiveWeights": {
+            "herg": 0.7650920152664185,
+            "dili": 0.9819805026054382,
+            "ames": 0.7978419065475464,
+            "clintox": 4.0,
+            "tox21_nr_ar": 3.432616710662842,
+            "tox21_nr_ar_lbd": 3.792175769805908,
+            "tox21_nr_ahr": 2.248380422592163,
+            "tox21_nr_aromatase": 3.215941905975342,
+            "tox21_nr_er": 2.0990192890167236,
+            "tox21_nr_er_lbd": 3.367666244506836,
+            "tox21_nr_ppar_gamma": 4.0,
+            "tox21_sr_are": 1.9417873620986938,
+            "tox21_sr_atad5": 4.0,
+            "tox21_sr_hse": 3.8322253227233887,
+            "tox21_sr_mmp": 1.8200700283050537,
+            "tox21_sr_p53": 3.2849197387695312
+          },
+          "positiveWeightPolicy": "train-only sqrt(negative/positive) clipped to [0.5,4]; tasks without both classes disabled from loss",
+          "loss": "observed-task-mean weighted BCE; zero-observation batches skip optimizer",
+          "selectionProtocol": {
+            "eligible": [
+              "herg",
+              "dili",
+              "ames"
+            ],
+            "excluded": {
+              "clintox": {
+                "positive": 4,
+                "negative": 77,
+                "reason": "minimum-10-per-class-not-met"
+              }
+            },
+            "minimumPerClass": 10,
+            "policy": "original-four-endpoint macro AUROC then AP; Tox21 excluded from checkpoint selection"
+          },
+          "bestEpoch": 4,
+          "epochsExecuted": 12
+        }
+      },
+      "gradientInterference": {
+        "status": "not-measured",
+        "reason": "Stored prediction artifacts do not contain shared-parameter gradients; no gradient mechanism inferred."
+      }
+    }
+  ],
+  "selectionPermitted": false,
+  "limitations": [
+    "Validation was used for checkpoint selection; these are not independent test estimates.",
+    "Paired seed runs share molecules and labels; seed count is not an independent sample size.",
+    "Negative AP differences are descriptive; auxiliary-task causality is not established.",
+    "ClinTox has very few positives; intervals may be unavailable and AP unstable."
+  ],
+  "descriptiveSeedMeanDelta": {
+    "herg": {
+      "auroc": 0.008001361933946257,
+      "averagePrecision": 0.0036103788181715744,
+      "brier": -0.021576157912982258,
+      "ece10Bins": -0.04051654212745289
+    },
+    "dili": {
+      "auroc": 0.002083333333333363,
+      "averagePrecision": 0.000461995542297385,
+      "brier": -0.003497687795157328,
+      "ece10Bins": 0.006673634961609294
+    },
+    "ames": {
+      "auroc": 0.0012960328749802204,
+      "averagePrecision": 0.001616577313200344,
+      "brier": -0.00044294603438719643,
+      "ece10Bins": 4.258208899458882e-05
+    },
+    "clintox": {
+      "auroc": -7.401486830834377e-17,
+      "averagePrecision": -0.1621554135120523,
+      "brier": 0.010747459060424099,
+      "ece10Bins": 0.00810872947564834
+    }
+  },
+  "seedVariability": {
+    "herg": {
+      "A4": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.7718760640108955,
+          "standardDeviationAcrossSeeds": 0.026013584570032718,
+          "minimum": 0.7420837589376915,
+          "maximum": 0.7900919305413687
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.9059177945692528,
+          "standardDeviationAcrossSeeds": 0.004956821947190422,
+          "minimum": 0.9001966637177373,
+          "maximum": 0.9089252618364793
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.18195680054581495,
+          "standardDeviationAcrossSeeds": 0.010625675524413103,
+          "minimum": 0.17392024798222872,
+          "maximum": 0.19400410837068024
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.20310152533055,
+          "standardDeviationAcrossSeeds": 0.009887554559278812,
+          "minimum": 0.19175406287628455,
+          "maximum": 0.20986615391742489
+        }
+      },
+      "B16": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.7798774259448417,
+          "standardDeviationAcrossSeeds": 0.0369102787847899,
+          "minimum": 0.7374872318692544,
+          "maximum": 0.804902962206333
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.9095281733874243,
+          "standardDeviationAcrossSeeds": 0.007123631151836045,
+          "minimum": 0.9035014815178367,
+          "maximum": 0.9173897519506297
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.16038064263283267,
+          "standardDeviationAcrossSeeds": 0.023763033014953812,
+          "minimum": 0.13329257128398345,
+          "maximum": 0.17771400951731603
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.1625849832030971,
+          "standardDeviationAcrossSeeds": 0.050681552150307785,
+          "minimum": 0.1197585738216351,
+          "maximum": 0.21853865290203167
+        }
+      }
+    },
+    "dili": {
+      "A4": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.9270833333333334,
+          "standardDeviationAcrossSeeds": 0.019094065395649337,
+          "minimum": 0.90625,
+          "maximum": 0.94375
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.9617690163186486,
+          "standardDeviationAcrossSeeds": 0.010374977824664292,
+          "minimum": 0.9497897170231729,
+          "maximum": 0.9678702731092437
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.11933257012304205,
+          "standardDeviationAcrossSeeds": 0.01591625221298946,
+          "minimum": 0.1090909444062808,
+          "maximum": 0.13766924131585645
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.14038298837224708,
+          "standardDeviationAcrossSeeds": 0.011260700038920329,
+          "minimum": 0.12845402902219424,
+          "maximum": 0.15082835099431982
+        }
+      },
+      "B16": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.9291666666666667,
+          "standardDeviationAcrossSeeds": 0.018042195912175808,
+          "minimum": 0.9187500000000001,
+          "maximum": 0.9500000000000001
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.9622310118609461,
+          "standardDeviationAcrossSeeds": 0.010965088195930315,
+          "minimum": 0.9554534007659008,
+          "maximum": 0.9748816287878788
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.1158348823278847,
+          "standardDeviationAcrossSeeds": 0.017387661693668094,
+          "minimum": 0.09738491418550425,
+          "maximum": 0.13191769301049583
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.14705662333385638,
+          "standardDeviationAcrossSeeds": 0.03661783976749754,
+          "minimum": 0.1137585942944638,
+          "maximum": 0.18627325039469114
+        }
+      }
+    },
+    "ames": {
+      "A4": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.7904417575470207,
+          "standardDeviationAcrossSeeds": 0.0068922422958596725,
+          "minimum": 0.7825628259838786,
+          "maximum": 0.795353247984827
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.8872649351745564,
+          "standardDeviationAcrossSeeds": 0.006920977656744333,
+          "minimum": 0.8793280076231856,
+          "maximum": 0.8920419887772697
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.16725834385004065,
+          "standardDeviationAcrossSeeds": 0.004061464399015981,
+          "minimum": 0.16257617918875691,
+          "maximum": 0.16983071307599543
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.08375888475623688,
+          "standardDeviationAcrossSeeds": 0.008354164145562393,
+          "minimum": 0.07708124879058832,
+          "maximum": 0.09312671111554463
+        }
+      },
+      "B16": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.791737790422001,
+          "standardDeviationAcrossSeeds": 0.012777770788614789,
+          "minimum": 0.7803342816500711,
+          "maximum": 0.8055476529160739
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.8888815124877567,
+          "standardDeviationAcrossSeeds": 0.010063573851228174,
+          "minimum": 0.8811339810980602,
+          "maximum": 0.9002557672788822
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.16681539781565347,
+          "standardDeviationAcrossSeeds": 0.008214130790192635,
+          "minimum": 0.15932742920870438,
+          "maximum": 0.17560117636764702
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.08380146684523147,
+          "standardDeviationAcrossSeeds": 0.02399517505068322,
+          "minimum": 0.05909503338520651,
+          "maximum": 0.10701573946207879
+        }
+      }
+    },
+    "clintox": {
+      "A4": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.8636363636363636,
+          "standardDeviationAcrossSeeds": 0.05403674343212096,
+          "minimum": 0.8246753246753247,
+          "maximum": 0.9253246753246754
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.47159940183535093,
+          "standardDeviationAcrossSeeds": 0.07775265082311647,
+          "minimum": 0.3904616724738676,
+          "maximum": 0.5454545454545454
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.049170075228340465,
+          "standardDeviationAcrossSeeds": 0.006542045391807692,
+          "minimum": 0.04162290567031448,
+          "maximum": 0.05322389500744556
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.07391389864087743,
+          "standardDeviationAcrossSeeds": 0.00774249846765279,
+          "minimum": 0.06497895217849738,
+          "maximum": 0.07864845108767102
+        }
+      },
+      "B16": {
+        "auroc": {
+          "count": 3,
+          "mean": 0.8636363636363636,
+          "standardDeviationAcrossSeeds": 0.03827865624205064,
+          "minimum": 0.8214285714285714,
+          "maximum": 0.8961038961038961
+        },
+        "averagePrecision": {
+          "count": 3,
+          "mean": 0.3094439883232986,
+          "standardDeviationAcrossSeeds": 0.039843237845121796,
+          "minimum": 0.2718253968253968,
+          "maximum": 0.35119047619047616
+        },
+        "brier": {
+          "count": 3,
+          "mean": 0.05991753428876456,
+          "standardDeviationAcrossSeeds": 0.008318355086077204,
+          "minimum": 0.050638544776584936,
+          "maximum": 0.06670651655649798
+        },
+        "ece10Bins": {
+          "count": 3,
+          "mean": 0.08202262811652576,
+          "standardDeviationAcrossSeeds": 0.0214320849905383,
+          "minimum": 0.059641947195455264,
+          "maximum": 0.10235972254628858
+        }
+      }
+    }
+  },
+  "independentSeedSampleSize": null,
+  "reportSha256": "faf3e8ae949acbd18be1db550d19a260baefa37c77e486956a210daa0413b2a8"
+}
