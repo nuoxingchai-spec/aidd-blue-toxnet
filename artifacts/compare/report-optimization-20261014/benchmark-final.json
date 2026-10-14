@@ -1,0 +1,4896 @@
+{
+  "schema": "aidd.compare.report-benchmark.v1",
+  "generatedAt": "2026-10-14T08:36:16.273510+00:00",
+  "formalAvailability": false,
+  "status": "completed",
+  "arms": [
+    {
+      "id": "v1-deep",
+      "reportContract": "v1",
+      "reportMode": "deep"
+    },
+    {
+      "id": "v2-deep",
+      "reportContract": "v2",
+      "reportMode": "deep"
+    },
+    {
+      "id": "v1-fast",
+      "reportContract": "v1",
+      "reportMode": "fast"
+    },
+    {
+      "id": "v2-fast",
+      "reportContract": "v2",
+      "reportMode": "fast"
+    }
+  ],
+  "plannedRunCount": 16,
+  "runs": [
+    {
+      "runId": "7944b2f404734849bcb522a123c0c1eb",
+      "arm": "v1-deep",
+      "repeat": 1,
+      "reportContract": "v1",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 86112.206,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 11269.774,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 11.267959799999517,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.500737599999411,
+            "loadAndExecutionSeconds": 9.539970300000277
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:36:17.273616+00:00",
+            "endedAt": "2026-10-14T08:36:28.542471+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 14,
+            "attemptCount": 14,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1705.0,
+                "lastObservedUsedMiB": 2027.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 14
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7209.657,
+            "queueWaitMs": 0.004,
+            "wallSeconds": 7.207646300001215,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 96.63936604575875,
+            "generationSeconds": 0.041391,
+            "totalDurationSeconds": 3.421377,
+            "loadSeconds": 3.3073209,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:36:28.562225+00:00",
+            "endedAt": "2026-10-14T08:36:35.771676+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 9,
+            "attemptCount": 9,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3723.0,
+                "firstObservedUsedMiB": 1711.0,
+                "lastObservedUsedMiB": 1711.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 9
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 67545.628,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 67.40431619999981,
+            "promptTokens": 4378,
+            "completionTokens": 3071,
+            "totalTokens": null,
+            "tokensPerSecond": 52.481227323145355,
+            "generationSeconds": 58.516162,
+            "totalDurationSeconds": 66.8891831,
+            "loadSeconds": 6.1224743,
+            "promptEvaluationSeconds": 2.207293,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:36:35.809092+00:00",
+            "endedAt": "2026-10-14T08:37:43.353674+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 84,
+            "attemptCount": 84,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5678.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 5672.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 84
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 0,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "b8091ff6bab74e52a8fa2f0204ee0df9",
+      "arm": "v2-deep",
+      "repeat": 1,
+      "reportContract": "v2",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 48886.442,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 13921.768,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 13.92067870000028,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.48349960000086867,
+            "loadAndExecutionSeconds": 12.088072000000466
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:37:43.818873+00:00",
+            "endedAt": "2026-10-14T08:37:57.740348+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1711.0,
+                "lastObservedUsedMiB": 2027.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7554.639,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.275961700001062,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 102.57199271738853,
+            "generationSeconds": 0.038997,
+            "totalDurationSeconds": 3.3200772,
+            "loadSeconds": 3.2243996,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:37:57.762869+00:00",
+            "endedAt": "2026-10-14T08:38:05.317289+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3726.0,
+                "firstObservedUsedMiB": 1711.0,
+                "lastObservedUsedMiB": 1708.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 27317.655,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 26.8966504,
+            "promptTokens": 3334,
+            "completionTokens": 1011,
+            "totalTokens": null,
+            "tokensPerSecond": 53.10498993080015,
+            "generationSeconds": 19.037759,
+            "totalDurationSeconds": 26.4288833,
+            "loadSeconds": 5.6767094,
+            "promptEvaluationSeconds": 1.69181,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:38:05.350595+00:00",
+            "endedAt": "2026-10-14T08:38:32.667766+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 37,
+            "attemptCount": 37,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5671.0,
+                "firstObservedUsedMiB": 1714.0,
+                "lastObservedUsedMiB": 1711.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 37
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 6,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "85d9c19488f440a6a7a7f86c6e9f1be2",
+      "arm": "v1-fast",
+      "repeat": 1,
+      "reportContract": "v1",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 95434.207,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 14241.97,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 14.020168200000626,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.42506519999915326,
+            "loadAndExecutionSeconds": 12.169834999998784
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:38:32.785291+00:00",
+            "endedAt": "2026-10-14T08:38:47.026969+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1723.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7121.557,
+            "queueWaitMs": 0.004,
+            "wallSeconds": 7.021302299999661,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 106.63822980538522,
+            "generationSeconds": 0.03751,
+            "totalDurationSeconds": 3.1482416,
+            "loadSeconds": 3.0539807,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:38:47.047477+00:00",
+            "endedAt": "2026-10-14T08:38:54.168817+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3425.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 73975.788,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 73.92535470000075,
+            "promptTokens": 4484,
+            "completionTokens": 3415,
+            "totalTokens": null,
+            "tokensPerSecond": 52.13982370876719,
+            "generationSeconds": 65.496961,
+            "totalDurationSeconds": 73.4397551,
+            "loadSeconds": 5.5817272,
+            "promptEvaluationSeconds": 2.32935,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:38:54.204035+00:00",
+            "endedAt": "2026-10-14T08:40:08.178672+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 95,
+            "attemptCount": 95,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5677.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 5671.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 95
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 4,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "d1ca84bb318e44a7b5c2e64025c4573a",
+      "arm": "v2-fast",
+      "repeat": 1,
+      "reportContract": "v2",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 44134.323,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 13421.405,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 13.4189738999994,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.44505190000018047,
+            "loadAndExecutionSeconds": 11.404942199998914
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:40:08.890804+00:00",
+            "endedAt": "2026-10-14T08:40:22.311904+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7898.675,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 7.445454700000482,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 91.03529893716289,
+            "generationSeconds": 0.043939,
+            "totalDurationSeconds": 3.2710947,
+            "loadSeconds": 3.161822,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:40:22.332768+00:00",
+            "endedAt": "2026-10-14T08:40:30.231234+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 9,
+            "attemptCount": 9,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3425.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 9
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 22727.662,
+            "queueWaitMs": 0.004,
+            "wallSeconds": 22.699924599999576,
+            "promptTokens": 3332,
+            "completionTokens": 759,
+            "totalTokens": null,
+            "tokensPerSecond": 52.94695127059778,
+            "generationSeconds": 14.335103,
+            "totalDurationSeconds": 22.2156171,
+            "loadSeconds": 6.1391755,
+            "promptEvaluationSeconds": 1.718574,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:40:30.264602+00:00",
+            "endedAt": "2026-10-14T08:40:52.991836+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 30,
+            "attemptCount": 30,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5672.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 5671.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 30
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 5,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "609f1422b082480f88175a8ca90b7a62",
+      "arm": "v1-deep",
+      "repeat": 1,
+      "reportContract": "v1",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 89356.489,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 13191.1,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 13.190136900000653,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.4721649000002799,
+            "loadAndExecutionSeconds": 11.510479800001121
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:40:53.686339+00:00",
+            "endedAt": "2026-10-14T08:41:06.877171+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 2027.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7497.278,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.49611189999996,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 97.1534052268532,
+            "generationSeconds": 0.041172,
+            "totalDurationSeconds": 3.6061336,
+            "loadSeconds": 3.5060343,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:41:06.900004+00:00",
+            "endedAt": "2026-10-14T08:41:14.397102+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3723.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 68577.809,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 68.15259429999969,
+            "promptTokens": 4385,
+            "completionTokens": 3063,
+            "totalTokens": null,
+            "tokensPerSecond": 52.20122048600853,
+            "generationSeconds": 58.676789,
+            "totalDurationSeconds": 67.7033304,
+            "loadSeconds": 6.6840868,
+            "promptEvaluationSeconds": 2.308794,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:41:14.430995+00:00",
+            "endedAt": "2026-10-14T08:42:23.007689+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 88,
+            "attemptCount": 88,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5674.0,
+                "firstObservedUsedMiB": 1711.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 88
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 0,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "cfe7e801ff314dcda37bc006fa6e9a11",
+      "arm": "v2-deep",
+      "repeat": 1,
+      "reportContract": "v2",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 47157.769,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 14556.679,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 14.250944599998547,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.43689760000052047,
+            "loadAndExecutionSeconds": 12.48894829999881
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:42:23.217970+00:00",
+            "endedAt": "2026-10-14T08:42:37.774332+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7348.455,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.347200599999269,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 96.11687812379854,
+            "generationSeconds": 0.041616,
+            "totalDurationSeconds": 3.3293036,
+            "loadSeconds": 3.2301095,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:42:37.796787+00:00",
+            "endedAt": "2026-10-14T08:42:45.145061+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3710.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1801.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 25161.247,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 24.95754189999934,
+            "promptTokens": 3342,
+            "completionTokens": 905,
+            "totalTokens": null,
+            "tokensPerSecond": 52.856700229211185,
+            "generationSeconds": 17.121765,
+            "totalDurationSeconds": 24.4702237,
+            "loadSeconds": 5.5993653,
+            "promptEvaluationSeconds": 1.71694,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:42:45.179910+00:00",
+            "endedAt": "2026-10-14T08:43:10.340778+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 34,
+            "attemptCount": 34,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5671.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 5671.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 34
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 6,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "b5427409b986469f8f05e16106bfa2da",
+      "arm": "v1-fast",
+      "repeat": 1,
+      "reportContract": "v1",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 97147.965,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 14116.975,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 13.660986100001537,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.4871192999999039,
+            "loadAndExecutionSeconds": 11.771385399999417
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:43:10.605762+00:00",
+            "endedAt": "2026-10-14T08:43:24.722492+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 18,
+            "attemptCount": 18,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1705.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 18
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7271.71,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.27041410000129,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 105.23823305006708,
+            "generationSeconds": 0.038009,
+            "totalDurationSeconds": 3.2099798,
+            "loadSeconds": 3.1126377,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:43:24.744742+00:00",
+            "endedAt": "2026-10-14T08:43:32.016290+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 9,
+            "attemptCount": 9,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3425.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1801.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 9
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 75671.101,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 75.36119390000022,
+            "promptTokens": 4491,
+            "completionTokens": 3450,
+            "totalTokens": null,
+            "tokensPerSecond": 51.95918821133069,
+            "generationSeconds": 66.398266,
+            "totalDurationSeconds": 74.431007,
+            "loadSeconds": 5.6397361,
+            "promptEvaluationSeconds": 2.367243,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:43:32.049178+00:00",
+            "endedAt": "2026-10-14T08:44:47.719381+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 101,
+            "attemptCount": 101,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5671.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 101
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 4,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "4caf75c5ec33494fbc3ed094d203a729",
+      "arm": "v2-fast",
+      "repeat": 1,
+      "reportContract": "v2",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 45001.64,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 15288.288,
+            "queueWaitMs": 0.008,
+            "wallSeconds": 14.80526330000066,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.6507660999996006,
+            "loadAndExecutionSeconds": 12.148002399999314
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:44:47.792023+00:00",
+            "endedAt": "2026-10-14T08:45:03.079980+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 18,
+            "attemptCount": 18,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1705.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 18
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7454.899,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 7.453511600000638,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 106.21348911311736,
+            "generationSeconds": 0.03766,
+            "totalDurationSeconds": 3.3510045,
+            "loadSeconds": 3.257279,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:45:03.105486+00:00",
+            "endedAt": "2026-10-14T08:45:10.560226+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 9,
+            "attemptCount": 9,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3425.0,
+                "firstObservedUsedMiB": 1705.0,
+                "lastObservedUsedMiB": 1709.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 9
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 22164.191,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 22.15513330000067,
+            "promptTokens": 3340,
+            "completionTokens": 757,
+            "totalTokens": null,
+            "tokensPerSecond": 52.942064666389115,
+            "generationSeconds": 14.298649,
+            "totalDurationSeconds": 21.6853976,
+            "loadSeconds": 5.6416949,
+            "promptEvaluationSeconds": 1.720715,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:45:10.596396+00:00",
+            "endedAt": "2026-10-14T08:45:32.760257+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 30,
+            "attemptCount": 30,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5671.0,
+                "firstObservedUsedMiB": 1705.0,
+                "lastObservedUsedMiB": 5671.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 30
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 5,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "8de8a331a7b940feb1d9cb930dd25e71",
+      "arm": "v1-deep",
+      "repeat": 2,
+      "reportContract": "v1",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 88724.291,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 13039.638,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 12.980976800001372,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.44809170000007725,
+            "loadAndExecutionSeconds": 11.349130900000091
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:45:33.682964+00:00",
+            "endedAt": "2026-10-14T08:45:46.722367+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2027.0,
+                "firstObservedUsedMiB": 1801.0,
+                "lastObservedUsedMiB": 2027.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7147.214,
+            "queueWaitMs": 0.004,
+            "wallSeconds": 7.1257193999990704,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 102.24687507988037,
+            "generationSeconds": 0.039121,
+            "totalDurationSeconds": 3.2377039,
+            "loadSeconds": 3.1437879,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:45:46.745023+00:00",
+            "endedAt": "2026-10-14T08:45:53.892071+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3425.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 68451.848,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 68.04602549999981,
+            "promptTokens": 4378,
+            "completionTokens": 3071,
+            "totalTokens": null,
+            "tokensPerSecond": 51.45356488342283,
+            "generationSeconds": 59.684883,
+            "totalDurationSeconds": 67.5775157,
+            "loadSeconds": 5.6038623,
+            "promptEvaluationSeconds": 2.264371,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:45:53.926011+00:00",
+            "endedAt": "2026-10-14T08:47:02.377013+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 89,
+            "attemptCount": 89,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5919.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 1708.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 89
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 0,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "f302135266f54a33a8c572198fea944d",
+      "arm": "v2-deep",
+      "repeat": 2,
+      "reportContract": "v2",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 50802.866,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 14862.961,
+            "queueWaitMs": 0.004,
+            "wallSeconds": 14.34160030000021,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.5410670999990543,
+            "loadAndExecutionSeconds": 12.48098570000002
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:47:02.624095+00:00",
+            "endedAt": "2026-10-14T08:47:17.486731+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 19,
+            "attemptCount": 19,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2024.0,
+                "firstObservedUsedMiB": 1702.0,
+                "lastObservedUsedMiB": 1708.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 19
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7479.516,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.163572699999349,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 102.73796681563671,
+            "generationSeconds": 0.038934,
+            "totalDurationSeconds": 3.2253946,
+            "loadSeconds": 3.1285967,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:47:17.512359+00:00",
+            "endedAt": "2026-10-14T08:47:24.991711+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 9,
+            "attemptCount": 9,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3422.0,
+                "firstObservedUsedMiB": 1708.0,
+                "lastObservedUsedMiB": 1708.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 9
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 28355.965,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 28.059693700000935,
+            "promptTokens": 3334,
+            "completionTokens": 1011,
+            "totalTokens": null,
+            "tokensPerSecond": 52.28935303950613,
+            "generationSeconds": 19.33472,
+            "totalDurationSeconds": 27.4039492,
+            "loadSeconds": 6.2904724,
+            "promptEvaluationSeconds": 1.745543,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:47:25.030825+00:00",
+            "endedAt": "2026-10-14T08:47:53.386388+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 37,
+            "attemptCount": 37,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5668.0,
+                "firstObservedUsedMiB": 1708.0,
+                "lastObservedUsedMiB": 1708.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 37
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 6,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "9040cba2998e4f9eaeb02148bd46814c",
+      "arm": "v1-fast",
+      "repeat": 2,
+      "reportContract": "v1",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 96463.896,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 14314.132,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 14.31286960000034,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.5244992999996612,
+            "loadAndExecutionSeconds": 12.466781999999512
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:47:53.498236+00:00",
+            "endedAt": "2026-10-14T08:48:07.812114+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 18,
+            "attemptCount": 18,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2024.0,
+                "firstObservedUsedMiB": 1707.0,
+                "lastObservedUsedMiB": 2024.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 18
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7413.599,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.1648325999994995,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 94.22628442203953,
+            "generationSeconds": 0.042451,
+            "totalDurationSeconds": 3.2282828,
+            "loadSeconds": 3.1262565,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:48:07.834438+00:00",
+            "endedAt": "2026-10-14T08:48:15.247881+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3429.0,
+                "firstObservedUsedMiB": 1708.0,
+                "lastObservedUsedMiB": 1710.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 74647.26,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 74.64393369999925,
+            "promptTokens": 4484,
+            "completionTokens": 3415,
+            "totalTokens": null,
+            "tokensPerSecond": 51.7286879244763,
+            "generationSeconds": 66.017526,
+            "totalDurationSeconds": 74.1801362,
+            "loadSeconds": 5.7735347,
+            "promptEvaluationSeconds": 2.359843,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:48:15.282445+00:00",
+            "endedAt": "2026-10-14T08:49:29.928836+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 96,
+            "attemptCount": 96,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5670.0,
+                "firstObservedUsedMiB": 1710.0,
+                "lastObservedUsedMiB": 5609.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 96
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 4,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "540368e0fcbf4f70bedccf5a3d8fd9db",
+      "arm": "v2-fast",
+      "repeat": 2,
+      "reportContract": "v2",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+      "snapshotSha256": "fe4130911bfa8ee7671e276f181a882074518e6bbe5ae600970c8606eb6848ad",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 44557.004,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 15115.291,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 14.8411372999999,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.4708348999993177,
+            "loadAndExecutionSeconds": 13.06931749999967
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 187969024,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:49:30.162390+00:00",
+            "endedAt": "2026-10-14T08:49:45.277435+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 20,
+            "attemptCount": 20,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 2030.0,
+                "firstObservedUsedMiB": 1644.0,
+                "lastObservedUsedMiB": 1714.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 20
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7158.412,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.157038999999713,
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 105.224391013837,
+            "generationSeconds": 0.038014,
+            "totalDurationSeconds": 3.1812516,
+            "loadSeconds": 3.0892974,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:49:45.299448+00:00",
+            "endedAt": "2026-10-14T08:49:52.457707+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3394.0,
+                "firstObservedUsedMiB": 1714.0,
+                "lastObservedUsedMiB": 1666.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 22192.944,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 22.188444600000366,
+            "promptTokens": 3332,
+            "completionTokens": 759,
+            "totalTokens": null,
+            "tokensPerSecond": 53.47693428502079,
+            "generationSeconds": 14.193035,
+            "totalDurationSeconds": 21.5408854,
+            "loadSeconds": 5.622688,
+            "promptEvaluationSeconds": 1.701902,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:49:52.495458+00:00",
+            "endedAt": "2026-10-14T08:50:14.688083+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 31,
+            "attemptCount": 31,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5623.0,
+                "firstObservedUsedMiB": 1662.0,
+                "lastObservedUsedMiB": 5613.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 31
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 5,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "fab28c5b11ac4fbca49a07743dde593a",
+      "arm": "v1-deep",
+      "repeat": 2,
+      "reportContract": "v1",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 88733.588,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 14159.477,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 14.158382599998731,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.5145291000008001,
+            "loadAndExecutionSeconds": 12.42198610000014
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:50:14.937015+00:00",
+            "endedAt": "2026-10-14T08:50:29.096261+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 18,
+            "attemptCount": 18,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 1961.0,
+                "firstObservedUsedMiB": 1653.0,
+                "lastObservedUsedMiB": 1961.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 18
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 6957.222,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 6.955853599998591,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 104.07993338884263,
+            "generationSeconds": 0.038432,
+            "totalDurationSeconds": 3.1488904,
+            "loadSeconds": 3.0551866,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:50:29.120248+00:00",
+            "endedAt": "2026-10-14T08:50:36.077276+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 9,
+            "attemptCount": 9,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3359.0,
+                "firstObservedUsedMiB": 1644.0,
+                "lastObservedUsedMiB": 1735.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 9
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 67528.277,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 67.52524510000148,
+            "promptTokens": 4385,
+            "completionTokens": 3063,
+            "totalTokens": null,
+            "tokensPerSecond": 51.8427341604114,
+            "generationSeconds": 59.082532,
+            "totalDurationSeconds": 66.9814411,
+            "loadSeconds": 5.5996419,
+            "promptEvaluationSeconds": 2.264773,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:50:36.111929+00:00",
+            "endedAt": "2026-10-14T08:51:43.639424+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 85,
+            "attemptCount": 85,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5686.0,
+                "firstObservedUsedMiB": 1735.0,
+                "lastObservedUsedMiB": 5636.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 85
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 0,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "803d8ad7ff1a49db8a63dafc86d6c889",
+      "arm": "v2-deep",
+      "repeat": 2,
+      "reportContract": "v2",
+      "reportMode": "deep",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 47594.401,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 13882.868,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 13.789250800000445,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.45888790000026347,
+            "loadAndExecutionSeconds": 11.963636500000575
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:51:43.835034+00:00",
+            "endedAt": "2026-10-14T08:51:57.717672+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 1988.0,
+                "firstObservedUsedMiB": 1676.0,
+                "lastObservedUsedMiB": 1671.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7990.894,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 7.50901580000027,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 96.9485445599748,
+            "generationSeconds": 0.041259,
+            "totalDurationSeconds": 3.4435651,
+            "loadSeconds": 3.3391095,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:51:57.739549+00:00",
+            "endedAt": "2026-10-14T08:52:05.730250+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3677.0,
+                "firstObservedUsedMiB": 1671.0,
+                "lastObservedUsedMiB": 1763.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 25631.945,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 25.168964000000415,
+            "promptTokens": 3342,
+            "completionTokens": 905,
+            "totalTokens": null,
+            "tokensPerSecond": 53.334185108753715,
+            "generationSeconds": 16.968479,
+            "totalDurationSeconds": 24.659357,
+            "loadSeconds": 5.9416099,
+            "promptEvaluationSeconds": 1.707326,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:52:05.767450+00:00",
+            "endedAt": "2026-10-14T08:52:31.399022+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 33,
+            "attemptCount": 33,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5633.0,
+                "firstObservedUsedMiB": 1673.0,
+                "lastObservedUsedMiB": 1672.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 33
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 6,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "5e55be93a5db4102a5f3b3fee7b8c6fd",
+      "arm": "v1-fast",
+      "repeat": 2,
+      "reportContract": "v1",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 95466.907,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 13358.046,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 13.129258400000253,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.43308430000070075,
+            "loadAndExecutionSeconds": 11.490467499999795
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:52:31.473051+00:00",
+            "endedAt": "2026-10-14T08:52:44.830867+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 16,
+            "attemptCount": 16,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 1989.0,
+                "firstObservedUsedMiB": 1672.0,
+                "lastObservedUsedMiB": 1672.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 16
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7744.056,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 7.5943643000009615,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 102.68521846280227,
+            "generationSeconds": 0.038954,
+            "totalDurationSeconds": 3.5581601,
+            "loadSeconds": 3.4623061,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:52:44.853576+00:00",
+            "endedAt": "2026-10-14T08:52:52.597468+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 9,
+            "attemptCount": 9,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3387.0,
+                "firstObservedUsedMiB": 1672.0,
+                "lastObservedUsedMiB": 1672.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 9
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 74271.755,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 74.2683251999988,
+            "promptTokens": 4491,
+            "completionTokens": 3450,
+            "totalTokens": null,
+            "tokensPerSecond": 52.48736321089512,
+            "generationSeconds": 65.730107,
+            "totalDurationSeconds": 73.7929279,
+            "loadSeconds": 5.6745494,
+            "promptEvaluationSeconds": 2.364364,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:52:52.633740+00:00",
+            "endedAt": "2026-10-14T08:54:06.904641+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 101,
+            "attemptCount": 101,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5633.0,
+                "firstObservedUsedMiB": 1672.0,
+                "lastObservedUsedMiB": 5633.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 101
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v1",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 4,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    },
+    {
+      "runId": "f61bd00154c44b5d9d09f6f33cfd02ae",
+      "arm": "v2-fast",
+      "repeat": 2,
+      "reportContract": "v2",
+      "reportMode": "fast",
+      "requestedArmConfirmed": true,
+      "status": "completed",
+      "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+      "snapshotSha256": "f52d117c58b047e1ee7a1e14554f237d35e13eb8dbda7e16f4297d8bdb4fbd11",
+      "runtimeProvenance": {
+        "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+        "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+        "sourceFilesDifferFromCommit": false,
+        "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+      },
+      "durationMs": 42659.87,
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "modelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+          "revision": null,
+          "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": 13205.907,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 13.20468609999989,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": 0.4628895999994711,
+            "loadAndExecutionSeconds": 11.400143499999103
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": 16,
+          "pytorchMemory": {
+            "peakAllocatedBytes": 188042752,
+            "peakReservedBytes": 213909504
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:54:07.309857+00:00",
+            "endedAt": "2026-10-14T08:54:20.515520+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 17,
+            "attemptCount": 17,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 1989.0,
+                "firstObservedUsedMiB": 1672.0,
+                "lastObservedUsedMiB": 1989.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 17
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "modelId": "txgemma-2b:latest",
+          "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+          "weightsSha256": null,
+          "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+          "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+          "generationOptions": {
+            "num_ctx": 2048,
+            "num_predict": 8
+          },
+          "metrics": {
+            "durationMs": 7229.162,
+            "queueWaitMs": 0.002,
+            "wallSeconds": 7.227811000000656,
+            "promptTokens": 115,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "tokensPerSecond": 104.2834423964335,
+            "generationSeconds": 0.038357,
+            "totalDurationSeconds": 3.3055852,
+            "loadSeconds": 3.2084755,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:54:20.536671+00:00",
+            "endedAt": "2026-10-14T08:54:27.765662+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 10,
+            "attemptCount": 10,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 3678.0,
+                "firstObservedUsedMiB": 1672.0,
+                "lastObservedUsedMiB": 1665.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 10
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "modelId": "qwen3.5:4b",
+          "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": 8192,
+            "num_predict": 4096
+          },
+          "metrics": {
+            "durationMs": 22141.458,
+            "queueWaitMs": 0.003,
+            "wallSeconds": 22.137457799999538,
+            "promptTokens": 3340,
+            "completionTokens": 757,
+            "totalTokens": null,
+            "tokensPerSecond": 53.388795617181884,
+            "generationSeconds": 14.179005,
+            "totalDurationSeconds": 21.6946878,
+            "loadSeconds": 5.7610001,
+            "promptEvaluationSeconds": 1.705063,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": "verified",
+          "cleanupConfirmed": true,
+          "cleanupState": "released",
+          "errorCode": null,
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": {
+            "schema": "aidd.compare.board-memory-sampling.v1",
+            "status": "sampled",
+            "scope": "entire board; includes desktop and external applications; not model-attributed",
+            "startedAt": "2026-10-14T08:54:27.798629+00:00",
+            "endedAt": "2026-10-14T08:54:49.939771+00:00",
+            "exactPeakBytes": null,
+            "modelAttributedPeakBytes": null,
+            "sampledMaximumLimit": "short peaks may be missed; interval includes query overhead",
+            "requestedIntervalSeconds": 0.25,
+            "sampleCount": 30,
+            "attemptCount": 30,
+            "measured": true,
+            "memoryMeasured": true,
+            "sampleCapReached": false,
+            "gpus": [
+              {
+                "index": 0,
+                "sampledMaximumUsedMiB": 5626.0,
+                "firstObservedUsedMiB": 1665.0,
+                "lastObservedUsedMiB": 5626.0,
+                "totalMiB": 8188.0,
+                "sampleCount": 30
+              }
+            ],
+            "errorCodes": [],
+            "otherProcessContext": {
+              "maximumObservedComputeProcessCount": 32,
+              "ownership": "not-attributed; may include benchmark and external compute processes",
+              "graphicsProcessesCovered": false,
+              "processNamesOrPathsRecorded": false
+            }
+          }
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "modelId": null,
+          "revision": null,
+          "weightsSha256": null,
+          "sourceRevision": null,
+          "ggufSha256": null,
+          "generationOptions": {
+            "num_ctx": null,
+            "num_predict": null
+          },
+          "metrics": {
+            "durationMs": null,
+            "queueWaitMs": null,
+            "wallSeconds": null,
+            "promptTokens": null,
+            "completionTokens": null,
+            "totalTokens": null,
+            "tokensPerSecond": null,
+            "generationSeconds": null,
+            "totalDurationSeconds": null,
+            "loadSeconds": null,
+            "promptEvaluationSeconds": null,
+            "predictionSeconds": null,
+            "loadAndExecutionSeconds": null
+          },
+          "reportValidation": null,
+          "cleanupConfirmed": null,
+          "cleanupState": null,
+          "errorCode": "CLOUD_NOT_AUTHORIZED",
+          "outputTaskCount": null,
+          "pytorchMemory": {
+            "peakAllocatedBytes": null,
+            "peakReservedBytes": null
+          },
+          "pytorchMemoryScope": "isolated process allocator; not board or Ollama memory",
+          "boardMemory": null
+        }
+      },
+      "report": {
+        "reportSchema": "aidd.compare.report.v2",
+        "validation": "verified-structured-report",
+        "verifiedFactCount": 27,
+        "sourceCount": 3,
+        "requiredLimitationCount": 6,
+        "sourceErrorCount": 0,
+        "unverifiedAdditionCount": 5,
+        "unverifiedAdditionMeaning": "unverified commentary items; not an automated count of false scientific claims",
+        "newScientificFactsVerified": false,
+        "unsupportedScientificClaimCount": null
+      },
+      "cloudRequestAttempted": false,
+      "cloudExecutionRecorded": false,
+      "boardMemory": null,
+      "ttftSeconds": null,
+      "ttftStatus": "not-measured; non-streaming response",
+      "loadCondition": "unload-between-generations; first model residency uncontrolled; no intentional warm-resident measurements",
+      "operatingSystemFileCacheState": "not-controlled; cold model residency does not mean cold file cache"
+    }
+  ],
+  "inputPolicy": "only canonical structure IDs persisted; no SMILES, raw reports, questions, data rows, keys or local paths",
+  "executionPolicy": {
+    "serial": true,
+    "cloudTransferAllowed": false,
+    "modelDownloads": false,
+    "residency": "existing adapter keep_alive=0; first residency and OS file cache uncontrolled; no warm-resident test arm",
+    "warmRunsMeasured": false,
+    "ttftMeasured": false,
+    "boardMemory": "full-run window; external process usage included; sampled maximum only",
+    "sourceRevision": "9ff4a42d9ee397801eaacc76425102ff63064e2a"
+  },
+  "summary": {
+    "pairedComparability": [
+      {
+        "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+        "repeat": 1,
+        "comparable": true,
+        "basis": "same exact fact snapshot, structure ID and three model identities; verified reports and confirmed cleanup",
+        "reason": null,
+        "armRunIds": {
+          "v1-deep": "7944b2f404734849bcb522a123c0c1eb",
+          "v2-deep": "b8091ff6bab74e52a8fa2f0204ee0df9",
+          "v1-fast": "85d9c19488f440a6a7a7f86c6e9f1be2",
+          "v2-fast": "d1ca84bb318e44a7b5c2e64025c4573a"
+        }
+      },
+      {
+        "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+        "repeat": 1,
+        "comparable": true,
+        "basis": "same exact fact snapshot, structure ID and three model identities; verified reports and confirmed cleanup",
+        "reason": null,
+        "armRunIds": {
+          "v1-deep": "609f1422b082480f88175a8ca90b7a62",
+          "v2-deep": "cfe7e801ff314dcda37bc006fa6e9a11",
+          "v1-fast": "b5427409b986469f8f05e16106bfa2da",
+          "v2-fast": "4caf75c5ec33494fbc3ed094d203a729"
+        }
+      },
+      {
+        "structureId": "ab1de819ede91df490e6441934decfa9041b49f91d6bbadbba4df634ccff57fa",
+        "repeat": 2,
+        "comparable": true,
+        "basis": "same exact fact snapshot, structure ID and three model identities; verified reports and confirmed cleanup",
+        "reason": null,
+        "armRunIds": {
+          "v1-deep": "8de8a331a7b940feb1d9cb930dd25e71",
+          "v2-deep": "f302135266f54a33a8c572198fea944d",
+          "v1-fast": "9040cba2998e4f9eaeb02148bd46814c",
+          "v2-fast": "540368e0fcbf4f70bedccf5a3d8fd9db"
+        }
+      },
+      {
+        "structureId": "b00014bedbaba3c96c5a7a9a3e5b442e4866a65e4668060e94657318f994bd8a",
+        "repeat": 2,
+        "comparable": true,
+        "basis": "same exact fact snapshot, structure ID and three model identities; verified reports and confirmed cleanup",
+        "reason": null,
+        "armRunIds": {
+          "v1-deep": "fab28c5b11ac4fbca49a07743dde593a",
+          "v2-deep": "803d8ad7ff1a49db8a63dafc86d6c889",
+          "v1-fast": "5e55be93a5db4102a5f3b3fee7b8c6fd",
+          "v2-fast": "f61bd00154c44b5d9d09f6f33cfd02ae"
+        }
+      }
+    ],
+    "sameModelIdentityAcrossAllRuns": true,
+    "arms": [
+      {
+        "arm": "v1-deep",
+        "attemptedCount": 4,
+        "verifiedCount": 4,
+        "verifiedFraction": 1.0,
+        "comparableCount": 4,
+        "runDurationMs": {
+          "n": 4,
+          "median": 88728.93950000001,
+          "p95": 89263.05385,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "durationMs": {
+          "n": 4,
+          "median": 67998.738,
+          "p95": 68558.91485,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "generationSeconds": {
+          "n": 4,
+          "median": 58.8796605,
+          "p95": 59.59453035,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "promptTokens": {
+          "n": 4,
+          "median": 4381.5,
+          "p95": 4385.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "completionTokens": {
+          "n": 4,
+          "median": 3067.0,
+          "p95": 3071.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "tokensPerSecond": {
+          "n": 4,
+          "median": 52.02197732320997,
+          "p95": 52.439226297574834,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        }
+      },
+      {
+        "arm": "v2-deep",
+        "attemptedCount": 4,
+        "verifiedCount": 4,
+        "verifiedFraction": 1.0,
+        "comparableCount": 4,
+        "runDurationMs": {
+          "n": 4,
+          "median": 48240.4215,
+          "p95": 50515.4024,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "durationMs": {
+          "n": 4,
+          "median": 26474.8,
+          "p95": 28200.2185,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "generationSeconds": {
+          "n": 4,
+          "median": 18.079762000000002,
+          "p95": 19.29017585,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "promptTokens": {
+          "n": 4,
+          "median": 3338.0,
+          "p95": 3342.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "completionTokens": {
+          "n": 4,
+          "median": 958.0,
+          "p95": 1011.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "tokensPerSecond": {
+          "n": 4,
+          "median": 52.980845080005665,
+          "p95": 53.29980583206068,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        }
+      },
+      {
+        "arm": "v1-fast",
+        "attemptedCount": 4,
+        "verifiedCount": 4,
+        "verifiedFraction": 1.0,
+        "comparableCount": 4,
+        "runDurationMs": {
+          "n": 4,
+          "median": 95965.4015,
+          "p95": 97045.35465,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "durationMs": {
+          "n": 4,
+          "median": 74459.5075,
+          "p95": 75517.52485,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "generationSeconds": {
+          "n": 4,
+          "median": 65.8738165,
+          "p95": 66.341155,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "promptTokens": {
+          "n": 4,
+          "median": 4487.5,
+          "p95": 4491.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "completionTokens": {
+          "n": 4,
+          "median": 3432.5,
+          "p95": 3450.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "tokensPerSecond": {
+          "n": 4,
+          "median": 52.04950596004894,
+          "p95": 52.43523228557593,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        }
+      },
+      {
+        "arm": "v2-fast",
+        "attemptedCount": 4,
+        "verifiedCount": 4,
+        "verifiedFraction": 1.0,
+        "comparableCount": 4,
+        "runDurationMs": {
+          "n": 4,
+          "median": 44345.663499999995,
+          "p95": 44934.9446,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "durationMs": {
+          "n": 4,
+          "median": 22178.567499999997,
+          "p95": 22647.4543,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "generationSeconds": {
+          "n": 4,
+          "median": 14.245842,
+          "p95": 14.3296349,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "promptTokens": {
+          "n": 4,
+          "median": 3336.0,
+          "p95": 3340.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "completionTokens": {
+          "n": 4,
+          "median": 758.0,
+          "p95": 759.0,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        },
+        "tokensPerSecond": {
+          "n": 4,
+          "median": 53.16787344388983,
+          "p95": 53.46371348484495,
+          "p95Method": "linear interpolation; no P95 estimate from a single observation",
+          "statisticalLimit": "exploratory small sample; not a stable population P95"
+        }
+      }
+    ],
+    "analysisLimit": "engineering telemetry only, no toxicity accuracy ranking; small samples are exploratory; fixed arm order may have time/order effects"
+  },
+  "runtimeProvenance": {
+    "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+    "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+    "sourceFilesDifferFromCommit": false,
+    "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+  }
+}

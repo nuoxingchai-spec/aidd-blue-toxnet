@@ -85,3 +85,25 @@ npm test
 - 回归：`test/test_compare_ollama_txgemma.py`、`test_compare_ollama_provenance.py`、`test_compare_runtime_selection.py`、`test_ollama_generation_config.py`、`compare-ui-state.test.js`。
 - 文档与配置：本文件、`README.md`、`AIDD_COMPARE_WORKBENCH.md`、`MODEL_API_CONTRACT.md`、`.env.example`、`.gitignore`。
 - 聚合验收：`artifacts/compare/ollama-deployment-20261014.json`。
+
+
+## 2026-10-14 最新后端复验与轻量报告验收（追加，不覆盖历史）
+
+前文“后端重新加载尚未完成”属于上一轮历史状态。本轮已备份SQLite并通过正常Ctrl+C停止专属Compare服务，随后单worker启动已固定源码 `9ff4a42d9ee397801eaacc76425102ff63064e2a`。启动源码SHA256为 `e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339`；无源码偏离、单owner、无活动任务或quarantine预检通过。当前验收以启动回执为准，不以磁盘HEAD推定已加载版本。
+
+真实完成16次B16→TxGemma→Qwen运行，16份报告核验通过。B16保留原权重并输出16任务；TxGemma只执行BBB_Martins，严格A/B、probability=null，额外层/Tokenizer/Runtime来源门禁生效。Qwen实际安装包为qwen3.5:4b，其digest及TxGemma量化来源与上表一致；第三方量化上游Google revision仍未知。DeepSeek没有发起付费或云端请求。
+
+| 配置 | 可比运行数 | Prompt Token 中位数 | Completion Token 中位数 | Qwen 阶段中位数 / P95（秒） | 解码 Token/s 中位数 | 报告通过 / 尝试 | 整卡采样最大 MiB（Qwen阶段） |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| v1-deep | 4 | 4381.5 | 3067 | 68.00 / 68.56 | 52.02 | 4 / 4 | 5919 |
+| v2-deep | 4 | 3338 | 958 | 26.47 / 28.20 | 52.98 | 4 / 4 | 5671 |
+| v1-fast | 4 | 4487.5 | 3432.5 | 74.46 / 75.52 | 52.05 | 4 / 4 | 5677 |
+| v2-fast | 4 | 3336 | 758 | 22.18 / 22.65 | 53.17 | 4 / 4 | 5672 |
+
+相对于同条件 v1/Deep，中位数口径下 v2/Fast 的 Prompt Token 减少 23.86%，Completion Token 减少 75.29%，Qwen 阶段耗时下降 67.38%。这是有限样本工程对照，不能解释为预测准确率提高，也不能外推为长期 SLA。
+
+所有本机阶段清理状态及详细计量见[独立回执](artifacts/compare/report-optimization-20261014/receipt.json)。整卡采样包含桌面/其他程序且可能漏短峰，PyTorch allocated/reserved另列。首Token延迟、真正常驻热运行差异、纯切换耗时和本机电费没有测量，保持null/未测。操作系统文件缓存未控制。
+
+CPU及CUDA两套Python环境分别实际运行601项，各599通过、2跳过；JavaScript105/105通过。两套pip check、语法、diff及50份科学工件/4份原Compare回执保护核验通过。CUDA环境的软件测试不等于同等数量的GPU推理。运行源码9ff的实际Ubuntu CI为600项、597通过、3跳过及104项JS通过；最终新增的中断测试随收尾提交进入PR CI，最新状态以PR Checks为准。
+
+SQLite继续schema2、默认摘要和既有30分钟TTL；重启前6条payload已备份，未重写旧JSON。过期记录与未存正文不能宣称永久恢复。浏览器验收与运行版本详见回执。所有v3继续formalAvailability=false；报告变快不证明毒性预测更准确，独立盲测、校准/适用域、ClinTox/负迁移和DeepSeek付费验收仍待另行完成。

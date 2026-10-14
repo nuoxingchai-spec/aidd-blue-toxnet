@@ -198,3 +198,11 @@ node --test test/*.test.js
 本次P0/P1最终测试、Linux CI与真实模型复验状态以新增验收记录为准，未在这里预先填写通过数量或部署结论。Ollama、TxGemma、DeepSeek哪些已安装/授权/真正执行，需要分别验收；未报告费用为unknown，不能当作零费用。模型不投票、不平均、不排名，v3始终 `formalAvailability=false`。
 
 2026-10-14 本机已真实完成 B16 → Ollama TxGemma BBB_Martins → Qwen3.5:4b 的研究流程，DeepSeek未调用。新增量化来源校验与报告生成预算配置；TxGemma量化发布者未公开官方上游修订，不能冒充已审核的官方权重版本。最新验收、后端重新加载状态及Windows命令见 [OLLAMA_DEPLOYMENT_ACCEPTANCE.md](OLLAMA_DEPLOYMENT_ACCEPTANCE.md)。
+
+### Compare 轻量报告与透明计量
+
+新增严格 `aidd.compare.report.v2`：Qwen/DeepSeek只排列事实ID和章节并提供有界中文解释，所有真实分数、专项类别、结构、来源与版本由后端不可变快照重建。生成解释始终unverified，不改毒性预测或科学结论。新前端显式使用v2并提供Fast/Deep切换；旧API省略新字段仍默认v1/deep，历史记录可继续查看。Fast和Deep均保留全部请求事实和科研限制，减少重复生成只是工程设计，是否更快以实际同条件基准为准。
+
+中文问题通过本机确定性术语映射，支持四端点、BBB和Tox21主题；歧义或未支持任务明确提示，BBB仍需自己选择已审核专项任务，不自动定义实验标签。`GET /api/research/compare/runtime` 提供启动源码SHA和Compare资源状态，历史增加仅元数据的 `q` 搜索；SQLite继续schema2，不回填或重写旧报告。可选 `TOXNET_COMPARE_GPU_SAMPLING=true` 记录每阶段整卡采样占用，不能等同PyTorch分配或单模型精确显存峰值。
+
+完整合同、字符预算和Windows启动/恢复流程见 [COMPARE_REPORT_OPTIMIZATION.md](COMPARE_REPORT_OPTIMIZATION.md)，方法和真实计量见 [COMPARE_PERFORMANCE_BENCHMARK.md](COMPARE_PERFORMANCE_BENCHMARK.md)。新验收使用独立 `artifacts/compare/report-optimization-20261014/receipt.json`，不覆盖历史记录；没有实际成功回执的模型执行、Token、耗时和提速仍待验证。正式v2、B16权重与历史评估不变，全部v3继续研究用途；DeepSeek未经新授权不进行收费API调用。

@@ -1,0 +1,487 @@
+{
+  "schema": "aidd.compare.report-optimization-acceptance.v1",
+  "generatedAt": "2026-10-14T12:06:53.153229+00:00",
+  "formalAvailability": false,
+  "runtimeProvenance": {
+    "gitCommit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+    "sourceSha256": "e3f042887d49fab9d335f5309d318f0001f03571a9cae28c479005f969b9d339",
+    "sourceFilesDifferFromCommit": false,
+    "capturedAt": "2026-10-14T08:35:44.373919+00:00"
+  },
+  "localModelsAvailableBeforeBenchmark": {
+    "toxnet-v3-b16": true,
+    "txgemma-2b-predict": true,
+    "ollama-qwen-local": true,
+    "deepseek-api": false
+  },
+  "ollamaResidentModelsBeforeBenchmark": 0,
+  "benchmarkFile": "benchmark-final.json",
+  "interruptedInitialAttemptFile": "benchmark.json",
+  "realBenchmarkRuns": 16,
+  "verifiedReports": 16,
+  "comparableGroups": 4,
+  "armStatistics": [
+    {
+      "arm": "v1-deep",
+      "attemptedCount": 4,
+      "verifiedCount": 4,
+      "verifiedFraction": 1.0,
+      "comparableCount": 4,
+      "runDurationMs": {
+        "n": 4,
+        "median": 88728.93950000001,
+        "p95": 89263.05385,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "durationMs": {
+        "n": 4,
+        "median": 67998.738,
+        "p95": 68558.91485,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "generationSeconds": {
+        "n": 4,
+        "median": 58.8796605,
+        "p95": 59.59453035,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "promptTokens": {
+        "n": 4,
+        "median": 4381.5,
+        "p95": 4385.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "completionTokens": {
+        "n": 4,
+        "median": 3067.0,
+        "p95": 3071.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "tokensPerSecond": {
+        "n": 4,
+        "median": 52.02197732320997,
+        "p95": 52.439226297574834,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      }
+    },
+    {
+      "arm": "v2-deep",
+      "attemptedCount": 4,
+      "verifiedCount": 4,
+      "verifiedFraction": 1.0,
+      "comparableCount": 4,
+      "runDurationMs": {
+        "n": 4,
+        "median": 48240.4215,
+        "p95": 50515.4024,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "durationMs": {
+        "n": 4,
+        "median": 26474.8,
+        "p95": 28200.2185,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "generationSeconds": {
+        "n": 4,
+        "median": 18.079762000000002,
+        "p95": 19.29017585,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "promptTokens": {
+        "n": 4,
+        "median": 3338.0,
+        "p95": 3342.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "completionTokens": {
+        "n": 4,
+        "median": 958.0,
+        "p95": 1011.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "tokensPerSecond": {
+        "n": 4,
+        "median": 52.980845080005665,
+        "p95": 53.29980583206068,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      }
+    },
+    {
+      "arm": "v1-fast",
+      "attemptedCount": 4,
+      "verifiedCount": 4,
+      "verifiedFraction": 1.0,
+      "comparableCount": 4,
+      "runDurationMs": {
+        "n": 4,
+        "median": 95965.4015,
+        "p95": 97045.35465,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "durationMs": {
+        "n": 4,
+        "median": 74459.5075,
+        "p95": 75517.52485,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "generationSeconds": {
+        "n": 4,
+        "median": 65.8738165,
+        "p95": 66.341155,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "promptTokens": {
+        "n": 4,
+        "median": 4487.5,
+        "p95": 4491.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "completionTokens": {
+        "n": 4,
+        "median": 3432.5,
+        "p95": 3450.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "tokensPerSecond": {
+        "n": 4,
+        "median": 52.04950596004894,
+        "p95": 52.43523228557593,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      }
+    },
+    {
+      "arm": "v2-fast",
+      "attemptedCount": 4,
+      "verifiedCount": 4,
+      "verifiedFraction": 1.0,
+      "comparableCount": 4,
+      "runDurationMs": {
+        "n": 4,
+        "median": 44345.663499999995,
+        "p95": 44934.9446,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "durationMs": {
+        "n": 4,
+        "median": 22178.567499999997,
+        "p95": 22647.4543,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "generationSeconds": {
+        "n": 4,
+        "median": 14.245842,
+        "p95": 14.3296349,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "promptTokens": {
+        "n": 4,
+        "median": 3336.0,
+        "p95": 3340.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "completionTokens": {
+        "n": 4,
+        "median": 758.0,
+        "p95": 759.0,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "tokensPerSecond": {
+        "n": 4,
+        "median": 53.16787344388983,
+        "p95": 53.46371348484495,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      }
+    }
+  ],
+  "perModelPerformance": {
+    "toxnet-v3-b16": {
+      "attemptedStages": 16,
+      "completedStages": 16,
+      "confirmedCleanupStages": 16,
+      "durationMs": {
+        "n": 16,
+        "median": 14019.371500000001,
+        "p95": 15158.54025,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "loadSeconds": {
+        "n": 0,
+        "median": null,
+        "p95": null,
+        "p95Method": "linear interpolation",
+        "statisticalLimit": "not-measured"
+      },
+      "queueWaitMs": {
+        "n": 16,
+        "median": 0.002,
+        "p95": 0.005,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "generationSeconds": {
+        "n": 0,
+        "median": null,
+        "p95": null,
+        "p95Method": "linear interpolation",
+        "statisticalLimit": "not-measured"
+      },
+      "tokensPerSecond": {
+        "n": 0,
+        "median": null,
+        "p95": null,
+        "p95Method": "linear interpolation",
+        "statisticalLimit": "not-measured"
+      },
+      "boardSampledMaximumMiB": 2030.0,
+      "boardMemoryScope": "entire board, not model-attributed; short peaks may be missed",
+      "pytorchAllocatorMaximum": {
+        "peakAllocatedBytes": 188042752,
+        "peakReservedBytes": 213909504
+      }
+    },
+    "txgemma-2b-predict": {
+      "attemptedStages": 16,
+      "completedStages": 16,
+      "confirmedCleanupStages": 16,
+      "durationMs": {
+        "n": 16,
+        "median": 7381.027,
+        "p95": 7921.72975,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "loadSeconds": {
+        "n": 16,
+        "median": 3.1851487499999998,
+        "p95": 3.4732381500000002,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "queueWaitMs": {
+        "n": 16,
+        "median": 0.002,
+        "p95": 0.004,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "generationSeconds": {
+        "n": 16,
+        "median": 0.038975499999999996,
+        "p95": 0.042823,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "tokensPerSecond": {
+        "n": 16,
+        "median": 102.62860559009539,
+        "p95": 106.31967428618432,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "boardSampledMaximumMiB": 3726.0,
+      "boardMemoryScope": "entire board, not model-attributed; short peaks may be missed",
+      "pytorchAllocatorMaximum": {
+        "peakAllocatedBytes": null,
+        "peakReservedBytes": null
+      }
+    },
+    "ollama-qwen-local": {
+      "attemptedStages": 16,
+      "completedStages": 16,
+      "confirmedCleanupStages": 16,
+      "durationMs": {
+        "n": 16,
+        "median": 47942.121,
+        "p95": 74903.22025,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "loadSeconds": {
+        "n": 16,
+        "median": 5.6756294,
+        "p95": 6.388876,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "queueWaitMs": {
+        "n": 16,
+        "median": 0.002,
+        "p95": 0.0032500000000000003,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "generationSeconds": {
+        "n": 16,
+        "median": 38.925441,
+        "p95": 66.112711,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "tokensPerSecond": {
+        "n": 16,
+        "median": 52.48429526702024,
+        "p95": 53.41083028414161,
+        "p95Method": "linear interpolation; no P95 estimate from a single observation",
+        "statisticalLimit": "exploratory small sample; not a stable population P95"
+      },
+      "boardSampledMaximumMiB": 5919.0,
+      "boardMemoryScope": "entire board, not model-attributed; short peaks may be missed",
+      "pytorchAllocatorMaximum": {
+        "peakAllocatedBytes": null,
+        "peakReservedBytes": null
+      }
+    }
+  },
+  "cloudRequestAttempts": 0,
+  "deepseek": {
+    "executed": false,
+    "reason": "No paid/cloud authorization or request in this acceptance"
+  },
+  "ttftSeconds": null,
+  "warmResidentComparison": "not-measured; unload verification retained between stages",
+  "pureSwitchSeconds": null,
+  "pureSwitchLimit": "load/verification/cleanup intervals exist; pure switch overhead not separately instrumented",
+  "history": {
+    "consistentBackupCreatedBeforeRestart": true,
+    "backedUpRecordCount": 6,
+    "survivingOriginalRecords": 0,
+    "survivingPayloadsUnchanged": null,
+    "expiredOrAbsentRecords": 6,
+    "retentionPolicy": "Existing 30-minute TTL retained; backup preserves pre-restart records; no history rewrite migration",
+    "schemaVersion": 2,
+    "ownerCount": 1,
+    "backupPayloadHashesVerified": true,
+    "liveComparisonLimit": "Original records expired by pre-existing TTL before final audit; exact six payloads verified in secured pre-restart backup, not restored or rewritten"
+  },
+  "protectedArtifacts": {
+    "historicalScientificFilesUnchanged": 50,
+    "originalCompareReceiptsUnchanged": 4,
+    "rehashedLocalArtifacts": {
+      "artifacts/integration/multitask-cuda-20261013/B16-seed-42/weights.pt": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "artifacts/integration/multitask-cuda-20261013/B16-seed-42/manifest.json": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "models/pretrained/molformer/model.safetensors": "0795977fe7192c4acdaf052f0e8464af57bc4bb59211271c5e61aaba2637b9c6"
+    }
+  },
+  "softwareTests": {
+    "pythonCpu": {
+      "total": 601,
+      "passed": 599,
+      "skipped": 2,
+      "failed": 0,
+      "scope": "software regression, not this many GPU/model experiments"
+    },
+    "pythonCudaEnvironment": {
+      "total": 601,
+      "passed": 599,
+      "skipped": 2,
+      "failed": 0,
+      "scope": "software regression, not this many GPU/model experiments"
+    },
+    "javascript": {
+      "total": 105,
+      "passed": 105,
+      "failed": 0
+    },
+    "dependencyChecks": {
+      "cpu": "passed",
+      "cuda": "passed"
+    },
+    "javascriptSyntax": "passed",
+    "gitDiffCheck": "passed",
+    "testedSourceWorkflow": {
+      "commit": "9ff4a42d9ee397801eaacc76425102ff63064e2a",
+      "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/actions/runs/38536277352",
+      "status": "success",
+      "pythonTotal": 600,
+      "pythonSkipped": 3,
+      "javascriptPassed": 104
+    }
+  },
+  "browserVerification": {
+    "runId": "cec219b8f66d447086b88f4e0c1c8a80",
+    "realModels": true,
+    "reportContract": "v2",
+    "reportMode": "fast",
+    "chineseTopics": [
+      "herg",
+      "dili",
+      "bbb",
+      "tox21"
+    ],
+    "exportMatchesApi": true,
+    "exportSnapshotAndScoresMatch": true,
+    "modeChangeInvalidatesResult": true,
+    "modeChangeDisablesExport": true,
+    "readOnlyHistorySearch": true,
+    "refreshRestoredSameRun": true,
+    "noNewRunOnRefresh": true,
+    "sourceDetailsStayExpandedOnModelRefresh": true,
+    "factsAndUnverifiedProseVisuallySeparated": true,
+    "browserHistoryPagination": "empty/one-row boundaries checked; multiple-page navigation software-tested only after older records expired by existing TTL",
+    "legacyV1LiveBrowser": "earlier benchmark records expired; compatibility covered by software tests",
+    "postflight": {
+      "inFlightRuns": 0,
+      "resourceBlocked": false,
+      "residentOllamaModels": 0
+    },
+    "rawReportCommitted": false,
+    "qwenGenerationProvenance": {
+      "promptVersion": "aidd.compare.independent-report.v2.1",
+      "outputFormat": "server-bound-json-schema",
+      "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+    },
+    "txgemmaAudit": {
+      "modelContextLength": 8192,
+      "tokenizerIdentity": {
+        "tokenizer.ggml.bos_token_id": 2,
+        "tokenizer.ggml.eos_token_id": 1,
+        "tokenizer.ggml.add_bos_token": true,
+        "tokenizer.ggml.add_eos_token": false
+      },
+      "localPackageVerified": true,
+      "upstreamRevisionStatus": "unknown-not-published-by-quantizer"
+    },
+    "specialistOutputContractVerified": true
+  },
+  "scientificLimits": [
+    "Engineering performance only, no accuracy improvement or ranking",
+    "Previously exposed old test and hERG_Karim not used for model selection",
+    "ClinTox small sample and B16 negative transfer caveats retained",
+    "Generated prose remains unverified; unsupported scientific assertion count cannot be inferred",
+    "TxGemma third-party quantized package has unknown upstream Google revision",
+    "BBB categorical task has null probability and is not a direct four-toxicity comparison"
+  ],
+  "hardwareObserved": {
+    "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "driverVersion": "566.24",
+    "totalMemoryMiB": 8188,
+    "measurement": "nvidia-smi after benchmark; stage memory samples recorded separately"
+  },
+  "runtimeSourceFilesStillMatchDiskAtDelivery": true
+}

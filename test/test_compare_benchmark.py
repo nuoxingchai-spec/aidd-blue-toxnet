@@ -256,6 +256,45 @@ class BenchmarkTests(unittest.TestCase):
             benchmark._recover_owned_interruption(client, output, identifier, arm=arm, repeat=1)
         self.assertEqual(output['runs'], [original])
 
+    def test_poll_failure_final_checkpoint_is_interrupted_and_keeps_cancelled_attempt(self):
+        arm = benchmark.ARMS[0]
+        record = fixture_record(arm)
+        record['status'], record['reports'] = 'cancelled', {}
+        record['models']['ollama-qwen-local']['status'] = 'cancelled'
+        identifier = record['runId']
+        def handler(request):
+            if request.url.path == '/api/research/compare/runtime':
+                return httpx.Response(200, json={'runtimeProvenance': fixture_runtime(), 'inFlightRuns': 0,
+                                                'acceptingRuns': True, 'resourceState': {'blocked': False}})
+            if request.url.path == '/api/research/models':
+                return httpx.Response(200, json={'models': [{'id': key, 'available': True} for key in benchmark.MODEL_IDS[:3]],
+                                                'resourcePolicy': {'blocked': False}})
+            if request.url.path == '/api/research/compare/runs':
+                return httpx.Response(202, json={'runId': identifier}) if request.method == 'POST' else httpx.Response(200, json={'runs': []})
+            if request.method == 'GET':
+                checkpoint = json.loads(path.read_text(encoding='utf-8'))
+                self.assertEqual(checkpoint['activeRunId'], identifier)
+                raise httpx.ReadTimeout('fixture-only polling failure', request=request)
+            if request.method == 'DELETE':
+                return httpx.Response(200, json=record)
+            self.fail('Unexpected fixture request')
+        real_client = httpx.Client
+        with tempfile.TemporaryDirectory() as directory, patch.object(benchmark.httpx, 'Client',
+                side_effect=lambda **kwargs: real_client(transport=httpx.MockTransport(handler), **kwargs)):
+            path = Path(directory) / 'interrupted-fixture-not-a-real-benchmark.json'
+            args = Namespace(base_url='http://127.0.0.1:4185', smiles=['CCO'], repeat=1, max_runs=4,
+                             timeout=60, poll_seconds=.2, output=str(path), gpu_sample=False,
+                             ollama_model=None, source_revision='a' * 40)
+            with self.assertRaises(httpx.ReadTimeout):
+                benchmark.run_benchmark(args)
+            saved = json.loads(path.read_text(encoding='utf-8'))
+            self.assertEqual(saved['status'], 'interrupted')
+            self.assertNotIn('activeRunId', saved)
+            self.assertEqual(len(saved['runs']), 1)
+            self.assertEqual(saved['runs'][0]['status'], 'cancelled')
+            self.assertEqual(saved['runs'][0]['models']['ollama-qwen-local']['metrics']['completionTokens'], 50)
+            self.assertNotIn('DO-NOT-PUBLISH', json.dumps(saved))
+
     def test_runtime_mismatch_dirty_source_and_active_run_rejected(self):
         response = {'runtimeProvenance': fixture_runtime(), 'inFlightRuns': 0,
                     'acceptingRuns': True, 'resourceState': {'blocked': False}}

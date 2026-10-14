@@ -526,3 +526,29 @@ test("software fixture: search bounds match API maximum and model stage status u
   await ui.pollOnce();
   assert.match(row(), /正在运行 \/ 排队 未测量/);
 });
+
+test("software fixture: queue hint excludes unselected or unauthorized stages without rewriting server statuses", async () => {
+  for (const { enabled, authorized } of [{ enabled: false, authorized: false }, { enabled: true, authorized: false }, { enabled: true, authorized: true }]) {
+    const progress = run({ status: "running", resourceState: { activeModel: "toxnet-v3-b16", blocked: false } });
+    progress.request = Core.buildRequest({ smiles: "CCO", specialistTask: authorized ? "tdc-fixture-task" : null,
+      comparisonEnabled: enabled, allowCloudTransfer: authorized });
+    progress.models["toxnet-v3-b16"].status = "running";
+    progress.models["txgemma-2b-predict"] = { status: "pending" };
+    progress.models["ollama-qwen-local"] = { status: "pending" };
+    progress.models["deepseek-api"] = { status: "pending" };
+    const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+      if (request.url.endsWith("/fixture-run-1")) return response(progress);
+    } });
+    const hint = ui.elements.compareResourceStatus.textContent;
+    assert.match(hint, /等待阶段：.*Qwen · Ollama/);
+    if (authorized) {
+      assert.match(hint, /等待阶段：TxGemma 2B → Qwen · Ollama → DeepSeek API/);
+    } else {
+      assert.doesNotMatch(hint, /TxGemma|DeepSeek/);
+    }
+    const cards = ui.elements.compareModelCards.children;
+    assert.equal(cards.find((card) => card.dataset.modelId === "txgemma-2b-predict").dataset.state, "pending");
+    assert.equal(cards.find((card) => card.dataset.modelId === "deepseek-api").dataset.state, "pending");
+    assert.ok(ui.requests.every((request) => request.method === "GET"), "Reading queue status cannot invoke a model or cloud transfer");
+  }
+});

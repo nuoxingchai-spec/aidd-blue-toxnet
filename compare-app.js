@@ -435,7 +435,14 @@
       const currentLabel = state.stale ? "旧记录的 GPU 调度快照" : "GPU 调度当前阶段";
       text = `${currentLabel}：${active ? NAMES[active] || active : Object.hasOwn(resource, "activeModel") ? "当前无 Compare 占用" : "未测量"}；此状态不代表整卡显存测量。`;
       if (resource.blocked === true) text += ` 资源已隔离：${resource.blockedReason || "清理未确认"}。`;
-      const waiting = Core.MODEL_IDS.filter((id) => run.models && run.models[id] && run.models[id].status === "pending");
+      const request = run.request || {};
+      const selected = new Set([request.primaryPredictor]);
+      if (request.specialistTask && request.specialistPredictor) selected.add(request.specialistPredictor);
+      if (request.primaryReporter) selected.add(request.primaryReporter);
+      if (request.comparisonReporter && request.allowCloudTransfer === true) selected.add(request.comparisonReporter);
+      // Model statuses belong to the server. A pending placeholder for a
+      // disabled stage is not evidence that it will enter the execution queue.
+      const waiting = Core.MODEL_IDS.filter((id) => selected.has(id) && run.models && run.models[id] && run.models[id].status === "pending");
       if (waiting.length && state.inFlight) text += ` 等待阶段：${waiting.map((id) => NAMES[id]).join(" → ")}。`;
     }
     if (run) {

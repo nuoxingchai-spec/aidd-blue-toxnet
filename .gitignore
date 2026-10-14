@@ -112,3 +112,8 @@ artifacts/compare/stability-20261014/*
 !artifacts/compare/stability-20261014/artifact-preservation.json
 !artifacts/compare/stability-20261014/validation.json
 !artifacts/compare/stability-20261014/browser-verification.json
+!artifacts/compare/report-optimization-20261014/
+artifacts/compare/report-optimization-20261014/*
+!artifacts/compare/report-optimization-20261014/benchmark.json
+!artifacts/compare/report-optimization-20261014/benchmark-final.json
+!artifacts/compare/report-optimization-20261014/receipt.json

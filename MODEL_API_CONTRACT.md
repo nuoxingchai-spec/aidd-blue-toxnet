@@ -199,3 +199,39 @@ Qwen状态可提供 `generationPolicy.contextTokens/outputTokenLimit/configuredN
 Windows OneDrive工作目录的默认库位于 `%LOCALAPPDATA%/AIDD-Blue-ToxNet/compare/<workspace-hash>/runs.sqlite3`，非同步目录默认 `data/compare/runs.sqlite3`。不自动搬移旧库。数据库采用当前用户/SYSTEM Windows ACL或POSIX私有权限，启动时取得OS owner锁；同一数据库不能有第二个服务进程。仅支持单worker，其他数据库、旧API或外部GPU应用不受这个锁管理；库不是加密数据库，不能作为公网或多用户服务。
 
 重复取消和shutdown等待同一被追踪的有界清理任务。B16/TxGemma等待子进程实际退出，Ollama等待卸载确认；清理不确定时拒绝复用本机资源。已落盘的quarantine普通重启不清除，也不随历史TTL删除。没有浏览器解锁接口；停止Compare后按 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md) 的维护命令核验真实进程和Ollama状态，再显式清除隔离。维护证明只覆盖本服务worker和指定loopback Ollama，不认证整机GPU可用。原v2推理路径不替换。
+
+## Compare 报告 v2、模式与运行回执补充（2026-10-14）
+
+本节补充前述历史 v1 合同，不改正式 `toxilens.api.v2`、B16 工件或原实验历史。完整设计及 Windows 单 worker 启动命令见 [COMPARE_REPORT_OPTIMIZATION.md](COMPARE_REPORT_OPTIMIZATION.md)，实际性能方法与结果见 [COMPARE_PERFORMANCE_BENCHMARK.md](COMPARE_PERFORMANCE_BENCHMARK.md)。
+
+`CompareRequest` 和预设 `settings` 新增两个严格枚举字段：
+
+| 字段 | API 兼容默认值 | 新前端实际提交 | 合同 |
+|---|---|---|---|
+| `reportContract` | `v1` | `v2` | 只允许 `v1/v2`；决定生成结构与验证器，禁止额外科学值字段 |
+| `reportMode` | `deep` | 默认 `fast`，可选 `deep` | 只允许 `fast/deep`；仅影响报告整理，不改变预测、事实快照或科研限制 |
+
+`aidd.compare.report.v1` 继续支持原 `factChecks` 精确复制验证。`aidd.compare.report.v2` 的模型输出只允许 `schema/snapshotSha256/sectionOrder/claimOrder/commentary/uncertainty/refusal`。其中解释为 `[{sectionId,text}]`，不确定性和拒绝说明为有界字符串或 null；不能返回分数、来源、结构或模型版本字段。所有章节、事实 ID 必须完整、唯一且不跨章节；快照 SHA 绑定科学值、规范结构、来源及版本，后端再核验结构 ID 和来源关联。全部科学值从服务器不可变快照重建，原分数与专项类别不会被报告器覆盖。
+
+Ollama v2 的实际 `format` 为服务器按快照和模式生成的严格 JSON Schema，`provenance.outputFormat=server-bound-json-schema`，`promptVersion=aidd.compare.independent-report.v2.1`。动态合同固定快照SHA、`claimOrder`对象的章节键/合法事实ID/成员数量、章节范围与模式文本上限，提示提供完整responseTemplate而不重复章节claimIds。v1继续 `format="json"` 和原v1提示版本。两者都继续执行独立后验核验；语法约束不构成科学事实验证，也不会放宽来源、结构身份、哈希或全部事实完整性要求。
+
+v2 核验后的 `reports[modelId]` 继续包含 `status="verified-structured-report"`、`reportSchema`、`snapshotSha256`、`sections`、`verifiedFactIds`、`unverifiedAdditions`、`sourceVerification`、`limitations`；新增 `reportMode`、`verifiedFacts`、`verifiedSources`、`structure`、`chemistryVersion`、`factReconstruction`、`uncertainty/refusal`。`sourceVerification.existingFields="exact-match"` 仅证明与既有快照一致，`newScientificFactsVerified=false`；所有生成文字均 `unverified`。源码版本、模型来源和真实预测事实由服务器提供，不接受生成器自报值。界面分别标示快照事实与生成解释。
+
+Fast：解释最多4段、每段240字符、合计600字符，不确定性/拒绝说明各180字符。v2 Deep：最多8段、每段800字符、合计4000字符，不确定性600、拒绝说明400字符。由程序验证文本预算；不是Token或显存预算。`v1/fast` 应用Fast解释上限，省略新字段的 `v1/deep` 保持旧行为。两种模式均保留全部请求事实和研究限制。错误合同、越界、错误 SHA 或事实 ID/来源关联失败时报告不发布，已经获得的合法 Token、耗时和模型元数据保留。
+
+`snapshot.questionInterpretation` 是本机确定性中文/英文主题识别结果，包含有限主题 ID、`status/requiresSelection` 和警告，不包含自由问题原文。心脏毒性→hERG、肝毒性→DILI、致突变性→Ames、临床毒性→ClinTox；这仅定位已有来源标签，不扩张标签含义。BBB 必须已显式选择 `tdc-bbb-martins`，通路主题需已包含 Tox21。歧义、未支持任务或选项不足时明确 `requires-selection`，不让语言模型猜测标签、不自动启用任务。
+
+| 新增或扩展接口/字段 | 精确语义 |
+|---|---|
+| `GET /api/research/compare/runtime` | 返回 `contractVersion/runtimeProvenance/resourceState/persistence/acceptingRuns/inFlightRuns`；只读，不执行模型 |
+| `runtimeProvenance` | 启动时固定的 Git SHA、相关源码文件/整体 SHA、源码是否偏离提交、进程/Python信息；是源码回执，不能证明科学效能 |
+| 运行查询 `resourceState` | Compare 当前调度模型、资源等待与隔离状态；不能当作整卡显存或其他软件占用情况 |
+| `GET /api/research/compare/runs?...&q=fast` | `q` 最多120字符；只匹配runId、状态、创建时间、结构ID、报告合同/模式、专项任务、Ollama模型元数据。分页和TTL不变，不搜索分子字符串、问题、报告或实验行 |
+| `queueWaitMs` / 阶段 `metrics.queueWaitMs` | 整次运行入队与本机阶段排队的实际等待；与生成耗时分别报告 |
+| `metrics.boardMemory` | 仅 `TOXNET_COMPARE_GPU_SAMPLING=true` 时尝试有界 `nvidia-smi` 采样；整卡采样最大值包括桌面和其他程序，非单模型分配或精确峰值 |
+
+PyTorch `gpu.peakAllocatedBytes/peakReservedBytes` 与 `boardMemory` 使用不同计量范围；精确峰值、模型归属峰值或不可取得的数据保持 null，不能把WDDM N/A视为零。Qwen当前非流式，首Token延迟为null。计量与效率优化不会改变 `formalAvailability=false`、校准/适用域未完成、ClinTox少样本/可能负迁移、旧test/Karim已曝光及非临床结论。
+
+SQLite继续schema2；新字段作为可选JSON内容写入新运行，不升级数据库版本，不回填或重写旧历史payload。旧v1历史没有新增字段仍可查询和导出，报告模式缺失明确按历史语义显示。全文保存授权、云端逐次授权、默认摘要、owner锁、quarantine与取消清理保持原合同。最新真实回执独立保存到 `artifacts/compare/report-optimization-20261014/receipt.json`；该文件不存在或没有成功实际记录时，相关验收保持待验证，不填演示指标。
+
+首次真实基准（源码04eb143）首组4次尝试为1次报告通过、3次报告失败，原始聚合 `artifacts/compare/report-optimization-20261014/benchmark.json` 保留，另有后续取消运行状态。单独复现的v2 Deep失败包含claimOrder数组代替对象和12段commentary超过8段；不把其他失败归于未经复现的原因。上述v2.1模板/schema修复后须另路径重新测量，不覆盖或删除失败回执，未取得新真实结果前不填写新Token/耗时或宣称提速。

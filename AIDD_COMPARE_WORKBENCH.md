@@ -211,3 +211,23 @@ CPU 与 CUDA 环境各实际通过 **417 项 Python 测试**，全仓 **70 项 J
 尚未执行：真实 Qwen 报告（daemon 不可达）、真实 TxGemma（许可和权重缺失）、真实 DeepSeek（不自动执行收费调用），因此这些模型的 GPU 峰值、吞吐、费用及真实报告通过率均 **未测量**。没有本轮新独立标注数据，也没有科学性能排名。Tx/Qwen 授权安装后，三类本地阶段排队，云报告单独按本次授权执行；全部未准备时仍能保留可用 B16 与规则审计。
 
 源码变更分为：注册/Adapter/worker；合同/事实核验/资源/编排/路由；独立 Compare 前端；CPU/HTTP/JS/浏览器 Mock 测试；离线 TxGemma 审计及真实 B16 复验脚本；文档、依赖和忽略规则。没有提交大型新权重、模型缓存、实验数据行、用户密钥或预设。
+
+## 报告优化与最终验收补充（2026-10-14）
+
+上述初版与接入记录保留为历史，不作为本轮新代码复验结果。最新协议、完整 Windows 11 / RTX4060 启动及源码版本核对步骤见 [COMPARE_REPORT_OPTIMIZATION.md](COMPARE_REPORT_OPTIMIZATION.md)；公平性能对照见 [COMPARE_PERFORMANCE_BENCHMARK.md](COMPARE_PERFORMANCE_BENCHMARK.md)，本轮独立回执路径为 `artifacts/compare/report-optimization-20261014/receipt.json`。没有实际回执时仍是待验收，不能预先声称更快或沿用旧Token/耗时。
+
+工作台新增快速报告 Fast 与深度报告 Deep。新页面显式提交 `reportContract=v2`、默认 `reportMode=fast`；旧API客户端省略字段仍为 `v1/deep`，旧报告继续按原版本查看。模式变化使旧结果失效，模型卡、已展开详情、键盘焦点和稳定DOM规则保留。JSON导出记录实际报告合同和模式，不把页面当前选择冒充原运行配置。
+
+v2不让Qwen或DeepSeek重复生成分数、类别、来源和版本：生成器只能排列全部事实ID/章节并提供有界文字，由后端从SHA绑定的不可变快照重建科学字段。事实完整且不可跨章节移动；中文解释、不确定性、拒绝说明全部标为unverified。Fast最多4段解释，每段240字符、合计600，不确定性/拒绝各180；v2 Deep最多8段，每段800、合计4000，不确定性600/拒绝400。模式只改变整理深度，完整四端点、所请求通路、专项任务、证据状态和全部科学限制不删减。v1默认Deep保持历史行为。
+
+Qwen的v2请求实际采用服务器绑定的strict JSON Schema，记录 `outputFormat=server-bound-json-schema` 和 `promptVersion=aidd.compare.independent-report.v2.1`；模板明确claimOrder为完整章节对象。v1仍使用原JSON模式，不改旧合同。Schema约束与后验事实验证同时保留，不能用语法通过代替来源/身份/哈希核验，也不会自动放宽或修补失败报告。
+
+研究问题增加本机确定性映射：心脏毒性/hERG、肝毒性/DILI、致突变性/Ames、临床毒性/ClinTox、血脑屏障/BBB、通路活性/Tox21。BBB仍需自己选择已审核的 `BBB_Martins`，不自动启用，也不改四毒性标签；通路需已开启展示。模糊或未支持任务在“中文研究问题确定性识别”详情提示需要选择，不让语言模型推测标签或实验阈值，原自由问题不外发。
+
+启动前查询 `GET /api/research/compare/runtime` 的 `inFlightRuns/resourceState`，正常停止旧服务后单worker启动；同库不能启动第二个owner。新进程的 `runtimeProvenance` 记录启动时Git与源码SHA，必须核对实际运行版本，磁盘代码更新不代表旧服务已加载。`resourceState`显示Compare当前调度阶段，不证明整卡显存空闲。
+
+历史列表新增元数据搜索 `q`（最多120字符），例如 `/api/research/compare/runs?limit=10&offset=0&q=fast`；只搜索runId、状态、日期、结构ID、已记录模式/合同、任务和模型，不搜索SMILES、问题、正文或实验数据。仍用SQLite schema2，不迁移或补写旧payload，不续跑历史或复用云端许可；本轮字段只在新记录中按原保存授权写入。
+
+可选 `$env:TOXNET_COMPARE_GPU_SAMPLING='true'` 为每个本机阶段采样 `nvidia-smi` 整卡使用情况；默认关闭。结果在 `metrics.boardMemory`，包括桌面/其他程序且可能漏短峰值，不能说成单模型精确峰值。PyTorch allocated/reserved另列，N/A和无法测量保持null。原串行、卸载确认与quarantine不放宽，不同时驻留所有模型。真实计量和软件/浏览器/CI通过数量以最终回执追加，DeepSeek没有新明确授权仍不执行收费调用。
+
+第一组真实四臂基准（04eb143）完成4次尝试，1次报告通过、3次报告失败；另有下一组取消状态保留在初始 `artifacts/compare/report-optimization-20261014/benchmark.json`。已复现v2 Deep输出claimOrder数组及12段commentary越界，因此新增上文严格模板/schema，保留原失败证据并另路径重试，不声称修复后已经更快或全部通过。新版本Token/耗时和完整成功四臂比较仍需实际回执；失败原文不发布为研究报告。
