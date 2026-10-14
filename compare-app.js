@@ -94,7 +94,7 @@
     updateTaskHint(); updateOptionalControls();
   }
   function metadataFingerprint(value) {
-    return JSON.stringify({ testFixture: value.testFixture === true, models: value.models.map((model) => ({ id: model.id, actualModelId: model.actualModelId, revision: model.revision, configured: model.configured, available: model.available, device: model.device, installedModels: model.installedModels || model.metadata && model.metadata.installedModels, selectedDefaultModel: model.selectedDefaultModel || model.metadata && model.metadata.selectedDefaultModel, weightsSha256: model.weightsSha256 || model.metadata && model.metadata.weightsSha256 })) });
+    return JSON.stringify({ testFixture: value.testFixture === true, models: value.models.map((model) => ({ id: model.id, actualModelId: model.actualModelId, revision: model.revision, configured: model.configured, available: model.available, device: model.device, runtime: model.runtime, source: metadata(model, "source"), sourceKind: metadata(model, "sourceKind"), sourceRevision: metadata(model, "sourceRevision"), upstreamRevisionStatus: metadata(model, "upstreamRevisionStatus"), generationPolicy: metadata(model, "generationPolicy"), installedModels: model.installedModels || model.metadata && model.metadata.installedModels, selectedDefaultModel: model.selectedDefaultModel || model.metadata && model.metadata.selectedDefaultModel, weightsSha256: model.weightsSha256 || model.metadata && model.metadata.weightsSha256 })) });
   }
   function metadata(model, key) { return model && (model[key] !== undefined ? model[key] : model.metadata && model.metadata[key]); }
   function updateRegistryControls() {
@@ -267,17 +267,37 @@
       const reason = fixture && result ? "Mock 测试夹具输出，仅验证软件流程，不是真实模型推理。" : Core.summaryOnly(state.run) && result ? "已恢复历史执行摘要，正文没有保存；没有重新调用模型。" : result && result.error ? result.error.message : result && result.status === "completed" ? "输出已完成，来源和性能记录见下方。" : result && result.status === "skipped" ? "本次未选择或未授权该调用。" : readiness.reason || "尚未核验，注册项不代表模型已安装。";
       const details = node("details", null, "compare-model-details"); details.dataset.viewKey = `model:${id}`;
       const list = node("dl");
+      // A historical execution keeps its own runtime/source, even when today's
+      // registry uses another package. Missing historical metadata stays unknown.
+      const hasRunProvenance = Boolean(result && Object.keys(provenance).length);
+      const execution = hasRunProvenance ? provenance : entry;
+      const sourceRepository = metadata(execution, "sourceRepository");
+      const sourceRevision = metadata(execution, "sourceRevision");
+      const source = metadata(execution, "sourceUrl") || (sourceRepository ? `${sourceRepository}${sourceRevision ? `@${sourceRevision}` : ""}` : metadata(execution, "source"));
+      const sourceKind = metadata(execution, "sourceKind");
+      const upstreamStatus = metadata(execution, "upstreamRevisionStatus");
+      const licenseStatus = metadata(execution, "licenseStatus");
       const records = [
         [fixture ? "Mock 模型 ID" : "实际执行 / 当前模型 ID", provenance.returnedModel || provenance.actualModelId || provenance.modelId || provenance.modelVersion || readiness.modelId],
         [fixture ? "夹具 revision / digest" : "revision / digest", provenance.revision || provenance.manifestSha256 || provenance.artifactSha256 || provenance.modelVersion || readiness.revision],
         ["当前配置选择", readiness.modelId],
-        ["运行方式", entry && entry.runtime], ["执行设备", provenance.device || entry && entry.device],
+        ["运行方式", metadata(execution, "runtime")], ["执行设备", metadata(execution, "device")],
         ["配置状态", entry ? entry.configured === true ? "已配置" : "未配置" : "尚未检查"],
         ["任务语义", entry && entry.semantics],
-        ["许可状态", provenance.licenseStatus || entry && entry.licenseStatus], ["任务能力", entry && entry.capabilities],
-        ["来源", provenance.source || entry && (entry.source || entry.sourceUrl)],
+        ["许可状态", licenseStatus === "operator-accepted" ? "operator-accepted（操作者声明，非独立法律认证）" : licenseStatus], ["任务能力", entry && entry.capabilities],
+        ["来源", source],
         ["研究限制", entry && entry.researchOnly ? "researchOnly=true · formalAvailability=false" : "语言整理不构成实验验证"],
       ];
+      if (sourceKind) records.push(["来源审核类型", sourceKind === "third-party-quantized" ? "第三方量化来源（third-party-quantized）；不是已验证的官方 safetensors revision" : sourceKind]);
+      if (sourceRevision) records.push(["来源仓库固定修订", sourceRevision]);
+      if (upstreamStatus) records.push(["上游权重修订审核", upstreamStatus === "unknown-not-published-by-quantizer" ? "unknown-not-published-by-quantizer（量化发布者未公布上游修订）" : upstreamStatus]);
+      if (metadata(execution, "ggufSha256")) records.push(["GGUF 文件 SHA256", metadata(execution, "ggufSha256")]);
+      if (metadata(execution, "quantization")) records.push(["量化格式", metadata(execution, "quantization")]);
+      if (id === "ollama-qwen-local") {
+        if (provenance.generationOptions) records.push(["本次生成配置", provenance.generationOptions]);
+        if (metadata(entry, "generationPolicy")) records.push(["当前生成预算（配置值，非显存实测）", metadata(entry, "generationPolicy")]);
+      }
+      if (metadata(entry, "statusReason") || metadata(entry, "reason")) records.push(["当前模型状态说明", metadata(entry, "statusReason") || metadata(entry, "reason")]);
       for (const [label, value] of records) list.append(node("dt", label), node("dd", objectText(value)));
       const summary = node("summary", "ID、许可与执行信息"); summary.dataset.focusKey = `model:${id}:summary`;
       details.append(summary, list);

@@ -67,7 +67,16 @@ def validate_specialist(data, structure, task_id, provenance):
     if not isinstance(tasks, list) or len(tasks) != 1 or not isinstance(tasks[0], dict):
         raise ValueError('Specialist must return exactly the selected reviewed task')
     expected = parse_task_output(task_id, tasks[0].get('class', ''))
-    if encoded(tasks[0]) != encoded(expected) or provenance.get('revision') != TXGEMMA_REVISION or provenance.get('formalAvailability') is not False:
+    if provenance.get('runtime') == 'ollama-gguf':
+        from backend.compare_ollama_txgemma import validate_gguf_provenance
+        source_verified = (validate_gguf_provenance(provenance)
+                           and provenance.get('taskContract') == expected['taskContractVersion']
+                           and provenance.get('templateSha256') == expected['templateSha256'])
+    elif provenance.get('runtime') in (None, 'local-transformers'):
+        source_verified = provenance.get('revision') == TXGEMMA_REVISION
+    else:
+        source_verified = False
+    if encoded(tasks[0]) != encoded(expected) or not source_verified or provenance.get('formalAvailability') is not False:
         raise ValueError('Specialist class, task semantics or revision were altered')
     return data
 
@@ -101,7 +110,9 @@ def build_snapshot(structure, chemistry, model_results, *, include_tox21=True, q
     # Only source-contracted class outputs are facts; they never become a score.
     if txdata and tx['status'] in ('completed', 'partial'):
         sources.append({'id': 'txgemma', 'kind': 'therapeutic-task-model', **{
-            k: copy.deepcopy((tx.get('provenance') or {}).get(k)) for k in ('modelId', 'revision', 'snapshotAuditSha256', 'taskContract', 'templateSha256')}})
+            k: copy.deepcopy((tx.get('provenance') or {}).get(k)) for k in ('modelId', 'revision', 'snapshotAuditSha256', 'taskContract', 'templateSha256',
+                'runtime', 'sourceKind', 'sourceRepository', 'sourceRevision', 'ggufSha256', 'quantization',
+                'upstreamRevisionStatus', 'localPackageVerification', 'licenseStatus')}})
         safe = {k: copy.deepcopy(txdata['tasks'][0][k]) for k in ('taskId', 'tdcTask', 'class', 'classLabel', 'positive', 'probability', 'outputType', 'directComparable', 'taskContractVersion', 'templateSha256')}
         add('txgemma:class', 'specialist', 'model-computation',
             'TxGemma 专项任务按官方模板解析类别；类别不是概率，不默认与四毒性端点可比。', safe, ['txgemma'])

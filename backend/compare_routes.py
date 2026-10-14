@@ -17,7 +17,16 @@ def build_compare_service(configuration):
     from backend.compare_txgemma import TxGemmaPredictAdapter
     from backend.compare_persistence import default_history_path
     values = configuration.startup_values
-    registry = create_default_registry(configuration, env=values, txgemma_adapter=TxGemmaPredictAdapter(env=values))
+    runtime = values.get('AIDD_TXGEMMA_RUNTIME', 'transformers')
+    if runtime == 'ollama':
+        from backend.compare_ollama_txgemma import OllamaTxGemmaAdapter
+        specialist = OllamaTxGemmaAdapter(env=values)
+    elif runtime == 'transformers':
+        specialist = TxGemmaPredictAdapter(env=values)
+    else:
+        from backend.compare_adapters import UnavailableAdapter
+        specialist = UnavailableAdapter('txgemma-2b-predict', 'TxGemma runtime仅支持transformers或已审核的ollama量化路径；不会自动切换。')
+    registry = create_default_registry(configuration, env=values, txgemma_adapter=specialist)
     return CompareOrchestrator(registry, env=values,
         presets_path=configuration.path.parent / 'data/compare-presets.json',
         persistence_path=default_history_path(configuration.path.parent))

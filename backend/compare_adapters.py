@@ -441,9 +441,11 @@ class B16Adapter(_CleanupLifecycle):
 class OllamaQwenAdapter(_CleanupLifecycle):
     model_id = "ollama-qwen-local"
 
-    def __init__(self, base_url="http://127.0.0.1:11434", model_id="qwen3.5:4b", *, timeout_seconds=180, transport=None):
+    def __init__(self, base_url="http://127.0.0.1:11434", model_id="qwen3.5:4b", *, timeout_seconds=180, transport=None,
+                 context_tokens=8192, output_tokens=4096):
         self.base_url, self.requested_model = base_url, model_id
         self.timeout_seconds, self.transport = timeout_seconds, transport
+        self.context_tokens, self.output_tokens = context_tokens, output_tokens
         self._initialize_cleanup()
         self._cleanup_target = None
         self._cleanup_confirmed = False
@@ -452,7 +454,22 @@ class OllamaQwenAdapter(_CleanupLifecycle):
     def from_env(cls, env=None):
         values = os.environ if env is None else env
         return cls(values.get("TOXNET_OLLAMA_URL", "http://127.0.0.1:11434"),
-                   values.get("TOXNET_OLLAMA_MODEL", "qwen3.5:4b"))
+                   values.get("TOXNET_OLLAMA_MODEL", "qwen3.5:4b"),
+                   context_tokens=values.get('TOXNET_OLLAMA_CONTEXT_TOKENS', 8192),
+                   output_tokens=values.get('TOXNET_OLLAMA_OUTPUT_TOKENS', 4096))
+
+    def _generation_options(self):
+        def count(value, low, high):
+            if isinstance(value, str) and re.fullmatch(r'[0-9]{1,5}', value):
+                value = int(value)
+            if type(value) is not int or not low <= value <= high:
+                raise CompareAdapterError('OLLAMA_INVALID_GENERATION_CONFIG', '本机报告上下文须为4096–16384 Token，输出上限须为256–8192 Token；不会静默改配置。')
+            return value
+        context = count(self.context_tokens, 4096, 16384)
+        output = count(self.output_tokens, 256, 8192)
+        if output >= context:
+            raise CompareAdapterError('OLLAMA_INVALID_GENERATION_CONFIG', '报告输出上限必须小于上下文容量。')
+        return {'temperature': 0, 'num_ctx': context, 'num_predict': output}
 
     def _client(self, timeout=None):
         return httpx.AsyncClient(timeout=timeout or self.timeout_seconds, follow_redirects=False, trust_env=False, transport=self.transport)
@@ -487,6 +504,7 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                     "reason": "本地资源清理未确认或适配器已关闭；不再次调用模型服务。"}
         try:
             url = validate_ollama_url(self.base_url)
+            generation_options = self._generation_options()
             base["configured"] = True
             async with self._client(timeout=3) as client:
                 tags = await self._tags(client, url)
@@ -496,12 +514,14 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                 return {**base, "errorCode": "OLLAMA_MODEL_NOT_INSTALLED", "reason": "本机 Ollama 可连接，但所选 Qwen 模型未安装；未自动下载。"}
             return {**base, "available": True, "actualModelId": selected["id"], "revision": selected["digest"],
                     "selectedDefaultModel": selected["id"],
-                    "reason": "已从本机 /api/tags 核验模型 ID 与 digest；能力尚需真实报告生成验证。", "accessVerified": True}
+                    "reason": "已从本机 /api/tags 核验模型 ID 与 digest；能力尚需真实报告生成验证。", "accessVerified": True,
+                    'generationPolicy': {'contextTokens': generation_options['num_ctx'], 'outputTokenLimit': generation_options['num_predict'], 'configuredNotCapacityMeasured': True}}
         except CompareAdapterError as error:
-            return {**base, "errorCode": error.code if error.code == "OLLAMA_LOOPBACK_REQUIRED" else "OLLAMA_UNAVAILABLE", "reason": error.public_message}
+            return {**base, "errorCode": error.code if error.code in ('OLLAMA_LOOPBACK_REQUIRED', 'OLLAMA_INVALID_GENERATION_CONFIG') else "OLLAMA_UNAVAILABLE", "reason": error.public_message}
 
     async def execute(self, context):
         url, messages = validate_ollama_url(self.base_url), _messages(context)
+        options = self._generation_options()
         selected_id = context.get("reporterModel") or self.requested_model
         started = perf_counter()
         metrics = {"promptTokens": None, "completionTokens": None, "totalTokens": None, "cost": None,
@@ -510,7 +530,8 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                    "gpu": {"measured": False, "peakAllocatedBytes": None, "peakReservedBytes": None}}
         provenance = {"modelId": selected_id, "revision": None, "revisionSource": "ollama-api-tags-digest",
                       "runtime": "ollama", "device": "ollama-managed; unmeasured", "licenseStatus": "local-package-license-not-reviewed",
-                      "reportOnly": True, "snapshotSha256": _snapshot_sha(context), "independentReport": True}
+                      "reportOnly": True, "snapshotSha256": _snapshot_sha(context), "independentReport": True,
+                      'generationOptions': {key: options[key] for key in ('num_ctx', 'num_predict')}}
         pending_error = None
         self._begin_execution()
         self._cleanup_target, self._cleanup_confirmed = None, False
@@ -529,7 +550,7 @@ class OllamaQwenAdapter(_CleanupLifecycle):
                 self._cleanup_target = (url, selected_id)
                 metrics['httpRequestState'] = 'attempted-unconfirmed'
                 payload = await _http_json(client, "POST", url + "/api/chat", payload={"model": selected_id, "messages": messages,
-                              "format": "json", "stream": False, "keep_alive": 0, "think": False, "options": {"temperature": 0}}, metrics=metrics, usage_provider='ollama')
+                              "format": "json", "stream": False, "keep_alive": 0, "think": False, "options": options}, metrics=metrics, usage_provider='ollama')
                 _report_usage(payload, "ollama", metrics)
                 metrics.update(generationSeconds=_duration(payload.get("eval_duration")), totalDurationSeconds=_duration(payload.get("total_duration")))
                 tokens, seconds = metrics["completionTokens"], metrics["generationSeconds"]

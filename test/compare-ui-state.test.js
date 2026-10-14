@@ -184,6 +184,52 @@ test("software fixture: remembered run is read-only, resets both permissions, an
   assert.match(ui.elements.compareRecoveryNotice.textContent, /只读恢复.*授权均保持关闭/);
 });
 
+for (const keepSourceUrl of [true, false]) {
+  test(`software fixture: historical GGUF source stays independent of current Transformers registry (URL=${keepSourceUrl})`, async () => {
+    const current = registry();
+    const txEntry = current.models.find((item) => item.id === "txgemma-2b-predict");
+    Object.assign(txEntry, { runtime: "local-transformers", source: "Google official current safetensors source", licenseStatus: "current-license" });
+    const provenance = { testFixture: true, runtime: "ollama-gguf", modelId: "txgemma-fixture:latest", revision: "historical-manifest",
+      sourceKind: "third-party-quantized", sourceRepository: "matrixportalx/txgemma-2b-predict-GGUF", sourceRevision: "historical-source-revision",
+      upstreamRevisionStatus: "unknown-not-published-by-quantizer", ggufSha256: "fixture-gguf-sha", quantization: "Q4_K_M", licenseStatus: "operator-accepted" };
+    if (keepSourceUrl) provenance.sourceUrl = "https://huggingface.co/matrixportalx/txgemma-2b-predict-GGUF/blob/historical-source-revision/test.gguf";
+    const historical = run(); historical.models["txgemma-2b-predict"] = { status: "completed", provenance };
+    const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+      if (request.url === "/api/research/models") return response(current);
+      if (request.url === "/api/research/compare/runs/fixture-run-1") return response(historical);
+    } });
+    await flush();
+    const card = ui.elements.compareModelCards.children.find((item) => item.dataset.modelId === "txgemma-2b-predict");
+    const items = card.querySelectorAll("dl")[0].children;
+    const fields = {}; for (let i = 0; i < items.length; i += 2) fields[items[i].textContent] = items[i + 1].textContent;
+    assert.equal(fields["运行方式"], "ollama-gguf");
+    assert.equal(fields["来源"], keepSourceUrl ? provenance.sourceUrl : "matrixportalx/txgemma-2b-predict-GGUF@historical-source-revision");
+    assert.match(fields["来源审核类型"], /第三方量化.*不是已验证的官方 safetensors revision/);
+    assert.match(fields["上游权重修订审核"], /unknown-not-published-by-quantizer/);
+    assert.match(fields["许可状态"], /操作者声明/);
+    assert.doesNotMatch(card.textContent, /Google official current safetensors source|local-transformers|current-license/);
+    assert.ok(ui.requests.every((request) => request.method === "GET"));
+  });
+}
+
+test("software fixture: Qwen shows per-run generation options separately from configured budget and status reason", async () => {
+  const current = registry();
+  const qwen = current.models.find((item) => item.id === "ollama-qwen-local");
+  qwen.metadata = { generationPolicy: { contextTokens: 8192, outputTokenLimit: 4096, configuredNotCapacityMeasured: true }, statusReason: "Fixture budget checked; GPU capacity unmeasured." };
+  const historical = run(); historical.models["ollama-qwen-local"].provenance.generationOptions = { num_ctx: 4096, num_predict: 2048 };
+  const ui = await setup({ storage: { "aidd.compare.lastRunId": "fixture-run-1" }, fetch(request) {
+    if (request.url === "/api/research/models") return response(current);
+    if (request.url === "/api/research/compare/runs/fixture-run-1") return response(historical);
+  } });
+  await flush();
+  const card = ui.elements.compareModelCards.children.find((item) => item.dataset.modelId === "ollama-qwen-local");
+  const items = card.querySelectorAll("dl")[0].children;
+  const fields = {}; for (let i = 0; i < items.length; i += 2) fields[items[i].textContent] = items[i + 1].textContent;
+  assert.match(fields["本次生成配置"], /"num_ctx": 4096/);
+  assert.match(fields["当前生成预算（配置值，非显存实测）"], /"contextTokens": 8192/);
+  assert.equal(fields["当前模型状态说明"], qwen.metadata.statusReason);
+});
+
 test("software fixture: Run and keyboard shortcut cannot POST before model registry completes", async () => {
   const pending = deferred();
   const ui = await setup({ fetch(request) { if (request.url === "/api/research/models") return pending.promise; } });

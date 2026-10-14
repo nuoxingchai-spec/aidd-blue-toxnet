@@ -1,0 +1,496 @@
+{
+  "schema": "aidd.compare.ollama-deployment-acceptance.v1",
+  "generatedAt": "2026-10-14T02:27:27.897340+00:00",
+  "formalAvailability": false,
+  "contentPolicy": "aggregate status, provenance and engineering metrics only; no molecule, report prose, experimental rows, credentials or local paths",
+  "modelSourceLimit": "Third-party GGUF upstream Google revision and converter version were not published.",
+  "licenseEvidence": "operator declaration; no acceptance performed by agent",
+  "gpuMeasurementLimit": "B16 isolated-process PyTorch allocator only; Ollama peak board memory not measured",
+  "scientificPerformance": "not evaluated; functionality and latency are not accuracy",
+  "runs": [
+    {
+      "runId": "6c2235b95851483fa7f0dd35b98ad967",
+      "status": "completed",
+      "durationMs": 67581.311,
+      "createdAt": "2026-10-14T02:01:10.583602+00:00",
+      "updatedAt": "2026-10-14T02:02:18.175999+00:00",
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "provenance": {
+            "modelName": "蓝研 ToxNet 多任务 B16",
+            "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+            "artifactSchema": "aidd.toxnet.multitask.artifact.v1",
+            "taskContractVersion": "aidd.toxnet.four-toxicity-twelve-assay-tasks.v1",
+            "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+            "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+            "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+            "dataManifestSha256": "ff4837c1bcb0e568c506e503cab9321f23be328f5c432d495be3606f15d7ceae",
+            "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+            "parameterCount": 100496,
+            "formalAvailability": false,
+            "researchOnly": true,
+            "device": "cuda"
+          },
+          "metrics": {
+            "loadAndExecutionSeconds": 6.411674799979664,
+            "predictionSeconds": 0.3659434000146575,
+            "promptTokens": null,
+            "completionTokens": null,
+            "cost": null,
+            "gpu": {
+              "peakAllocatedBytes": 187969024,
+              "peakReservedBytes": 213909504,
+              "measured": true,
+              "scope": "this isolated B16 process including load and requested attribution; not total board memory"
+            },
+            "wallSeconds": 7.696271499997238,
+            "queueWaitMs": 0.003,
+            "durationMs": 7696.481,
+            "cleanupState": {
+              "state": "released",
+              "pending": false,
+              "confirmed": true,
+              "errorCode": null
+            }
+          },
+          "errorCode": null,
+          "outputTaskCount": 16
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "provenance": {
+            "modelId": "txgemma-2b:latest",
+            "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+            "revisionSource": "verified-local-ollama-manifest-sha256",
+            "runtime": "ollama-gguf",
+            "sourceKind": "third-party-quantized",
+            "sourceRepository": "matrixportalx/txgemma-2b-predict-GGUF",
+            "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+            "sourceFile": "txgemma-2b-predict-q4_k_m.gguf",
+            "sourceUrl": "https://huggingface.co/matrixportalx/txgemma-2b-predict-GGUF/blob/e93f94fc209e1b5971fa96582f346fc7a4d7bec9/txgemma-2b-predict-q4_k_m.gguf",
+            "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+            "ggufSizeBytes": 1708582112,
+            "baseModelId": "google/txgemma-2b-predict",
+            "upstreamRevision": null,
+            "upstreamRevisionStatus": "unknown-not-published-by-quantizer",
+            "licenseStatus": "operator-accepted",
+            "licenseUrl": "https://developers.google.com/health-ai-developer-foundations/terms",
+            "quantization": "Q4_K_M",
+            "parameterCount": 2614341888,
+            "formalAvailability": false,
+            "device": "ollama-managed; unmeasured",
+            "auditSchema": "aidd.txgemma.ollama-gguf-audit.v1",
+            "localPackageVerification": "manifest-and-source-gguf-sha256",
+            "sourceAuthenticity": "pinned-third-party-hub-file; upstream-revision-unverified",
+            "taskContract": "aidd.txgemma.reviewed-tdc-tasks.v1",
+            "templateSha256": "0b8139032fee96df468b8cab46fd3ca09d9d957558b528be766be41002d93edb",
+            "promptMode": "official-task-template-raw-no-chat-no-grammar",
+            "localPackageVerified": true
+          },
+          "metrics": {
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "cost": null,
+            "costStatus": "local-compute-cost-not-estimated",
+            "httpRequestState": "response-received",
+            "httpResponseReceived": true,
+            "gpu": {
+              "measured": false,
+              "peakAllocatedBytes": null,
+              "peakReservedBytes": null
+            },
+            "httpStatusCode": 200,
+            "usageStatus": "provider-reported",
+            "loadSeconds": 4.3239255,
+            "generationSeconds": 0.049537,
+            "totalDurationSeconds": 4.4455802,
+            "tokensPerSecond": 80.74772392353191,
+            "wallSeconds": 6.997615600004792,
+            "resourceCleanupVerified": true,
+            "queueWaitMs": 0.003,
+            "durationMs": 6998.152,
+            "cleanupState": {
+              "state": "released",
+              "pending": false,
+              "confirmed": true,
+              "errorCode": null
+            }
+          },
+          "errorCode": null,
+          "taskContractResult": [
+            {
+              "taskId": "tdc-bbb-martins",
+              "tdcTask": "BBB_Martins",
+              "class": "B",
+              "positive": true,
+              "probability": null,
+              "directComparable": false,
+              "templateSha256": "0b8139032fee96df468b8cab46fd3ca09d9d957558b528be766be41002d93edb"
+            }
+          ]
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "provenance": {
+            "modelId": "qwen3.5:4b",
+            "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+            "revisionSource": "ollama-api-tags-digest",
+            "runtime": "ollama",
+            "device": "ollama-managed; unmeasured",
+            "licenseStatus": "local-package-license-not-reviewed",
+            "reportOnly": true,
+            "snapshotSha256": "f63ed1cb7b365ddae19ffa1d34573a5927957d3c5c0cdcc3a50ef517d9743c28",
+            "independentReport": true,
+            "generationOptions": {
+              "num_ctx": 8192,
+              "num_predict": 4096
+            }
+          },
+          "metrics": {
+            "promptTokens": 4317,
+            "completionTokens": 3070,
+            "totalTokens": null,
+            "cost": null,
+            "costStatus": "local-compute-cost-not-estimated",
+            "httpResponseReceived": true,
+            "httpRequestState": "response-received",
+            "gpu": {
+              "measured": false,
+              "peakAllocatedBytes": null,
+              "peakReservedBytes": null
+            },
+            "httpStatusCode": 200,
+            "usageStatus": "provider-reported",
+            "generationSeconds": 46.459332,
+            "totalDurationSeconds": 52.5195117,
+            "tokensPerSecond": 66.0792970505904,
+            "wallSeconds": 52.804716199985705,
+            "resourceCleanupVerified": true,
+            "queueWaitMs": 0.002,
+            "reportValidation": "verified",
+            "durationMs": 52807.916,
+            "cleanupState": {
+              "state": "released",
+              "pending": false,
+              "confirmed": true,
+              "errorCode": null
+            }
+          },
+          "errorCode": null
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "provenance": {},
+          "metrics": {},
+          "errorCode": "CLOUD_NOT_AUTHORIZED"
+        }
+      },
+      "cloudTransfer": {
+        "allowed": false,
+        "executed": false,
+        "requestAttempted": false,
+        "informationCategories": [],
+        "rawExperimentalRows": false,
+        "privatePaths": false,
+        "freeQuestion": false
+      },
+      "reports": {
+        "ollama-qwen-local": {
+          "status": "verified-structured-report",
+          "reportSchema": "aidd.compare.report.v1",
+          "sourceVerification": {
+            "existingFields": "exact-match",
+            "scoresAndSourcesChanged": false,
+            "newScientificFactsVerified": false
+          },
+          "snapshotSha256": "f63ed1cb7b365ddae19ffa1d34573a5927957d3c5c0cdcc3a50ef517d9743c28"
+        }
+      }
+    },
+    {
+      "runId": "532820f758194149a1183820cd019b47",
+      "status": "completed",
+      "durationMs": 66894.51,
+      "createdAt": "2026-10-14T02:25:34.541625+00:00",
+      "updatedAt": "2026-10-14T02:26:41.447673+00:00",
+      "models": {
+        "toxnet-v3-b16": {
+          "status": "completed",
+          "provenance": {
+            "modelName": "蓝研 ToxNet 多任务 B16",
+            "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+            "artifactSchema": "aidd.toxnet.multitask.artifact.v1",
+            "taskContractVersion": "aidd.toxnet.four-toxicity-twelve-assay-tasks.v1",
+            "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+            "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+            "datasetVersion": "aidd-toxnet-16task-development-aab05727cde8e47b",
+            "dataManifestSha256": "ff4837c1bcb0e568c506e503cab9321f23be328f5c432d495be3606f15d7ceae",
+            "splitSha256": "df0dfa7195f714df81e93f3795d1623c81d1d5a32433a59388421cf7d2b082f8",
+            "parameterCount": 100496,
+            "formalAvailability": false,
+            "researchOnly": true,
+            "device": "cuda"
+          },
+          "metrics": {
+            "loadAndExecutionSeconds": 6.068269300012616,
+            "predictionSeconds": 0.3490082999924198,
+            "promptTokens": null,
+            "completionTokens": null,
+            "cost": null,
+            "gpu": {
+              "peakAllocatedBytes": 187969024,
+              "peakReservedBytes": 213909504,
+              "measured": true,
+              "scope": "this isolated B16 process including load and requested attribution; not total board memory"
+            },
+            "wallSeconds": 7.3264874999877065,
+            "queueWaitMs": 0.002,
+            "durationMs": 7326.772,
+            "cleanupState": {
+              "state": "released",
+              "pending": false,
+              "confirmed": true,
+              "errorCode": null
+            }
+          },
+          "errorCode": null,
+          "outputTaskCount": 16
+        },
+        "txgemma-2b-predict": {
+          "status": "completed",
+          "provenance": {
+            "modelId": "txgemma-2b:latest",
+            "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+            "revisionSource": "verified-local-ollama-manifest-sha256",
+            "runtime": "ollama-gguf",
+            "sourceKind": "third-party-quantized",
+            "sourceRepository": "matrixportalx/txgemma-2b-predict-GGUF",
+            "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+            "sourceFile": "txgemma-2b-predict-q4_k_m.gguf",
+            "sourceUrl": "https://huggingface.co/matrixportalx/txgemma-2b-predict-GGUF/blob/e93f94fc209e1b5971fa96582f346fc7a4d7bec9/txgemma-2b-predict-q4_k_m.gguf",
+            "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+            "ggufSizeBytes": 1708582112,
+            "baseModelId": "google/txgemma-2b-predict",
+            "upstreamRevision": null,
+            "upstreamRevisionStatus": "unknown-not-published-by-quantizer",
+            "licenseStatus": "operator-accepted",
+            "licenseUrl": "https://developers.google.com/health-ai-developer-foundations/terms",
+            "quantization": "Q4_K_M",
+            "parameterCount": 2614341888,
+            "formalAvailability": false,
+            "device": "ollama-managed; unmeasured",
+            "auditSchema": "aidd.txgemma.ollama-gguf-audit.v1",
+            "localPackageVerification": "manifest-and-source-gguf-sha256",
+            "sourceAuthenticity": "pinned-third-party-hub-file; upstream-revision-unverified",
+            "taskContract": "aidd.txgemma.reviewed-tdc-tasks.v1",
+            "templateSha256": "0b8139032fee96df468b8cab46fd3ca09d9d957558b528be766be41002d93edb",
+            "promptMode": "official-task-template-raw-no-chat-no-grammar",
+            "localPackageVerified": true
+          },
+          "metrics": {
+            "promptTokens": 112,
+            "completionTokens": 4,
+            "totalTokens": null,
+            "cost": null,
+            "costStatus": "local-compute-cost-not-estimated",
+            "httpRequestState": "response-received",
+            "httpResponseReceived": true,
+            "gpu": {
+              "measured": false,
+              "peakAllocatedBytes": null,
+              "peakReservedBytes": null
+            },
+            "httpStatusCode": 200,
+            "usageStatus": "provider-reported",
+            "loadSeconds": 2.4154325,
+            "generationSeconds": 0.053103,
+            "totalDurationSeconds": 2.5435567,
+            "tokensPerSecond": 75.32531118769185,
+            "wallSeconds": 5.152954200020758,
+            "resourceCleanupVerified": true,
+            "queueWaitMs": 0.002,
+            "durationMs": 5153.462,
+            "cleanupState": {
+              "state": "released",
+              "pending": false,
+              "confirmed": true,
+              "errorCode": null
+            }
+          },
+          "errorCode": null,
+          "taskContractResult": [
+            {
+              "taskId": "tdc-bbb-martins",
+              "tdcTask": "BBB_Martins",
+              "class": "B",
+              "positive": true,
+              "probability": null,
+              "directComparable": false,
+              "templateSha256": "0b8139032fee96df468b8cab46fd3ca09d9d957558b528be766be41002d93edb"
+            }
+          ]
+        },
+        "ollama-qwen-local": {
+          "status": "completed",
+          "provenance": {
+            "modelId": "qwen3.5:4b",
+            "revision": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+            "revisionSource": "ollama-api-tags-digest",
+            "runtime": "ollama",
+            "device": "ollama-managed; unmeasured",
+            "licenseStatus": "local-package-license-not-reviewed",
+            "reportOnly": true,
+            "snapshotSha256": "f63ed1cb7b365ddae19ffa1d34573a5927957d3c5c0cdcc3a50ef517d9743c28",
+            "independentReport": true,
+            "generationOptions": {
+              "num_ctx": 8192,
+              "num_predict": 4096
+            }
+          },
+          "metrics": {
+            "promptTokens": 4317,
+            "completionTokens": 3070,
+            "totalTokens": null,
+            "cost": null,
+            "costStatus": "local-compute-cost-not-estimated",
+            "httpResponseReceived": true,
+            "httpRequestState": "response-received",
+            "gpu": {
+              "measured": false,
+              "peakAllocatedBytes": null,
+              "peakReservedBytes": null
+            },
+            "httpStatusCode": 200,
+            "usageStatus": "provider-reported",
+            "generationSeconds": 47.759943,
+            "totalDurationSeconds": 53.994454,
+            "tokensPerSecond": 64.27980870915194,
+            "wallSeconds": 54.33330440000282,
+            "resourceCleanupVerified": true,
+            "queueWaitMs": 0.002,
+            "reportValidation": "verified",
+            "durationMs": 54336.454,
+            "cleanupState": {
+              "state": "released",
+              "pending": false,
+              "confirmed": true,
+              "errorCode": null
+            }
+          },
+          "errorCode": null
+        },
+        "deepseek-api": {
+          "status": "skipped",
+          "provenance": {},
+          "metrics": {},
+          "errorCode": "CLOUD_NOT_AUTHORIZED"
+        }
+      },
+      "cloudTransfer": {
+        "allowed": false,
+        "executed": false,
+        "requestAttempted": false,
+        "informationCategories": [],
+        "rawExperimentalRows": false,
+        "privatePaths": false,
+        "freeQuestion": false
+      },
+      "reports": {
+        "ollama-qwen-local": {
+          "status": "verified-structured-report",
+          "reportSchema": "aidd.compare.report.v1",
+          "sourceVerification": {
+            "existingFields": "exact-match",
+            "scoresAndSourcesChanged": false,
+            "newScientificFactsVerified": false
+          },
+          "snapshotSha256": "f63ed1cb7b365ddae19ffa1d34573a5927957d3c5c0cdcc3a50ef517d9743c28"
+        }
+      }
+    }
+  ],
+  "verification": {
+    "status": "source-regression-and-existing-service-browser-acceptance-passed",
+    "pythonCpu": {
+      "total": 544,
+      "passed": 542,
+      "skipped": 2,
+      "failed": 0
+    },
+    "pythonCudaEnvironment": {
+      "total": 544,
+      "passed": 542,
+      "skipped": 2,
+      "failed": 0,
+      "scope": "software regression in CUDA environment; not 544 GPU inference tests"
+    },
+    "pythonSkipReasons": [
+      "POSIX modes are replaced by Windows ACL",
+      "Windows symlink creation privilege unavailable"
+    ],
+    "javascript": {
+      "total": 95,
+      "passed": 95,
+      "failed": 0
+    },
+    "dependencyChecks": {
+      "cpu": "passed",
+      "cuda": "passed"
+    },
+    "syntaxAndGitDiffChecks": "passed",
+    "preservation": {
+      "historicalArtifactCount": 50,
+      "originalCompareReceiptCount": 4,
+      "status": "unchanged"
+    },
+    "finalSourceInstalledPackageAudit": {
+      "available": true,
+      "actualModelId": "txgemma-2b:latest",
+      "revision": "b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094",
+      "runtime": "ollama-gguf",
+      "source": "https://huggingface.co/matrixportalx/txgemma-2b-predict-GGUF/blob/e93f94fc209e1b5971fa96582f346fc7a4d7bec9/txgemma-2b-predict-q4_k_m.gguf",
+      "sourceKind": "third-party-quantized",
+      "sourceRevision": "e93f94fc209e1b5971fa96582f346fc7a4d7bec9",
+      "ggufSha256": "d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace",
+      "upstreamRevisionStatus": "unknown-not-published-by-quantizer",
+      "licenseStatus": "operator-accepted",
+      "quantization": "Q4_K_M",
+      "parameterCount": 2614341888,
+      "errorCode": null,
+      "formalAvailability": false
+    },
+    "browser": {
+      "runId": "532820f758194149a1183820cd019b47",
+      "realModelsExecuted": [
+        "toxnet-v3-b16",
+        "txgemma-2b-predict",
+        "ollama-qwen-local"
+      ],
+      "status": "completed",
+      "newFrontendLoaded": true,
+      "thirdPartySourceAndUnknownUpstreamVisible": true,
+      "inputEditInvalidatedOldResultsAndExport": true,
+      "reloadRestoredSameRunWithoutReplay": true,
+      "jsonDownloadVerified": true,
+      "exportScoresAndSnapshotHashMatch": true,
+      "cloudRequestAttempted": false,
+      "sensitiveContentPersistenceConsent": false
+    },
+    "backendReload": {
+      "completed": false,
+      "reason": "Automatic approval review blocked existing-service stop and independent verification-service start; no detailed reason returned.",
+      "liveServiceScope": "4185 real three-model runtime loaded before final extra-layer/tokenizer/unknown-runtime tightening",
+      "remaining": "operator normal stop and restart to load final source; do not label latest backend source deployed"
+    },
+    "ci": {
+      "status": "not-yet-run-for-this-uncommitted-revision",
+      "checkSource": "Draft PR #5 checks; local success is not CI success"
+    },
+    "noPaidCloudCall": true,
+    "noModelDownload": true,
+    "noNewScientificAccuracyClaim": true
+  },
+  "ollamaVersion": "0.40.3"
+}

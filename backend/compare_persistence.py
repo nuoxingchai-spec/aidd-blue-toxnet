@@ -139,7 +139,11 @@ def _provenance(value):
                            "parameterCount", "trainableParameterCount", "frozenEncoderParameterCount", "formalAvailability",
                            "researchOnly", "evaluationType", "isolatedWorker", "runtime", "reportOnly", "requestAttempted",
                            "testFixture", "snapshotSha256", "returnedModel", "researchSteps", "independentReport", "cloudTransferAuthorized",
-                           "transferredCategories", "rawExperimentalRowsTransferred", "localPathsTransferred", "licenseStatus"))
+                           "transferredCategories", "rawExperimentalRowsTransferred", "localPathsTransferred", "licenseStatus", "generationOptions",
+                           "sourceKind", "sourceRepository", "sourceRevision", "ggufSha256", "quantization",
+                           "upstreamRevisionStatus", "upstreamRevision", "baseModelId", "localPackageVerification",
+                           "localPackageVerified", "sourceFile", "ggufSizeBytes", "auditSchema", "promptMode", "sourceAuthenticity",
+                           "tokenizerIdentity", "modelContextLength", "rawPrompt"))
     if not isinstance(value, dict):
         return output
     if isinstance(value.get("encoder"), dict):

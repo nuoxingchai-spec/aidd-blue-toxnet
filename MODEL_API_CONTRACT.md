@@ -180,6 +180,12 @@ v2 `attribution.method=joint-embedding-morgan-integrated-gradients`，单位为�
 
 运行状态：`pending/running/completed/partial/failed/cancelled`；模型还可 `unavailable/unsupported/skipped`。单模型结果有 `status/data/metrics/provenance/error`，失败不清除其它成功结果。B16始终返回实际16任务，`includeTox21`只控制报告/界面展示。TxGemma只返回审核的类别结果，`probability=null`，不与毒性标签直接比较。未核验报告 `data=null`；已取得的实测metrics/provenance可保留。
 
+本地运行时补充（2026-10-14）：`AIDD_TXGEMMA_RUNTIME` 默认为 `transformers`，保留原官方固定版本加载；显式 `ollama` 启用独立 `ollama-gguf` Adapter，仍需 `AIDD_TXGEMMA_ENABLE=true`、操作者已经完成授权的 `AIDD_TXGEMMA_LICENSE_ACCEPTED=true`、确切 `AIDD_TXGEMMA_OLLAMA_MODEL` 和本机包 `AIDD_TXGEMMA_OLLAMA_DIGEST`。配置不能证明授权或任务完成，状态检查不下载或加载模型。
+
+GGUF来源固定为 `matrixportalx/txgemma-2b-predict-GGUF@e93f94fc209e1b5971fa96582f346fc7a4d7bec9`，文件SHA256为 `d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace`。`provenance` 区分本机manifest `revision`、`sourceRepository/sourceRevision/sourceFile/sourceUrl`、`ggufSha256`、`sourceKind=third-party-quantized`、`upstreamRevision=null` / `upstreamRevisionStatus=unknown-not-published-by-quantizer`、量化格式和操作者许可声明。来源文件核验不等于官方上游修订核验。固定manifest和来源字节在预测前后复核，额外adapter/权重层拒绝；仅运行已审核的BBB官方原提示，`/api/generate` 的 `raw=true` 不使用聊天模板或强制输出语法，异常/截断输出拒绝发布。A/B类别始终 `probability=null`。
+
+Qwen状态可提供 `generationPolicy.contextTokens/outputTokenLimit/configuredNotCapacityMeasured`，默认8192/4096；服务端环境变量为 `TOXNET_OLLAMA_CONTEXT_TOKENS` / `TOXNET_OLLAMA_OUTPUT_TOKENS`。预算范围为上下文4096–16384、输出256–8192且输出小于上下文。当次 `provenance.generationOptions.num_ctx/num_predict` 记录实际发送配置；它们不是显存测量或科学性能指标。卡片显示状态检查原因，并将历史运行配置与当前预算分开。历史运行时和来源优先读取其provenance，缺失字段保持未知，不改用当前注册项冒充旧来源。完整本机环境、许可操作和真实验收记录见 [OLLAMA_DEPLOYMENT_ACCEPTANCE.md](OLLAMA_DEPLOYMENT_ACCEPTANCE.md)。
+
 `snapshot` 为 `aidd.compare.facts.v1`，带canonicalJSON SHA256与事实ID/来源/章节；`reports` 为确定性核验后的 `aidd.compare.report.v1` 结果。报告器精确复制分数与来源，只能排序已有章节内结论。所有自由commentary标记unverified，不能当作实验事实。两个报告独立收到相同快照，不读取对方结果。
 
 `cloudTransfer.allowed` 是原运行的授权审计标记；`requestAttempted` 表示曾尝试HTTP，不证明供应商收到/计费；`executed` 表示报告通过确定性核验。允许的类别为查询canonical结构、核验模型分数、任务语义、规则/归因摘要、证据状态聚合和研究限制。原始实验行、样本标签/结构、受限数据库、密钥、私有路径和自由问题不外发。无本次授权时DeepSeek不执行；预设不会持久化授权，历史审计标记不能替代新的许可，保存请求的 `allowCloudTransfer` 统一为false。

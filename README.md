@@ -196,3 +196,5 @@ node --test test/*.test.js
 历史默认只在本机SQLite schema2保存脱敏摘要；完整SMILES、研究问题、检索观察和报告全文需逐次勾选 `persistSensitiveContent=true`。预设不保存云端授权，历史只保留原运行的授权/请求审计标记，不复用执行许可。浏览器仅记住runId，历史打开和刷新不重跑模型。Windows OneDrive目录默认把数据库放到非同步的LocalAppData；资源清理未确认时持久隔离，普通重启不解锁。当前实现仅支持同一库的单进程/单worker，无法调度外部GPU应用。维护恢复命令及API详情见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md) 和 [MODEL_API_CONTRACT.md](MODEL_API_CONTRACT.md)。
 
 本次P0/P1最终测试、Linux CI与真实模型复验状态以新增验收记录为准，未在这里预先填写通过数量或部署结论。Ollama、TxGemma、DeepSeek哪些已安装/授权/真正执行，需要分别验收；未报告费用为unknown，不能当作零费用。模型不投票、不平均、不排名，v3始终 `formalAvailability=false`。
+
+2026-10-14 本机已真实完成 B16 → Ollama TxGemma BBB_Martins → Qwen3.5:4b 的研究流程，DeepSeek未调用。新增量化来源校验与报告生成预算配置；TxGemma量化发布者未公开官方上游修订，不能冒充已审核的官方权重版本。最新验收、后端重新加载状态及Windows命令见 [OLLAMA_DEPLOYMENT_ACCEPTANCE.md](OLLAMA_DEPLOYMENT_ACCEPTANCE.md)。

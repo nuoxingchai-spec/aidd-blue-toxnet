@@ -11,6 +11,8 @@ Compare 是独立研究对照，**不是四模型投票、分数平均或准确�
 | `ollama-qwen-local` | 本机 `/api/tags` → `/api/chat` → digest 复核 → `/api/ps` 卸载确认 | 实际服务不可达；没有生成真实 Qwen 报告；不能推断磁盘是否存有模型 |
 | `deepseek-api` | 现有服务端账户配置，独立 Chat Completions 报告适配器 | 未执行收费 API；配置完整不等于型号或账户权限已验证 |
 
+以上表格保留初版历史验收状态。2026-10-14 的本机 Qwen 与第三方量化 TxGemma 接入、实际包 digest 和真实运行证据另见 [OLLAMA_DEPLOYMENT_ACCEPTANCE.md](OLLAMA_DEPLOYMENT_ACCEPTANCE.md)，不覆盖旧记录。模型安装或成功运行不代表科学准确率验证。
+
 `compare_registry.py` 只描述能力；状态由实际检查给出。已有千问 API 供应商仍是远程 API，与 Ollama 独立。DeepSeek Compare 不调用旧 `ModelClient.predict`，不生成可信毒性分数。
 
 数据流程：RDKit 验证、canonical 结构与 `structureId` → B16 16 任务 → 可选本机证据/同权重归因 → TxGemma 审核任务 → 不可变事实快照 → 分别独立生成 Qwen / 已授权 DeepSeek 报告 → 确定性核验 → 对照工作台 / JSON 导出。
@@ -46,6 +48,8 @@ $env:TOXNET_MULTITASK_DEVICE = 'cuda'
 $env:TOXNET_COMPARE_PYTHON = (Resolve-Path $comparePython).Path
 $env:TOXNET_OLLAMA_URL = 'http://127.0.0.1:11434'
 $env:TOXNET_OLLAMA_MODEL = 'qwen3.5:4b' # 必须匹配真实 /api/tags ID
+$env:TOXNET_OLLAMA_CONTEXT_TOKENS = '8192'
+$env:TOXNET_OLLAMA_OUTPUT_TOKENS = '4096'
 $env:TOXNET_COMPARE_MAX_RUNNING = '1'
 $env:HF_HUB_OFFLINE = '1'
 $env:TRANSFORMERS_OFFLINE = '1'
@@ -71,6 +75,29 @@ ollama pull qwen3.5:4b
 若官方标签不存在，选择官方可取得的 Qwen 标签，更新 `TOXNET_OLLAMA_MODEL` 后重启服务。不能用其它模型假冒 Qwen3.5-4B。工作台刷新实际清单，记录 digest；不自动 `pull`。国内网络下载失败应保留官方缓存重试、使用官方允许的网络，不关闭 SHA/许可验证、不使用来源不明权重。Ollama 模型与显存尚未实际验收，本机报告可能因上下文、时限或严格 JSON 校验失败；先关闭 Tox21 报告展示缩短输入，再按错误实测，不降低事实核验。
 
 Ollama URL 只允许 loopback HTTP，禁远程主机、代理、认证参数和重定向。请求使用 `keep_alive=0`；每次资源占用建立单个被追踪且有界的清理任务，正常完成、重复取消或shutdown等待它结束，并通过 `/api/ps` 确认卸载。清理不能确认时隔离后续本机阶段；已落盘的隔离状态不会由普通重启解除，安全恢复流程见下文。
+
+当前 Qwen 默认显式配置8192上下文 Token和4096输出上限，可用 `TOXNET_OLLAMA_CONTEXT_TOKENS` / `TOXNET_OLLAMA_OUTPUT_TOKENS` 调整；上下文允许4096–16384，输出256–8192且必须小于上下文。8192/4096是生成预算，不是RTX4060显存实测。卡片分别显示当次 `generationOptions` 与当前 `generationPolicy`、状态检查原因；历史运行不能借用当前预算证明过去的配置。真实输入和输出总量过长仍可能截断，报告核验失败不会发布不完整内容。已有模型无需再次 `pull`；最新真实接入记录见上述独立验收文档。
+
+### TxGemma：可选 Ollama GGUF 运行时
+
+默认 `AIDD_TXGEMMA_RUNTIME=transformers` 保留已审核的官方固定 safetensors 路径。只有操作者已亲自完成模型许可授权、准备本机模型并选择 `AIDD_TXGEMMA_RUNTIME=ollama` 才使用独立 `ollama-gguf` Adapter；程序不下载模型，不代替用户接受协议。`AIDD_TXGEMMA_LICENSE_ACCEPTED=true` 是操作者声明，不是独立法律认证。
+
+本轮明确允许的量化来源为 `matrixportalx/txgemma-2b-predict-GGUF`，固定仓库修订 `e93f94fc209e1b5971fa96582f346fc7a4d7bec9`；`txgemma-2b-predict-q4_k_m.gguf` 的SHA256为 `d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace`。它属于 `third-party-quantized`，发布者未公布 Google 上游 commit 或转换工具版本，`upstreamRevisionStatus=unknown-not-published-by-quantizer`，不能显示为已核验的官方 safetensors revision。
+
+```powershell
+# 在上文完整 B16 研究环境配置后追加；不要省略研究启用、工件、编码器和 Python 路径。
+$env:AIDD_TXGEMMA_RUNTIME = 'ollama'
+$env:AIDD_TXGEMMA_ENABLE = 'true'
+$env:AIDD_TXGEMMA_LICENSE_ACCEPTED = 'true' # 仅在本人已经完成授权后设置
+$env:AIDD_TXGEMMA_OLLAMA_MODEL = 'txgemma-2b:latest' # 实际安装的模型 ID
+# 本机已验收包示例；其他包必须核对真实值，不得伪造为同一 digest：
+$env:AIDD_TXGEMMA_OLLAMA_DIGEST = 'b6578da0f91e0974123bf1b9ba924349ef901c897143784fd746faaa1d1ba094'
+# OLLAMA_MODELS 可设置可信本机模型库；默认用户目录 .ollama/models。
+# 正常停止旧服务后，以完整环境单 worker 重启；已运行时复用原服务。
+& $comparePython -m uvicorn backend.main:app --host 127.0.0.1 --port 4185 --workers 1
+```
+
+状态检查核验loopback服务、真实标签与固定manifest digest、本机GGUF来源字节和模型元数据，不加载权重。预测前后重新校验包；来源或digest改变、额外adapter/权重层、非法输入和未知任务拒绝。仅支持原已审核的 `tdc-bbb-martins`：使用 `/api/generate`、`raw=true` 和官方任务原提示，不套用聊天模板，也不强制A/B语法掩盖异常输出。严格解析自然结束的A/B类别，`probability=null`，不与四毒性标签直接比较。历史卡片优先显示当次provenance的运行时、仓库修订及来源审核，不借用当前注册中心的官方来源。峰值显存须单独测量；安装、上下文配置和串行运行均不能代替显存验收。
 
 ### DeepSeek：独立报告与外传
 
