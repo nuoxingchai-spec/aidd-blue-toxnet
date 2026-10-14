@@ -148,3 +148,8 @@ TDC 页面同时出现“Not Specified”和“CC BY 4.0”许可文字。数据
 | 训练时 `scripts/train_toxnet.py` | `e32527be24c0785f813c8c08a88c76294c218440e054110b6fdf82e41f7115ff` |
 
 `training-history.json` 保留每轮损失和 validation 指标，`test-predictions.json` 保留实际 test 概率，`split.json` 保留冻结成员与骨架。上述代码哈希对应训练时版本；后续代码变化不能改变已生成权重的历史记录。下一轮数据筛选与接入优先级见 [DATASET_SELECTION.md](DATASET_SELECTION.md)。新数据在端点语义、许可、去重与数据重叠核验通过前，不混入此版本训练集。
+## 独立四模型研究对照
+
+新增 Compare 研究工作台复用经 SHA256 核验的 v3 B16 16 任务推理，原 v2 正式权重、版本和预测合同不变；v3 仍为 `formalAvailability=false`。TxGemma 只支持已审核 BBB 类别合同，尚无真实权重验收，与四毒性端点不直接可比。Ollama Qwen / DeepSeek 仅整理共同事实，不能生成或改写可信模型分数；自由文字标为 unverified。
+
+真实 CUDA B16 HTTP 及等价输入软件验证通过，不构成新科学效能评价。真实 Qwen、TxGemma、DeepSeek 调用均未作为本轮完成证据。ClinTox 少样本、负迁移、未校准和适用域限制保持。实现、实测与后续本机验收见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md)。

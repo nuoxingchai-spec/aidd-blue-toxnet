@@ -150,3 +150,88 @@ v2 `attribution.method=joint-embedding-morgan-integrated-gradients`，单位为�
 | 503 | 模型未配置、工件/依赖不可用或解释基础设施异常；返回明确不可用，不提供模拟预测 |
 
 业务错误包含顶层 `status` 和 `error.code`、`error.message`、`error.requestId`。同源、请求大小限制及安全响应头沿用现有后台。模型密钥和上游响应原文不返回浏览器。JSON 导出是用户主动下载的本机研究报告，可能含本机检索的来源观察，应遵守底层数据许可，不将导出当作允许公开数据库的授权。方法、验证和启动流程见 [EXPLANATION_REPORTS.md](EXPLANATION_REPORTS.md)。
+## 独立四模型 Compare（aidd.multimodel.compare.v1）
+
+原 `toxilens.api.v2` 与研究 Tox21/解释 API 保持原语义。新增工作台 `/compare`，详细操作见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md)。
+
+| 方法 / 路径 | 含义 |
+|---|---|
+| `GET /api/research/models` | 四注册项的实际状态、ID、revision、许可、设备、任务合同和资源限制；配置不是可用证明 |
+| `POST /api/research/compare/runs` | 严格请求，返回 HTTP 202 与 `runId` / `pollUrl`；不等待大模型结束 |
+| `GET /api/research/compare/runs?limit=20&offset=0` | 本机历史摘要分页；`limit` 1..100、`offset` 0..1000000，返回 `runs/total/limit/offset/hasMore`；不执行模型 |
+| `GET /api/research/compare/runs/{runId}` | 查询当次内存或 SQLite 已保存记录；重启后是否含结构/报告全文由 `recovery.contentAvailable` 决定；不恢复执行 |
+| `DELETE /api/research/compare/runs/{runId}` | 取消等待清理；已终态结果保留到 TTL；不存在或过期 404 |
+| `GET /api/research/compare/presets` | 仅研究配置，不包括密钥/分子/问题/授权 |
+| `POST /api/research/compare/presets` | `{name,settings}` 原子保存，201；名称唯一、未知字段拒绝 |
+| `PATCH /api/research/compare/presets/{id}` | 完整 `{name,settings}` 更新或重命名；保留 `createdAt`、更新 `updatedAt`；同名冲突 409、不存在 404 |
+| `DELETE /api/research/compare/presets/{id}` | 删除指定预设，200 返回 `{id,deleted:true}`；不存在 404；不删除模型或实验记录 |
+
+请求字段：`smiles`（合法，1–4096字符）、`question`（最多1000字符）、`mode="compare"`、固定 `primaryPredictor="toxnet-v3-b16"` / `specialistPredictor="txgemma-2b-predict"` / `primaryReporter="ollama-qwen-local"`、`specialistTask`（注册ID或null）、`comparisonReporter`（`deepseek-api`或null）、`ollamaModel`（真实本机Qwen ID或null）。额外字段、凭据、URL和类型强制转换均拒绝。POST/PATCH必须JSON；POST/PATCH/DELETE共同检查 Origin、声明长度及实际请求字节，大小上限16KiB。无请求体的DELETE无需JSON头。
+
+| 研究与保存选项 | 合同 |
+|---|---|
+| `includeTox21` | 严格布尔，默认 `true`；仅控制报告/界面展示，不改 B16 的16任务预测 |
+| `includeEvidence` / `evidenceEndpoint` | 检索开关默认 `false`；端点为 `herg/dili/ames/clintox` 或 `null`（检索全部已审计任务）。与归因开关独立 |
+| `includeAttribution` / `explainEndpoint` | 新客户端显式发送布尔；`true` 时必须有原四端点之一。`false` 即使保存了端点选择也不运行归因。为兼容旧请求，未提供开关时由非空 `explainEndpoint` 推导；旧请求未提供 `evidenceEndpoint` 时沿用旧端点过滤 |
+| `allowCloudTransfer` | 严格布尔，默认 `false`；逐次授权，不保存在预设、不在历史恢复时复用 |
+| `persistSensitiveContent` | 严格布尔，默认 `false`；仅授权本次完整内容在本机保存，不代表允许发送云端或公开实验库 |
+
+预设 `settings` 只包含上述模型/任务/展示配置；不得包含 `smiles/question/apiKey/allowCloudTransfer/persistSensitiveContent`。保存和更新返回 `id/name/settings/createdAt/updatedAt`。前端更新与删除需明确确认，名称冲突以 `PRESET_NAME_CONFLICT` 返回409，不静默覆盖。
+
+运行状态：`pending/running/completed/partial/failed/cancelled`；模型还可 `unavailable/unsupported/skipped`。单模型结果有 `status/data/metrics/provenance/error`，失败不清除其它成功结果。B16始终返回实际16任务，`includeTox21`只控制报告/界面展示。TxGemma只返回审核的类别结果，`probability=null`，不与毒性标签直接比较。未核验报告 `data=null`；已取得的实测metrics/provenance可保留。
+
+本地运行时补充（2026-10-14）：`AIDD_TXGEMMA_RUNTIME` 默认为 `transformers`，保留原官方固定版本加载；显式 `ollama` 启用独立 `ollama-gguf` Adapter，仍需 `AIDD_TXGEMMA_ENABLE=true`、操作者已经完成授权的 `AIDD_TXGEMMA_LICENSE_ACCEPTED=true`、确切 `AIDD_TXGEMMA_OLLAMA_MODEL` 和本机包 `AIDD_TXGEMMA_OLLAMA_DIGEST`。配置不能证明授权或任务完成，状态检查不下载或加载模型。
+
+GGUF来源固定为 `matrixportalx/txgemma-2b-predict-GGUF@e93f94fc209e1b5971fa96582f346fc7a4d7bec9`，文件SHA256为 `d2631215ae8be65343b8a22820e2551947aee1d0cf00e9dad872f610a3cf2ace`。`provenance` 区分本机manifest `revision`、`sourceRepository/sourceRevision/sourceFile/sourceUrl`、`ggufSha256`、`sourceKind=third-party-quantized`、`upstreamRevision=null` / `upstreamRevisionStatus=unknown-not-published-by-quantizer`、量化格式和操作者许可声明。来源文件核验不等于官方上游修订核验。固定manifest和来源字节在预测前后复核，额外adapter/权重层拒绝；仅运行已审核的BBB官方原提示，`/api/generate` 的 `raw=true` 不使用聊天模板或强制输出语法，异常/截断输出拒绝发布。A/B类别始终 `probability=null`。
+
+Qwen状态可提供 `generationPolicy.contextTokens/outputTokenLimit/configuredNotCapacityMeasured`，默认8192/4096；服务端环境变量为 `TOXNET_OLLAMA_CONTEXT_TOKENS` / `TOXNET_OLLAMA_OUTPUT_TOKENS`。预算范围为上下文4096–16384、输出256–8192且输出小于上下文。当次 `provenance.generationOptions.num_ctx/num_predict` 记录实际发送配置；它们不是显存测量或科学性能指标。卡片显示状态检查原因，并将历史运行配置与当前预算分开。历史运行时和来源优先读取其provenance，缺失字段保持未知，不改用当前注册项冒充旧来源。完整本机环境、许可操作和真实验收记录见 [OLLAMA_DEPLOYMENT_ACCEPTANCE.md](OLLAMA_DEPLOYMENT_ACCEPTANCE.md)。
+
+`snapshot` 为 `aidd.compare.facts.v1`，带canonicalJSON SHA256与事实ID/来源/章节；`reports` 为确定性核验后的 `aidd.compare.report.v1` 结果。报告器精确复制分数与来源，只能排序已有章节内结论。所有自由commentary标记unverified，不能当作实验事实。两个报告独立收到相同快照，不读取对方结果。
+
+`cloudTransfer.allowed` 是原运行的授权审计标记；`requestAttempted` 表示曾尝试HTTP，不证明供应商收到/计费；`executed` 表示报告通过确定性核验。允许的类别为查询canonical结构、核验模型分数、任务语义、规则/归因摘要、证据状态聚合和研究限制。原始实验行、样本标签/结构、受限数据库、密钥、私有路径和自由问题不外发。无本次授权时DeepSeek不执行；预设不会持久化授权，历史审计标记不能替代新的许可，保存请求的 `allowCloudTransfer` 统一为false。
+
+`metrics` 仅填真实测量：duration/queue/wall、供应商实际返回的tokens、可测token/s、PyTorch子进程峰值或null。响应解析前先保存合法计量，因此截断、拒绝、空内容、JSON错误或事实核验失败仍可保留实测usage和脱敏来源，报告内容则不发布。无效/负数/布尔计量不当作零；429、5xx、连接/读取超时、截断和无效内容分别记录错误。`cost=null`表示未获真实账单，不是零费用。所有v3结果 `formalAvailability=false`；没有临床综合概率、模型投票或准确率排名。
+
+默认本机阶段串行、运行并发1、内存容量32、阶段240秒、总计900秒、终态TTL1800秒（启动及请求触发清理）。本机SQLite采用数据库schema version 2：运行表保存历史投影，`service_state` 保存资源隔离状态；外部投影标识仍为 `aidd.compare.persisted-run.v1`。schema1事务迁移到2，未来schema拒绝读取。默认投影保存状态、结构ID、实际分数摘要、脱敏模型版本/usage及报告摘要，不保存SMILES、自由问题、实验记录、图片、快照事实或报告正文；`contentSaved=false`。只有本次显式授权才保存许可范围内的完整内容。即使完整保存，密钥、token、认证头和本机路径仍被剔除。
+
+`contentSaved` 表示全文是否持久化；`recovery.contentAvailable` 表示此次查询是否仍可提供全文，两者不同：当次内存可能有全文但没有保存，重启后只能恢复摘要。中断运行转为 `failed/partial` 并记录 `INTERRUPTED`，不自动重跑、续生成或云端扣费。已保存的Mock provenance保持Mock标识，不会因当前真实模型注册而变成真实推理证据。浏览器只在localStorage记住最后一个runId，刷新/后退及历史打开只执行GET；输入或配置变化仍使旧结果失效。
+
+Windows OneDrive工作目录的默认库位于 `%LOCALAPPDATA%/AIDD-Blue-ToxNet/compare/<workspace-hash>/runs.sqlite3`，非同步目录默认 `data/compare/runs.sqlite3`。不自动搬移旧库。数据库采用当前用户/SYSTEM Windows ACL或POSIX私有权限，启动时取得OS owner锁；同一数据库不能有第二个服务进程。仅支持单worker，其他数据库、旧API或外部GPU应用不受这个锁管理；库不是加密数据库，不能作为公网或多用户服务。
+
+重复取消和shutdown等待同一被追踪的有界清理任务。B16/TxGemma等待子进程实际退出，Ollama等待卸载确认；清理不确定时拒绝复用本机资源。已落盘的quarantine普通重启不清除，也不随历史TTL删除。没有浏览器解锁接口；停止Compare后按 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md) 的维护命令核验真实进程和Ollama状态，再显式清除隔离。维护证明只覆盖本服务worker和指定loopback Ollama，不认证整机GPU可用。原v2推理路径不替换。
+
+## Compare 报告 v2、模式与运行回执补充（2026-10-14）
+
+本节补充前述历史 v1 合同，不改正式 `toxilens.api.v2`、B16 工件或原实验历史。完整设计及 Windows 单 worker 启动命令见 [COMPARE_REPORT_OPTIMIZATION.md](COMPARE_REPORT_OPTIMIZATION.md)，实际性能方法与结果见 [COMPARE_PERFORMANCE_BENCHMARK.md](COMPARE_PERFORMANCE_BENCHMARK.md)。
+
+`CompareRequest` 和预设 `settings` 新增两个严格枚举字段：
+
+| 字段 | API 兼容默认值 | 新前端实际提交 | 合同 |
+|---|---|---|---|
+| `reportContract` | `v1` | `v2` | 只允许 `v1/v2`；决定生成结构与验证器，禁止额外科学值字段 |
+| `reportMode` | `deep` | 默认 `fast`，可选 `deep` | 只允许 `fast/deep`；仅影响报告整理，不改变预测、事实快照或科研限制 |
+
+`aidd.compare.report.v1` 继续支持原 `factChecks` 精确复制验证。`aidd.compare.report.v2` 的模型输出只允许 `schema/snapshotSha256/sectionOrder/claimOrder/commentary/uncertainty/refusal`。其中解释为 `[{sectionId,text}]`，不确定性和拒绝说明为有界字符串或 null；不能返回分数、来源、结构或模型版本字段。所有章节、事实 ID 必须完整、唯一且不跨章节；快照 SHA 绑定科学值、规范结构、来源及版本，后端再核验结构 ID 和来源关联。全部科学值从服务器不可变快照重建，原分数与专项类别不会被报告器覆盖。
+
+Ollama v2 的实际 `format` 为服务器按快照和模式生成的严格 JSON Schema，`provenance.outputFormat=server-bound-json-schema`，`promptVersion=aidd.compare.independent-report.v2.1`。动态合同固定快照SHA、`claimOrder`对象的章节键/合法事实ID/成员数量、章节范围与模式文本上限，提示提供完整responseTemplate而不重复章节claimIds。v1继续 `format="json"` 和原v1提示版本。两者都继续执行独立后验核验；语法约束不构成科学事实验证，也不会放宽来源、结构身份、哈希或全部事实完整性要求。
+
+v2 核验后的 `reports[modelId]` 继续包含 `status="verified-structured-report"`、`reportSchema`、`snapshotSha256`、`sections`、`verifiedFactIds`、`unverifiedAdditions`、`sourceVerification`、`limitations`；新增 `reportMode`、`verifiedFacts`、`verifiedSources`、`structure`、`chemistryVersion`、`factReconstruction`、`uncertainty/refusal`。`sourceVerification.existingFields="exact-match"` 仅证明与既有快照一致，`newScientificFactsVerified=false`；所有生成文字均 `unverified`。源码版本、模型来源和真实预测事实由服务器提供，不接受生成器自报值。界面分别标示快照事实与生成解释。
+
+Fast：解释最多4段、每段240字符、合计600字符，不确定性/拒绝说明各180字符。v2 Deep：最多8段、每段800字符、合计4000字符，不确定性600、拒绝说明400字符。由程序验证文本预算；不是Token或显存预算。`v1/fast` 应用Fast解释上限，省略新字段的 `v1/deep` 保持旧行为。两种模式均保留全部请求事实和研究限制。错误合同、越界、错误 SHA 或事实 ID/来源关联失败时报告不发布，已经获得的合法 Token、耗时和模型元数据保留。
+
+`snapshot.questionInterpretation` 是本机确定性中文/英文主题识别结果，包含有限主题 ID、`status/requiresSelection` 和警告，不包含自由问题原文。心脏毒性→hERG、肝毒性→DILI、致突变性→Ames、临床毒性→ClinTox；这仅定位已有来源标签，不扩张标签含义。BBB 必须已显式选择 `tdc-bbb-martins`，通路主题需已包含 Tox21。歧义、未支持任务或选项不足时明确 `requires-selection`，不让语言模型猜测标签、不自动启用任务。
+
+| 新增或扩展接口/字段 | 精确语义 |
+|---|---|
+| `GET /api/research/compare/runtime` | 返回 `contractVersion/runtimeProvenance/resourceState/persistence/acceptingRuns/inFlightRuns`；只读，不执行模型 |
+| `runtimeProvenance` | 启动时固定的 Git SHA、相关源码文件/整体 SHA、源码是否偏离提交、进程/Python信息；是源码回执，不能证明科学效能 |
+| 运行查询 `resourceState` | Compare 当前调度模型、资源等待与隔离状态；不能当作整卡显存或其他软件占用情况 |
+| `GET /api/research/compare/runs?...&q=fast` | `q` 最多120字符；只匹配runId、状态、创建时间、结构ID、报告合同/模式、专项任务、Ollama模型元数据。分页和TTL不变，不搜索分子字符串、问题、报告或实验行 |
+| `queueWaitMs` / 阶段 `metrics.queueWaitMs` | 整次运行入队与本机阶段排队的实际等待；与生成耗时分别报告 |
+| `metrics.boardMemory` | 仅 `TOXNET_COMPARE_GPU_SAMPLING=true` 时尝试有界 `nvidia-smi` 采样；整卡采样最大值包括桌面和其他程序，非单模型分配或精确峰值 |
+
+PyTorch `gpu.peakAllocatedBytes/peakReservedBytes` 与 `boardMemory` 使用不同计量范围；精确峰值、模型归属峰值或不可取得的数据保持 null，不能把WDDM N/A视为零。Qwen当前非流式，首Token延迟为null。计量与效率优化不会改变 `formalAvailability=false`、校准/适用域未完成、ClinTox少样本/可能负迁移、旧test/Karim已曝光及非临床结论。
+
+SQLite继续schema2；新字段作为可选JSON内容写入新运行，不升级数据库版本，不回填或重写旧历史payload。旧v1历史没有新增字段仍可查询和导出，报告模式缺失明确按历史语义显示。全文保存授权、云端逐次授权、默认摘要、owner锁、quarantine与取消清理保持原合同。最新真实回执独立保存到 `artifacts/compare/report-optimization-20261014/receipt.json`；该文件不存在或没有成功实际记录时，相关验收保持待验证，不填演示指标。
+
+首次真实基准（源码04eb143）首组4次尝试为1次报告通过、3次报告失败，原始聚合 `artifacts/compare/report-optimization-20261014/benchmark.json` 保留，另有后续取消运行状态。单独复现的v2 Deep失败包含claimOrder数组代替对象和12段commentary超过8段；不把其他失败归于未经复现的原因。上述v2.1模板/schema修复后须另路径重新测量，不覆盖或删除失败回执，未取得新真实结果前不填写新Token/耗时或宣称提速。

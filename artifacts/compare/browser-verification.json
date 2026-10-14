@@ -1,0 +1,64 @@
+{
+  "schema": "aidd.compare.browser-verification.v1",
+  "generatedAt": "2026-10-13T12:32:43.137869+00:00",
+  "status": "passed",
+  "browser": "Codex in-app browser",
+  "interface": "real browser UI connected to FastAPI",
+  "mockWorkflow": {
+    "port": 4184,
+    "allModelsSynthetic": true,
+    "paidApiCalls": false,
+    "observedPassed": [
+      "visible MOCK banner",
+      "four independent completed cards",
+      "BBB class and no probability",
+      "twelve pathways separate from four toxicity endpoints",
+      "independent two-column verified reports",
+      "cloud checkbox consumed after acceptance",
+      "input modification invalidates export",
+      "configuration modification invalidates old results",
+      "cancel running operation",
+      "reset during run hides results and clears input",
+      "preset saves no molecule/question/key/consent",
+      "one reporter fails while B16 and other reporter remain",
+      "actual browser JSON download"
+    ],
+    "exportSha256": "c037d41a968e09fcdd0876e2ab4351b167b0766e0c38868c800166347838c072"
+  },
+  "realB16Workflow": {
+    "port": 4185,
+    "primaryRealModel": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+    "realTasks": 16,
+    "observedPassed": [
+      "real B16 four toxicity scores and twelve pathway rows",
+      "actual worker GPU metrics display",
+      "Qwen daemon unavailable without fallback",
+      "TxGemma skipped",
+      "DeepSeek unauthorized and not executed",
+      "partial result export",
+      "no browser console errors"
+    ],
+    "formalAvailability": false,
+    "paidApiCalls": false,
+    "exportSha256": "c6b3aa543d29b85d34c3eaf394300addb9c20ac793a7485f09ae676c7b3614b7",
+    "b16Metrics": {
+      "loadAndExecutionSeconds": 5.8973590999958105,
+      "predictionSeconds": 0.18095310000353493,
+      "promptTokens": null,
+      "completionTokens": null,
+      "cost": null,
+      "gpu": {
+        "peakAllocatedBytes": 187969024,
+        "peakReservedBytes": 213909504,
+        "measured": true,
+        "scope": "this isolated B16 process including load and requested attribution; not total board memory"
+      },
+      "wallSeconds": 7.091899099992588,
+      "queueWaitMs": 0.004,
+      "durationMs": 7092.104
+    }
+  },
+  "scientificAccuracyClaimed": false,
+  "rawExportRowsCommitted": false,
+  "screenshotsCommitted": false
+}

@@ -1,0 +1,291 @@
+{
+  "schema": "aidd.compare.stability-preservation.v1",
+  "status": "unchanged",
+  "generatedAt": "2026-10-13T17:38:08.437755+00:00",
+  "historicalMain": "3e0cbe432360b5c9b22aa0c3d538c5b0e23e8a51",
+  "compareBase": "2d51de2173622f2afafa85c8bd95d875e1af3823",
+  "trackedHistoricalFiles": 50,
+  "files": [
+    {
+      "file": "artifacts/aidd-toxnet-details.jpg",
+      "sha256": "ab72c5976f03519894668512a5d9f2b0e8c5d498d8269a112201f420de3d2d4c",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/aidd-toxnet-external-evaluation.jpg",
+      "sha256": "8437b40510a1661c7310d91f42534f8ebf5ee92b99126855acdc97e3d13f61f5",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/aidd-toxnet-workbench.jpg",
+      "sha256": "52d25f8e73be3c2c3a4147916b2161db13ce859763e39c034a6ed0d15c497e17",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/explanations/browser-verification.json",
+      "sha256": "73eb25acaf55c4040ed248bf0646219fbc5170f76358c7b3d910e66ae6df439b",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/explanations/system-verification-final.json",
+      "sha256": "d6ba0e8f51dd4c6a234dd656d41ecf7a52c452106cd1b39282ccc13c86571e76",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/external-herg-evaluation-predictions.json",
+      "sha256": "78717936268add399db78ff56b83b3c2b286e9365fdd25c811e406d234573f89",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/external-herg-evaluation.json",
+      "sha256": "0c186f3933653a832c6b7e2dea83ea6f19b8d93592bc79aa6e9a1923c0212476",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/browser-verification-20261013.json",
+      "sha256": "7f5ab8a6d5637a8cbdb292d08705f7ce126bfcbf951d92c88818e41af7aaecd2",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/cuda-cpu-wheel-verification.json",
+      "sha256": "c8141a0cc3b6d90850c9fdfcc6d9c741526bc76843dcbc1ed73b7d10d40d98da",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/cuda-environment-portable.txt",
+      "sha256": "2f4759c99a357f58e489f1a7ae163e124594c541a33dc5ef1b8117661b25afa2",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/cuda-validation-20261013.json",
+      "sha256": "43dc5ed1ff86f0084b09449576451ee0677f69831e99229754b3b8ceb6653d45",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/fourtask-cuda-20261013/experiment.json",
+      "sha256": "7860f732fb75697cee8297334b2871ce39c2bde43305e1c6f5f150ebcc9f98b2",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/fourtask-cuda-verification-bound-20261013.json",
+      "sha256": "7a97aa1eb654cb9aed760402ffa9caf2803f698de5188fcd3a96b9fd9efe2835",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/fourtask-cuda-verification-final-20261013.json",
+      "sha256": "e03688f7c9bc2317df6f949c33c94e5c341dc9817f5f2cb385261114b09772d9",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/historical-fourtask-verification-bound.json",
+      "sha256": "d3c64c2bfae65d2c5bae87092209ca62c73540fa880205876554dcb1b4ec4225",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/historical-fourtask-verification-final.json",
+      "sha256": "286c0fe0d75f342e6a0b3dccdc0104bea85eea3f2e8a910c5f1b29928651e4d9",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/historical-multitask-verification.json",
+      "sha256": "a652ceb65837f4e5c9b01c1a5d390ab0c359d3dfbee241dd952b79fc15fc069d",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/multitask-cuda-20261013/experiment.json",
+      "sha256": "643ed09fb99e513952e5cf48daeba4825716a5dd17559907fbd88c30fd3b2fd0",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/multitask-cuda-verification-20261013.json",
+      "sha256": "62145d5687002dc1e64e6ba73cb6452ddf9144dc634b4387940182678a856235",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/official-wheel-verification.json",
+      "sha256": "55f15ddc2b83034586591fb1bf5742ba5db467c3f863001f872e10d8a141470d",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/pr-status-20261013.json",
+      "sha256": "b31960c228018c47eda506b08dd8001131435d2fba30d55a4f5153ddd3e19f1d",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/runtime-cpu-20261013.json",
+      "sha256": "51613a38f483de37a7e86cfe85c7d03274ceac5b49b33b97046ab1191f64a735",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/runtime-cuda-20261013.json",
+      "sha256": "27e57e9bf5f3f51b5d8d04b4bf5004784d4d4e44af32652669926f9b2056d588",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/training-source-audit-20261013.json",
+      "sha256": "cad7fef0ffde80fb427990339c6a90c494fd40317432671f70abe7ee4b38cc89",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/integration/validation-tests-20261013.json",
+      "sha256": "9b1b383560ba113003e7836be6a34461d7d30c3d3e6ae5d4a06b22c238a0cf52",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/local-model-browser-audit.json",
+      "sha256": "df80195090609b6da82504831496498df28cdb52db4f4b8db4f5667b27eb73be",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/local-model-verification.json",
+      "sha256": "1cdd592c2659caef6b0c42f1ee224f71321b8c2904cb505f95a3a4c4f4db34a3",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/main-merge/main-acceptance-20261013.json",
+      "sha256": "fedeeac14b7e8f45678a704f1d90e96eba35f88e585bfec940696520fde034d1",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/main-merge/post-main-artifact-audit.json",
+      "sha256": "700870e6e7037a3512e617e0720ff7c0e602a7f81cdfd9dae4f89293258ddb06",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/main-merge/post-main-runtime.json",
+      "sha256": "65c9b632e5ae127af7ed6e341e4bb68164c93dfb28feb17d325ef146ab9ae145",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/main-merge/premerge-live-api.json",
+      "sha256": "f311e84307827e90ba227732089bfb3203a09e64f49d2eacdfd9a4a5af32fbc7",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/main-merge/premerge-security-audit.json",
+      "sha256": "a9b9d1dd0c73a87636a904c42f5bd8909ed3192eb3369f3f29261ccb13983049",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/main-merge/premerge-snapshot.json",
+      "sha256": "a4cc112e7fa81105a12df2c4c0daf78442cddd84691aebf2064ccfbc52cfb855",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3-multitask/ablation-verification.json",
+      "sha256": "a47475e20a27d29162d1be35eb9b2b6dbbdfbbb3c8cc95bedc5306bd113a1ad7",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3-multitask/baselines-20261013/experiment.json",
+      "sha256": "2363fef3d0cda147b8a230cbee036ba62355de7a5edcc5b8150d493218a0858d",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3-multitask/development-summary.json",
+      "sha256": "64764b7365feae56e7077ac1f78a514a8c889b012ee132cfff1c1f6c66d048cd",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3-multitask/integration-verification-final.json",
+      "sha256": "d5ac695d079ebf1ff1e3aec99624cb89a1ba1d11124f9fe4bee2c8c9234d3f2e",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3-multitask/research-http-verification.json",
+      "sha256": "f7fadf46ba9e147fb1501d1d794722161c3f8b915a9c912683ef01427e9544ed",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3-multitask/v2-preservation.json",
+      "sha256": "30572edf48ef4123261097539f86d86e15b15629cd26e1e602525b818600330e",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3/baselines-20261013/experiment.json",
+      "sha256": "e99df03b28b9815cb2091e79c986aed10adc390b7222bf3684f76be60d826625",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3/development-summary.json",
+      "sha256": "69e4e65eb7bacf5ca7b48de609fdc42157d142a6efd53a5ebdda28a7006357dd",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3/integration-verification.json",
+      "sha256": "fcd9ab2dae778283f45c646e3caac47314ebb28bb4493a91df80451f3e8f3e8d",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "artifacts/v3/v2-preservation.json",
+      "sha256": "9c9f30fa357dc5d7acb9e69092ef5e12434c2c6c21ade7120528f2ce086e3724",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "models/aidd-toxnet/evaluation.json",
+      "sha256": "e6f60ceb3ca2d2f125e7df74ccdfabc709bf72d6f46ecb9ff49c6f3696f0e6c1",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "models/aidd-toxnet/manifest.json",
+      "sha256": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "models/aidd-toxnet/split.json",
+      "sha256": "39be266ac00d9af84f858ccdc2471c9fa13972fba326dc1838913ab942440193",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "models/aidd-toxnet/test-predictions.json",
+      "sha256": "694b7a950947f8829156f911fdb8e22afe9c445790da24fb30acc57318690dae",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "models/aidd-toxnet/training-history.json",
+      "sha256": "2569105de7bcc4d68983a6826d26ba3ef65c4083214011a544f59664a8705340",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "models/aidd-toxnet/training-references.json",
+      "sha256": "3a179a245ac90f1dd76498430cedbd82d30b97dd246ecfac44351561552f29a6",
+      "unchangedFromHistoricalMain": true
+    },
+    {
+      "file": "models/aidd-toxnet/weights.pt",
+      "sha256": "5c22f6cc5dd3e388086f6be75f559277b1dc6a3e155f9067a29b4ac0517c1398",
+      "unchangedFromHistoricalMain": true
+    }
+  ],
+  "originalCompareReceipts": [
+    {
+      "file": "artifacts/compare/artifact-preservation.json",
+      "sha256": "416b6267c9a7c572ed80788ae63ecaf769590940110e314c0eda0e02c47364b6",
+      "gitCanonicalSha256": "4963d587a9c329a536638814e4032e02f2c52b286a8e34edd292e2f68dd09778",
+      "unchangedGitContent": true,
+      "comparison": "Git text content; checkout CRLF normalized"
+    },
+    {
+      "file": "artifacts/compare/runtime-verification.json",
+      "sha256": "7dbc6cf6d4a260573833224e4d6c0ffafa4c4b6e8a482f3adb0d6fc62e39f218",
+      "gitCanonicalSha256": "defbeea5a3c4d8258f189793554c10e84646400f53ba4253dfb7474d78b66b97",
+      "unchangedGitContent": true,
+      "comparison": "Git text content; checkout CRLF normalized"
+    },
+    {
+      "file": "artifacts/compare/validation.json",
+      "sha256": "4b54a20aad7d9b109d0fa0c0718a0e1f2e873b7de3b03b2c3942a2e929162aab",
+      "gitCanonicalSha256": "effb9ab3157893914ac6472961c260a6a522c7dfd1aa1a4ec240b2e800a82147",
+      "unchangedGitContent": true,
+      "comparison": "Git text content; checkout CRLF normalized"
+    },
+    {
+      "file": "artifacts/compare/browser-verification.json",
+      "sha256": "40b2a5c3094178c3230636d7355f042f9ca7f4089376e48b8befca04d20d31d3",
+      "gitCanonicalSha256": "9b1796c19cc63aa2b9ecaa68ff13863cfdca2db94d2a1f4383b4e34073168325",
+      "unchangedGitContent": true,
+      "comparison": "Git text content; checkout CRLF normalized"
+    }
+  ],
+  "newMetricsInvented": false
+}

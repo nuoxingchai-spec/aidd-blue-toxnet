@@ -1,0 +1,133 @@
+{
+  "schema": "aidd.compare.real-runtime-verification.v1",
+  "generatedAt": "2026-10-13T17:25:19.695731+00:00",
+  "realB16": true,
+  "cloudCallAllowed": false,
+  "txgemmaExecuted": false,
+  "device": "cuda",
+  "runs": [
+    {
+      "status": "partial",
+      "b16Status": "completed",
+      "tox21InReport": true,
+      "taskCount": 16,
+      "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+      "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "formalAvailability": false,
+      "metrics": {
+        "loadAndExecutionSeconds": 8.024040300020715,
+        "predictionSeconds": 0.5154183999984525,
+        "promptTokens": null,
+        "completionTokens": null,
+        "cost": null,
+        "gpu": {
+          "peakAllocatedBytes": 187969024,
+          "peakReservedBytes": 213909504,
+          "measured": true,
+          "scope": "this isolated B16 process including load and requested attribution; not total board memory"
+        },
+        "wallSeconds": 9.753878399991663,
+        "queueWaitMs": 0.004,
+        "durationMs": 9754.171,
+        "cleanupState": {
+          "state": "released",
+          "pending": false,
+          "confirmed": true,
+          "errorCode": null
+        }
+      },
+      "reportStatuses": {
+        "ollama-qwen-local": "unavailable",
+        "deepseek-api": "skipped"
+      }
+    },
+    {
+      "status": "partial",
+      "b16Status": "completed",
+      "tox21InReport": false,
+      "taskCount": 16,
+      "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+      "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "formalAvailability": false,
+      "metrics": {
+        "loadAndExecutionSeconds": 9.326165000005858,
+        "predictionSeconds": 0.2856082000071183,
+        "promptTokens": null,
+        "completionTokens": null,
+        "cost": null,
+        "gpu": {
+          "peakAllocatedBytes": 187969024,
+          "peakReservedBytes": 213909504,
+          "measured": true,
+          "scope": "this isolated B16 process including load and requested attribution; not total board memory"
+        },
+        "wallSeconds": 11.294627799972659,
+        "queueWaitMs": 0.004,
+        "durationMs": 11294.911,
+        "cleanupState": {
+          "state": "released",
+          "pending": false,
+          "confirmed": true,
+          "errorCode": null
+        }
+      },
+      "reportStatuses": {
+        "ollama-qwen-local": "unavailable",
+        "deepseek-api": "skipped"
+      }
+    }
+  ],
+  "modelStatuses": [
+    {
+      "id": "toxnet-v3-b16",
+      "available": true,
+      "configured": true,
+      "actualModelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+      "revision": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "errorCode": null,
+      "device": "cuda",
+      "licenseStatus": "project-research-head; encoder-Apache-2.0"
+    },
+    {
+      "id": "txgemma-2b-predict",
+      "available": false,
+      "configured": false,
+      "actualModelId": "google/txgemma-2b-predict",
+      "revision": "6b0eb81135ad9e73c9c18409c03e315a5a23a18f",
+      "errorCode": "TXGEMMA_DISABLED",
+      "device": "cpu",
+      "licenseStatus": "not-accepted"
+    },
+    {
+      "id": "ollama-qwen-local",
+      "available": false,
+      "configured": true,
+      "actualModelId": null,
+      "revision": null,
+      "errorCode": "OLLAMA_MODEL_NOT_INSTALLED",
+      "device": "ollama-managed; unmeasured",
+      "licenseStatus": "local-package-license-not-reviewed"
+    },
+    {
+      "id": "deepseek-api",
+      "available": false,
+      "configured": false,
+      "actualModelId": null,
+      "revision": null,
+      "errorCode": "DEEPSEEK_UNCONFIGURED",
+      "device": "provider-managed; unmeasured",
+      "licenseStatus": "account-service-terms-required"
+    }
+  ],
+  "v2Version": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "status": "passed",
+  "equivalentInputsVerified": true,
+  "v2ProtectedFiles": 10,
+  "v2ArtifactsUnchanged": true,
+  "b16ArtifactsUnchanged": true,
+  "scientificAccuracyMeasured": false,
+  "queryRowsIncluded": false,
+  "scope": "real B16 HTTP inference and equivalent input; local Ollama attempted, no cloud or TxGemma generation"
+}

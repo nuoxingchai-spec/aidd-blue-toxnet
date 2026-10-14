@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import io
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal
@@ -10,6 +11,7 @@ from uuid import uuid4
 
 from fastapi import FastAPI, Request
 from backend.research_routes import create_research_router
+from backend.compare_routes import build_compare_service, create_compare_router
 from backend.explanation_routes import create_explanation_router
 from backend.explanation_service import ExplanationService
 from backend.multitask_model import MultitaskModelClient
@@ -130,26 +132,46 @@ def _compose(smiles: str, mode: str, provider: str | None, registry: dict, defau
     return result
 
 
-def create_app(registry: dict | None = None, default_provider: str | None = None, config_path: Path | None = None, env: dict | None = None, local_client=None, explanation_service=None) -> FastAPI:
+def create_app(registry: dict | None = None, default_provider: str | None = None, config_path: Path | None = None, env: dict | None = None, local_client=None, explanation_service=None, compare_service=None) -> FastAPI:
     configuration = ModelConfigurationStore(config_path or ROOT / ".env", registry=registry, env=env)
     registry = configuration.registry
     local = registry.get("local") or local_client or LocalModelClient(model_dir=config_path.parent / "models/aidd-toxnet" if config_path else None, env=configuration.startup_values)
     registry.setdefault("local", local)
     active_provider = default_provider or configuration.startup_values.get("TOXILENS_DEFAULT_PROVIDER") or next((key for key, value in registry.items() if value.get_public_config()["configured"]), "custom")
-    application = FastAPI(title="AIDD 蓝研 API", version=API_VERSION, docs_url=None, redoc_url=None, openapi_url="/api/openapi.json")
+    compare = compare_service or build_compare_service(configuration)
+
+    @asynccontextmanager
+    async def lifespan(application):
+        await compare.start()
+        try:
+            yield
+        finally:
+            await compare.close()
+
+    application = FastAPI(title="AIDD 蓝研 API", version=API_VERSION, docs_url=None, redoc_url=None, openapi_url="/api/openapi.json", lifespan=lifespan)
     application.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "[::1]", "testserver"])
 
     @application.middleware("http")
     async def security_headers(request: Request, call_next):
         request.state.request_id = uuid4().hex
-        if request.method == "POST":
+        if request.method in ("POST", "PATCH", "DELETE"):
             origin = request.headers.get("origin")
             if origin and origin != f"{request.url.scheme}://{request.url.netloc}":
                 return JSONResponse({"error": {"code": "CROSS_ORIGIN_REQUEST", "message": "仅允许来自本工作台的请求。", "requestId": request.state.request_id}}, status_code=403)
             size = request.headers.get("content-length", "0")
             if not size.isdigit() or int(size) > 16384:
                 return JSONResponse({"error": {"code": "REQUEST_TOO_LARGE", "message": "请求内容过大。", "requestId": request.state.request_id}}, status_code=413)
-            if request.url.path.startswith("/api/providers/") and request.url.path.endswith("/config") and request.headers.get("content-type", "").split(";", 1)[0].strip().lower() != "application/json":
+            # Bound actual bytes too, including chunked bodies with no declared
+            # length. Starlette's cached body is replayed for JSON validation.
+            chunks, received = [], 0
+            async for chunk in request.stream():
+                received += len(chunk)
+                if received > 16384:
+                    return JSONResponse({"error": {"code": "REQUEST_TOO_LARGE", "message": "请求内容过大。", "requestId": request.state.request_id}}, status_code=413)
+                chunks.append(chunk)
+            request._body = b''.join(chunks)
+            json_required = (request.url.path.startswith("/api/providers/") and request.url.path.endswith("/config")) or request.url.path.startswith("/api/research/compare/")
+            if request.method in ("POST", "PATCH") and json_required and request.headers.get("content-type", "").split(";", 1)[0].strip().lower() != "application/json":
                 return JSONResponse({"error": {"code": "JSON_CONTENT_TYPE_REQUIRED", "message": "API 配置必须使用 JSON 请求。", "requestId": request.state.request_id}}, status_code=415)
         response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id
@@ -205,15 +227,21 @@ def create_app(registry: dict | None = None, default_provider: str | None = None
     def index():
         return FileResponse(ROOT / "index.html")
 
+    @application.get("/compare")
+    def compare_page():
+        return FileResponse(ROOT / "compare.html")
+
     @application.get("/{asset}")
     def static_asset(asset: str):
-        if asset not in ("app.js", "toxicity-core.js", "styles.css"):
+        if asset not in ("app.js", "toxicity-core.js", "styles.css", "compare.html", "compare-app.js", "compare-core.js", "compare.css"):
             return JSONResponse({"error": {"code": "NOT_FOUND", "message": "未找到该资源。"}}, status_code=404)
         return FileResponse(ROOT / asset)
 
     application.include_router(create_research_router(env=configuration.startup_values))
     application.include_router(create_explanation_router(explanation_service or ExplanationService(local, configuration,
                                research_client=MultitaskModelClient.from_env(configuration.startup_values))))
+    application.include_router(create_compare_router(compare))
+    application.state.compare_service = compare
     return application
 
 

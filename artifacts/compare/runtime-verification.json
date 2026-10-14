@@ -1,0 +1,121 @@
+{
+  "schema": "aidd.compare.real-runtime-verification.v1",
+  "generatedAt": "2026-10-13T12:26:18.158053+00:00",
+  "realB16": true,
+  "cloudCallAllowed": false,
+  "txgemmaExecuted": false,
+  "device": "cuda",
+  "runs": [
+    {
+      "status": "partial",
+      "b16Status": "completed",
+      "tox21InReport": true,
+      "taskCount": 16,
+      "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+      "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "formalAvailability": false,
+      "metrics": {
+        "loadAndExecutionSeconds": 6.07946660000016,
+        "predictionSeconds": 0.2099342000001343,
+        "promptTokens": null,
+        "completionTokens": null,
+        "cost": null,
+        "gpu": {
+          "peakAllocatedBytes": 187969024,
+          "peakReservedBytes": 213909504,
+          "measured": true,
+          "scope": "this isolated B16 process including load and requested attribution; not total board memory"
+        },
+        "wallSeconds": 7.301577600010205,
+        "queueWaitMs": 0.002,
+        "durationMs": 7301.781
+      },
+      "reportStatuses": {
+        "ollama-qwen-local": "unavailable",
+        "deepseek-api": "skipped"
+      }
+    },
+    {
+      "status": "partial",
+      "b16Status": "completed",
+      "tox21InReport": false,
+      "taskCount": 16,
+      "modelVersion": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+      "weightsSha256": "2229faa18f2dd3240b726efaf2653b163f9b867fb6844aea9f71ab4b6fb4e3b3",
+      "manifestSha256": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "formalAvailability": false,
+      "metrics": {
+        "loadAndExecutionSeconds": 6.111725499999011,
+        "predictionSeconds": 0.1975801000080537,
+        "promptTokens": null,
+        "completionTokens": null,
+        "cost": null,
+        "gpu": {
+          "peakAllocatedBytes": 187969024,
+          "peakReservedBytes": 213909504,
+          "measured": true,
+          "scope": "this isolated B16 process including load and requested attribution; not total board memory"
+        },
+        "wallSeconds": 7.294422100007068,
+        "queueWaitMs": 0.001,
+        "durationMs": 7294.615
+      },
+      "reportStatuses": {
+        "ollama-qwen-local": "unavailable",
+        "deepseek-api": "skipped"
+      }
+    }
+  ],
+  "modelStatuses": [
+    {
+      "id": "toxnet-v3-b16",
+      "available": true,
+      "configured": true,
+      "actualModelId": "aidd-toxnet-multitask-b16-42-2229faa18f2d",
+      "revision": "d8936e9d009e87cff4ae0695ff7cdee011a81f338b3b38a7927ace5c3125864c",
+      "errorCode": null,
+      "device": "cuda",
+      "licenseStatus": "project-research-head; encoder-Apache-2.0"
+    },
+    {
+      "id": "txgemma-2b-predict",
+      "available": false,
+      "configured": false,
+      "actualModelId": "google/txgemma-2b-predict",
+      "revision": "6b0eb81135ad9e73c9c18409c03e315a5a23a18f",
+      "errorCode": "TXGEMMA_DISABLED",
+      "device": "cpu",
+      "licenseStatus": "not-accepted"
+    },
+    {
+      "id": "ollama-qwen-local",
+      "available": false,
+      "configured": true,
+      "actualModelId": null,
+      "revision": null,
+      "errorCode": "OLLAMA_UNAVAILABLE",
+      "device": "ollama-managed; unmeasured",
+      "licenseStatus": "local-package-license-not-reviewed"
+    },
+    {
+      "id": "deepseek-api",
+      "available": false,
+      "configured": false,
+      "actualModelId": null,
+      "revision": null,
+      "errorCode": "DEEPSEEK_UNCONFIGURED",
+      "device": "provider-managed; unmeasured",
+      "licenseStatus": "account-service-terms-required"
+    }
+  ],
+  "v2Version": "aidd-toxnet-v2-5c22f6cc5dd3",
+  "status": "passed",
+  "equivalentInputsVerified": true,
+  "v2ProtectedFiles": 10,
+  "v2ArtifactsUnchanged": true,
+  "b16ArtifactsUnchanged": true,
+  "scientificAccuracyMeasured": false,
+  "queryRowsIncluded": false,
+  "scope": "real B16 HTTP inference and equivalent input; local Ollama attempted, no cloud or TxGemma generation"
+}

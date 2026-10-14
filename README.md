@@ -187,3 +187,22 @@ node --test test/*.test.js
 ## 四轮正式代码整合
 
 2026-10-13 获得用户明确授权后，PR #1–#4 已依次通过普通 merge commit 合入 main，原分支和历史训练源码保留。main 源码重新通过 CPU/CUDA 环境各 326 项 Python 测试、52 项 JavaScript 测试及真实模型接口验收；v2 正式工件保持不变，v3 仍为研究模型。实际合并 SHA、验收证据、新电脑运行条件及后续边界见 [MAIN_INTEGRATION_ACCEPTANCE.md](MAIN_INTEGRATION_ACCEPTANCE.md)。没有 GitHub Actions 成功记录，不把本机测试写成 CI 通过。
+## 四模型研究 Compare 工作台
+
+新增 `/compare`：真实 ToxNet v3 B16 主预测、审核合同下的 TxGemma 专项预测、本机 Ollama Qwen 主报告，以及逐次授权的 DeepSeek 独立报告。浅蓝色独立页面连接异步 FastAPI，支持四卡状态、4+12任务表、双栏报告、来源核验、真实性能、取消、预设与JSON导出；输入或配置变化使旧结果失效。
+
+初版Compare已记录真实CUDA B16及旧v2 HTTP验收；其余三项适配器的软件测试不代表真实部署。后续P0/P1加固取消/清理、脱敏诊断、真实usage保留、本机历史和交互恢复：不变报告保留原DOM、详情和焦点，实验检索与归因可独立启用，预设支持创建/更新/重命名/删除，当前Qwen选择和DeepSeek访问待核验分别展示。
+
+历史默认只在本机SQLite schema2保存脱敏摘要；完整SMILES、研究问题、检索观察和报告全文需逐次勾选 `persistSensitiveContent=true`。预设不保存云端授权，历史只保留原运行的授权/请求审计标记，不复用执行许可。浏览器仅记住runId，历史打开和刷新不重跑模型。Windows OneDrive目录默认把数据库放到非同步的LocalAppData；资源清理未确认时持久隔离，普通重启不解锁。当前实现仅支持同一库的单进程/单worker，无法调度外部GPU应用。维护恢复命令及API详情见 [AIDD_COMPARE_WORKBENCH.md](AIDD_COMPARE_WORKBENCH.md) 和 [MODEL_API_CONTRACT.md](MODEL_API_CONTRACT.md)。
+
+本次P0/P1最终测试、Linux CI与真实模型复验状态以新增验收记录为准，未在这里预先填写通过数量或部署结论。Ollama、TxGemma、DeepSeek哪些已安装/授权/真正执行，需要分别验收；未报告费用为unknown，不能当作零费用。模型不投票、不平均、不排名，v3始终 `formalAvailability=false`。
+
+2026-10-14 本机已真实完成 B16 → Ollama TxGemma BBB_Martins → Qwen3.5:4b 的研究流程，DeepSeek未调用。新增量化来源校验与报告生成预算配置；TxGemma量化发布者未公开官方上游修订，不能冒充已审核的官方权重版本。最新验收、后端重新加载状态及Windows命令见 [OLLAMA_DEPLOYMENT_ACCEPTANCE.md](OLLAMA_DEPLOYMENT_ACCEPTANCE.md)。
+
+### Compare 轻量报告与透明计量
+
+新增严格 `aidd.compare.report.v2`：Qwen/DeepSeek只排列事实ID和章节并提供有界中文解释，所有真实分数、专项类别、结构、来源与版本由后端不可变快照重建。生成解释始终unverified，不改毒性预测或科学结论。新前端显式使用v2并提供Fast/Deep切换；旧API省略新字段仍默认v1/deep，历史记录可继续查看。Fast和Deep均保留全部请求事实和科研限制，减少重复生成只是工程设计，是否更快以实际同条件基准为准。
+
+中文问题通过本机确定性术语映射，支持四端点、BBB和Tox21主题；歧义或未支持任务明确提示，BBB仍需自己选择已审核专项任务，不自动定义实验标签。`GET /api/research/compare/runtime` 提供启动源码SHA和Compare资源状态，历史增加仅元数据的 `q` 搜索；SQLite继续schema2，不回填或重写旧报告。可选 `TOXNET_COMPARE_GPU_SAMPLING=true` 记录每阶段整卡采样占用，不能等同PyTorch分配或单模型精确显存峰值。
+
+完整合同、字符预算和Windows启动/恢复流程见 [COMPARE_REPORT_OPTIMIZATION.md](COMPARE_REPORT_OPTIMIZATION.md)，方法和真实计量见 [COMPARE_PERFORMANCE_BENCHMARK.md](COMPARE_PERFORMANCE_BENCHMARK.md)。新验收使用独立 `artifacts/compare/report-optimization-20261014/receipt.json`，不覆盖历史记录；没有实际成功回执的模型执行、Token、耗时和提速仍待验证。正式v2、B16权重与历史评估不变，全部v3继续研究用途；DeepSeek未经新授权不进行收费API调用。

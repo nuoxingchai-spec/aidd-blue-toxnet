@@ -1,0 +1,58 @@
+{
+  "schema": "aidd.compare.delivery-validation.v1",
+  "generatedAt": "2026-10-13T12:27:35.920353+00:00",
+  "status": "passed",
+  "tests": [
+    {
+      "environment": "cpu",
+      "command": "python -m unittest discover -s test -p 'test_*.py' -q",
+      "passed": 417,
+      "status": "passed",
+      "scope": "software tests; mocks are not deployed model or scientific accuracy evidence"
+    },
+    {
+      "environment": "cuda",
+      "command": "python -m unittest discover -s test -p 'test_*.py' -q",
+      "passed": 417,
+      "status": "passed",
+      "scope": "software tests; mocks are not deployed model or scientific accuracy evidence"
+    },
+    {
+      "command": "node --test test/*.test.js",
+      "passed": 70,
+      "status": "passed"
+    },
+    {
+      "command": "python -m pip check",
+      "environment": "cpu",
+      "status": "passed",
+      "brokenRequirements": 0
+    },
+    {
+      "command": "python -m pip check",
+      "environment": "cuda",
+      "status": "passed",
+      "brokenRequirements": 0
+    },
+    {
+      "command": "node --check compare-app.js / compare-core.js",
+      "status": "passed"
+    }
+  ],
+  "reportedFromActualLogs": true,
+  "realModelEvidence": "runtime-verification.json",
+  "notExecuted": [
+    "real Qwen report: local daemon unreachable",
+    "real TxGemma prediction: license not accepted and weights absent",
+    "paid DeepSeek API: not automatically authorized",
+    "accuracy ranking: no new independent labels"
+  ],
+  "cpuDependencyVersions": {
+    "fastapi": "0.143.0",
+    "httpx": "0.28.1",
+    "rdkit": "2026.9.1",
+    "transformers": "4.57.6",
+    "torch": "2.14.1"
+  },
+  "noScientificAccuracyClaim": true
+}
