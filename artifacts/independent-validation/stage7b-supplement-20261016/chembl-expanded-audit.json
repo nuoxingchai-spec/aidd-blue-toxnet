@@ -1,0 +1,381 @@
+{
+  "additiveFullSourceHistory": {
+    "blockingReasons": [
+      "historical-full-tox21:unresolved-historical-structures"
+    ],
+    "complete": false,
+    "historicalLabelsUsedForSelection": false,
+    "labelsRead": false,
+    "receiptSha256": "21e183b8c380be1699209c828e32bc07d12a603b80fae2d00fc9d1d1d711c756",
+    "schema": "aidd.stage7b.full-source-history.v1",
+    "sources": {
+      "historical-full-herg-karim": {
+        "expectedSourceSha256": "b47cbff0d65bbb5c6ade5ecd4c5bab20158c6cbf631a68f355efbe7e5fafc099",
+        "inputRows": 13445,
+        "labelsRead": false,
+        "status": "verified-structure-projection",
+        "structureMembersSha256": "5711e53781c30a8fcfb311bc9bade6bb6ec06a77b895023f67b69028c7442b01",
+        "uniqueCanonicalStructures": 13445,
+        "unsupportedOrMissingRows": 0,
+        "validStructureRows": 13445
+      },
+      "historical-full-tox21": {
+        "expectedSourceSha256": "6e2bf5437e3016a77c850ad49a6112f9f00e61d3f62ade110cd99172c0bd53a1",
+        "inputRows": 7831,
+        "labelsRead": false,
+        "status": "verified-structure-projection",
+        "structureMembersSha256": "acc38d13693afaa619b2fb6834568a40ac2d7e6dad0eaa36cc4042225dd0b641",
+        "uniqueCanonicalStructures": 7822,
+        "unsupportedOrMissingRows": 9,
+        "validStructureRows": 7822
+      }
+    }
+  },
+  "auditSha256": "a467e57eba0f9f5ef31e8f278234d9cdfd83dcaf2f80e5c672f111955f13e530",
+  "baseFixedReferenceAudit": {
+    "assayMetadataCount": 237,
+    "assaySpeciesRecordCounts": {
+      "human": 1756,
+      "non-human": 29,
+      "unspecified": 215
+    },
+    "assayTypeRecordCounts": {
+      "B": 1539,
+      "F": 155,
+      "T": 306
+    },
+    "blockingReasons": [
+      "historical-herg-literature-source-family-not-disjoint",
+      "historical-publication-assay-cohort-mapping-incomplete",
+      "local-research-rights-not-reviewed",
+      "source-population-independence-not-reviewed",
+      "task-equivalence-not-reviewed"
+    ],
+    "canEnterStage7C": false,
+    "chemistryVersion": "rdkit-chemistry-1.0.0",
+    "completeReferences": true,
+    "connectedOverlapDistinctStructureCount": 0,
+    "directHistoricalOverlapDistinctStructureCount": 1267,
+    "distinctCanonicalStructureCount": 1638,
+    "documentMetadataCount": 161,
+    "duplicateCanonicalGroupCount": 206,
+    "duplicateCanonicalRecordCount": 568,
+    "duplicateMoleculeIdCount": 206,
+    "duplicateMoleculeRecordCount": 568,
+    "endpointUnitRecordGroups": [
+      {
+        "endpoint": "Activity",
+        "recordCount": 39,
+        "unit": "%"
+      },
+      {
+        "endpoint": "Activity",
+        "recordCount": 74,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "Activity",
+        "recordCount": 42,
+        "unit": "uM"
+      },
+      {
+        "endpoint": "Activity",
+        "recordCount": 14,
+        "unit": "unspecified"
+      },
+      {
+        "endpoint": "EC50",
+        "recordCount": 3,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "EC50",
+        "recordCount": 1,
+        "unit": "unspecified"
+      },
+      {
+        "endpoint": "IC50",
+        "recordCount": 795,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "IC50",
+        "recordCount": 3,
+        "unit": "other-unreviewed"
+      },
+      {
+        "endpoint": "IC50",
+        "recordCount": 32,
+        "unit": "unspecified"
+      },
+      {
+        "endpoint": "Inhibition",
+        "recordCount": 424,
+        "unit": "%"
+      },
+      {
+        "endpoint": "Ki",
+        "recordCount": 437,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "Ki",
+        "recordCount": 5,
+        "unit": "unspecified"
+      },
+      {
+        "endpoint": "other-unreviewed",
+        "recordCount": 101,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "other-unreviewed",
+        "recordCount": 13,
+        "unit": "uM"
+      },
+      {
+        "endpoint": "other-unreviewed",
+        "recordCount": 17,
+        "unit": "unspecified"
+      }
+    ],
+    "exactPublicationAssayCohortIndependence": "unresolved-incomplete-historical-row-provenance",
+    "exclusiveRecordExclusions": {
+      "duplicate-canonical-structure": 96,
+      "historical-structure-overlap": 1579,
+      "unresolved-record-metadata": 35,
+      "unresolved-task-rights-and-source-review": 290
+    },
+    "historicalOverlapDistinctStructuresByIdentity": {
+      "canonical": 752,
+      "parent": 1098,
+      "scaffold": 1267,
+      "stereoIsotopeEquivalent": 989,
+      "tautomerParent": 1121
+    },
+    "historicalOverlapDistinctStructuresByRole": {
+      "audited-tox21-source": 144,
+      "exposed-herg-karim": 990,
+      "v2-test": 64,
+      "v2-train": 209,
+      "v2-validation": 57,
+      "v3-audited-train": 60,
+      "v3-audited-validation": 113,
+      "v3-four-train": 116,
+      "v3-four-validation": 57,
+      "v3-multitask-train": 60,
+      "v3-multitask-validation": 113
+    },
+    "historicalReferenceCounts": {
+      "audited-tox21-source": {
+        "labelsReadForSelection": false,
+        "structures": 7822
+      },
+      "exposed-herg-karim": {
+        "labelsReadForSelection": false,
+        "structures": 9978
+      },
+      "v2-test": {
+        "labelsReadForSelection": false,
+        "structures": 937
+      },
+      "v2-train": {
+        "labelsReadForSelection": false,
+        "structures": 7535
+      },
+      "v2-validation": {
+        "labelsReadForSelection": false,
+        "structures": 956
+      },
+      "v3-audited-train": {
+        "labelsReadForSelection": false,
+        "structures": 4804
+      },
+      "v3-audited-validation": {
+        "labelsReadForSelection": false,
+        "structures": 1462
+      },
+      "v3-four-train": {
+        "labelsReadForSelection": false,
+        "structures": 4243
+      },
+      "v3-four-validation": {
+        "labelsReadForSelection": false,
+        "structures": 1045
+      },
+      "v3-multitask-train": {
+        "labelsReadForSelection": false,
+        "structures": 4804
+      },
+      "v3-multitask-validation": {
+        "labelsReadForSelection": false,
+        "structures": 1462
+      }
+    },
+    "identityPolicy": "Strict canonical input retained. Audit only: remove stereo and isotopes; LargestFragmentChooser(preferOrganic=True), Uncharger, tautomer canonicalizer; compare original/full and neutral-parent Bemis-Murcko scaffolds. All acyclic structures share [ACYCLIC]. Connected components are indivisible.",
+    "identityVersion": "aidd.v3.leakage-identities.v1",
+    "independentAccuracyEvaluated": false,
+    "independentlyQualifiedStructureCount": 0,
+    "inputRecordCount": 2000,
+    "invalidStructureRecordCount": 0,
+    "labelsIncluded": false,
+    "labelsRead": false,
+    "limitations": [
+      "Metadata survey only; no endpoint/unit conversion or binary positive definition is inferred.",
+      "The human target organism does not establish the species or conditions of each assay.",
+      "Structural disjointness does not establish experiment/source-population independence.",
+      "All acyclic structures share one conservative identity group.",
+      "Reason counts overlap; exclusive record exclusions partition the input records.",
+      "A bounded survey cannot establish eligibility or absence of eligible data in the full release."
+    ],
+    "missingStructureRecordCount": 0,
+    "negativeCount": null,
+    "nonAdditiveRecordReasonCounts": {
+      "direct-target-mapping-not-established": 244,
+      "duplicate-canonical-structure": 568,
+      "duplicate-molecule-identifier": 568,
+      "historical-herg-literature-source-family-not-disjoint": 2000,
+      "historical-publication-assay-cohort-mapping-incomplete": 2000,
+      "historical-structure-overlap": 1579,
+      "human-assay-species-not-established": 244,
+      "local-research-rights-not-reviewed": 2000,
+      "missing-endpoint-or-unit": 69,
+      "source-population-independence-not-reviewed": 2000,
+      "task-equivalence-not-reviewed": 2000
+    },
+    "oldTestLabelsUsedForSelection": false,
+    "positiveCount": null,
+    "pretrainingStructureExposure": "unknown",
+    "qualified": false,
+    "rdkitVersion": "2026.09.1",
+    "referencesSha256": "07a8f334af4cd78a1c99971b63fd20ef7ec101c473651ae1ea5b3da7beaefce0",
+    "schema": "aidd.stage7.candidate-audit.v1",
+    "sealingPerformed": false,
+    "sourceFamilyPolicy": "conservative-herg-literature-family-exclusion-pending-provenance",
+    "sourceOverlap": [
+      {
+        "historicalSourceId": "tdc-herg",
+        "matchedFields": [
+          "families"
+        ]
+      },
+      {
+        "historicalSourceId": "herg_karim",
+        "matchedFields": [
+          "families"
+        ]
+      }
+    ],
+    "sourceVersion": "ChEMBL_37",
+    "stage": "Stage7B",
+    "status": "not-independently-qualified",
+    "structurallyDisjointDistinctStructureCount": 371,
+    "structureAndDuplicateScreenPassedDistinctCount": 325,
+    "surveySha256": "d0d8ab58c7237b3c2120d89285a6a8330fb8efe4c1d4d2cb7c425481000bc961",
+    "uniqueMoleculeIdCount": 1638,
+    "validStructureRecordCount": 2000
+  },
+  "blockingReasons": [
+    "historical-full-tox21:unresolved-historical-structures",
+    "historical-herg-literature-source-family-not-disjoint",
+    "historical-publication-assay-cohort-mapping-incomplete",
+    "independent-custodian-not-established",
+    "local-research-rights-not-reviewed",
+    "original-herg-label-contract-unresolved",
+    "outcome-qualifier-and-quality-review-not-performed",
+    "source-population-independence-not-reviewed",
+    "task-equivalence-not-reviewed"
+  ],
+  "canEnterStage7C": false,
+  "candidateOutcomeClassification": {
+    "exactIC50Records": null,
+    "inequalityRecords": null,
+    "missingValueRecords": null,
+    "negativeCount": null,
+    "positiveCount": null,
+    "qualityAnomalyRecords": null,
+    "rangeRecords": null,
+    "status": "not-run-independent-custodian-required"
+  },
+  "combinedStructureScreen": {
+    "candidateResultFieldsUsed": false,
+    "connectedOverlapDistinctStructures": 0,
+    "directHistoricalOverlapDistinctStructures": 1273,
+    "distinctCanonicalStructures": 1638,
+    "exclusiveRecordDisposition": {
+      "duplicate-structure-or-molecule": 96,
+      "historical-structure-overlap": 1585,
+      "pending-task-source-rights-custodian-review": 319
+    },
+    "historyComplete": false,
+    "independentlyQualifiedStructures": 0,
+    "inputRecords": 2000,
+    "labelsRead": false,
+    "nonAdditiveHistoricalOverlapByIdentity": {
+      "canonical": 1050,
+      "parent": 1145,
+      "scaffold": 1273,
+      "stereoIsotopeEquivalent": 1142,
+      "tautomerParent": 1169
+    },
+    "nonAdditiveHistoricalOverlapByRole": {
+      "audited-tox21-source": 144,
+      "exposed-herg-karim": 990,
+      "historical-full-herg-karim": 1264,
+      "historical-full-tox21": 144,
+      "v2-test": 64,
+      "v2-train": 209,
+      "v2-validation": 57,
+      "v3-audited-train": 60,
+      "v3-audited-validation": 113,
+      "v3-four-train": 116,
+      "v3-four-validation": 57,
+      "v3-multitask-train": 60,
+      "v3-multitask-validation": 113
+    },
+    "observedDisjointDistinctStructures": 365,
+    "observedStructureAndDuplicatePasses": 319,
+    "screenStatus": "provisional-incomplete-history",
+    "sourceIndependent": false,
+    "verifiedStructureAndDuplicatePasses": null
+  },
+  "expandedBundleSchema": "aidd.stage7.chembl-expanded-labelblind.v1",
+  "expandedBundleSha256": "3cf41d4f025d7f5070676d699f56815dc2fa7e8a8a63376fb54f8e6b1a003447",
+  "formalAvailability": false,
+  "historicalSourceStructureCoverageExtended": true,
+  "labelsRead": false,
+  "modelsExecuted": false,
+  "originalAuditInputSha256": "d0d8ab58c7237b3c2120d89285a6a8330fb8efe4c1d4d2cb7c425481000bc961",
+  "originalSourceAndStructurePolicyChanged": false,
+  "performanceEvaluated": false,
+  "planChronology": {
+    "evidenceLimitation": "Local filesystem/time/control-flow evidence; no independent custodian or tamper-proof timestamp.",
+    "firstCompletedResponseUtc": "2026-10-16T12:26:36.085268+00:00",
+    "observedPlanMtimeUtc": "2026-10-16T12:26:32.114875+00:00",
+    "observedPlanTimeBeforeFirstCompletedResponse": true,
+    "writtenBeforeFirstRequestByExtractorControlFlow": true
+  },
+  "pretrainingStructureExposure": "unknown",
+  "qualified": false,
+  "retrievalBinding": {
+    "availableTargetActivityMetadataCount": 41078,
+    "bundleFileSha256": "0d9a4acb2f2046c3b4a8b155ff47c6c6172bd002fab993e92bbc893562a306e9",
+    "extractionCodeSha256": "7814628ef99fbc7839736307c4a4c3052d4223a1918a5157e37499223b00aa18",
+    "frozenAcquisitionPlanSha256": "106489148e36295b95a403fcd241f25c69b46c2dbc27eb26713e7ba4504877cd",
+    "receiptSha256": "be2b9927a51128dd45c4331e6699a5ed30707ce510241c510ec229d79a9c7c2b",
+    "responseBytes": 810225,
+    "retrievedAtUtc": "2026-10-16T12:28:51.294473+00:00",
+    "retrievedRecordCount": 2000,
+    "sharedProjectionReaderSha256": "9f93f2564c4351c765a13e037ae2cf445fa699e901a26626a3f007d78c2789d0",
+    "wholeTargetSurvey": false
+  },
+  "schema": "aidd.stage7b.expanded-candidate-audit.v1",
+  "sourceFileSha256": {
+    "backend/dataset_overlap_audit.py": "bf079aef369c5f94a55c052d95f78cc9b2919e3e2cdd1a56c54672720559c017",
+    "backend/stage7_audit.py": "2e1a283b1d0679f5a22bf9d96f8604274a79dc8ce3c35827c6a335a41f2ed7fd",
+    "backend/stage7b_supplement_audit.py": "e8cdca6ae4d5a5a6cb289b89bedd1373ba0f939c9ba7dbbd374030e89e9d56ee",
+    "backend/v3_data.py": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+    "scripts/audit_stage7b_supplement.py": "f9eeae88fcce57fb90387f1214c8dbfcde94cfd7c95020fd65d7fcadd2619ce1"
+  },
+  "status": "STAGE7C_BLOCKED"
+}

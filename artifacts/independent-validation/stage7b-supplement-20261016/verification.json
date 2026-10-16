@@ -1,0 +1,80 @@
+{
+  "actualIndependentCustodianWorkflowExecuted": false,
+  "browserVerificationRun": false,
+  "candidateLabelsRead": false,
+  "candidateModelPerformanceEvaluated": false,
+  "dependencyCheck": {
+    "command": ".venv-v3/Scripts/python.exe -m pip check",
+    "result": "No broken requirements found"
+  },
+  "environment": {
+    "auditExecution": "CPU RDKit structure/source checks; no candidate model evaluation",
+    "dependencies": {
+      "fastapi": "0.143.0",
+      "httpx": "0.28.1",
+      "numpy": "2.5.4",
+      "pydantic": "2.14.0",
+      "rdkit": "2026.9.1",
+      "scikit-learn": "1.9.1",
+      "torch": "2.14.1",
+      "transformers": "4.57.6"
+    },
+    "python": "3.13.2"
+  },
+  "evidenceSha256": {
+    "artifacts/independent-validation/stage7b-epa-structure-supplement-v2-20261016.json": "5f1f57974df829b5f482513e4257566687c21b431dbacab77c71e3260887d6f6",
+    "artifacts/independent-validation/stage7b-supplement-20261016/chembl-expanded-audit.json": "591a7697c7b577806308d4a2facbf91d7ab4ef639389b4e0a043d5b8d8bf368e",
+    "artifacts/independent-validation/stage7b-supplement-20261016/chembl-expanded-retrieval.json": "621e4080a057d3406fe5a083588587075e6a865353427b272f8e1073f22fd03b",
+    "artifacts/independent-validation/stage7b-supplement-20261016/eligibility-gate.json": "e513405a5c4b86c0828e8fd8b7b9d629db24e14776929ad5043adf56aaa95ceb",
+    "artifacts/independent-validation/stage7b-supplement-20261016/herg-contract-review.json": "3ffdd55124a5725ce11a476b15acc078a0b364cfd683af97b72d282416718a38"
+  },
+  "formalAvailability": false,
+  "gpuPeakBytes": null,
+  "gpuPerformanceMeasured": false,
+  "javascript": {
+    "command": "npm test",
+    "failures": 0,
+    "passed": 135,
+    "privateLogSha256": "fe1719f5bfc85470522d8240dc9906dba4d8eef23b8d9412f88e38743dd6eb57",
+    "skipped": 0,
+    "total": 135
+  },
+  "limitations": [
+    "Software tests include synthetic providers/encoders/toy training/custodian projections; no scientific accuracy claim.",
+    "EPA real endpoint members/structure mappings were not acquired (401).",
+    "Outcome qualifier/quality classification was not run; no candidate class distribution was accessed.",
+    "Historic raw Tox21 has 9 unresolved structure identities; additive-history verified pass count is null."
+  ],
+  "newPythonCompilation": {
+    "files": 10,
+    "status": "passed"
+  },
+  "paidModelApiCalled": false,
+  "preservation": {
+    "baseCommit": "7e47c55d6e4a2f3580938c8f0eac237a7127c51b",
+    "historicalScientificFiles": 50,
+    "initialStage7Files": 5,
+    "mainCommit": "3a7e5138398f8eea5f07ae14a083135bbc94d26b",
+    "originalCompareReceipts": 4,
+    "status": "unchanged"
+  },
+  "python": {
+    "command": ".venv-v3/Scripts/python.exe -m unittest discover -s test -p test_*.py -v",
+    "errors": 0,
+    "failures": 0,
+    "passed": 753,
+    "privateLogSha256": "77f1dee17254315fac6afc81c6abaa52a9d08b03a5bdfddbea9ebb24066430b0",
+    "seconds": 55.526,
+    "skipReasons": [
+      "Windows environment does not grant symlink creation.",
+      "POSIX mode check; Windows uses protected ACL instead"
+    ],
+    "skipped": 2,
+    "total": 755
+  },
+  "realScientificModelRetrained": false,
+  "schema": "aidd.stage7b.supplement-verification.v1",
+  "scientificGate": "STAGE7C_BLOCKED",
+  "status": "software-passed-science-blocked",
+  "verifiedAtUtc": "2026-10-16T12:47:35.440925+00:00"
+}

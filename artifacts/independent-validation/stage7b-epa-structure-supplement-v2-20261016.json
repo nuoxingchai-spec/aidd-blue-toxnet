@@ -1,0 +1,146 @@
+{
+  "blockers": [
+    "CTX-membership-projection-requires-individual-API-key",
+    "live-CTX-release-not-bound-to-invitrodb4.3",
+    "no-verified-result-free-member-to-structure-files",
+    "source-and-batch-lineage-not-reviewed",
+    "original-hERG-task-equivalence-unresolved",
+    "fixed-release-rights-review-unresolved"
+  ],
+  "canEnterStage7C": false,
+  "candidateLabelsRead": false,
+  "endpointMetadataCount": 3,
+  "evaluationPerformed": false,
+  "gateStatus": "STAGE7C_BLOCKED",
+  "independentlyQualifiedStructures": null,
+  "investigatedEndpointIds": [
+    686,
+    3184,
+    3210
+  ],
+  "mappedMembershipRows": null,
+  "mappingAuditStatus": "not-run-no-verified-endpoint-membership-and-structure-projection",
+  "mappingExclusions": null,
+  "membershipRows": null,
+  "modelsExecuted": false,
+  "officialEvidence": [
+    {
+      "bytes": 118,
+      "fileId": "epa-release-v11.json",
+      "httpStatus": 403,
+      "retrievedAtUtc": "2026-10-16T12:22:39.769892+00:00",
+      "sha256": "58bf2215b395dcac74c009aa98701854e43cbe54a1cd3a95fee6a647ca9910d4",
+      "sourceUrl": "https://api.figshare.com/v2/articles/6062623/versions/11"
+    },
+    {
+      "bytes": 82251,
+      "fileId": "epa-exploring-toxcast.html",
+      "httpStatus": 200,
+      "retrievedAtUtc": "2026-10-16T12:22:40.483222+00:00",
+      "sha256": "33b8e06e1a0c70f9b0413306e9c9b4912d4763504a79c7a77d8d7e89adb2116d",
+      "sourceUrl": "https://www.epa.gov/comptox-tools/exploring-toxcast-data"
+    },
+    {
+      "bytes": 6518,
+      "fileId": "epa-ctx-api-documentation.html",
+      "httpStatus": 404,
+      "retrievedAtUtc": "2026-10-16T12:22:40.805665+00:00",
+      "sha256": "199b876d0191032a3361571d3ee1dcf9ff966d7e67f0d3dee13de3bc01fd6e75",
+      "sourceUrl": "https://www.epa.gov/comptox-tools/computational-toxicology-and-exposure-apis-documentation"
+    },
+    {
+      "bytes": 290034,
+      "fileId": "epa-clowder-file-metadata.json",
+      "httpStatus": 200,
+      "retrievedAtUtc": "2026-10-16T12:22:57.727260+00:00",
+      "sha256": "67be4d8e9b46245f1ff7618b304cebb630787f52622e5f5d22769b2d9f24d14f",
+      "sourceUrl": "https://clowder.edap-cluster.com/api/datasets/6894f2dae4b025654d12b716/files"
+    },
+    {
+      "bytes": 1600,
+      "fileId": "epa-ctx-bioactivity-docs.html",
+      "httpStatus": 200,
+      "retrievedAtUtc": "2026-10-16T12:22:58.822043+00:00",
+      "sha256": "a48badf9aeb59c710045668978acf89b7c2f1bd10c0a3887dc647ec91950007c",
+      "sourceUrl": "https://comptox.epa.gov/ctx-api/docs/bioactivity.html"
+    },
+    {
+      "bytes": 1597,
+      "fileId": "epa-ctx-chemical-docs.html",
+      "httpStatus": 200,
+      "retrievedAtUtc": "2026-10-16T12:22:59.084369+00:00",
+      "sha256": "51667d0d8c91543646086d0b2481f753ef804ff379b72b040a41b3690656767b",
+      "sourceUrl": "https://comptox.epa.gov/ctx-api/docs/chemical.html"
+    },
+    {
+      "bytes": 74988,
+      "fileId": "epa-api-about.html",
+      "httpStatus": 200,
+      "retrievedAtUtc": "2026-10-16T12:22:59.866332+00:00",
+      "sha256": "7eed75f7cc6ebbda494890556bc0b6c5cd18f570c935928ca55c8072c53e197a",
+      "sourceUrl": "https://www.epa.gov/comptox-tools/computational-toxicology-and-exposure-apis-about"
+    },
+    {
+      "bytes": 123563,
+      "fileId": "epa-ctx-bioactivity-openapi.json",
+      "httpStatus": 200,
+      "retrievedAtUtc": "2026-10-16T12:23:32.065656+00:00",
+      "sha256": "5a14591752181a0f841d30ca6157006b1a9632ca6d524c878cd777d3b5257798",
+      "sourceUrl": "https://comptox.epa.gov/ctx-api/docs/bioactivity.json"
+    },
+    {
+      "bytes": 160760,
+      "fileId": "epa-ctx-chemical-openapi.json",
+      "httpStatus": 200,
+      "retrievedAtUtc": "2026-10-16T12:23:32.906655+00:00",
+      "sha256": "5f7bfb2f890bc7b9d0a7feff702ea49735fbd3d2a37f51e48a793605ab77f2ad",
+      "sourceUrl": "https://comptox.epa.gov/ctx-api/docs/chemical.json"
+    },
+    {
+      "authenticated": false,
+      "bytes": 164,
+      "expectedProjection": "dtxsidsonly",
+      "fileId": "epa-ctx-membership-686-unauth.json",
+      "httpStatus": 401,
+      "retrievedAtUtc": "2026-10-16T12:24:20.138582+00:00",
+      "sha256": "57225b17f9403aabe666fe555334f332456e02ab8646ddcc57f1586805aceae4",
+      "sourceUrl": "https://comptox.epa.gov/ctx-api/bioactivity/assay/chemicals/search/by-aeid/686?projection=dtxsidsonly"
+    },
+    {
+      "authenticated": false,
+      "bytes": 164,
+      "expectedProjection": "dtxsidsonly",
+      "fileId": "epa-ctx-membership-3184-unauth.json",
+      "httpStatus": 401,
+      "retrievedAtUtc": "2026-10-16T12:24:20.438493+00:00",
+      "sha256": "57225b17f9403aabe666fe555334f332456e02ab8646ddcc57f1586805aceae4",
+      "sourceUrl": "https://comptox.epa.gov/ctx-api/bioactivity/assay/chemicals/search/by-aeid/3184?projection=dtxsidsonly"
+    },
+    {
+      "authenticated": false,
+      "bytes": 164,
+      "expectedProjection": "dtxsidsonly",
+      "fileId": "epa-ctx-membership-3210-unauth.json",
+      "httpStatus": 401,
+      "retrievedAtUtc": "2026-10-16T12:24:20.735697+00:00",
+      "sha256": "57225b17f9403aabe666fe555334f332456e02ab8646ddcc57f1586805aceae4",
+      "sourceUrl": "https://comptox.epa.gov/ctx-api/bioactivity/assay/chemicals/search/by-aeid/3210?projection=dtxsidsonly"
+    }
+  ],
+  "processingFilesSha256": {
+    "backend/chemistry.py": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8",
+    "backend/dataset_overlap_audit.py": "bf079aef369c5f94a55c052d95f78cc9b2919e3e2cdd1a56c54672720559c017",
+    "backend/epa_structure_audit.py": "7d6d79616cf59eed58e01c62ec96e29828b635595be666f30336ec613911ea0d",
+    "backend/independent_validation_data.py": "bf648adef4d87e8b0c65579467520238862d5554c1c61bfa2e197616a04bfeb4",
+    "backend/v3_data.py": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+    "scripts/prepare_epa_structure_audit.py": "f87779d61c26de1dde365094824b4a029e8cd908c972df7d1d2d7b220aaa85b1",
+    "scripts/survey_chembl_labelblind.py": "9f93f2564c4351c765a13e037ae2cf445fa699e901a26626a3f007d78c2789d0"
+  },
+  "processingVersion": "epa-labelblind-mapping-1",
+  "qualificationGranted": false,
+  "schema": "aidd.stage7b.epa-structure-audit.v1",
+  "sourceRelease": "invitrodb4.3",
+  "structurallyPassedStructures": null,
+  "uniqueCanonicalStructures": null,
+  "uniqueDtxsids": null
+}

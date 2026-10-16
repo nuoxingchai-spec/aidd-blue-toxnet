@@ -1,0 +1,114 @@
+{
+  "actualCandidateCounts": {
+    "chembl": {
+      "baseFixedHistoryStructureAndDuplicatePasses": 325,
+      "completeIndependentEligibilityCount": 0,
+      "observedPassesAfterAdditiveHistory": 319,
+      "records": 2000,
+      "uniqueCanonicalStructures": 1638,
+      "verifiedPassesAfterAdditiveHistory": null
+    },
+    "epa": {
+      "independentlyQualifiedStructures": null,
+      "mappedMembershipRows": null,
+      "membershipRows": null,
+      "structurallyPassedStructures": null
+    }
+  },
+  "approvedLabelPolicyFrozen": false,
+  "auditAcquisitionPlanIsEvaluationProtocol": false,
+  "blockingReasons": [
+    "epa-tested-members-and-release-specific-structure-mapping-unverified",
+    "frozen-approved-label-policy-and-evaluation-protocol-missing",
+    "historical-full-tox21:unresolved-historical-structures",
+    "historical-herg-literature-source-family-not-disjoint",
+    "historical-publication-assay-cohort-mapping-incomplete",
+    "independent-custodian-label-support-attestation-missing",
+    "independent-custodian-not-established",
+    "local-research-rights-not-reviewed",
+    "original-herg-label-contract-unresolved",
+    "original-threshold-operator-unit-boundary-and-assay-contract-not-approved",
+    "outcome-qualifier-and-quality-review-not-performed",
+    "source-population-independence-not-reviewed",
+    "source-population-publication-assay-batch-independence-not-reviewed",
+    "specific-use-license-review-incomplete",
+    "task-equivalence-not-reviewed"
+  ],
+  "canEnterStage7C": false,
+  "candidateClassCounts": null,
+  "chemblAuditSha256": "f04272c39b1a903b0b9172bf457bea7c9dd6244cba04b48a20ab337181b58177",
+  "developerLabelBlindnessMaintained": true,
+  "epaAuditSha256": "6176be0fe999d07c7ac46f1934db16acfcd37476b145f3dfbbb4377ae78709b9",
+  "evaluationProtocolFrozen": false,
+  "formalAvailability": false,
+  "frozenAcquisitionPlanSha256": "106489148e36295b95a403fcd241f25c69b46c2dbc27eb26713e7ba4504877cd",
+  "frozenPrereviewPolicySha256": "720daf2db990068fc43f2ac70ff45a71a095ed40803a722e9bcc2030ce67ffe7",
+  "generatedAtUtc": "2026-10-16T12:45:23.855773+00:00",
+  "hergContractEvidenceSha256": "a706874993d914779a852170effc5982f0387f31bdd60f976e16fce711cd5d0b",
+  "historicalSourceIdentityUnresolvedRows": 9,
+  "independentCustodianSeparationVerified": false,
+  "inputArtifactSha256": {
+    "artifacts/independent-validation/stage7b-epa-structure-supplement-v2-20261016.json": "5f1f57974df829b5f482513e4257566687c21b431dbacab77c71e3260887d6f6",
+    "artifacts/independent-validation/stage7b-supplement-20261016/chembl-expanded-audit.json": "591a7697c7b577806308d4a2facbf91d7ab4ef639389b4e0a043d5b8d8bf368e",
+    "artifacts/independent-validation/stage7b-supplement-20261016/chembl-expanded-retrieval.json": "621e4080a057d3406fe5a083588587075e6a865353427b272f8e1073f22fd03b",
+    "artifacts/independent-validation/stage7b-supplement-20261016/herg-contract-review.json": "3ffdd55124a5725ce11a476b15acc078a0b364cfd683af97b72d282416718a38"
+  },
+  "keyConfigurationEvidence": "user-confirmed-not-configured; no credential searched or accessed",
+  "labelBlindnessEvidenceScope": "Developer process requested structure/source metadata only; independent custodian separation is not established.",
+  "labelMappingPerformed": false,
+  "labelsRead": false,
+  "modelsExecuted": false,
+  "nextAction": "Obtain approved original task evidence, release-bound source mapping, rights and independent custodianship; remain in Stage7B.",
+  "performanceEvaluated": false,
+  "schema": "aidd.stage7b.eligibility-gate.v1",
+  "scientificMetrics": null,
+  "sharedAuditHelperSourceBindings": {
+    "backend/candidate_data.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "531877f2b4d23ff96baf2802a7916b6d68c8e4edb16f4bbaf003ce0bf11ef994"
+    },
+    "backend/chemistry.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "5c080a1a89c59aad74a97d2348ecbadd2288a24ebf1133e73130776de7231fe8"
+    },
+    "backend/dataset_overlap_audit.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "bf079aef369c5f94a55c052d95f78cc9b2919e3e2cdd1a56c54672720559c017"
+    },
+    "backend/independent_validation_data.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "bf648adef4d87e8b0c65579467520238862d5554c1c61bfa2e197616a04bfeb4"
+    },
+    "backend/multitask_data.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6"
+    },
+    "backend/stage7_audit.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "2e1a283b1d0679f5a22bf9d96f8604274a79dc8ce3c35827c6a335a41f2ed7fd"
+    },
+    "backend/training_data.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "358d18b7beea633bdabb28aa259b7a0573cc524bf56698f163abf7857b0bcecc"
+    },
+    "backend/v3_data.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737"
+    },
+    "scripts/survey_chembl_labelblind.py": {
+      "byteIdenticalToBaseCommit": "7e47c55",
+      "sha256": "9f93f2564c4351c765a13e037ae2cf445fa699e901a26626a3f007d78c2789d0"
+    }
+  },
+  "sourceBindingLimitation": "Supplementary helper pins verified after the run against unchanged baseline bytes; this is not an independently signed execution attestation.",
+  "status": "STAGE7C_BLOCKED",
+  "supportRequirements": {
+    "countsVisibleToDeveloper": false,
+    "minimumPerClass": 10,
+    "minimumScaffoldClusters": 10,
+    "minimumSupportIsPowerAnalysis": false,
+    "supportAttestationStatus": "missing-independent-custodian-attestation",
+    "version": "aidd.independent.evaluation-settings.v1"
+  },
+  "userConfirmedEpaKeyConfigured": false
+}

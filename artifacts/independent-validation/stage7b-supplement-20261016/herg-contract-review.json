@@ -1,0 +1,164 @@
+{
+  "candidateLabelsRead": false,
+  "modelsExecuted": false,
+  "officialMetadataEvidence": [
+    {
+      "bytes": 39560,
+      "httpStatus": 200,
+      "id": "tdc",
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-16T12:22:42.326571+00:00",
+      "saved": true,
+      "sha256": "b60096de20decee11f1bbaf9b5ce81dd2a6a7d5cdc3a8c0743181b2f1ca75112",
+      "url": "https://tdcommons.ai/single_pred_tasks/tox/"
+    },
+    {
+      "bytes": 8266,
+      "httpStatus": 200,
+      "id": "crossref",
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-16T12:22:43.151228+00:00",
+      "saved": true,
+      "sha256": "ac8c551a21641309e36d1e823747adb7b86d8ade5fe4a46f2ed585b559eda026",
+      "url": "https://api.crossref.org/works/10.1021/acs.molpharmaceut.6b00471"
+    },
+    {
+      "bytes": 5558,
+      "httpStatus": 403,
+      "id": "acs_abstract",
+      "localResponseBytesVerified": false,
+      "retrievedAtUtc": "2026-10-16T12:22:43.937284+00:00",
+      "saved": false,
+      "sha256": "159eb194d37899f21034f3a2e229e8839d21fb064cc6e5e35819b97a187290a0",
+      "url": "https://pubs.acs.org/doi/abs/10.1021/acs.molpharmaceut.6b00471"
+    },
+    {
+      "bytes": 6251,
+      "httpStatus": 200,
+      "id": "europepmc",
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-16T12:26:08.068615+00:00",
+      "sha256": "7e42dcab388f160d18661a544df0f50a75e5223555d4f779cd0935008f3113ae",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:10.1021/acs.molpharmaceut.6b00471&format=json&resultType=core&pageSize=2"
+    },
+    {
+      "bytes": 219,
+      "httpStatus": 200,
+      "id": "pubmed_search",
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-16T12:26:09.221005+00:00",
+      "sha256": "94bd0f099bbfeca33250965f0b66172a2497dab9a000e8958bf0bd24c1056112",
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=10.1021%2Facs.molpharmaceut.6b00471%5BAID%5D&retmode=json"
+    },
+    {
+      "bytes": 7380,
+      "httpStatus": 200,
+      "id": "pubmed_abstract",
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-16T12:26:28.342986+00:00",
+      "sha256": "ccb6760db265a7655c15e57450ae05268b619f6815662a7a17fc217a27ad6ae1",
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=27379394&retmode=xml"
+    }
+  ],
+  "prereviewPolicy": {
+    "boundaryValueRule": null,
+    "candidateOutcomeFieldsPermitted": [],
+    "comparisonOperator": null,
+    "custodianHandlingBeforeApproval": {
+      "duplicateOrConflictingExperiment": "not-run-no-outcome-based-selection-or-averaging",
+      "exact": "not-run-pending-original-task-threshold-and-assay-approval",
+      "inequality": "not-run-no-midpoint-or-uncensored-value-imputation",
+      "missing": "not-run-never-impute-negative",
+      "qualityAnomaly": "not-run-custodian-quarantine-before-result-access",
+      "range": "not-run-no-boundary-classification-before-approved-rule"
+    },
+    "directComparisonApproved": false,
+    "evaluationAuthorized": false,
+    "historicalAssayComposition": "unresolved",
+    "labelMappingExecutable": false,
+    "labelMappingStatus": "not-run-independent-custodian-required",
+    "modelTrainingAuthorized": false,
+    "nonInterchangeableMeasurements": [
+      "functional-current-IC50",
+      "binding-IC50",
+      "Ki",
+      "Kd",
+      "EC50",
+      "AC50",
+      "hitcall",
+      "single-concentration-inhibition"
+    ],
+    "originalSourceSha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+    "originalTask": "TDC hERG / Wang 2016 / Dataverse 4259588",
+    "positiveClass": "hERG blocker (1); non-blocker (0)",
+    "purpose": "label-blind-evidence-review-only",
+    "requiredEvidenceBeforeAnyNewPolicy": [
+      "original-task-threshold-operator-unit-boundary-evidence",
+      "historical-assay-system-and-measurement-composition",
+      "experiment-publication-cohort-source-family-independence",
+      "specific-use-rights-review",
+      "independent-custodian-identity-access-control-and-attestation",
+      "reviewer-approval-time-evidence-hashes-before-label-access",
+      "new-frozen-label-policy-before-any-outcome-classification"
+    ],
+    "schema": "aidd.stage7b.herg-custodian-prereview.v1",
+    "status": "MANUAL_REVIEW_REQUIRED",
+    "threshold": null,
+    "thresholdUnit": null,
+    "unitConversionExecutable": false,
+    "unitDimensionWarning": "Concentration dimensions do not establish endpoint equivalence.",
+    "unitDimensionsOnly": {
+      "M": "1",
+      "mM": "0.001",
+      "nM": "0.000000001",
+      "pM": "0.000000000001",
+      "uM": "0.000001",
+      "µM": "0.000001",
+      "μM": "0.000001"
+    }
+  },
+  "prereviewPolicySha256": "720daf2db990068fc43f2ac70ff45a71a095ed40803a722e9bcc2030ce67ffe7",
+  "rawHistoricalSourceEvidence": {
+    "expectedSha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+    "hashVerified": true,
+    "labelsInspected": false,
+    "sha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+    "sourceId": "TDC-hERG-4259588"
+  },
+  "review": {
+    "boundaryValueRule": null,
+    "canEnterStage7C": false,
+    "comparisonOperator": null,
+    "evaluationPerformed": false,
+    "evidenceSha256": "1323d2e9a3717151cc6daf18abfe9ecba88cdf09fa305e52348e15542f9bb3c2",
+    "historicalDeclaration": {
+      "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#herg-blockers",
+      "endpoint": "herg",
+      "fileId": 4259588,
+      "name": "TDC hERG",
+      "positiveClass": "hERG blocker (1); non-blocker (0)",
+      "reference": "Wang, Shuangquan, et al. ADMET evaluation in drug discovery. 16. Predicting hERG blockers by combining multiple pharmacophores and machine learning approaches. Molecular Pharmaceutics 13.8 (2016): 2855-2866.",
+      "sha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+      "sourcePopulation": "Literature-compiled drug molecules; assay thresholds follow the source dataset, not a new uniform threshold."
+    },
+    "labelMappingPerformed": false,
+    "labelsRead": false,
+    "prereviewPolicySha256": "720daf2db990068fc43f2ac70ff45a71a095ed40803a722e9bcc2030ce67ffe7",
+    "schema": "aidd.stage7b.herg-contract-evidence.v1",
+    "sourceFileSha256": {
+      "backend/local_model.py": "6df9859d01451d7a8dd241699962e65caa267e648c7e3af2fd99c9eefb69f4ee",
+      "backend/multitask_data.py": "f2493f89b05f61debf21617dd0097f2c904ab6bc1d76ff3565ed1dd8cc0a50e6",
+      "backend/multitask_model.py": "4844b4323c86e44dc704540fffa1f0a00a47052a8210300b615f1d0c014c7909",
+      "backend/toxnet.py": "cef3a7102c3c31dbc6baa9cfe4735d2ff73fc625837e6d2339d67848144438c3",
+      "backend/training_data.py": "358d18b7beea633bdabb28aa259b7a0573cc524bf56698f163abf7857b0bcecc",
+      "backend/v3_data.py": "efdac55c8844dfa51145e9efdb93abe773a96296b5f0bbc64276bd1e867a7737",
+      "models/aidd-toxnet/manifest.json": "6225acc5414233756159bb1015489badb5f4bc5ba484c72367da5bac678af850",
+      "scripts/train_toxnet.py": "e32527be24c0785f813c8c08a88c76294c218440e054110b6fdf82e41f7115ff"
+    },
+    "status": "MANUAL_REVIEW_REQUIRED",
+    "threshold": null,
+    "thresholdUnit": null
+  },
+  "schema": "aidd.stage7b.herg-contract-review-bundle.v1",
+  "status": "STAGE7C_BLOCKED"
+}

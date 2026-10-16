@@ -108,6 +108,14 @@ artifacts/independent-validation/*
 !artifacts/independent-validation/stage7a-source-evidence-20261016.json
 !artifacts/independent-validation/stage7b-chembl37-pilot-20261016.json
 !artifacts/independent-validation/stage7b-toxcast-metadata-20261016.json
+!artifacts/independent-validation/stage7b-epa-structure-supplement-v2-20261016.json
+!artifacts/independent-validation/stage7b-supplement-20261016/
+artifacts/independent-validation/stage7b-supplement-20261016/*
+!artifacts/independent-validation/stage7b-supplement-20261016/chembl-expanded-retrieval.json
+!artifacts/independent-validation/stage7b-supplement-20261016/chembl-expanded-audit.json
+!artifacts/independent-validation/stage7b-supplement-20261016/herg-contract-review.json
+!artifacts/independent-validation/stage7b-supplement-20261016/eligibility-gate.json
+!artifacts/independent-validation/stage7b-supplement-20261016/verification.json
 *.sqlite3
 *.sqlite3-wal
 *.sqlite3-shm
