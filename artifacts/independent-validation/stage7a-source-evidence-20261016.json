@@ -1,0 +1,151 @@
+{
+  "canEnterStage7C": false,
+  "candidateLabelsRead": false,
+  "candidateResultFieldsRequested": false,
+  "chemblBundleSha256": "2b8cf8ad21ab9f0a0bb735c3227787cab1080fde724599d48e5f950fc0681f0e",
+  "chemblSupplementalMetadataCounts": {
+    "assayOrganismCounts": [
+      {
+        "assayCount": 5,
+        "organism": null
+      },
+      {
+        "assayCount": 18,
+        "organism": "Homo sapiens"
+      },
+      {
+        "assayCount": 4,
+        "organism": "Cavia porcellus"
+      },
+      {
+        "assayCount": 1,
+        "organism": "Mustela putorius furo"
+      }
+    ],
+    "documentYearMax": 2004,
+    "documentYearMin": 1997,
+    "documentsMissingDoiCount": 0,
+    "endpointUnitRecordGroups": [
+      {
+        "endpoint": "EC10",
+        "recordCount": 3,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "EC25",
+        "recordCount": 1,
+        "unit": "uM"
+      },
+      {
+        "endpoint": "IC50",
+        "recordCount": 50,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "IP",
+        "recordCount": 32,
+        "unit": "nM"
+      },
+      {
+        "endpoint": "Inhibition",
+        "recordCount": 9,
+        "unit": "%"
+      },
+      {
+        "endpoint": "Ki",
+        "recordCount": 105,
+        "unit": "nM"
+      }
+    ]
+  },
+  "epa": {
+    "candidateStructureCount": null,
+    "licenseReview": "unresolved-fixed-release-api-403",
+    "release": "invitrodb4.3",
+    "structureAuditStatus": "not-run-no-candidate-structures",
+    "versionDoi": "10.23645/epacomptox.6062623.v11"
+  },
+  "epaPrivateReceiptSha256": "4f8d6dcbfd1b34925cd5ed120aec21caae215dcc07c552c11e1900b7a815bb35",
+  "evidence": [
+    {
+      "bytes": 39560,
+      "candidateLabelsRead": false,
+      "fileId": "tdc-toxicity.html",
+      "httpStatus": 200,
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-15T15:00:43.221181+00:00",
+      "sha256": "b60096de20decee11f1bbaf9b5ce81dd2a6a7d5cdc3a8c0743181b2f1ca75112",
+      "sourceUrl": "https://tdcommons.ai/single_pred_tasks/tox/"
+    },
+    {
+      "bytes": 82251,
+      "candidateLabelsRead": false,
+      "fileId": "epa-exploring-toxcast.html",
+      "httpStatus": 200,
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-15T15:00:43.783891+00:00",
+      "sha256": "3f199f26db8aa614d9e3761f4709cbf9e757b8c77fd3010f402e894a170d2588",
+      "sourceUrl": "https://www.epa.gov/comptox-tools/exploring-toxcast-data"
+    },
+    {
+      "bytes": 1088201,
+      "candidateLabelsRead": false,
+      "fileId": "epa-assay-annotations-v43.xlsx",
+      "httpStatus": 200,
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-15T15:00:48.885513+00:00",
+      "sha256": "eecbdac47fe4b4c3db765d412d15526331c269d36c7d79dde938f59ea60461f9",
+      "sourceUrl": "https://clowder.edap-cluster.com/api/files/68af6bd3e4b02565fc7c3aa8"
+    },
+    {
+      "bytes": 97652,
+      "candidateLabelsRead": false,
+      "fileId": "epa-assay-target-mappings-v43.xlsx",
+      "httpStatus": 200,
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-15T15:00:49.768462+00:00",
+      "sha256": "bf45c47dc383c16aea9c4cf92993f7034a3141a252aa02d9f7aa7216ac84c394",
+      "sourceUrl": "https://clowder.edap-cluster.com/api/files/68af6bd3e4b02565fc7c3aa0"
+    },
+    {
+      "bytes": 145994,
+      "candidateLabelsRead": false,
+      "fileId": "karim-methods-source.xml",
+      "httpStatus": 200,
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-15T15:00:52.758169+00:00",
+      "sha256": "0832a808a2fe7b633954977b9e090450bf72cd8285a33d91d6c27875545553a6",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8365955/fullTextXML"
+    },
+    {
+      "bytes": 6252,
+      "candidateLabelsRead": false,
+      "fileId": "wang-original-paper-metadata.json",
+      "httpStatus": 200,
+      "localResponseBytesVerified": true,
+      "retrievedAtUtc": "2026-10-15T15:00:53.165089+00:00",
+      "sha256": "5fc3a0698e14b9a506c31f6e77ccae4486a434a678a468a784665d76a24f3440",
+      "sourceUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:10.1021/acs.molpharmaceut.6b00471&format=json&resultType=core"
+    },
+    {
+      "bytes": 118,
+      "candidateLabelsRead": false,
+      "evidenceLimitation": "HTTP failure recorded at retrieval; response body not cached for re-verification",
+      "fileId": "epa-figshare-release-v11.json",
+      "httpStatus": 403,
+      "localResponseBytesVerified": false,
+      "retrievedAtUtc": "2026-10-15T15:00:54.848335+00:00",
+      "sha256": "58bf2215b395dcac74c009aa98701854e43cbe54a1cd3a95fee6a647ca9910d4",
+      "sourceUrl": "https://api.figshare.com/v2/articles/6062623/versions/11"
+    }
+  ],
+  "modelsExecuted": false,
+  "reviewedAtUtc": "2026-10-16T11:57:46.045918+00:00",
+  "rightsReview": "unresolved-for-specific-candidate-role",
+  "schema": "aidd.stage7.source-evidence.v1",
+  "sealingPerformed": false,
+  "stages": [
+    "Stage7A",
+    "Stage7B"
+  ]
+}

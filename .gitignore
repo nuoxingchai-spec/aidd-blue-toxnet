@@ -105,6 +105,9 @@ artifacts/independent-validation/*
 !artifacts/independent-validation/public-model-parity-20261015.json
 !artifacts/independent-validation/stage6-acceptance-20261015.json
 !artifacts/independent-validation/license-review-20261015.json
+!artifacts/independent-validation/stage7a-source-evidence-20261016.json
+!artifacts/independent-validation/stage7b-chembl37-pilot-20261016.json
+!artifacts/independent-validation/stage7b-toxcast-metadata-20261016.json
 *.sqlite3
 *.sqlite3-wal
 *.sqlite3-shm

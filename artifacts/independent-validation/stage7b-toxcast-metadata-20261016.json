@@ -1,0 +1,33 @@
+{
+  "annotationConflictCount": 1,
+  "assayDesignEndpointCounts": {
+    "binding reporter": 2,
+    "functional reporter": 1
+  },
+  "assaySpeciesEndpointCounts": {
+    "human": 3
+  },
+  "canEnterStage7C": false,
+  "candidateStructureCount": null,
+  "doi": "10.23645/epacomptox.6062623.v11",
+  "endpointMetadataCount": 3,
+  "independentAccuracyEvaluated": false,
+  "independentlyQualifiedStructureCount": null,
+  "inputMetadataSha256": {
+    "epa-assay-annotations-v43.xlsx": "eecbdac47fe4b4c3db765d412d15526331c269d36c7d79dde938f59ea60461f9",
+    "epa-assay-target-mappings-v43.xlsx": "bf45c47dc383c16aea9c4cf92993f7034a3141a252aa02d9f7aa7216ac84c394"
+  },
+  "labelsRead": false,
+  "normalizedDataTypeEndpointCounts": {
+    "percent_activity": 3
+  },
+  "rightsStatus": "unresolved",
+  "schema": "aidd.stage7.toxcast-metadata-audit.v1",
+  "sealingPerformed": false,
+  "sourceRelease": "EPA invitrodb4.3",
+  "structurallyPassedCount": null,
+  "structureAuditStatus": "not-run-no-structures",
+  "targetMappingWithoutAnnotationCount": 0,
+  "taskEquivalenceStatus": "unresolved",
+  "tox21SourceEndpointCount": 1
+}

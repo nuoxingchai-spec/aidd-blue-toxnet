@@ -1,0 +1,258 @@
+{
+  "assayMetadataCount": 28,
+  "assaySpeciesRecordCounts": {
+    "human": 138,
+    "non-human": 18,
+    "unspecified": 44
+  },
+  "assayTypeRecordCounts": {
+    "B": 140,
+    "F": 59,
+    "T": 1
+  },
+  "blockingReasons": [
+    "historical-herg-literature-source-family-not-disjoint",
+    "historical-publication-assay-cohort-mapping-incomplete",
+    "local-research-rights-not-reviewed",
+    "source-population-independence-not-reviewed",
+    "task-equivalence-not-reviewed"
+  ],
+  "canEnterStage7C": false,
+  "chemistryVersion": "rdkit-chemistry-1.0.0",
+  "completeReferences": true,
+  "connectedOverlapDistinctStructureCount": 0,
+  "directHistoricalOverlapDistinctStructureCount": 166,
+  "distinctCanonicalStructureCount": 186,
+  "documentMetadataCount": 13,
+  "duplicateCanonicalGroupCount": 13,
+  "duplicateCanonicalRecordCount": 27,
+  "duplicateMoleculeIdCount": 13,
+  "duplicateMoleculeRecordCount": 27,
+  "endpointUnitRecordGroups": [
+    {
+      "endpoint": "IC50",
+      "recordCount": 50,
+      "unit": "nM"
+    },
+    {
+      "endpoint": "Inhibition",
+      "recordCount": 9,
+      "unit": "%"
+    },
+    {
+      "endpoint": "Ki",
+      "recordCount": 105,
+      "unit": "nM"
+    },
+    {
+      "endpoint": "other-unreviewed",
+      "recordCount": 35,
+      "unit": "nM"
+    },
+    {
+      "endpoint": "other-unreviewed",
+      "recordCount": 1,
+      "unit": "uM"
+    }
+  ],
+  "exactPublicationAssayCohortIndependence": "unresolved-incomplete-historical-row-provenance",
+  "exclusiveRecordExclusions": {
+    "duplicate-canonical-structure": 6,
+    "historical-structure-overlap": 177,
+    "unresolved-record-metadata": 8,
+    "unresolved-task-rights-and-source-review": 9
+  },
+  "historicalOverlapDistinctStructuresByIdentity": {
+    "canonical": 72,
+    "parent": 158,
+    "scaffold": 166,
+    "stereoIsotopeEquivalent": 121,
+    "tautomerParent": 161
+  },
+  "historicalOverlapDistinctStructuresByRole": {
+    "audited-tox21-source": 38,
+    "exposed-herg-karim": 90,
+    "v2-test": 18,
+    "v2-train": 51,
+    "v2-validation": 22,
+    "v3-audited-train": 18,
+    "v3-audited-validation": 21,
+    "v3-four-train": 32,
+    "v3-four-validation": 7,
+    "v3-multitask-train": 18,
+    "v3-multitask-validation": 21
+  },
+  "historicalReferenceCounts": {
+    "audited-tox21-source": {
+      "labelsReadForSelection": false,
+      "structures": 7822
+    },
+    "exposed-herg-karim": {
+      "labelsReadForSelection": false,
+      "structures": 9978
+    },
+    "v2-test": {
+      "labelsReadForSelection": false,
+      "structures": 937
+    },
+    "v2-train": {
+      "labelsReadForSelection": false,
+      "structures": 7535
+    },
+    "v2-validation": {
+      "labelsReadForSelection": false,
+      "structures": 956
+    },
+    "v3-audited-train": {
+      "labelsReadForSelection": false,
+      "structures": 4804
+    },
+    "v3-audited-validation": {
+      "labelsReadForSelection": false,
+      "structures": 1462
+    },
+    "v3-four-train": {
+      "labelsReadForSelection": false,
+      "structures": 4243
+    },
+    "v3-four-validation": {
+      "labelsReadForSelection": false,
+      "structures": 1045
+    },
+    "v3-multitask-train": {
+      "labelsReadForSelection": false,
+      "structures": 4804
+    },
+    "v3-multitask-validation": {
+      "labelsReadForSelection": false,
+      "structures": 1462
+    }
+  },
+  "identityPolicy": "Strict canonical input retained. Audit only: remove stereo and isotopes; LargestFragmentChooser(preferOrganic=True), Uncharger, tautomer canonicalizer; compare original/full and neutral-parent Bemis-Murcko scaffolds. All acyclic structures share [ACYCLIC]. Connected components are indivisible.",
+  "identityVersion": "aidd.v3.leakage-identities.v1",
+  "independentAccuracyEvaluated": false,
+  "independentlyQualifiedStructureCount": 0,
+  "inputRecordCount": 200,
+  "invalidStructureRecordCount": 0,
+  "labelsIncluded": false,
+  "labelsRead": false,
+  "limitations": [
+    "Metadata survey only; no endpoint/unit conversion or binary positive definition is inferred.",
+    "The human target organism does not establish the species or conditions of each assay.",
+    "Structural disjointness does not establish experiment/source-population independence.",
+    "All acyclic structures share one conservative identity group.",
+    "Reason counts overlap; exclusive record exclusions partition the input records.",
+    "A bounded survey cannot establish eligibility or absence of eligible data in the full release."
+  ],
+  "missingStructureRecordCount": 0,
+  "negativeCount": null,
+  "nonAdditiveRecordReasonCounts": {
+    "direct-target-mapping-not-established": 62,
+    "duplicate-canonical-structure": 27,
+    "duplicate-molecule-identifier": 27,
+    "historical-herg-literature-source-family-not-disjoint": 200,
+    "historical-publication-assay-cohort-mapping-incomplete": 200,
+    "historical-structure-overlap": 177,
+    "human-assay-species-not-established": 62,
+    "local-research-rights-not-reviewed": 200,
+    "source-population-independence-not-reviewed": 200,
+    "task-equivalence-not-reviewed": 200
+  },
+  "oldTestLabelsUsedForSelection": false,
+  "positiveCount": null,
+  "pretrainingStructureExposure": "unknown",
+  "qualified": false,
+  "rdkitVersion": "2026.09.1",
+  "referencesSha256": "07a8f334af4cd78a1c99971b63fd20ef7ec101c473651ae1ea5b3da7beaefce0",
+  "retrieval": {
+    "availableTargetActivityMetadataCount": 41078,
+    "bundleSha256": "2b8cf8ad21ab9f0a0bb735c3227787cab1080fde724599d48e5f950fc0681f0e",
+    "labelsRead": false,
+    "receiptSha256": "2ab195eaa322a2c2465f0c9a4c1876cfe5bc11af348632f6aa06e237e4deb812",
+    "recordLimit": 200,
+    "responseBytes": 99738,
+    "responses": [
+      {
+        "bytes": 212,
+        "resource": "status-before.json",
+        "retrievedAtUtc": "2026-10-16T11:48:42.349713+00:00",
+        "sha256": "29dc1fb09487a8d2962253a4d0d92c4ded0aa0d831effab42445d0c3483d4740"
+      },
+      {
+        "bytes": 21142,
+        "resource": "LICENSE.txt",
+        "retrievedAtUtc": "2026-10-16T11:48:46.486467+00:00",
+        "sha256": "f0c22ca33207ad8a85129a71f1454fcf8f2f71c99e68da5da01538210fa3ffba"
+      },
+      {
+        "bytes": 733,
+        "resource": "REQUIRED.ATTRIBUTION.txt",
+        "retrievedAtUtc": "2026-10-16T11:48:46.736981+00:00",
+        "sha256": "41eb0cf5eb2ceec5954db84f6c73969c7d928799fe39a7771140cdb0afc4a0df"
+      },
+      {
+        "bytes": 275,
+        "resource": "target.json",
+        "retrievedAtUtc": "2026-10-16T11:48:47.022323+00:00",
+        "sha256": "4f83ce7e282245b4053158c2b56ef81ca5b66a53567b405082891354e74293af"
+      },
+      {
+        "bytes": 65770,
+        "resource": "activity.json",
+        "retrievedAtUtc": "2026-10-16T11:48:55.283210+00:00",
+        "sha256": "e8b87552fdef0e706288ebe2dfd1b666b48ff4c2c2f4b5aa98bfbe7035ddcd2e"
+      },
+      {
+        "bytes": 7426,
+        "resource": "assay-0.json",
+        "retrievedAtUtc": "2026-10-16T11:48:55.858377+00:00",
+        "sha256": "c5a80c640cf4bc5f64f4d519d2f579093e1c971476bf6f5ed2ab1f2e8ebdf7a3"
+      },
+      {
+        "bytes": 3968,
+        "resource": "document-0.json",
+        "retrievedAtUtc": "2026-10-16T11:48:59.450383+00:00",
+        "sha256": "38201ddc16a9a51e64e34f7657f67b8f6c464299ad0eb018c027b732e48a273f"
+      },
+      {
+        "bytes": 212,
+        "resource": "status-after.json",
+        "retrievedAtUtc": "2026-10-16T11:49:04.753219+00:00",
+        "sha256": "29dc1fb09487a8d2962253a4d0d92c4ded0aa0d831effab42445d0c3483d4740"
+      }
+    ],
+    "resultFieldsRequested": false,
+    "retrievedAtUtc": "2026-10-16T11:49:04.754168+00:00",
+    "retrievedRecordCount": 200,
+    "schema": "aidd.stage7.retrieval.v1",
+    "selection": "target CHEMBL240; ascending activity_id; first 200; no outcome filter",
+    "serverSideProjection": true,
+    "version": "ChEMBL_37",
+    "wholeTargetSurvey": false
+  },
+  "schema": "aidd.stage7.candidate-audit.v1",
+  "sealingPerformed": false,
+  "sourceFamilyPolicy": "conservative-herg-literature-family-exclusion-pending-provenance",
+  "sourceOverlap": [
+    {
+      "historicalSourceId": "tdc-herg",
+      "matchedFields": [
+        "families"
+      ]
+    },
+    {
+      "historicalSourceId": "herg_karim",
+      "matchedFields": [
+        "families"
+      ]
+    }
+  ],
+  "sourceVersion": "ChEMBL_37",
+  "stage": "Stage7B",
+  "status": "not-independently-qualified",
+  "structurallyDisjointDistinctStructureCount": 20,
+  "structureAndDuplicateScreenPassedDistinctCount": 17,
+  "surveySha256": "e2359e0ebb124f8c9cacb1abc68886d03184338b105f85de5ce00969bfc57c89",
+  "uniqueMoleculeIdCount": 186,
+  "validStructureRecordCount": 200
+}
