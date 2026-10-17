@@ -120,6 +120,10 @@ artifacts/independent-validation/stage7b-supplement-20261016/*
 artifacts/independent-validation/stage7b-epa-no-api-20261017/*
 !artifacts/independent-validation/stage7b-epa-no-api-20261017/source-audit-final.json
 !artifacts/independent-validation/stage7b-epa-no-api-20261017/verification.json
+!artifacts/independent-validation/stage7b-mirrors-20261017/
+artifacts/independent-validation/stage7b-mirrors-20261017/*
+!artifacts/independent-validation/stage7b-mirrors-20261017/feasibility.json
+!artifacts/independent-validation/stage7b-mirrors-20261017/verification.json
 *.sqlite3
 *.sqlite3-wal
 *.sqlite3-shm

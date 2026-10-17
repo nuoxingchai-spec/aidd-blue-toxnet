@@ -1,0 +1,84 @@
+{
+  "activityDataObjectsFetched": false,
+  "activityRowQueriesExecuted": false,
+  "additionalTrackedPreservation": {
+    "baseline": "cf2434ccbbf8c3d38dd1df51c7678280167499aa",
+    "main": "3a7e5138398f8eea5f07ae14a083135bbc94d26b",
+    "preexistingTrackedModelArtifactAndDocumentFiles": 119,
+    "snapshotSha256": "e08499a0ff751723c53698d59a8f16f5c2d66cd95adde4e58c8c416c3f86cdca",
+    "status": "byte-identical"
+  },
+  "browserAcceptanceRun": false,
+  "candidateModelEvaluationPerformed": false,
+  "dependencyCheck": {
+    "exitCode": 0,
+    "logSha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+    "result": "No broken requirements found."
+  },
+  "externalPackageInstallOrExecution": false,
+  "formalAvailability": false,
+  "fullPythonRegressionRunThisRound": false,
+  "gateStatus": "STAGE7C_BLOCKED",
+  "gpuInferenceRun": false,
+  "historicalProtectionCheck": {
+    "exitCode": 0,
+    "logSha256": "9b66059406e70324f0f67e1081e99f0eba5b058b575aa7eee580c6553ef25989",
+    "result": {
+      "historicalFiles": 50,
+      "originalCompareReceipts": 4,
+      "status": "unchanged"
+    }
+  },
+  "javascriptTestsRunThisRound": false,
+  "labelIsolationStatus": "MANUAL_REVIEW_REQUIRED",
+  "notExecuted": [
+    "real-mirror-AEID-existence-and-identity-count-queries",
+    "Parquet-footers-or-column-statistics",
+    "MC-SC-complete-population-coverage",
+    "actual-PubChem-structure-mapping",
+    "candidate-historical-identity-and-source-overlap-audit",
+    "independent-scientific-evaluation",
+    "training"
+  ],
+  "pr6ReadOnlyCheck": {
+    "draft": true,
+    "head": "7604ad1e9fb4ea77c6fa8879892e9fe9aa879c9e",
+    "merged": false,
+    "state": "open",
+    "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/pull/6"
+  },
+  "productionFilesChanged": false,
+  "publicEvidenceSha256": "2caca8f83738cd02a9e8cc4c90a64069a3aa33e0ccdd4dae2e23a0a22dff3de8",
+  "pythonTargeted": {
+    "command": ".venv-v3/Scripts/python.exe -m unittest test.test_epa_no_api_fallback test.test_epa_structure_audit test.test_stage7_audit test.test_stage7b_supplement_audit -v",
+    "errors": 0,
+    "failures": 0,
+    "fixtures": "existing synthetic audit software fixtures, not mirror biological data",
+    "passed": 57,
+    "privateLogSha256": "5244ca74cb18e36735a1e83c9c6fad211c9cd1357a0ed8b757e6b7b40c427c51",
+    "skipped": 0,
+    "total": 57,
+    "unittestSeconds": 0.401
+  },
+  "remainingLimitations": [
+    "No result-free identity projection; all AEID membership and structure counts unknown.",
+    "Repository validation metadata contained profile containers; bodies removed; no proof of fully blind upstream handling.",
+    "No upstream-to-mirror verified data checksum chain, rights approval or independent data custodian.",
+    "HEAD success and source-schema support do not verify actual data contents or complete tested population."
+  ],
+  "reportSha256": "84b9112c0af4453d189eb59f01cd3ef934fed8543b8c1741f189ed18257ac5d9",
+  "schema": "aidd.stage7b.mirror-verification.v1",
+  "scope": "source feasibility and existing targeted software tests; no production implementation changed",
+  "sourceMetadataChecks": {
+    "HEADWithoutBody": 5,
+    "fixedGitBlobMatchesBeforeMetadataWithholding": 28,
+    "httpBodyBytes": 200675,
+    "httpBodyResponses": 40,
+    "metadataBodyWithholdingCount": 6,
+    "publicAggregateInvariants": "passed",
+    "retainedGitBlobMatches": 23,
+    "sourceEvidenceCrossReview": "passed",
+    "unreviewedMetadataProfileValuesUsed": false
+  },
+  "verifiedAtUtc": "2026-10-17T06:29:22.725586+00:00"
+}

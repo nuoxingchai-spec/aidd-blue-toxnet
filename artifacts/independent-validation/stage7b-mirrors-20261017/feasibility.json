@@ -1,0 +1,953 @@
+{
+  "activityDataObjectsFetched": false,
+  "activityRowQueryExecuted": false,
+  "baselineCommit": "cf2434ccbbf8c3d38dd1df51c7678280167499aa",
+  "blockers": [
+    "no-verified-result-free-identity-projection-for-three-AEIDs",
+    "processed-winning-model-coverage-is-not-complete-raw-MC-or-SC-population",
+    "official-source-to-mirror-data-object-hash-and-version-chain-incomplete",
+    "PubChem-map-snapshot-ambiguity-and-rights-not-verified",
+    "repository-profile-metadata-is-not-a-label-blind-identity-source",
+    "independent-custodian-and-safe-projection-contract-not-established",
+    "historical-structure-parent-scaffold-and-source-audit-not-run-without-candidate-projections",
+    "original-hERG-task-contract-and-file-rights-remain-unresolved"
+  ],
+  "canEnterStage7C": false,
+  "ctxApiCalled": false,
+  "dependenciesInstalled": false,
+  "externalScriptsExecuted": false,
+  "fixedGitBlobChecks": [
+    {
+      "bodyRetained": true,
+      "file": "README.md",
+      "gitBlobSha1": "f4a1b23d0b33da47e62a0426bb45d02ea5eff011",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "3a74bc700a831d4e333456466defede6009ea25b48e4d36892c0f3b42482be02",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "LICENSE",
+      "gitBlobSha1": "27e5e1197733c6954e61cb048bd111d88bad468d",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "46206112d134a99eb909e49fd3956a30758084c8741131136408f84c4b6c7161",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "pyproject.toml",
+      "gitBlobSha1": "10f67097bc9e872d34c7bb6e8d09cd98ebd38298",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "f8497d8d73eea5bb57d74a440e47346fed30de3dbf9b05b30a18393f11836f67",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "CHANGELOG.md",
+      "gitBlobSha1": "7a94a7c0dbc7adbeb54d9451e3d17e0d5c0340d5",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "5da0555db9d14ca1aa9c20dd7ec73110076108ce08ef637b8876edf20e0a8cae",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/_constants.py",
+      "gitBlobSha1": "801f77d976a0a6711d226a1e072455b05d54379e",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "5465bef0374ac2ef2de706b0f88829a41155568bb3de83ee3886fb88d3170799",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/bioactivity.py",
+      "gitBlobSha1": "3116d20472650b9d00de920aaf2ef9c0a27493e5",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "9c683f483a121b23241cc0f007cb17d3070c4719558c4bcff88f0dfc66c0564f",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/cache.py",
+      "gitBlobSha1": "f62962eca081c97fc33bba35800dc25bb4681357",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "57deb105bcbbba310a43c77d2b96d62c3a5ceb9282d059ed454ce0e2bc793482",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/connection.py",
+      "gitBlobSha1": "b63e91f7a18c8c1329ee7bac5f08bd7a67f3691e",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "382ab7c7c7a8968b82dc4776e206a1b292caaf7e87c2b882cf7eb45abfe87da8",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/reference.py",
+      "gitBlobSha1": "9b0f7902106fae2d7f1c2df94825d5e60b11b8eb",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "64cfbfd64dfc1eeaa2c39b5715d38475ca5ebb20b3d37af5e47909c069280ac1",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/releases.py",
+      "gitBlobSha1": "2f6e41d32f0d6248c3c1a595ee0deca0794f5638",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "a3a770b60f6027978a92963a7ac1785b049077b81a3a5032d4c7c07241db0235",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/structures.py",
+      "gitBlobSha1": "084da5c94c068f30188e6b89a795ebbe05b6c895",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "6d8c0d3529fd2a0a0975c188e1335b18bf91321bb9d0df9a9a9b812f56534dcf",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/pubchem_bridge.py",
+      "gitBlobSha1": "6c486d9c838a997470f6984b0c89454f773a1606",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "ef48acc8109f0ae7af9e6bdb3508e482a8fdcc97c39be1638630e3df5bbd52b8",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/cli.py",
+      "gitBlobSha1": "cfc36d5112406d6d171bd4eba70560be44f90a29",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "e39e7e8a4ffc7fd294344b66a2927d47b5a4afbd744f04904b7e0ce679f347c0",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "src/scigantic_comptox/ctx_client.py",
+      "gitBlobSha1": "ec1f854497f474e9ed55e7bca0c8f1c38a73ced9",
+      "repository": "Scigantic/scigantic-comptox",
+      "sha256": "6ccd420600ede60f58767820844cd1147c585846da56f13731937061ea9e013f",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "README.md",
+      "gitBlobSha1": "937ee04d9b890e1b68c7e7ef7a1af7f1abcb13c5",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "6d2a556f2de17dfa5980083d613dc0c89060400a609421b722b6f741e1d71427",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "dvc.lock",
+      "gitBlobSha1": "fe298fbf38c53f8dd7337870f40d119498d06162",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "d053fb211c3bfdc75e72a076c95e702a02b22e9504c09787bad6757ada130084",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "dvc.yaml",
+      "gitBlobSha1": "d56bd506a186743947d6bb0d4f37ab78829b7b27",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "83ea3a36274b9ab504c345b14d37156c9685c992559f600a41c641c45ebf3cb5",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": ".dvc/config",
+      "gitBlobSha1": "95f830fdeace57b1033d40a4744f83da7a8568f3",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "7c071e1e30827c340b23f7b90b3a12f610f55163d231f8205c9deabbfab2ee19",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "stages/01_download.py",
+      "gitBlobSha1": "50d870c499fd387998ef2a28abba1292e512f898",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "8001b5dacac640643b916526cacc2b01fda7964da1f6c11243e2c312313d787e",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "stages/02_build.py",
+      "gitBlobSha1": "86340801a25c324e1cafd278c45ec4b7a2ac5082",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "99e18a0e6c88df64253b6884714ba61b68c1178b9b8168c38fa792394030b197",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": false,
+      "file": ".bb/brick.yaml",
+      "gitBlobSha1": "31a7afbd37c2e15a75ffff2c537eecd163f274d4",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "c5e7483e9823cbbd4eff8d73a10276adcf64cc6abc458110fda5183a17d6f685",
+      "verification": "matched-fixed-tree-before-body-withholding"
+    },
+    {
+      "bodyRetained": false,
+      "file": ".bb/catalog.jsonld",
+      "gitBlobSha1": "53347deccfb5313c1303dd4a5bb3c55da3dedc2c",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "3c918d2e7b0ed3ff924315335249b154d151a2e292cef0fdf98be90e376fe153",
+      "verification": "matched-fixed-tree-before-body-withholding"
+    },
+    {
+      "bodyRetained": false,
+      "file": ".bb/datapackage.json",
+      "gitBlobSha1": "96b8c71004f3edee8fb2c8e25877080748bec54e",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "e8f7430307177e37ed102a514a3c46e13b91e5d0be155a34d860ee7700ca307e",
+      "verification": "matched-fixed-tree-before-body-withholding"
+    },
+    {
+      "bodyRetained": false,
+      "file": ".bb/source.jsonld",
+      "gitBlobSha1": "44dadc7be66816ad1fb0c9102b0dcb04294d330a",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "73ff85d880642718edbfe9828f42a3c0de25742f70e08175d9c323bdb367483d",
+      "verification": "matched-fixed-tree-before-body-withholding"
+    },
+    {
+      "bodyRetained": false,
+      "file": ".bb/validation.jsonld",
+      "gitBlobSha1": "f3ba02ea80fca055f0d05255348b1876599ded52",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "8cc9f7475e35be8afb124d372cf7c9fd353ab9b43fe84efa0866d112ad54915d",
+      "verification": "matched-fixed-tree-before-body-withholding"
+    },
+    {
+      "bodyRetained": true,
+      "file": ".github/workflows/bricktools-check.yaml",
+      "gitBlobSha1": "55ec73932217c8d0851fea13cf59d3d3402493d1",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "613b7f6b19c4c7a2eefc4efb44278f474ce92842ef0ba4f4ef0ff82859b37e98",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "analysis/dump-ddl.sh",
+      "gitBlobSha1": "c066d48e77adc76f51658bf89d03071f6bca61cd",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "2adb11415661aabaefd905419c78466575f4718c08f09b64ca94c17ad4c441a8",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    },
+    {
+      "bodyRetained": true,
+      "file": "analysis/join.R",
+      "gitBlobSha1": "4c06c4eb64626d0dbf23a8179ad87d70c1b19753",
+      "repository": "biobricks-ai/toxcast",
+      "sha256": "41a811cb77bdea39816095b13ab7aa4612200aa3d4a054f47065042f13ccce63",
+      "verification": "matched-fixed-tree-and-retained-bytes"
+    }
+  ],
+  "formalAvailability": false,
+  "gateStatus": "STAGE7C_BLOCKED",
+  "headResponseBodiesRead": false,
+  "metadataEvidence": [
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 6761,
+      "responseSha256": "c226d196506e31a96f4a0cadeefc01f6aed0b4d6fe318e42086e23944d2b0c90",
+      "retrievedAtUtc": "2026-10-17T06:17:15.053937+00:00",
+      "sourceUrl": "https://api.github.com/repos/Scigantic/scigantic-comptox"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 9632,
+      "responseSha256": "82cd875094284f5c7400d6d71ec7bc2f62cee79debffde256aeb8296f9e171df",
+      "retrievedAtUtc": "2026-10-17T06:17:15.478048+00:00",
+      "sourceUrl": "https://api.github.com/repos/Scigantic/scigantic-comptox/commits/main"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 8624,
+      "responseSha256": "fa94911054447dddd9e12572dc049b85588557cd6fcfa3d5693962133a1b4f8d",
+      "retrievedAtUtc": "2026-10-17T06:17:15.878966+00:00",
+      "sourceUrl": "https://api.github.com/repos/Scigantic/scigantic-comptox/git/trees/888a433667aa9bf37d7bf87907f4a8426c253171?recursive=1"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 10413,
+      "responseSha256": "3a74bc700a831d4e333456466defede6009ea25b48e4d36892c0f3b42482be02",
+      "retrievedAtUtc": "2026-10-17T06:17:38.457900+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/README.md"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 904,
+      "responseSha256": "46206112d134a99eb909e49fd3956a30758084c8741131136408f84c4b6c7161",
+      "retrievedAtUtc": "2026-10-17T06:17:38.860711+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/LICENSE"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 2120,
+      "responseSha256": "f8497d8d73eea5bb57d74a440e47346fed30de3dbf9b05b30a18393f11836f67",
+      "retrievedAtUtc": "2026-10-17T06:17:39.269354+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/pyproject.toml"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 6407,
+      "responseSha256": "5da0555db9d14ca1aa9c20dd7ec73110076108ce08ef637b8876edf20e0a8cae",
+      "retrievedAtUtc": "2026-10-17T06:17:39.697293+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/CHANGELOG.md"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 871,
+      "responseSha256": "5465bef0374ac2ef2de706b0f88829a41155568bb3de83ee3886fb88d3170799",
+      "retrievedAtUtc": "2026-10-17T06:17:40.094875+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/_constants.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 4432,
+      "responseSha256": "9c683f483a121b23241cc0f007cb17d3070c4719558c4bcff88f0dfc66c0564f",
+      "retrievedAtUtc": "2026-10-17T06:17:40.519560+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/bioactivity.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 5237,
+      "responseSha256": "57deb105bcbbba310a43c77d2b96d62c3a5ceb9282d059ed454ce0e2bc793482",
+      "retrievedAtUtc": "2026-10-17T06:17:40.926590+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/cache.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 9326,
+      "responseSha256": "382ab7c7c7a8968b82dc4776e206a1b292caaf7e87c2b882cf7eb45abfe87da8",
+      "retrievedAtUtc": "2026-10-17T06:17:41.354325+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/connection.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 6479,
+      "responseSha256": "64cfbfd64dfc1eeaa2c39b5715d38475ca5ebb20b3d37af5e47909c069280ac1",
+      "retrievedAtUtc": "2026-10-17T06:17:41.767394+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/reference.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 4483,
+      "responseSha256": "a3a770b60f6027978a92963a7ac1785b049077b81a3a5032d4c7c07241db0235",
+      "retrievedAtUtc": "2026-10-17T06:17:42.173211+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/releases.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 3609,
+      "responseSha256": "6d8c0d3529fd2a0a0975c188e1335b18bf91321bb9d0df9a9a9b812f56534dcf",
+      "retrievedAtUtc": "2026-10-17T06:17:42.589756+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/structures.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 3021,
+      "responseSha256": "ef48acc8109f0ae7af9e6bdb3508e482a8fdcc97c39be1638630e3df5bbd52b8",
+      "retrievedAtUtc": "2026-10-17T06:17:43.000179+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/pubchem_bridge.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 2157,
+      "responseSha256": "e39e7e8a4ffc7fd294344b66a2927d47b5a4afbd744f04904b7e0ce679f347c0",
+      "retrievedAtUtc": "2026-10-17T06:17:43.397208+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/cli.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 5738,
+      "responseSha256": "6ccd420600ede60f58767820844cd1147c585846da56f13731937061ea9e013f",
+      "retrievedAtUtc": "2026-10-17T06:17:43.990011+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/Scigantic/scigantic-comptox/888a433667aa9bf37d7bf87907f4a8426c253171/src/scigantic_comptox/ctx_client.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 381,
+      "responseSha256": "b028ad6522cb3281197ad065b2a7673a6cc2ecada1d946bc94601e826403def3",
+      "retrievedAtUtc": "2026-10-17T06:18:12.129117+00:00",
+      "sourceUrl": "https://scigantic-comptox.s3.us-east-1.amazonaws.com/_MANIFEST.json"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "Scigantic/scigantic-comptox",
+      "responseBytesRead": 21311,
+      "responseSha256": "03443b7f8b6f305b180f7b2d2e91e3609020e51777cda7dfcfea13d4c522de0b",
+      "retrievedAtUtc": "2026-10-17T06:19:38.533703+00:00",
+      "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/docs/copyright"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 11792,
+      "responseSha256": "cd6aa1f4fcb73ce93884513ac861fa8b314119d2a0267e92c2cb60cce1875b71",
+      "retrievedAtUtc": "2026-10-17T06:17:19.005192+00:00",
+      "sourceUrl": "https://api.github.com/repos/biobricks-ai/toxcast"
+    },
+    {
+      "bodyRetained": false,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 38457,
+      "responseSha256": "f0e29afb6b6bcc65fce13edfa0007dd55003715d30707c7207e0f119e35aa781",
+      "retrievedAtUtc": "2026-10-17T06:17:19.464464+00:00",
+      "sourceUrl": "https://api.github.com/repos/biobricks-ai/toxcast/commits/main"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 5733,
+      "responseSha256": "9abb60e0eb2942361c3a693004479b3c075281c800254eb65c0398739109a411",
+      "retrievedAtUtc": "2026-10-17T06:17:19.831305+00:00",
+      "sourceUrl": "https://api.github.com/repos/biobricks-ai/toxcast/git/trees/a2008912e1019e2f90f670700f08d7483c2b1931?recursive=1"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 1215,
+      "responseSha256": "6d2a556f2de17dfa5980083d613dc0c89060400a609421b722b6f741e1d71427",
+      "retrievedAtUtc": "2026-10-17T06:17:28.311067+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/README.md"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 795,
+      "responseSha256": "d053fb211c3bfdc75e72a076c95e702a02b22e9504c09787bad6757ada130084",
+      "retrievedAtUtc": "2026-10-17T06:17:28.787769+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/dvc.lock"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 261,
+      "responseSha256": "83ea3a36274b9ab504c345b14d37156c9685c992559f600a41c641c45ebf3cb5",
+      "retrievedAtUtc": "2026-10-17T06:17:29.197932+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/dvc.yaml"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 161,
+      "responseSha256": "7c071e1e30827c340b23f7b90b3a12f610f55163d231f8205c9deabbfab2ee19",
+      "retrievedAtUtc": "2026-10-17T06:17:29.600829+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/.dvc/config"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 1716,
+      "responseSha256": "8001b5dacac640643b916526cacc2b01fda7964da1f6c11243e2c312313d787e",
+      "retrievedAtUtc": "2026-10-17T06:17:30.016370+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/stages/01_download.py"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 2524,
+      "responseSha256": "99e18a0e6c88df64253b6884714ba61b68c1178b9b8168c38fa792394030b197",
+      "retrievedAtUtc": "2026-10-17T06:17:30.425958+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/stages/02_build.py"
+    },
+    {
+      "bodyRetained": false,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 6995,
+      "responseSha256": "c5e7483e9823cbbd4eff8d73a10276adcf64cc6abc458110fda5183a17d6f685",
+      "retrievedAtUtc": "2026-10-17T06:17:30.886538+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/.bb/brick.yaml"
+    },
+    {
+      "bodyRetained": false,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 1190,
+      "responseSha256": "3c918d2e7b0ed3ff924315335249b154d151a2e292cef0fdf98be90e376fe153",
+      "retrievedAtUtc": "2026-10-17T06:17:31.512379+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/.bb/catalog.jsonld"
+    },
+    {
+      "bodyRetained": false,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 5920,
+      "responseSha256": "e8f7430307177e37ed102a514a3c46e13b91e5d0be155a34d860ee7700ca307e",
+      "retrievedAtUtc": "2026-10-17T06:17:32.077726+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/.bb/datapackage.json"
+    },
+    {
+      "bodyRetained": false,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 1690,
+      "responseSha256": "73ff85d880642718edbfe9828f42a3c0de25742f70e08175d9c323bdb367483d",
+      "retrievedAtUtc": "2026-10-17T06:17:32.517599+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/.bb/source.jsonld"
+    },
+    {
+      "bodyRetained": false,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 7592,
+      "responseSha256": "8cc9f7475e35be8afb124d372cf7c9fd353ab9b43fe84efa0866d112ad54915d",
+      "retrievedAtUtc": "2026-10-17T06:17:32.938830+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/.bb/validation.jsonld"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 267,
+      "responseSha256": "613b7f6b19c4c7a2eefc4efb44278f474ce92842ef0ba4f4ef0ff82859b37e98",
+      "retrievedAtUtc": "2026-10-17T06:17:33.632455+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/.github/workflows/bricktools-check.yaml"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 882,
+      "responseSha256": "2adb11415661aabaefd905419c78466575f4718c08f09b64ca94c17ad4c441a8",
+      "retrievedAtUtc": "2026-10-17T06:17:34.050751+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/analysis/dump-ddl.sh"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 200,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 299,
+      "responseSha256": "41a811cb77bdea39816095b13ab7aa4612200aa3d4a054f47065042f13ccce63",
+      "retrievedAtUtc": "2026-10-17T06:17:34.476535+00:00",
+      "sourceUrl": "https://raw.githubusercontent.com/biobricks-ai/toxcast/a2008912e1019e2f90f670700f08d7483c2b1931/analysis/join.R"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 404,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 315,
+      "responseSha256": "0b0ba31c1b8032a74d29948af9775666dce86203122583968d90842dc522dc8d",
+      "retrievedAtUtc": "2026-10-17T06:18:12.005732+00:00",
+      "sourceUrl": "https://ins-dvc.s3.amazonaws.com/insdvc/1d/da6a53f75c17d913ca7be0dbb8f1a3.dir"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 404,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 325,
+      "responseSha256": "66da9e75bd3476a4ce5b218996224ecffcd24e15d5738b859cfbe490803d9068",
+      "retrievedAtUtc": "2026-10-17T06:18:12.291749+00:00",
+      "sourceUrl": "https://ins-dvc.s3.amazonaws.com/insdvc/files/md5/1d/da6a53f75c17d913ca7be0dbb8f1a3.dir"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 404,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 315,
+      "responseSha256": "7f280afd9287eea97110ed4915439d35ce236ba84de455181a3a6b2660b8160a",
+      "retrievedAtUtc": "2026-10-17T06:18:12.563397+00:00",
+      "sourceUrl": "https://ins-dvc.s3.amazonaws.com/insdvc/65/c7f302c32bbb88c5ab16f2d675229f.dir"
+    },
+    {
+      "bodyRetained": true,
+      "contentsPublished": false,
+      "httpStatus": 404,
+      "repository": "biobricks-ai/toxcast",
+      "responseBytesRead": 325,
+      "responseSha256": "bd4d7c8adb1814d5f7ea74e91737e3d157006da13792b94dd993b87c23c48a7d",
+      "retrievedAtUtc": "2026-10-17T06:18:12.837024+00:00",
+      "sourceUrl": "https://ins-dvc.s3.amazonaws.com/insdvc/files/md5/65/c7f302c32bbb88c5ab16f2d675229f.dir"
+    }
+  ],
+  "metadataProfileBoundary": {
+    "independentCustodianEstablished": false,
+    "newMetadataBodiesRemoved": 6,
+    "profileValuesUsedForCountsOrSelection": false,
+    "rawDescriptorsPublished": false,
+    "repositoryDescriptorContainingOutcomeColumnProfileWasFetched": true,
+    "status": "MANUAL_REVIEW_REQUIRED",
+    "thirdPartyNarrativesProvenLabelFree": false,
+    "withheldBodyHashes": [
+      {
+        "bodyRetained": false,
+        "bytes": 6995,
+        "fileId": "source/.bb/brick.yaml",
+        "sha256": "c5e7483e9823cbbd4eff8d73a10276adcf64cc6abc458110fda5183a17d6f685"
+      },
+      {
+        "bodyRetained": false,
+        "bytes": 1190,
+        "fileId": "source/.bb/catalog.jsonld",
+        "sha256": "3c918d2e7b0ed3ff924315335249b154d151a2e292cef0fdf98be90e376fe153"
+      },
+      {
+        "bodyRetained": false,
+        "bytes": 5920,
+        "fileId": "source/.bb/datapackage.json",
+        "sha256": "e8f7430307177e37ed102a514a3c46e13b91e5d0be155a34d860ee7700ca307e"
+      },
+      {
+        "bodyRetained": false,
+        "bytes": 1690,
+        "fileId": "source/.bb/source.jsonld",
+        "sha256": "73ff85d880642718edbfe9828f42a3c0de25742f70e08175d9c323bdb367483d"
+      },
+      {
+        "bodyRetained": false,
+        "bytes": 7592,
+        "fileId": "source/.bb/validation.jsonld",
+        "sha256": "8cc9f7475e35be8afb124d372cf7c9fd353ab9b43fe84efa0866d112ad54915d"
+      },
+      {
+        "bodyRetained": false,
+        "bytes": 38457,
+        "fileId": "main-commit.json",
+        "sha256": "f0e29afb6b6bcc65fce13edfa0007dd55003715d30707c7207e0f119e35aa781"
+      }
+    ],
+    "withholdingReceiptSha256": "fd5ce4d5a9cd9ad051eadc9a2850e0a241be9bd274b2d89c8721ad7f82cadc06"
+  },
+  "metadataRequests": 40,
+  "metadataResponseBytesRead": 200675,
+  "mirrors": [
+    {
+      "automaticHttpfsInstallInSource": true,
+      "candidateStructureAuditPerformed": false,
+      "codeLicense": "MIT-0",
+      "completeTestedPopulationProven": false,
+      "dataBuildPipelineFoundInReviewedTree": false,
+      "dataContentsVerified": false,
+      "dataObjectsHeadReachable": true,
+      "dataRightsStatus": "MANUAL_REVIEW_REQUIRED",
+      "defaultAllColumnViewsInSource": true,
+      "dependencyLockFound": false,
+      "endpoints": [
+        {
+          "aeid": 686,
+          "existsInMirror": null,
+          "missingFromCompleteTestedPopulation": null,
+          "officialAcid": 423,
+          "officialAid": 237,
+          "processedMulticoncentrationRows": null,
+          "rawMulticoncentrationTestedMembers": null,
+          "singleConcentrationRows": null,
+          "uniqueChid": null,
+          "uniqueDtxsid": null,
+          "uniqueSpid": null
+        },
+        {
+          "aeid": 3184,
+          "existsInMirror": null,
+          "missingFromCompleteTestedPopulation": null,
+          "officialAcid": 2914,
+          "officialAid": 897,
+          "processedMulticoncentrationRows": null,
+          "rawMulticoncentrationTestedMembers": null,
+          "singleConcentrationRows": null,
+          "uniqueChid": null,
+          "uniqueDtxsid": null,
+          "uniqueSpid": null
+        },
+        {
+          "aeid": 3210,
+          "existsInMirror": null,
+          "missingFromCompleteTestedPopulation": null,
+          "officialAcid": 2939,
+          "officialAid": 910,
+          "processedMulticoncentrationRows": null,
+          "rawMulticoncentrationTestedMembers": null,
+          "singleConcentrationRows": null,
+          "uniqueChid": null,
+          "uniqueDtxsid": null,
+          "uniqueSpid": null
+        }
+      ],
+      "historicalOverlapStructures": null,
+      "identityFieldsInSource": [
+        "aeid",
+        "spid",
+        "chid",
+        "dsstox_substance_id",
+        "dtxsid"
+      ],
+      "independentlyQualifiedStructures": null,
+      "inputCoverage": "processed-multiconcentration-winning-model-summary-only",
+      "labelIsolationStatus": "MANUAL_REVIEW_REQUIRED",
+      "manifestGeneratedAt": "2026-09-01T21:00:00Z",
+      "manifestSha256": "b028ad6522cb3281197ad065b2a7673a6cc2ecada1d946bc94601e826403def3",
+      "mirrorDataObjectSha256": null,
+      "missingStructures": null,
+      "pubchemBridgeIsCidStructureMapping": false,
+      "releaseClaim": "v4_3",
+      "repository": "Scigantic/scigantic-comptox",
+      "repositoryReachable": true,
+      "revision": "888a433667aa9bf37d7bf87907f4a8426c253171",
+      "runtimePackageExecuted": false,
+      "safeIdentityProjectionRecovered": false,
+      "sourceIndependenceStatus": "MANUAL_REVIEW_REQUIRED",
+      "sourceReviewSha256": "bb0109e95016d330beed553b026f13c081eaa1fef4ec39c12f771260f1d3652f",
+      "sourceSupportsAeidParameter": true,
+      "structurallyPassedStructures": null,
+      "structureEvidenceGrade": "L1-maintainer-claim-and-object-HEAD-only",
+      "structureMappingActualRowsVerified": false,
+      "structureMappingAmbiguities": null,
+      "upstreamOfficialFileSha256Verified": false
+    },
+    {
+      "acidFieldVerified": false,
+      "candidateStructureAuditPerformed": false,
+      "codeLicenseFileDetected": false,
+      "completeTestedPopulationProven": false,
+      "dataContentsVerified": false,
+      "dataObjectsHeadReachable": null,
+      "dataRightsStatus": "MANUAL_REVIEW_REQUIRED",
+      "declaredDvcOutputBytes": 783268567,
+      "declaredDvcOutputDirectoryMd5": "1dda6a53f75c17d913ca7be0dbb8f1a3.dir",
+      "declaredDvcOutputFiles": 4,
+      "dependencyLockFound": false,
+      "documentedIdentityFields": [
+        "aeid",
+        "spid",
+        "chid",
+        "dsstox_substance_id"
+      ],
+      "endpoints": [
+        {
+          "aeid": 686,
+          "existsInMirror": null,
+          "missingFromCompleteTestedPopulation": null,
+          "officialAcid": 423,
+          "officialAid": 237,
+          "processedMulticoncentrationRows": null,
+          "rawMulticoncentrationTestedMembers": null,
+          "singleConcentrationRows": null,
+          "uniqueChid": null,
+          "uniqueDtxsid": null,
+          "uniqueSpid": null
+        },
+        {
+          "aeid": 3184,
+          "existsInMirror": null,
+          "missingFromCompleteTestedPopulation": null,
+          "officialAcid": 2914,
+          "officialAid": 897,
+          "processedMulticoncentrationRows": null,
+          "rawMulticoncentrationTestedMembers": null,
+          "singleConcentrationRows": null,
+          "uniqueChid": null,
+          "uniqueDtxsid": null,
+          "uniqueSpid": null
+        },
+        {
+          "aeid": 3210,
+          "existsInMirror": null,
+          "missingFromCompleteTestedPopulation": null,
+          "officialAcid": 2939,
+          "officialAid": 910,
+          "processedMulticoncentrationRows": null,
+          "rawMulticoncentrationTestedMembers": null,
+          "singleConcentrationRows": null,
+          "uniqueChid": null,
+          "uniqueDtxsid": null,
+          "uniqueSpid": null
+        }
+      ],
+      "historicalOverlapStructures": null,
+      "independentlyQualifiedStructures": null,
+      "inputCoverage": "processed-multiconcentration-winning-model-summary-only",
+      "labelIsolationStatus": "MANUAL_REVIEW_REQUIRED",
+      "mirrorDataObjectSha256": null,
+      "missingStructures": null,
+      "releaseClaim": "invitrodb4.3",
+      "repository": "biobricks-ai/toxcast",
+      "repositoryReachable": true,
+      "revision": "a2008912e1019e2f90f670700f08d7483c2b1931",
+      "runtimePackageExecuted": false,
+      "safeIdentityProjectionRecovered": false,
+      "sourceHasDedicatedAeidQueryService": false,
+      "sourceIndependenceStatus": "MANUAL_REVIEW_REQUIRED",
+      "sourceReviewSha256": "d12328af03e1b5ac06ffb1c79f4d822fa3571ca29b73529e0e7513d287636cc1",
+      "stageScriptMd5MatchesLock": true,
+      "structurallyPassedStructures": null,
+      "structureEvidenceGrade": "L0-no-structure-mapping-in-reviewed-pipeline",
+      "structureMappingAmbiguities": null,
+      "testedDvcIndexHttp404": 4,
+      "testedDvcIndexRequests": 4,
+      "unreviewedProfileMetadataBodiesWithheld": true,
+      "upstreamDeclaredBytes": 7502075199,
+      "upstreamOfficialFileId": "68af6b70e4b02565fc7c3a98",
+      "upstreamOfficialFileSha256Verified": false
+    }
+  ],
+  "modelPerformanceEvaluated": false,
+  "modelPredictionsRun": false,
+  "modelsRetrained": false,
+  "objectHeadEvidence": [
+    {
+      "bodyRead": false,
+      "headers": {
+        "content-length": "666287217",
+        "content-type": "binary/octet-stream",
+        "etag": "\"7dde9d8e49166645f7ff2df0b9706fa8-128\"",
+        "last-modified": "Mon, 31 Aug 2026 23:10:01 GMT"
+      },
+      "method": "HEAD",
+      "retrievedAt": "2026-10-17T06:18:32.231584+00:00",
+      "status": 200,
+      "url": "https://scigantic-comptox.s3.us-east-1.amazonaws.com/v4_3/bioactivity/mc5_6_winning_model_fits.parquet"
+    },
+    {
+      "bodyRead": false,
+      "headers": {
+        "content-length": "62537446",
+        "content-type": "binary/octet-stream",
+        "etag": "\"9870ae2b2a0e51216ff87a364387ecbb-12\"",
+        "last-modified": "Mon, 31 Aug 2026 23:10:29 GMT"
+      },
+      "method": "HEAD",
+      "retrievedAt": "2026-10-17T06:18:32.568648+00:00",
+      "status": 200,
+      "url": "https://scigantic-comptox.s3.us-east-1.amazonaws.com/v4_3/derived/pubchem_bridge.parquet"
+    },
+    {
+      "bodyRead": false,
+      "headers": {
+        "content-length": "1666679",
+        "content-type": "binary/octet-stream",
+        "etag": "\"70037e3ddd33bbf0b516f745b32ed4b4\"",
+        "last-modified": "Tue, 01 Sep 2026 20:47:24 GMT"
+      },
+      "method": "HEAD",
+      "retrievedAt": "2026-10-17T06:18:32.838718+00:00",
+      "status": 200,
+      "url": "https://scigantic-comptox.s3.us-east-1.amazonaws.com/v4_3/derived/structures.parquet"
+    },
+    {
+      "bodyRead": false,
+      "headers": {
+        "content-length": "918962",
+        "content-type": "binary/octet-stream",
+        "etag": "\"61d101efa6dbbe65b86aa2f69cb6724f\"",
+        "last-modified": "Tue, 01 Sep 2026 19:18:38 GMT"
+      },
+      "method": "HEAD",
+      "retrievedAt": "2026-10-17T06:18:33.105923+00:00",
+      "status": 200,
+      "url": "https://scigantic-comptox.s3.us-east-1.amazonaws.com/v4_3/reference/assay_annotations.parquet"
+    },
+    {
+      "bodyRead": false,
+      "headers": {
+        "content-length": "71684",
+        "content-type": "binary/octet-stream",
+        "etag": "\"5ca109e718b7d6a380cd62563f34292c\"",
+        "last-modified": "Tue, 01 Sep 2026 19:18:39 GMT"
+      },
+      "method": "HEAD",
+      "retrievedAt": "2026-10-17T06:18:33.383808+00:00",
+      "status": 200,
+      "url": "https://scigantic-comptox.s3.us-east-1.amazonaws.com/v4_3/reference/assay_target_mappings.parquet"
+    }
+  ],
+  "paidApiCalled": false,
+  "parquetFootersRead": false,
+  "pubchemRightsCheck": {
+    "accessControlBypassed": false,
+    "actualContent": "browser-challenge-not-policy-text",
+    "httpStatus": 200,
+    "policyVerified": false,
+    "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/docs/copyright"
+  },
+  "qualificationGranted": false,
+  "reviewedAtUtc": "2026-10-17T06:26:42.472801+00:00",
+  "schema": "aidd.stage7b.mirror-feasibility.v1",
+  "scope": "metadata/static-source/HEAD feasibility only; no outcome-table, model, training or evaluation access"
+}
