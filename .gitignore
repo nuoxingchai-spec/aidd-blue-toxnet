@@ -116,6 +116,10 @@ artifacts/independent-validation/stage7b-supplement-20261016/*
 !artifacts/independent-validation/stage7b-supplement-20261016/herg-contract-review.json
 !artifacts/independent-validation/stage7b-supplement-20261016/eligibility-gate.json
 !artifacts/independent-validation/stage7b-supplement-20261016/verification.json
+!artifacts/independent-validation/stage7b-epa-no-api-20261017/
+artifacts/independent-validation/stage7b-epa-no-api-20261017/*
+!artifacts/independent-validation/stage7b-epa-no-api-20261017/source-audit-final.json
+!artifacts/independent-validation/stage7b-epa-no-api-20261017/verification.json
 *.sqlite3
 *.sqlite3-wal
 *.sqlite3-shm

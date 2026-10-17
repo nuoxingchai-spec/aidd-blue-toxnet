@@ -1,0 +1,108 @@
+{
+  "actualNewMetadataResponseBytes": 527227,
+  "actualNewMetadataResponses": 12,
+  "archiveAvailabilityProbes": 6,
+  "archiveProbeBodyBytesRead": 1,
+  "canEnterStage7C": false,
+  "candidateLabelsRead": false,
+  "candidateModelsExecuted": false,
+  "candidatePerformanceEvaluated": false,
+  "compilation": {
+    "command": ".venv-v3/Scripts/python.exe -m py_compile backend/epa_no_api_fallback.py scripts/audit_epa_no_api_fallback.py test/test_epa_no_api_fallback.py",
+    "files": 3,
+    "status": "passed"
+  },
+  "ctxApiCalled": false,
+  "dependencies": {
+    "elapsedSeconds": 1.712,
+    "exitCode": 0,
+    "logSha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+    "result": "No broken requirements found."
+  },
+  "environment": {
+    "dependencies": {
+      "fastapi": "0.143.0",
+      "httpx": "0.28.1",
+      "pydantic": "2.14.0",
+      "rdkit": "2026.9.1",
+      "torch": "2.14.1",
+      "transformers": "4.57.6"
+    },
+    "python": "3.13.2"
+  },
+  "formalAvailability": false,
+  "fullArchivesDownloaded": false,
+  "javascript": {
+    "command": "npm test",
+    "fail": 0,
+    "logSha256": "8c93a4773e57bf3c95d260c96838582f6c98cb29e793a58dcc7cf4f6dfdf1d14",
+    "nodeReportedMilliseconds": 656.9634,
+    "pass": 135,
+    "skipped": 0,
+    "tests": 135
+  },
+  "limitations": [
+    "Software regression includes synthetic encoders/providers/toy training, not scientific model retraining.",
+    "No actual endpoint members; missing, ambiguous, overlap and passed structure counts remain unknown.",
+    "Publisher checksum was not verified against a complete local archive.",
+    "One 25-second timeout attempt lacks recorded exact UTC; it remains null.",
+    "No qualified independent dataset or complete frozen label-custody protocol."
+  ],
+  "notExecuted": [
+    "actual-EPA-endpoint-member-recovery",
+    "DSSTox-member-structure-mapping",
+    "candidate-structure-or-source-eligibility-audit",
+    "independent-custodian-outcome-projection",
+    "candidate-prediction-or-metrics",
+    "full-archive-download-or-MySQL-import",
+    "GPU-or-browser-acceptance"
+  ],
+  "offlineReplay": {
+    "processingFilesSha256Verified": true,
+    "status": "identical-computed-aggregate"
+  },
+  "paidApiCalled": false,
+  "preservation": {
+    "additionalPreexistingTrackedFiles": 116,
+    "additionalSnapshotSha256": "0c7defab6b3da70da0158e4e81b0797771add7a74927d5159182d4ee7cf928dc",
+    "branch": "codex/stage7-labelblind-source-audit",
+    "historicalScientificFiles": 50,
+    "mainCommit": "3a7e5138398f8eea5f07ae14a083135bbc94d26b",
+    "originalCompareReceipts": 4,
+    "startingCommit": "013a4c980a1c08276cc581a5a66832edb8757eee",
+    "status": "unchanged"
+  },
+  "python": {
+    "command": ".venv-v3/Scripts/python.exe -m unittest discover -s test -p test_*.py -v",
+    "countingMethod": "unittest final Ran/OK(skipped=2) summary; interleaved stdout line counting is not used",
+    "elapsedSeconds": 56.951,
+    "errors": 0,
+    "exitCode": 0,
+    "failures": 0,
+    "logSha256": "0add8de686197f59d4178b07b1f9a2d0c10dcfc5d0166043d5fb836542a0ec8c",
+    "passed": 770,
+    "skipLines": [
+      "'Windows environment does not grant symlink creation.'",
+      "'POSIX mode check; Windows uses protected ACL instead'"
+    ],
+    "skipped": 2,
+    "total": 772,
+    "unittestSeconds": 48.07
+  },
+  "realModelsRetrained": false,
+  "schema": "aidd.stage7b.epa-no-api-verification.v1",
+  "scientificGate": "STAGE7C_BLOCKED",
+  "sourceAuditSha256": "07b1105e8f10dec8388a1fd450dac8b41b7d54f4d4a1640aaa58a0eec258eb00",
+  "sourceReceiptSha256": "8f9c0a4aa3a8e53c9f1a945d272fdb4c4a704e87b354967772cf3870e4611644",
+  "status": "software-passed-source-investigation-completed-member-mapping-blocked",
+  "targetedTests": {
+    "command": ".venv-v3/Scripts/python.exe -m unittest test.test_epa_no_api_fallback test.test_epa_structure_audit -v",
+    "errors": 0,
+    "failures": 0,
+    "fixtures": "synthetic software metadata and structure fixtures; not EPA experimental data",
+    "newNoApiCases": 17,
+    "passed": 35,
+    "total": 35
+  },
+  "verifiedAtUtc": "2026-10-17T06:08:29.912538+00:00"
+}
