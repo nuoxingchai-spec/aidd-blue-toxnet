@@ -1,0 +1,952 @@
+{
+  "blockers": [
+    "Original hERG threshold/operator/unit/boundary/assay composition unresolved",
+    "No complete original tested populations and verified candidate structures",
+    "Full historical structural and source independence not audited",
+    "Source rights and use scope not approved",
+    "No independent custodian, frozen label mapping or justified prespecified evaluation-size qualification"
+  ],
+  "canEnterStage7C": false,
+  "chembl": {
+    "assayMetadataCount": 88,
+    "assayTypeMetadataCounts": {
+      "A": 2,
+      "B": 34,
+      "T": 52
+    },
+    "documentCount": 34,
+    "limitations": [
+      "Title-keyword/year source window is not a complete KCNH2 literature census",
+      "Method keyword match does not verify the primary experimental platform, IC50 definition or new wet experiments",
+      "Assay type T/B/A and confidence 9 are metadata, not scientific qualification or label categories",
+      "New publication can reuse old experimental measurements; multiple assays can share one cohort"
+    ],
+    "limitedHistoricalExactMatch": {
+      "assayIdOverlap": 0,
+      "assayReferenceCount": 237,
+      "completeHistoricalSourceCoverage": false,
+      "documentIdOverlap": 0,
+      "documentReferenceCount": 161,
+      "doiOverlap": 0,
+      "independenceGranted": false
+    },
+    "methodOutputSha256": "cd9369817b50b282764cab5e1e91d4a909c020a6fa5f0d0c78f248f1d797dbdc",
+    "methodPlan": {
+      "activityEndpointAllowed": false,
+      "allowedMethodTerms": {
+        "automated": [
+          "automat"
+        ],
+        "electrophysiology": [
+          "electrophysiolog"
+        ],
+        "fluorescence": [
+          "fluorescen"
+        ],
+        "ion-flux": [
+          "flux"
+        ],
+        "ligand-binding": [
+          "binding"
+        ],
+        "membrane-potential": [
+          "membrane potential"
+        ],
+        "patch-clamp": [
+          "patch-clamp",
+          "patch clamp"
+        ],
+        "radioligand": [
+          "radioligand"
+        ],
+        "voltage-clamp": [
+          "voltage-clamp",
+          "voltage clamp"
+        ],
+        "whole-cell": [
+          "whole-cell",
+          "whole cell"
+        ]
+      },
+      "assayIds": [
+        "CHEMBL4381375",
+        "CHEMBL4381397",
+        "CHEMBL4381398",
+        "CHEMBL4381399",
+        "CHEMBL4381400",
+        "CHEMBL4381401",
+        "CHEMBL4381402",
+        "CHEMBL4611392",
+        "CHEMBL4611400",
+        "CHEMBL4615929",
+        "CHEMBL4734890",
+        "CHEMBL4734891",
+        "CHEMBL4734892",
+        "CHEMBL4734893",
+        "CHEMBL4734894",
+        "CHEMBL4734895",
+        "CHEMBL4734905",
+        "CHEMBL4734906",
+        "CHEMBL4734907",
+        "CHEMBL4734908",
+        "CHEMBL4734909",
+        "CHEMBL4734910",
+        "CHEMBL4810688",
+        "CHEMBL4810689",
+        "CHEMBL4810690",
+        "CHEMBL4810691",
+        "CHEMBL4810712",
+        "CHEMBL4810713",
+        "CHEMBL4832854",
+        "CHEMBL4840017",
+        "CHEMBL4840058",
+        "CHEMBL4841563",
+        "CHEMBL4841576",
+        "CHEMBL4841581",
+        "CHEMBL5036401",
+        "CHEMBL5036402",
+        "CHEMBL5107306",
+        "CHEMBL5109448",
+        "CHEMBL5121792",
+        "CHEMBL5121851",
+        "CHEMBL5121854",
+        "CHEMBL5121855",
+        "CHEMBL5135948",
+        "CHEMBL5142864",
+        "CHEMBL5164097",
+        "CHEMBL5164183",
+        "CHEMBL5215556",
+        "CHEMBL5234321",
+        "CHEMBL5234322",
+        "CHEMBL5259045",
+        "CHEMBL5259050",
+        "CHEMBL5316910",
+        "CHEMBL5323881",
+        "CHEMBL5323931",
+        "CHEMBL5323932",
+        "CHEMBL5323933",
+        "CHEMBL5323934",
+        "CHEMBL5338527",
+        "CHEMBL5338534",
+        "CHEMBL5368519",
+        "CHEMBL5368552",
+        "CHEMBL5368553",
+        "CHEMBL5375739",
+        "CHEMBL5375740",
+        "CHEMBL5375741",
+        "CHEMBL5387422",
+        "CHEMBL5393312",
+        "CHEMBL5393329",
+        "CHEMBL5393330",
+        "CHEMBL5554826",
+        "CHEMBL5554846",
+        "CHEMBL6083897",
+        "CHEMBL6083898",
+        "CHEMBL6106118",
+        "CHEMBL6107684",
+        "CHEMBL6111433",
+        "CHEMBL6111434",
+        "CHEMBL6111436",
+        "CHEMBL6113406",
+        "CHEMBL6113407",
+        "CHEMBL6113427",
+        "CHEMBL6135841",
+        "CHEMBL6135859",
+        "CHEMBL6135860",
+        "CHEMBL6135861",
+        "CHEMBL6140206",
+        "CHEMBL6140214",
+        "CHEMBL6141221"
+      ],
+      "fields": [
+        "assay_chembl_id",
+        "description"
+      ],
+      "freeTextOutputAllowed": false,
+      "numericValueOutputAllowed": false,
+      "onlyBooleanEnumMethodMatchesAllowed": true,
+      "rawBodyCacheAllowed": false,
+      "requiresIndependentCustodianConfirmation": true,
+      "schema": "aidd.stage7b.chembl-method-enum-plan.v1",
+      "sourceSummarySha256": "77d78384f4f0172a279a8acb4cf044e14ba4c02356f010ae7ab49b85a89bce90"
+    },
+    "methodPlanSha256": "023d66a9ed72a3aaefac27d2f7bdcfd1df8d8f14eb8381cc3eb232ec40da8d90",
+    "methodReceipt": {
+      "outputSha256": "cd9369817b50b282764cab5e1e91d4a909c020a6fa5f0d0c78f248f1d797dbdc",
+      "planSha256": "023d66a9ed72a3aaefac27d2f7bdcfd1df8d8f14eb8381cc3eb232ec40da8d90",
+      "responses": [
+        {
+          "outputFields": [
+            "assayId",
+            "methodEnums",
+            "methodTextPersisted"
+          ],
+          "rawBodyPersisted": false,
+          "responseBytes": 8159,
+          "responseSha256": "5b2fa9861e76d9e72a75a7703311b07f422d4cf8547d53e724f7b1a5570e3353",
+          "retrievedUtc": "2026-10-17T06:42:16.202613+00:00",
+          "url": "https://www.ebi.ac.uk/chembl/api/data/assay.json?assay_chembl_id__in=CHEMBL4381375%2CCHEMBL4381397%2CCHEMBL4381398%2CCHEMBL4381399%2CCHEMBL4381400%2CCHEMBL4381401%2CCHEMBL4381402%2CCHEMBL4611392%2CCHEMBL4611400%2CCHEMBL4615929%2CCHEMBL4734890%2CCHEMBL4734891%2CCHEMBL4734892%2CCHEMBL4734893%2CCHEMBL4734894%2CCHEMBL4734895%2CCHEMBL4734905%2CCHEMBL4734906%2CCHEMBL4734907%2CCHEMBL4734908%2CCHEMBL4734909%2CCHEMBL4734910%2CCHEMBL4810688%2CCHEMBL4810689%2CCHEMBL4810690%2CCHEMBL4810691%2CCHEMBL4810712%2CCHEMBL4810713%2CCHEMBL4832854%2CCHEMBL4840017%2CCHEMBL4840058%2CCHEMBL4841563%2CCHEMBL4841576%2CCHEMBL4841581%2CCHEMBL5036401%2CCHEMBL5036402%2CCHEMBL5107306%2CCHEMBL5109448%2CCHEMBL5121792%2CCHEMBL5121851&order_by=assay_chembl_id&only=assay_chembl_id%2Cdescription&limit=200&offset=0"
+        },
+        {
+          "outputFields": [
+            "assayId",
+            "methodEnums",
+            "methodTextPersisted"
+          ],
+          "rawBodyPersisted": false,
+          "responseBytes": 6233,
+          "responseSha256": "1e2e0b983ba54b98f0c804dcee264053f7fc021144aadc6179da9833c3466e56",
+          "retrievedUtc": "2026-10-17T06:42:16.584165+00:00",
+          "url": "https://www.ebi.ac.uk/chembl/api/data/assay.json?assay_chembl_id__in=CHEMBL5121854%2CCHEMBL5121855%2CCHEMBL5135948%2CCHEMBL5142864%2CCHEMBL5164097%2CCHEMBL5164183%2CCHEMBL5215556%2CCHEMBL5234321%2CCHEMBL5234322%2CCHEMBL5259045%2CCHEMBL5259050%2CCHEMBL5316910%2CCHEMBL5323881%2CCHEMBL5323931%2CCHEMBL5323932%2CCHEMBL5323933%2CCHEMBL5323934%2CCHEMBL5338527%2CCHEMBL5338534%2CCHEMBL5368519%2CCHEMBL5368552%2CCHEMBL5368553%2CCHEMBL5375739%2CCHEMBL5375740%2CCHEMBL5375741%2CCHEMBL5387422%2CCHEMBL5393312%2CCHEMBL5393329%2CCHEMBL5393330%2CCHEMBL5554826%2CCHEMBL5554846%2CCHEMBL6083897%2CCHEMBL6083898%2CCHEMBL6106118%2CCHEMBL6107684%2CCHEMBL6111433%2CCHEMBL6111434%2CCHEMBL6111436%2CCHEMBL6113406%2CCHEMBL6113407&order_by=assay_chembl_id&only=assay_chembl_id%2Cdescription&limit=200&offset=0"
+        },
+        {
+          "outputFields": [
+            "assayId",
+            "methodEnums",
+            "methodTextPersisted"
+          ],
+          "rawBodyPersisted": false,
+          "responseBytes": 1301,
+          "responseSha256": "7ff604f506520989482c0650da9f50dc310878b4aae2dfb78ed1f898c53c106f",
+          "retrievedUtc": "2026-10-17T06:42:16.893711+00:00",
+          "url": "https://www.ebi.ac.uk/chembl/api/data/assay.json?assay_chembl_id__in=CHEMBL6113427%2CCHEMBL6135841%2CCHEMBL6135859%2CCHEMBL6135860%2CCHEMBL6135861%2CCHEMBL6140206%2CCHEMBL6140214%2CCHEMBL6141221&order_by=assay_chembl_id&only=assay_chembl_id%2Cdescription&limit=200&offset=0"
+        }
+      ],
+      "scriptSha256": "af0013c98cd52e3bdbddd2c25ec553e2cc8dc58c5374141b5970a8b1b9fa8207"
+    },
+    "officialApi": "https://www.ebi.ac.uk/chembl/api/data/",
+    "patchClampMethodEnumCount": 53,
+    "publicationYearRange": [
+      2020,
+      2025
+    ],
+    "queryPlan": {
+      "descriptionsTitlesAbstractsAllowed": false,
+      "downloadStructures": false,
+      "eligibilityGranted": false,
+      "expectedVersion": "ChEMBL_37",
+      "fields": {
+        "assay": [
+          "assay_chembl_id",
+          "assay_type",
+          "assay_organism",
+          "assay_tax_id",
+          "assay_cell_type",
+          "assay_tissue",
+          "confidence_score",
+          "relationship_type",
+          "document_chembl_id",
+          "src_id",
+          "target_chembl_id"
+        ],
+        "document": [
+          "document_chembl_id",
+          "doi",
+          "pubmed_id",
+          "journal",
+          "year",
+          "src_id",
+          "doc_type"
+        ]
+      },
+      "initialQuery": {
+        "limit": 200,
+        "offset": 0,
+        "only": "document_chembl_id,doi,pubmed_id,journal,year,src_id,doc_type",
+        "order_by": "-year",
+        "title__icontains": "hERG",
+        "year__gte": 2020
+      },
+      "labelsRead": false,
+      "maxRequests": 15,
+      "maxResponseBytes": 500000,
+      "maximumTotalBytes": 2000000,
+      "resultFieldsAllowed": false,
+      "schema": "aidd.stage7b.chembl-source-discovery-plan.v1",
+      "selection": "source documents title keyword hERG and publication year >=2020; no title returned; join assays for exact human target CHEMBL240 and source document IDs"
+    },
+    "queryPlanSha256": "0aa164f3ea73b934e8c885a058a31be378265578fba74bb5a94d5317c1c217c1",
+    "rejectedExploratoryQueries": [
+      "initial status contract mismatch: stopped",
+      "assay ID lexical order is not publication date",
+      "assay document__year__gte filter was ignored; rejected, replaced by validated document year filter"
+    ],
+    "rights": {
+      "databaseLicense": "CC BY-SA 3.0",
+      "fixedLicenseSha256": "f0c22ca33207ad8a85129a71f1454fcf8f2f71c99e68da5da01538210fa3ffba",
+      "underlyingExperimentAndArticleUseApproval": "MANUAL_REVIEW_REQUIRED",
+      "version": "ChEMBL_37"
+    },
+    "selectedSourceMetadata": [
+      {
+        "assay": {
+          "assay_cell_type": "CHO",
+          "assay_chembl_id": "CHEMBL6107684",
+          "assay_organism": "Homo sapiens",
+          "assay_tax_id": 9606,
+          "assay_tissue": null,
+          "assay_type": "T",
+          "confidence_score": 9,
+          "document_chembl_id": "CHEMBL6103639",
+          "relationship_type": "D",
+          "src_id": 1,
+          "target_chembl_id": "CHEMBL240"
+        },
+        "document": {
+          "doc_type": "PUBLICATION",
+          "document_chembl_id": "CHEMBL6103639",
+          "doi": "10.1021/acs.jmedchem.4c02635",
+          "journal": "J Med Chem",
+          "pubmed_id": 40045825,
+          "src_id": 1,
+          "year": 2025
+        },
+        "method": {
+          "assayId": "CHEMBL6107684",
+          "methodEnums": [
+            "patch-clamp",
+            "electrophysiology"
+          ],
+          "methodTextPersisted": false
+        }
+      },
+      {
+        "assay": {
+          "assay_cell_type": null,
+          "assay_chembl_id": "CHEMBL6113406",
+          "assay_organism": "Homo sapiens",
+          "assay_tax_id": 9606,
+          "assay_tissue": null,
+          "assay_type": "T",
+          "confidence_score": 9,
+          "document_chembl_id": "CHEMBL6109144",
+          "relationship_type": "D",
+          "src_id": 1,
+          "target_chembl_id": "CHEMBL240"
+        },
+        "document": {
+          "doc_type": "PUBLICATION",
+          "document_chembl_id": "CHEMBL6109144",
+          "doi": "10.1021/acs.jmedchem.5c00231",
+          "journal": "J Med Chem",
+          "pubmed_id": 40167442,
+          "src_id": 1,
+          "year": 2025
+        },
+        "method": {
+          "assayId": "CHEMBL6113406",
+          "methodEnums": [
+            "patch-clamp",
+            "whole-cell"
+          ],
+          "methodTextPersisted": false
+        }
+      },
+      {
+        "assay": {
+          "assay_cell_type": null,
+          "assay_chembl_id": "CHEMBL6113407",
+          "assay_organism": "Homo sapiens",
+          "assay_tax_id": 9606,
+          "assay_tissue": null,
+          "assay_type": "T",
+          "confidence_score": 9,
+          "document_chembl_id": "CHEMBL6109144",
+          "relationship_type": "D",
+          "src_id": 1,
+          "target_chembl_id": "CHEMBL240"
+        },
+        "document": {
+          "doc_type": "PUBLICATION",
+          "document_chembl_id": "CHEMBL6109144",
+          "doi": "10.1021/acs.jmedchem.5c00231",
+          "journal": "J Med Chem",
+          "pubmed_id": 40167442,
+          "src_id": 1,
+          "year": 2025
+        },
+        "method": {
+          "assayId": "CHEMBL6113407",
+          "methodEnums": [
+            "patch-clamp",
+            "whole-cell"
+          ],
+          "methodTextPersisted": false
+        }
+      },
+      {
+        "assay": {
+          "assay_cell_type": null,
+          "assay_chembl_id": "CHEMBL6113427",
+          "assay_organism": "Homo sapiens",
+          "assay_tax_id": 9606,
+          "assay_tissue": null,
+          "assay_type": "T",
+          "confidence_score": 9,
+          "document_chembl_id": "CHEMBL6109144",
+          "relationship_type": "D",
+          "src_id": 1,
+          "target_chembl_id": "CHEMBL240"
+        },
+        "document": {
+          "doc_type": "PUBLICATION",
+          "document_chembl_id": "CHEMBL6109144",
+          "doi": "10.1021/acs.jmedchem.5c00231",
+          "journal": "J Med Chem",
+          "pubmed_id": 40167442,
+          "src_id": 1,
+          "year": 2025
+        },
+        "method": {
+          "assayId": "CHEMBL6113427",
+          "methodEnums": [
+            "patch-clamp",
+            "whole-cell"
+          ],
+          "methodTextPersisted": false
+        }
+      }
+    ],
+    "selectedSourcesAreQualified": false,
+    "sourceReceipt": {
+      "candidateLabelValuesDisplayed": false,
+      "candidateLabelsRequested": false,
+      "planSha256": "0aa164f3ea73b934e8c885a058a31be378265578fba74bb5a94d5317c1c217c1",
+      "receivedBytes": 33007,
+      "responses": [
+        {
+          "bytes": 212,
+          "httpStatus": 200,
+          "name": "status-before.json",
+          "projectionValidated": true,
+          "retrievedUtc": "2026-10-17T06:41:23.637224+00:00",
+          "sha256": "29dc1fb09487a8d2962253a4d0d92c4ded0aa0d831effab42445d0c3483d4740",
+          "url": "https://www.ebi.ac.uk/chembl/api/data/status.json"
+        },
+        {
+          "bytes": 6398,
+          "httpStatus": 200,
+          "name": "documents.json",
+          "projectionValidated": true,
+          "retrievedUtc": "2026-10-17T06:41:24.097377+00:00",
+          "sha256": "a1096ecebc76b917b2fbbb025aa7449567d247d7a6cbb661d9084082c7bf6ba0",
+          "url": "https://www.ebi.ac.uk/chembl/api/data/document.json?title__icontains=hERG&year__gte=2020&order_by=-year&only=document_chembl_id%2Cdoi%2Cpubmed_id%2Cjournal%2Cyear%2Csrc_id%2Cdoc_type&limit=200&offset=0"
+        },
+        {
+          "bytes": 26185,
+          "httpStatus": 200,
+          "name": "assays-0.json",
+          "projectionValidated": true,
+          "retrievedUtc": "2026-10-17T06:41:24.883649+00:00",
+          "sha256": "67bb864c28d34be450a1e5fc210c1648c931c37221025be71dc8723406a352c1",
+          "url": "https://www.ebi.ac.uk/chembl/api/data/assay.json?target_chembl_id=CHEMBL240&document_chembl_id__in=CHEMBL4376885%2CCHEMBL4610040%2CCHEMBL4613299%2CCHEMBL4732108%2CCHEMBL4808226%2CCHEMBL4831515%2CCHEMBL4837261%2CCHEMBL4840347%2CCHEMBL5036301%2CCHEMBL5104197%2CCHEMBL5107990%2CCHEMBL5120772%2CCHEMBL5131524%2CCHEMBL5137107%2CCHEMBL5154849%2CCHEMBL5214898%2CCHEMBL5233240%2CCHEMBL5257086%2CCHEMBL5316274%2CCHEMBL5321272%2CCHEMBL5335864%2CCHEMBL5365483%2CCHEMBL5370690%2CCHEMBL5385870%2CCHEMBL5390317%2CCHEMBL5550221%2CCHEMBL6083199%2CCHEMBL6103599%2CCHEMBL6103639%2CCHEMBL6109112%2CCHEMBL6109144%2CCHEMBL6134787%2CCHEMBL6134895%2CCHEMBL6134917&order_by=assay_chembl_id&only=assay_chembl_id%2Cassay_type%2Cassay_organism%2Cassay_tax_id%2Cassay_cell_type%2Cassay_tissue%2Cconfidence_score%2Crelationship_type%2Cdocument_chembl_id%2Csrc_id%2Ctarget_chembl_id&limit=200&offset=0"
+        },
+        {
+          "bytes": 212,
+          "httpStatus": 200,
+          "name": "status-after.json",
+          "projectionValidated": true,
+          "retrievedUtc": "2026-10-17T06:41:26.832263+00:00",
+          "sha256": "29dc1fb09487a8d2962253a4d0d92c4ded0aa0d831effab42445d0c3483d4740",
+          "url": "https://www.ebi.ac.uk/chembl/api/data/status.json"
+        }
+      ],
+      "schema": "aidd.stage7b.chembl-source-discovery-receipt.v1",
+      "scriptSha256": "4a8e5c057277657a9b66a19de84c527db4a601f1b44c3a4cbe858a069ac6a74d"
+    },
+    "sourceReceiptSha256": "aa167bc9738e4193dfb8c416310523a820c95e99f429182fc3425f48e9601226",
+    "targetId": "CHEMBL240",
+    "version": "ChEMBL_37"
+  },
+  "evidenceAcquisitionLocalDate": "2026-10-17",
+  "formalAvailability": false,
+  "gateStatus": "STAGE7C_BLOCKED",
+  "historicalSources": {
+    "candidateOutcomeDataRead": false,
+    "completeDocumentAssayCohortCrosswalk": false,
+    "historicalResultSectionsRead": false,
+    "karimMethodsXmlSha256": "0832a808a2fe7b633954977b9e090450bf72cd8285a33d91d6c27875545553a6",
+    "notesSha256": "96aeac4ad8b6fb81bee39f1390c3008ed3ad2ced3249c8b3f90ba0170c528978",
+    "sourceDoiCrosswalk": [
+      {
+        "doi": "10.1093/bioinformatics/btaa075",
+        "referenceId": "CR19"
+      },
+      {
+        "doi": "10.1093/nar/gkv1072",
+        "referenceId": "CR24"
+      },
+      {
+        "doi": "10.1093/nar/gkr777",
+        "referenceId": "CR25"
+      },
+      {
+        "doi": "10.1021/acs.jcim.8b00769",
+        "referenceId": "CR6"
+      },
+      {
+        "doi": "10.1002/cmdc.201000024",
+        "referenceId": "CR7"
+      },
+      {
+        "doi": "10.1007/s10822-016-9986-0",
+        "referenceId": "CR26"
+      },
+      {
+        "doi": "10.1021/acs.jcim.8b00150",
+        "referenceId": "CR29"
+      },
+      {
+        "doi": "10.1016/j.comtox.2019.100089",
+        "referenceId": "CR30"
+      },
+      {
+        "doi": "10.1021/acs.jcim.0c00884",
+        "referenceId": "CR31"
+      }
+    ],
+    "sourceFamilies": [
+      "BindingDB",
+      "ChEMBL",
+      "DeepHIT",
+      "Ryu"
+    ]
+  },
+  "labelBlindness": {
+    "candidateDataEndpointsRequested": false,
+    "candidateResultLabelsRead": false,
+    "candidateResultValuesDisplayed": false,
+    "candidateStructuresRequested": false,
+    "independentCustodianEstablished": false,
+    "labelDistributionsComputed": false,
+    "limitations": "Bounded in-memory field/method projection is engineering isolation, not independent human custodianship",
+    "rawNetworkBodiesRetainedForDescriptions": false
+  },
+  "nextAdministratorSources": [
+    {
+      "assayIds": [
+        "CHEMBL6107684"
+      ],
+      "documentId": "CHEMBL6103639",
+      "doi": "10.1021/acs.jmedchem.4c02635",
+      "priority": 1
+    },
+    {
+      "assayIds": [
+        "CHEMBL6113406",
+        "CHEMBL6113407",
+        "CHEMBL6113427"
+      ],
+      "documentId": "CHEMBL6109144",
+      "doi": "10.1021/acs.jmedchem.5c00231",
+      "priority": 2
+    }
+  ],
+  "originalHergContract": {
+    "boundaryRule": null,
+    "comparisonOperator": null,
+    "dataset": "Wang/TDC hERG",
+    "documentationUrl": "https://tdcommons.ai/single_pred_tasks/tox/#herg-blockers",
+    "doi": "10.1021/acs.molpharmaceut.6b00471",
+    "fileId": 4259588,
+    "frozenPolicySha256": "720daf2db990068fc43f2ac70ff45a71a095ed40803a722e9bcc2030ce67ffe7",
+    "labelMappingExecutable": false,
+    "originalAssayComposition": null,
+    "pmid": 27379394,
+    "positiveClass": "blocker=1; non-blocker=0",
+    "sourceSha256": "f2b00c05f12763c9da91d46246800e30925a626d5038e15eec366d633bdffe54",
+    "status": "MANUAL_REVIEW_REQUIRED",
+    "threshold": null,
+    "unit": null
+  },
+  "packagedLocalDate": "2026-10-18",
+  "pubchem": {
+    "assays": [
+      {
+        "aid": 588834,
+        "ambiguousMappings": null,
+        "assayVersion": 2,
+        "cidMappingPerformed": false,
+        "depositionDate": null,
+        "depositionDateStatus": "NOT_AVAILABLE_IN_REVIEWED_FIELDS",
+        "fullyQualifiedCount": null,
+        "identityEvidence": {
+          "associatedSidCount": 5381,
+          "fullTestedPopulationConfirmed": false,
+          "projectionPlanSha256": "4036df57a489bbf688f32f8860b2205f2210cc0615626ec2ceced0038e336852",
+          "projectionStatus": "IDENTITY_ONLY_ACCEPTED",
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:41:39.558544+00:00",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/588834/sids/JSON?sid_type=all"
+        },
+        "mappedStructures": null,
+        "metadataEvidence": {
+          "bytes": 19246,
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:40:56.354682+00:00",
+          "sha256": "6f16a2b887dc11d96a747dc14f9635a984ab0b7e71dfadcf834829049451ac9e",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/588834/description/JSON"
+        },
+        "methodConfirmation": "INDEPENDENT_PROTOCOL_REVIEW_REQUIRED",
+        "methodIndicators": [
+          "thallium-flux",
+          "fluorescence",
+          "patch-clamp",
+          "U2OS-cells",
+          "human-target",
+          "room-temperature",
+          "NCGC-source",
+          "membrane-potential",
+          "potassium-channel"
+        ],
+        "missingStructures": null,
+        "officialPage": "https://pubchem.ncbi.nlm.nih.gov/bioassay/588834",
+        "protocolOnlyMethodIndicators": [
+          "thallium-flux",
+          "fluorescence",
+          "patch-clamp",
+          "U2OS-cells",
+          "room-temperature",
+          "membrane-potential",
+          "FDSS-platform",
+          "astemizole-reagent"
+        ],
+        "protocolProjectionEvidence": {
+          "bytes": 19246,
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:42:23.866183+00:00",
+          "sha256": "6f16a2b887dc11d96a747dc14f9635a984ab0b7e71dfadcf834829049451ac9e",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/588834/description/JSON"
+        },
+        "pubmedIds": [
+          19583963,
+          21362439
+        ],
+        "revision": 1,
+        "rightsApproval": "MANUAL_REVIEW_REQUIRED",
+        "scientificSuitability": "FUNCTIONAL_FLUX_PROXY; ORIGINAL_HERG_CONTRACT_UNRESOLVED",
+        "source": {
+          "db": {
+            "name": "NCGC",
+            "source_id": {
+              "str": "HERG01"
+            }
+          }
+        },
+        "sourceIndependenceVerified": false,
+        "strictIdentityEvidence": {
+          "aid": 588834,
+          "associatedSidCount": 5381,
+          "failureCategory": null,
+          "httpStatus": 200,
+          "projectionSha256": "200a044dd8bea8fb088d467775befc288edaf7582b370c2c59a8573a386b61dc",
+          "rawBodyRetained": false,
+          "responseBytesRead": 110127,
+          "responseSha256": "1edd841aef6f6b755fc7e719eb5454971cd040b7f264c49ab42644e7c9d93d38",
+          "retrievedAtUtc": "2026-10-17T06:46:19.406139+00:00",
+          "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/588834/sids/JSON?sid_type=all",
+          "status": "identity-projection-verified"
+        },
+        "structurallyQualifiedCount": null
+      },
+      {
+        "aid": 1671200,
+        "ambiguousMappings": null,
+        "assayVersion": 1,
+        "cidMappingPerformed": false,
+        "depositionDate": null,
+        "depositionDateStatus": "NOT_AVAILABLE_IN_REVIEWED_FIELDS",
+        "fullyQualifiedCount": null,
+        "identityEvidence": {
+          "associatedSidCount": 9667,
+          "fullTestedPopulationConfirmed": false,
+          "projectionPlanSha256": "4036df57a489bbf688f32f8860b2205f2210cc0615626ec2ceced0038e336852",
+          "projectionStatus": "IDENTITY_ONLY_ACCEPTED",
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:41:41.148972+00:00",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1671200/sids/JSON?sid_type=all"
+        },
+        "mappedStructures": null,
+        "metadataEvidence": {
+          "bytes": 516490,
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:40:57.134769+00:00",
+          "sha256": "aa6030618227aa60e28772beaf6339938a0b6a70f62663b560f4b64263e73b8a",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1671200/description/JSON"
+        },
+        "methodConfirmation": "INDEPENDENT_PROTOCOL_REVIEW_REQUIRED",
+        "methodIndicators": [
+          "thallium-flux",
+          "fluorescence",
+          "U2OS-cells",
+          "room-temperature",
+          "Tox21-source"
+        ],
+        "missingStructures": null,
+        "officialPage": "https://pubchem.ncbi.nlm.nih.gov/bioassay/1671200",
+        "protocolOnlyMethodIndicators": [
+          "fluorescence",
+          "U2OS-cells",
+          "room-temperature",
+          "FDSS-platform",
+          "astemizole-reagent"
+        ],
+        "protocolProjectionEvidence": {
+          "bytes": 516490,
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:42:24.420207+00:00",
+          "sha256": "aa6030618227aa60e28772beaf6339938a0b6a70f62663b560f4b64263e73b8a",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1671200/description/JSON"
+        },
+        "pubmedIds": [
+          28551711
+        ],
+        "revision": 1,
+        "rightsApproval": "MANUAL_REVIEW_REQUIRED",
+        "scientificSuitability": "FUNCTIONAL_FLUX_PROXY; TOX21_SOURCE_FAMILY_RISK",
+        "source": {
+          "db": {
+            "name": "824",
+            "source_id": {
+              "str": "HERG915"
+            }
+          }
+        },
+        "sourceIndependenceVerified": false,
+        "strictIdentityEvidence": {
+          "aid": 1671200,
+          "associatedSidCount": 9667,
+          "failureCategory": null,
+          "httpStatus": 200,
+          "projectionSha256": "1d129b6cc57f47c7bebfba428154683d2fc43879cfb9983a1f30992c33a8d8a9",
+          "rawBodyRetained": false,
+          "responseBytesRead": 203131,
+          "responseSha256": "354f2183b1092033bc6baad8382a38a539852185913390cbe48ffca5f1b619fb",
+          "retrievedAtUtc": "2026-10-17T06:46:20.173891+00:00",
+          "sourceUrl": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1671200/sids/JSON?sid_type=all",
+          "status": "identity-projection-verified"
+        },
+        "structurallyQualifiedCount": null
+      },
+      {
+        "aid": 1511,
+        "ambiguousMappings": null,
+        "assayVersion": 1,
+        "cidMappingPerformed": false,
+        "depositionDate": null,
+        "depositionDateStatus": "NOT_AVAILABLE_IN_REVIEWED_FIELDS",
+        "fullyQualifiedCount": null,
+        "identityEvidence": {
+          "associatedSidCount": null,
+          "failureCategory": "RESPONSE_BUDGET_EXCEEDED",
+          "fullTestedPopulationConfirmed": false,
+          "maximumResponseBytes": 5242880,
+          "projectionPlanSha256": "4036df57a489bbf688f32f8860b2205f2210cc0615626ec2ceced0038e336852",
+          "projectionSha256": null,
+          "projectionStatus": "RESPONSE_BUDGET_EXCEEDED",
+          "rawBodyRetained": false,
+          "responseSha256": null,
+          "retrievedAt": "2026-10-17T06:41:41.811811+00:00",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1511/sids/JSON?sid_type=all"
+        },
+        "mappedStructures": null,
+        "metadataEvidence": {
+          "bytes": 21744,
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:40:57.669291+00:00",
+          "sha256": "e354b8d4eb6f64b69f4c6ae862b08b9ee82567dcb9c1e698eb1033678d7aa5ec",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1511/description/JSON"
+        },
+        "methodConfirmation": "INDEPENDENT_PROTOCOL_REVIEW_REQUIRED",
+        "methodIndicators": [
+          "thallium-flux",
+          "fluorescence",
+          "patch-clamp",
+          "electrophysiology",
+          "CHO-cells",
+          "human-target",
+          "room-temperature",
+          "binding-assay",
+          "potassium-channel"
+        ],
+        "missingStructures": null,
+        "officialPage": "https://pubchem.ncbi.nlm.nih.gov/bioassay/1511",
+        "protocolOnlyMethodIndicators": [
+          "thallium-flux",
+          "fluorescence",
+          "CHO-cells",
+          "room-temperature",
+          "FDSS-platform",
+          "dofetilide-reagent"
+        ],
+        "protocolProjectionEvidence": {
+          "bytes": 21744,
+          "rawBodyRetained": false,
+          "retrievedAt": "2026-10-17T06:42:24.899078+00:00",
+          "sha256": "e354b8d4eb6f64b69f4c6ae862b08b9ee82567dcb9c1e698eb1033678d7aa5ec",
+          "status": 200,
+          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1511/description/JSON"
+        },
+        "pubmedIds": [
+          1501123,
+          7736582,
+          7978420,
+          8649354,
+          8700146,
+          8921803,
+          10636190,
+          10648647,
+          10838414,
+          11723241,
+          12552182,
+          14525949,
+          15574182,
+          15634793,
+          16474415,
+          16633353,
+          17189275,
+          17218666
+        ],
+        "revision": 3,
+        "rightsApproval": "MANUAL_REVIEW_REQUIRED",
+        "scientificSuitability": "PROTECTION_RESCUE_SCREEN; NOT_DIRECT_BLOCKER_TASK",
+        "source": {
+          "db": {
+            "name": "Johns Hopkins Ion Channel Center",
+            "source_id": {
+              "str": "JHICC_hERG"
+            }
+          }
+        },
+        "sourceIndependenceVerified": false,
+        "structurallyQualifiedCount": null
+      }
+    ],
+    "citationEvidence": {
+      "bytes": 6945,
+      "rawBodyRetained": false,
+      "retrievedAt": "2026-10-17T06:42:53.466847+00:00",
+      "sha256": "c24c38c95730502a1d2fc0d9d764634f34da3e9e5b5460906cb41363e5208d61",
+      "status": 200,
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=19583963,21362439,28551711&retmode=json"
+    },
+    "citations": [
+      {
+        "doi": [
+          "10.1016/j.ab.2009.07.003"
+        ],
+        "journal": "Analytical biochemistry",
+        "pmid": "19583963",
+        "publicationDate": "2009 Nov 1"
+      },
+      {
+        "doi": [
+          "10.1016/j.taap.2011.02.016"
+        ],
+        "journal": "Toxicology and applied pharmacology",
+        "pmid": "21362439",
+        "publicationDate": "2011 May 1"
+      },
+      {
+        "doi": [
+          "10.1007/s00204-017-1995-9"
+        ],
+        "journal": "Archives of toxicology",
+        "pmid": "28551711",
+        "publicationDate": "2017 Dec"
+      }
+    ],
+    "identityOverlap": {
+      "meaning": "Exact SID identity association overlap only; not structural, source independence or experimental outcomes.",
+      "only1671200": 9659,
+      "only588834": 5373,
+      "sharedSidCount": 8
+    },
+    "identityScope": "AID-associated SID only; not verified complete raw experimental population; not unique molecules",
+    "officialSchema": {
+      "boundedProbeEvidence": {
+        "bytes": 102400,
+        "retrievedAt": "2026-10-17T06:39:34.488573+00:00",
+        "sha256": "2321e17d9229118ad5e6de3e2ee3738a1e7c1a4eb32e426736d6e800deed875b",
+        "status": 200,
+        "url": "https://ftp.ncbi.nlm.nih.gov/pubchem/specifications/pubchem.asn"
+      },
+      "boundedProbeRawBodyRetained": false,
+      "cachedDescriptionDefinitionExcerpt": {
+        "bytes": 5818,
+        "kind": "local-schema-definition-excerpt; not complete original response",
+        "sha256": "a65fd2730e9e0029fbc6165bdf22fc39ef4eda05be51a0eda14f64fde9f19797"
+      },
+      "completeOfficialFileHashEstablished": false,
+      "reviewedScope": "PC-AssayDescription metadata definition excerpt; no actual assay results; complete results-object schema not frozen",
+      "url": "https://ftp.ncbi.nlm.nih.gov/pubchem/specifications/pubchem.asn"
+    },
+    "originalTestedPopulationConfirmed": false,
+    "rights": {
+      "dedicatedPubChemCopyrightPage": "BROWSER_CHALLENGE; NOT_BYPASSED",
+      "interpretation": "Public hosting/API does not approve all third-party material uses or redistribution",
+      "policyResponseSha256": "8ad8f6f186ca51ec73a5fb8935ecfa17b8cbaad300b7025b381898ab72621869",
+      "policyUrl": "https://www.ncbi.nlm.nih.gov/home/about/policies/",
+      "status": "MANUAL_REVIEW_REQUIRED"
+    },
+    "sidToCidToStructurePerformed": false,
+    "strictIdentityPlan": {
+      "aids": [
+        588834,
+        1671200
+      ],
+      "canEnterStage7C": false,
+      "maximumResponseBytes": 5242880,
+      "maximumSids": 500000,
+      "rawNetworkBodiesRetained": false,
+      "resultDataEndpointsAllowed": false,
+      "schema": "aidd.stage7b.pubchem-identity-plan.v1",
+      "scriptSha256": "8d4d0f6626d3066727002cd01a8eac9f54ac44378efe6f397a495613c3a20b22",
+      "selection": "sid_type=all; no activity selector",
+      "urls": [
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/588834/sids/JSON?sid_type=all",
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/assay/aid/1671200/sids/JSON?sid_type=all"
+      ]
+    },
+    "strictIdentityPlanSha256": "6b9a5cf083d31556f0f748c0e5eda986d9420dad5c2b29732d02894eee57c3b3"
+  },
+  "qualificationGranted": false,
+  "schema": "aidd.stage7b.independent-source-discovery.v1",
+  "scope": "SOURCE_METADATA_AND_ALL_ASSOCIATED_IDENTITIES_ONLY",
+  "startingGit": {
+    "branch": "codex/stage7-labelblind-source-audit",
+    "head": "89bc076568bd0e5155257cba5cb508ddf2760e87",
+    "main": "3a7e5138398f8eea5f07ae14a083135bbc94d26b",
+    "unpublishedStage7CommitsAtStart": [
+      "7e47c55",
+      "013a4c9",
+      "cf2434c",
+      "89bc076"
+    ]
+  },
+  "structuralAndSourceAudit": {
+    "fullyEligibleCount": null,
+    "historyOverlapCount": null,
+    "mappedStructureCount": null,
+    "performed": false,
+    "requiredBeforeAnyQualification": [
+      "canonical",
+      "parent",
+      "tautomer",
+      "stereo-and-isotope-near-equivalence",
+      "Bemis-Murcko-scaffold",
+      "source-document-assay-cohort-family",
+      "complete-history-and-rights-review"
+    ],
+    "structuralPassCount": null
+  },
+  "timezone": "Asia/Shanghai"
+}

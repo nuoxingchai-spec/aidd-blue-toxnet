@@ -1,0 +1,101 @@
+{
+  "canEnterStage7C": false,
+  "candidateLabelsRead": false,
+  "currentProtectedSnapshot": {
+    "changedCount": 0,
+    "fileCount": 122,
+    "includes": "Existing tracked model manifests/artifacts and historical Markdown documents",
+    "sha256": "89d8ec2094b9715b9e81ec8a1d9aaa42356c9f48d0cfbb9f00d5c69300308fe1",
+    "status": "unchanged"
+  },
+  "dependencyAndPreservationChecks": {
+    "compilation": {
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": ""
+    },
+    "dependencies": {
+      "exitCode": 0,
+      "logSha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "result": "No broken requirements found."
+    },
+    "preservation": {
+      "exitCode": 0,
+      "logSha256": "9b66059406e70324f0f67e1081e99f0eba5b058b575aa7eee580c6553ef25989",
+      "result": {
+        "historicalFiles": 50,
+        "originalCompareReceipts": 4,
+        "status": "unchanged"
+      }
+    }
+  },
+  "finalPackagingChecks": {
+    "checkedLocalDate": "2026-10-18",
+    "credentialAndActualPrivatePathScan": "passed",
+    "diffCheck": "passed",
+    "exactFileAllowlist": "passed",
+    "mainUnchanged": true,
+    "protectedFileCountUnchanged": 122,
+    "publicFieldAndUrlAllowlist": "passed",
+    "rawFileIgnoreRules": "passed",
+    "rawIdentitiesAndStructuresExcluded": "passed",
+    "reportLinks": "passed",
+    "researchBranchConfirmed": true,
+    "sourceAndReceiptBinding": "passed",
+    "stagedBytesMatchWorkspace": "passed",
+    "stagedFileCount": 8
+  },
+  "formalAvailability": false,
+  "gateStatus": "STAGE7C_BLOCKED",
+  "liveIdentityVerification": {
+    "aid1511Retried": false,
+    "aids": [
+      588834,
+      1671200
+    ],
+    "notIndependentScientificReplicates": true,
+    "officialResponsesVerified": 2,
+    "rawSha256EqualToFirstAcquisition": true
+  },
+  "newIdentityUnitTests": 12,
+  "notExecuted": [
+    "Full Python regression suite",
+    "JavaScript/browser regression (no UI changes)",
+    "Candidate SID-to-CID/SMILES mapping",
+    "Candidate canonical/parent/scaffold/source independence audit",
+    "Model inference/training/calibration",
+    "Any formal independent evaluation",
+    "Paid API or large database download"
+  ],
+  "packagedLocalDate": "2026-10-18",
+  "pr6ReadOnlyCheck": {
+    "baseSha": "3a7e5138398f8eea5f07ae14a083135bbc94d26b",
+    "checkedLocalDate": "2026-10-18",
+    "draft": true,
+    "headSha": "7604ad1e9fb4ea77c6fa8879892e9fe9aa879c9e",
+    "merged": false,
+    "mutationPerformed": false,
+    "state": "open",
+    "url": "https://github.com/nuoxingchai-spec/aidd-blue-toxnet/pull/6",
+    "via": "GitHub connector get_pr_info"
+  },
+  "schema": "aidd.stage7b.source-discovery-verification.v1",
+  "scientificQualificationPassed": false,
+  "scriptBinding": {
+    "bindingMatches": true,
+    "executedPlanSha256": "6b9a5cf083d31556f0f748c0e5eda986d9420dad5c2b29732d02894eee57c3b3",
+    "path": "scripts/survey_pubchem_identities.py",
+    "scriptSha256": "8d4d0f6626d3066727002cd01a8eac9f54ac44378efe6f397a495613c3a20b22"
+  },
+  "sourceAcquisitionLocalDate": "2026-10-17",
+  "sourcesSha256": "2fd7362666a9c243cf1666b035c9dedd1a104f6464e8c6beb59a4d556347e747",
+  "targetedPythonTests": {
+    "command": ".venv-v3/Scripts/python.exe -m unittest test.test_pubchem_identities test.test_epa_no_api_fallback test.test_epa_structure_audit test.test_stage7_audit test.test_stage7b_supplement_audit -v",
+    "exitCode": 0,
+    "logSha256": "e9e2f475f1e6bd33548ddd57c9e7bb372c494004fad8148061b08bfa2850783c",
+    "summary": "----------------------------------------------------------------------\r\nRan 69 tests in 0.500s\r\n\r\nOK",
+    "total": 69,
+    "unittestSeconds": 0.5
+  },
+  "timezone": "Asia/Shanghai"
+}
